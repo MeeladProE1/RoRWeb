@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Rigs of Rods — Controls</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; font:15px/1.5 system-ui, Segoe UI, sans-serif; background:#14161a; color:#e8e8e8; }
+  .wrap { max-width: 900px; margin: 0 auto; padding: 24px 20px 60px; }
+  h1 { font-size: 22px; margin: 0 0 4px; }
+  .sub { color:#9aa; margin: 0 0 20px; }
+  .back { display:inline-block; margin-bottom:18px; color:#7fb2ff; text-decoration:none; }
+  h2 { font-size: 16px; text-transform: uppercase; letter-spacing:.06em; color:#7fb2ff;
+       border-bottom:1px solid #2c3138; padding-bottom:4px; margin:26px 0 8px; }
+  table { width:100%; border-collapse:collapse; }
+  td { padding:5px 10px; vertical-align:top; }
+  td:nth-child(1) { width:56%; }
+  .key { display:inline-block; min-width:22px; text-align:center; background:#2a2f36; border:1px solid #444c56;
+         border-bottom-width:3px; border-radius:5px; padding:2px 8px; margin:1px 2px 1px 0;
+         font:13px/1.3 ui-monospace, Consolas, monospace; color:#fff; }
+  .plus { color:#788; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a class="back" href="index.html">&larr; Back to game</a>
+  <h1>Rigs of Rods — Controls</h1>
+  <p class="sub">Browser edition. No mouse grab / pointer lock: the mouse stays free; use the keys below. Click the game canvas once so it can receive keyboard input.</p>
+
+  <h2>Driving (truck / vehicle)</h2>
+  <table>
+    <tr><td>Accelerate</td><td><span class="key">&uarr;</span></td></tr>
+    <tr><td>Brake / reverse</td><td><span class="key">&darr;</span></td></tr>
+    <tr><td>Steer left / right</td><td><span class="key">&larr;</span> <span class="key">&rarr;</span></td></tr>
+    <tr><td>Shift up / down</td><td><span class="key">A</span> / <span class="key">Z</span></td></tr>
+    <tr><td>Gear neutral</td><td><span class="key">D</span></td></tr>
+    <tr><td>Clutch</td><td><span class="key">L Shift</span></td></tr>
+    <tr><td>Starter</td><td><span class="key">S</span></td></tr>
+    <tr><td>Switch shift mode</td><td><span class="key">Q</span></td></tr>
+    <tr><td>Parking brake</td><td><span class="key">P</span></td></tr>
+    <tr><td>Horn</td><td><span class="key">H</span></td></tr>
+    <tr><td>Headlights (low beam)</td><td><span class="key">N</span></td></tr>
+    <tr><td>Beacons</td><td><span class="key">M</span></td></tr>
+    <tr><td>Turn signal left / right / hazard</td><td><span class="key">,</span> <span class="key">.</span> / <span class="key">-</span></td></tr>
+    <tr><td>Toggle contact (winch/couplings)</td><td><span class="key">X</span></td></tr>
+    <tr><td>Cruise control</td><td><span class="key">Space</span></td></tr>
+    <tr><td>Toggle 4WD / diff locks</td><td><span class="key">W</span> / <span class="key">Ctrl+W</span></td></tr>
+    <tr><td>Trailer parking brake</td><td><span class="key">Ctrl+P</span></td></tr>
+  </table>
+
+  <h2>Camera</h2>
+  <table>
+    <tr><td>Change camera</td><td><span class="key">C</span></td></tr>
+    <tr><td>Free camera mode</td><td><span class="key">Shift+C</span></td></tr>
+    <tr><td>Reset camera</td><td><span class="key">Numpad 5</span></td></tr>
+    <tr><td>Rotate camera</td><td><span class="key">Numpad 2 / 4 / 6 / 8</span></td></tr>
+    <tr><td>Zoom in / out</td><td><span class="key">Numpad 9</span> / <span class="key">Numpad 3</span></td></tr>
+    <tr><td>Camera up / down</td><td><span class="key">Page Up</span> / <span class="key">Page Down</span></td></tr>
+  </table>
+
+  <h2>Character (on foot)</h2>
+  <table>
+    <tr><td>Move</td><td><span class="key">W</span><span class="key">A</span><span class="key">S</span><span class="key">D</span> or arrow keys</td></tr>
+    <tr><td>Jump</td><td><span class="key">Space</span></td></tr>
+    <tr><td>Run</td><td><span class="key">Shift</span> + move</td></tr>
+  </table>
+
+  <h2>Common</h2>
+  <table>
+    <tr><td>Enter / exit vehicle</td><td><span class="key">Enter</span></td></tr>
+    <tr><td>Next / previous vehicle</td><td><span class="key">Ctrl+]</span> / <span class="key">Ctrl+[</span></td></tr>
+    <tr><td>Respawn current vehicle</td><td><span class="key">I</span></td></tr>
+    <tr><td>Reset truck</td><td><span class="key">I</span></td></tr>
+    <tr><td>Quit / menu</td><td><span class="key">Esc</span></td></tr>
+    <tr><td>Console</td><td><span class="key">`</span></td></tr>
+    <tr><td>Hide GUI</td><td><span class="key">U</span></td></tr>
+    <tr><td>Screenshot</td><td><span class="key">Print Screen</span></td></tr>
+    <tr><td>Quick save / load</td><td><span class="key">Numpad /</span> / <span class="key">Numpad *</span></td></tr>
+  </table>
+
+  <h2>Airplane / Boat</h2>
+  <table>
+    <tr><td>Throttle up / down</td><td><span class="key">Page Up</span> / <span class="key">Page Down</span></td></tr>
+    <tr><td>Elevator / rudder</td><td><span class="key">&uarr;</span><span class="key">&darr;</span> / <span class="key">Z</span><span class="key">X</span></td></tr>
+    <tr><td>Brake</td><td><span class="key">B</span></td></tr>
+  </table>
+</div>
+</body>
+</html>

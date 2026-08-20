@@ -1,0 +1,39 @@
+
+---
+events:
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-3.30/Modules/CMakeDetermineSystem.cmake:200 (message)"
+      - "CMakeLists.txt:12 (project)"
+    message: |
+      The target system is: Emscripten - 1 - x86
+      The host system is: Windows - 10.0.19045 - AMD64
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-3.30/Modules/Internal/CheckSourceCompiles.cmake:101 (try_compile)"
+      - "C:/Program Files/CMake/share/cmake-3.30/Modules/Internal/CheckCompilerFlag.cmake:18 (cmake_check_source_compiles)"
+      - "C:/Program Files/CMake/share/cmake-3.30/Modules/CheckCXXCompilerFlag.cmake:34 (cmake_check_compiler_flag)"
+      - "CMakeLists.txt:53 (check_cxx_compiler_flag)"
+    checks:
+      - "Performing Test MYGUI_GCC_VISIBILITY"
+    directories:
+      source: "C:/a1e/Tests/c1e/C2e/build/mygui/CMakeFiles/CMakeScratch/TryCompile-t8rz74"
+      binary: "C:/a1e/Tests/c1e/C2e/build/mygui/CMakeFiles/CMakeScratch/TryCompile-t8rz74"
+    cmakeVariables:
+      CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS: "C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/emscan-deps.exe"
+      CMAKE_CXX_FLAGS: "-pthread"
+      CMAKE_MODULE_PATH: "C:/a1e/Tests/c1e/C2e/source/mygui-340/CMake;C:/a1e/Tests/c1e/C2e/source/mygui-340/CMake/Utils;C:/a1e/Tests/c1e/C2e/source/mygui-340/CMake/Packages"
+    buildResult:
+      variable: "MYGUI_GCC_VISIBILITY"
+      cached: true
+      stdout: |
+        Change Dir: 'C:/a1e/Tests/c1e/C2e/build/mygui/CMakeFiles/CMakeScratch/TryCompile-t8rz74'
+        
+        Run Build Command(s): C:/a1e/Tests/c1e/C2e/python/Scripts/ninja.exe -v cmTC_dab92
+        [1/2] C:\\a1e\\Tests\\c1e\\C2e\\emsdk\\upstream\\emscripten\\em++.exe -DMYGUI_GCC_VISIBILITY  -pthread    -fvisibility=hidden -MD -MT CMakeFiles/cmTC_dab92.dir/src.cxx.o -MF CMakeFiles\\cmTC_dab92.dir\\src.cxx.o.d -o CMakeFiles/cmTC_dab92.dir/src.cxx.o -c C:/a1e/Tests/c1e/C2e/build/mygui/CMakeFiles/CMakeScratch/TryCompile-t8rz74/src.cxx
+        [2/2] C:\\Windows\\system32\\cmd.exe /C "cd . && C:\\a1e\\Tests\\c1e\\C2e\\emsdk\\upstream\\emscripten\\em++.exe -pthread  CMakeFiles/cmTC_dab92.dir/src.cxx.o -o cmTC_dab92.js   && cd ."
+        
+      exitCode: 0
+...

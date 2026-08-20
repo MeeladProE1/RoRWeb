@@ -1,0 +1,5 @@
+[[prereqs]]
+name = "vcredist-v14-x64"
+
+[[prereqs]]
+name = "dx-june-2010"

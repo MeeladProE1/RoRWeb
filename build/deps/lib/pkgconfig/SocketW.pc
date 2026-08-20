@@ -1,0 +1,11 @@
+prefix="C:/a1e/Tests/c1e/C2e/build/deps"
+exec_prefix="${prefix}"
+libdir="${exec_prefix}/lib"
+includedir="${prefix}/include"
+
+Name: SocketW
+Version: 3.10.27
+Description: SocketW is a library which provides cross-platform socket abstraction 
+Requires: 
+Libs: -L${libdir} -lSocketW
+Cflags: -I${includedir}

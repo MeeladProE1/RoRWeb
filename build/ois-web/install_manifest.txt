@@ -1,0 +1,16 @@
+C:/a1e/Tests/c1e/C2e/build/deps/lib/libOIS.a
+C:/a1e/Tests/c1e/C2e/build/deps/include/OIS/OIS.h
+C:/a1e/Tests/c1e/C2e/build/deps/include/OIS/OISConfig.h
+C:/a1e/Tests/c1e/C2e/build/deps/include/OIS/OISEffect.h
+C:/a1e/Tests/c1e/C2e/build/deps/include/OIS/OISEvents.h
+C:/a1e/Tests/c1e/C2e/build/deps/include/OIS/OISException.h
+C:/a1e/Tests/c1e/C2e/build/deps/include/OIS/OISFactoryCreator.h
+C:/a1e/Tests/c1e/C2e/build/deps/include/OIS/OISForceFeedback.h
+C:/a1e/Tests/c1e/C2e/build/deps/include/OIS/OISInputManager.h
+C:/a1e/Tests/c1e/C2e/build/deps/include/OIS/OISInterface.h
+C:/a1e/Tests/c1e/C2e/build/deps/include/OIS/OISJoyStick.h
+C:/a1e/Tests/c1e/C2e/build/deps/include/OIS/OISKeyboard.h
+C:/a1e/Tests/c1e/C2e/build/deps/include/OIS/OISMouse.h
+C:/a1e/Tests/c1e/C2e/build/deps/include/OIS/OISMultiTouch.h
+C:/a1e/Tests/c1e/C2e/build/deps/include/OIS/OISObject.h
+C:/a1e/Tests/c1e/C2e/build/deps/include/OIS/OISPrereqs.h

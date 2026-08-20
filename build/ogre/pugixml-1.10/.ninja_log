@@ -1,0 +1,4 @@
+# ninja log v7
+4	26923	8087131357520446	CMakeFiles/pugixml.dir/src/pugixml.cpp.o	fdd5775b36a2a8b5
+26945	30761	8087131626926743	libpugixml.a	5a8b18e598128ee
+30761	31074	8087131665094370	CMakeFiles/install.util	542131192c8d8b7b

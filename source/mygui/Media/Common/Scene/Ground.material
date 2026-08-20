@@ -1,0 +1,7 @@
+
+import * from "OneTexture.material"
+
+material Ground : OneTexture
+{
+	set $texture_unit "Ground_blue3.png"
+}

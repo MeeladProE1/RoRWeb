@@ -1,0 +1,5084 @@
+/*
+    This source file is part of Rigs of Rods
+    Copyright 2005-2012 Pierre-Michel Ricordel
+    Copyright 2007-2012 Thomas Fischer
+    Copyright 2013-2022 Petr Ohlidal
+
+    For more information, see http://www.rigsofrods.org/
+
+    Rigs of Rods is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License version 3, as
+    published by the Free Software Foundation.
+
+    Rigs of Rods is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Rigs of Rods. If not, see <http://www.gnu.org/licenses/>.
+*/
+
+#include "Actor.h"
+
+#include "AirBrake.h"
+#include "Airfoil.h"
+#include "Application.h"
+#include "AutoPilot.h"
+#include "SimData.h"
+#include "ActorManager.h"
+#include "Buoyance.h"
+#include "CacheSystem.h"
+#include "ChatSystem.h"
+#include "CmdKeyInertia.h"
+#include "Collisions.h"
+#include "DashBoardManager.h"
+#include "Differentials.h"
+#include "DynamicCollisions.h"
+#include "Engine.h"
+#include "ErrorUtils.h"
+#include "FlexAirfoil.h"
+#include "FlexBody.h"
+#include "FlexMesh.h"
+#include "FlexMeshWheel.h"
+#include "FlexObj.h"
+#include "GameContext.h"
+#include "GfxScene.h"
+#include "GUIManager.h"
+#include "Console.h"
+#include "GfxActor.h"
+#include "InputEngine.h"
+#include "Language.h"
+#include "MeshObject.h"
+#include "MovableText.h"
+#include "Network.h"
+#include "PointColDetector.h"
+#include "Replay.h"
+#include "ActorSpawner.h"
+#include "RoRnet.h"
+#include "ScrewProp.h"
+#include "ScriptEngine.h"
+#include "Skidmark.h"
+#include "SlideNode.h"
+#include "SoundScriptManager.h"
+#include "Terrain.h"
+#include "TuneupFileFormat.h"
+#include "TurboJet.h"
+#include "TurboProp.h"
+#include "Utils.h"
+#include "VehicleAI.h"
+#include "GfxWater.h"
+#include <fmt/format.h>
+#include "half/half.hpp"
+
+#include <sstream>
+#include <iomanip>
+
+using namespace Ogre;
+using namespace RoR;
+
+static const Ogre::Vector3 BOUNDING_BOX_PADDING(0.05f, 0.05f, 0.05f);
+
+Actor::~Actor()
+{
+    // This class must be handled by `ActorManager::DeleteActorInternal()` (use MSG_SIM_DELETE_ACTOR_REQUESTED) which performs disposal.
+    ROR_ASSERT(ar_state == ActorState::DISPOSED);
+    // We don't dispose here as it's a complex process and not safe to do from a destructor, especially not at unpredictable time.
+}
+
+void Actor::dispose()
+{
+    // Handler for `MSG_SIM_DELETE_ACTOR_REQUESTED` message - should not be invoked otherwise.
+    // --------------------------------------------------------------------------------------
+
+    ROR_ASSERT(ar_state != ActorState::DISPOSED);
+
+    this->DisjoinInterActorBeams(); // OK to be invoked here - processing `MSG_SIM_DELETE_ACTOR_REQUESTED`.
+    ar_hooks.clear();
+    ar_ties.clear();
+    ar_node_to_beam_connections.clear();
+    ar_node_to_node_connections.clear();
+
+    // delete all classes we might have constructed
+    if (ar_dashboard != nullptr)
+    {
+        ar_dashboard = nullptr;
+    }
+
+    // stop all the Sounds
+#ifdef USE_OPENAL
+    for (int i = SS_TRIG_NONE + 1; i < SS_MAX_TRIG; i++)
+    {
+        SOUND_STOP(this, i);
+    }
+    muteAllSounds();
+    for (int i = 0; i < ar_num_soundsources; i++)
+    {
+        if (ar_soundsources[i].ssi)
+        {
+            App::GetSoundScriptManager()->removeInstance(ar_soundsources[i].ssi);
+            ar_soundsources[i].ssi = nullptr;
+        }
+    }
+    ar_num_soundsources = 0;
+#endif // USE_OPENAL
+
+    if (ar_autopilot != nullptr)
+    {
+        ar_autopilot = nullptr;
+    }
+
+    if (m_fusealge_airfoil)
+        delete m_fusealge_airfoil;
+    m_fusealge_airfoil = nullptr;
+
+    if (m_replay_handler)
+        delete m_replay_handler;
+    m_replay_handler = nullptr;
+
+    ar_engine = nullptr; // RefCountingObjectPtr<> will handle the cleanup.
+    ar_vehicle_ai = nullptr; // RefCountingObjectPtr<> will handle the cleanup.
+
+    // remove all scene nodes
+    if (m_deletion_scene_nodes.size() > 0)
+    {
+        for (unsigned int i = 0; i < m_deletion_scene_nodes.size(); i++)
+        {
+            try
+            {
+                if (!m_deletion_scene_nodes[i])
+                    continue;
+                m_deletion_scene_nodes[i]->removeAndDestroyAllChildren();
+                App::GetGfxScene()->GetSceneManager()->destroySceneNode(m_deletion_scene_nodes[i]);
+            }
+            catch (...)
+            {
+                HandleGenericException(fmt::format("Actor::dispose(); instanceID:{}, streamID:{}, filename:{}; deleting scenenode {}/{} from `deletion list`.",
+                    ar_instance_id, ar_net_stream_id, ar_filename, i, m_deletion_scene_nodes.size()), HANDLEGENERICEXCEPTION_LOGFILE);
+            }
+        }
+        m_deletion_scene_nodes.clear();
+    }
+    // remove all entities
+    if (m_deletion_entities.size() > 0)
+    {
+        for (unsigned int i = 0; i < m_deletion_entities.size(); i++)
+        {
+            try
+            {
+                if (!m_deletion_entities[i])
+                    continue;
+                m_deletion_entities[i]->detachAllObjectsFromBone();
+                App::GetGfxScene()->GetSceneManager()->destroyEntity(m_deletion_entities[i]->getName());
+            }
+            catch (...)
+            {
+                HandleGenericException(fmt::format("Actor::dispose(); instanceID:{}, streamID:{}, filename:{}; deleting entity {}/{} from `deletion list`.",
+                    ar_instance_id, ar_net_stream_id, ar_filename, i, m_deletion_entities.size()), HANDLEGENERICEXCEPTION_LOGFILE);
+            }
+        }
+        m_deletion_entities.clear();
+    }
+
+    // delete GfxActor
+    m_gfx_actor.reset();
+
+    // delete wings
+    for (int i = 0; i < ar_num_wings; i++)
+    {
+        try
+        {
+            // flexAirfoil, airfoil
+            if (ar_wings[i].fa)
+                delete ar_wings[i].fa;
+            if (ar_wings[i].cnode)
+            {
+                ar_wings[i].cnode->removeAndDestroyAllChildren();
+                App::GetGfxScene()->GetSceneManager()->destroySceneNode(ar_wings[i].cnode);
+            }
+        }
+        catch (...)
+        {
+            HandleGenericException(fmt::format("Actor::dispose(); instanceID:{}, streamID:{}, filename:{}; deleting wing {}/{}.",
+                ar_instance_id, ar_net_stream_id, ar_filename, i, ar_num_wings), HANDLEGENERICEXCEPTION_LOGFILE);
+        }
+    }
+
+    // delete aeroengines
+    for (int i = 0; i < ar_num_aeroengines; i++)
+    {
+        if (ar_aeroengines[i])
+        {
+            ar_aeroengines[i] = nullptr;
+        }
+    }
+
+    // delete screwprops
+    for (int i = 0; i < ar_num_screwprops; i++)
+    {
+        if (ar_screwprops[i])
+        {;
+            ar_screwprops[i] = nullptr;
+        }
+    }
+
+    // delete airbrakes
+    for (Airbrake* ab: ar_airbrakes)
+    {
+        delete ab;
+    }
+    ar_airbrakes.clear();
+
+    // delete skidmarks
+    for (int i = 0; i < ar_num_wheels; ++i)
+    {
+        delete m_skid_trails[i];
+        m_skid_trails[i] = nullptr;
+    }
+
+    // delete flares
+    for (size_t i = 0; i < this->ar_flares.size(); i++)
+    {
+        try
+        {
+            if (ar_flares[i].snode)
+            {
+                ar_flares[i].snode->removeAndDestroyAllChildren();
+                App::GetGfxScene()->GetSceneManager()->destroySceneNode(ar_flares[i].snode);
+            }
+            if (ar_flares[i].bbs)
+                App::GetGfxScene()->GetSceneManager()->destroyBillboardSet(ar_flares[i].bbs);
+            if (ar_flares[i].light)
+                App::GetGfxScene()->GetSceneManager()->destroyLight(ar_flares[i].light);
+        }
+        catch (...)
+        {
+            HandleGenericException(fmt::format("Actor::dispose(); instanceID:{}, streamID:{}, filename:{}; deleting flare {}/{}.",
+                ar_instance_id, ar_net_stream_id, ar_filename, i, ar_flares.size()), HANDLEGENERICEXCEPTION_LOGFILE);
+        }
+    }
+    this->ar_flares.clear();
+
+    // delete Rails
+    for (std::vector<RailGroup*>::iterator it = m_railgroups.begin(); it != m_railgroups.end(); it++)
+    {
+        delete (*it);
+    }
+    m_railgroups.clear();
+
+    if (m_intra_point_col_detector)
+    {
+        delete m_intra_point_col_detector;
+        m_intra_point_col_detector = nullptr;
+    }
+
+    if (m_inter_point_col_detector)
+    {
+        delete m_inter_point_col_detector;
+        m_inter_point_col_detector = nullptr;
+    }
+
+    if (m_transfer_case)
+        delete m_transfer_case;
+
+    for (int i = 0; i < m_num_axle_diffs; ++i)
+    {
+        if (m_axle_diffs[i] != nullptr)
+            delete m_axle_diffs[i];
+    }
+    m_num_axle_diffs = 0;
+
+    for (int i = 0; i < m_num_wheel_diffs; ++i)
+    {
+        if (m_wheel_diffs[i] != nullptr)
+            delete m_wheel_diffs[i];
+    }
+    m_num_wheel_diffs = 0;
+
+    delete[] ar_nodes;
+    ar_num_nodes = 0;
+    m_wheel_node_count = 0;
+    delete[] ar_beams;
+    ar_num_beams = 0;
+    delete[] ar_shocks;
+    ar_num_shocks = 0;
+    delete[] ar_rotators;
+    ar_num_rotators = 0;
+    delete[] ar_wings;
+    ar_num_wings = 0;
+
+    ar_state = ActorState::DISPOSED;
+}
+
+// This method scales actors. Stresses should *NOT* be scaled, they describe
+// the material type and they do not depend on length or scale.
+void Actor::scaleTruck(float value)
+{
+    if (ar_state == ActorState::DISPOSED)
+        return;
+    if (value < 0)
+        return;
+
+    ar_scale *= value;
+    // scale beams
+    for (int i = 0; i < ar_num_beams; i++)
+    {
+        //ar_beams[i].k *= value;
+        ar_beams[i].d *= value;
+        ar_beams[i].L *= value;
+        ar_beams[i].refL *= value;
+    }
+    // scale hydros
+    for (hydrobeam_t& hbeam: ar_hydros)
+    {
+        hbeam.hb_ref_length *= value;
+        hbeam.hb_speed *= value;
+    }
+    // scale nodes
+    Vector3 refpos = ar_nodes[0].AbsPosition;
+    Vector3 relpos = ar_nodes[0].RelPosition;
+    for (int i = 1; i < ar_num_nodes; i++)
+    {
+        ar_initial_node_positions[i] = refpos + (ar_initial_node_positions[i] - refpos) * value;
+        ar_nodes[i].AbsPosition = refpos + (ar_nodes[i].AbsPosition - refpos) * value;
+        ar_nodes[i].RelPosition = relpos + (ar_nodes[i].RelPosition - relpos) * value;
+        ar_nodes[i].Velocity *= value;
+        ar_nodes[i].Forces *= value;
+        ar_nodes[i].mass *= value;
+    }
+    updateSlideNodePositions();
+
+    m_gfx_actor->ScaleActor(relpos, value);
+
+}
+
+float Actor::getRotation()
+{
+    if (ar_state == ActorState::DISPOSED)
+        return 0.f;
+
+    Vector3 dir = getDirection();
+
+    return atan2(dir.dotProduct(Vector3::UNIT_X), dir.dotProduct(-Vector3::UNIT_Z));
+}
+
+Vector3 Actor::getDirection()
+{
+    return ar_main_camera_dir_corr * this->GetCameraDir();
+}
+
+Vector3 Actor::getPosition()
+{
+    return m_avg_node_position; //the position is already in absolute position
+}
+
+Ogre::Quaternion  Actor::getOrientation()
+{
+    Ogre::Vector3 localZ = ar_main_camera_dir_corr * -this->GetCameraDir();
+    Ogre::Vector3 localX = ar_main_camera_dir_corr * this->GetCameraRoll();
+    Ogre::Vector3 localY = localZ.crossProduct(localX);
+    return Ogre::Quaternion(localX, localY, localZ);
+}
+
+void Actor::pushNetwork(char* data, int size)
+{
+#if USE_SOCKETW
+    NetUpdate update;
+
+    update.veh_state.resize(sizeof(RoRnet::VehicleState));
+    update.node_data.resize(m_net_node_buf_size);
+    update.wheel_data.resize(ar_num_wheels * sizeof(float));
+
+    // check if the size of the data matches to what we expected
+    if ((unsigned int)size == (m_net_total_buffer_size + sizeof(RoRnet::VehicleState)))
+    {
+        // we walk through the incoming data and separate it a bit
+        char* ptr = data;
+
+        // put the RoRnet::VehicleState in front, describes actor basics, engine state, flares, etc
+        memcpy(update.veh_state.data(), ptr, sizeof(RoRnet::VehicleState));
+        ptr += sizeof(RoRnet::VehicleState);
+
+        // then copy the node data
+        memcpy(update.node_data.data(), ptr, m_net_node_buf_size);
+        ptr += m_net_node_buf_size;
+
+        // then take care of the wheel speeds
+        for (int i = 0; i < ar_num_wheels; i++)
+        {
+            float wspeed = *(float*)(ptr);
+            update.wheel_data[i] = wspeed;
+            ptr += sizeof(float);
+        }
+
+        // then process the prop animation keys
+        for (size_t i = 0; i < m_prop_anim_key_states.size(); i++)
+        {
+            // Unpack bit array
+            char byte = *(ptr + (i / 8));
+            char mask = char(1) << (7 - (i % 8));
+            m_prop_anim_key_states[i].anim_active = (byte & mask);
+        }
+    }
+    else
+    {
+        if (!m_net_initialized)
+        {
+            // Update stream status (remote and local)
+            RoRnet::ActorStreamRegister reg;
+            memset(&reg, 0, sizeof(RoRnet::ActorStreamRegister));
+            reg.status = -2;
+            reg.origin_sourceid = ar_net_source_id;
+            reg.origin_streamid = ar_net_stream_id;
+            strncpy(reg.name, ar_filename.c_str(), 128);
+            App::GetNetwork()->AddPacket(reg.origin_streamid, RoRnet::MSG2_STREAM_REGISTER_RESULT,
+                    sizeof(RoRnet::StreamRegister), (char *)&reg);
+            App::GetGameContext()->GetActorManager()->AddStreamMismatch(&reg);
+
+            // Inform the local player
+            RoRnet::UserInfo info;
+            App::GetNetwork()->GetUserInfo(reg.origin_sourceid, info);
+            Str<400> text;
+            text << info.username << _L(" content mismatch: ") << reg.name;
+            App::GetConsole()->putMessage(Console::CONSOLE_MSGTYPE_INFO, Console::CONSOLE_SYSTEM_WARNING, text.ToCStr());
+
+            // Remove self
+            ActorPtr self = App::GetGameContext()->GetActorManager()->GetActorById(ar_instance_id); // Get shared pointer to ourselves so references are added correctly.
+            App::GetGameContext()->PushMessage(Message(MSG_SIM_DELETE_ACTOR_REQUESTED, static_cast<void*>(new ActorPtr(self))));
+
+            m_net_initialized = true;
+        }
+        RoR::LogFormat("[RoR|Network] Stream mismatch, filename: '%s'", ar_filename.c_str());
+        return;
+    }
+
+    // Required to catch up when joining late (since the StreamRegister time stamp is received delayed)
+    if (!m_net_initialized)
+    {
+        RoRnet::VehicleState* oob = (RoRnet::VehicleState*)update.veh_state.data();
+        int tnow = App::GetGameContext()->GetActorManager()->GetNetTime();
+        int rnow = std::max(0, tnow + App::GetGameContext()->GetActorManager()->GetNetTimeOffset(ar_net_source_id));
+        if (oob->time > rnow + 100)
+        {
+            App::GetGameContext()->GetActorManager()->UpdateNetTimeOffset(ar_net_source_id, oob->time - rnow);
+        }
+    }
+
+    m_net_updates.push_back(update);
+#endif // USE_SOCKETW
+}
+
+void Actor::calcNetwork()
+{
+    using namespace RoRnet;
+
+    if (m_net_updates.size() < 2)
+        return;
+
+    int tnow = App::GetGameContext()->GetActorManager()->GetNetTime();
+    int rnow = std::max(0, tnow + App::GetGameContext()->GetActorManager()->GetNetTimeOffset(ar_net_source_id));
+
+    // Find index offset into the stream data for the current time
+    int index_offset = 0;
+    for (int i = 0; i < m_net_updates.size() - 1; i++)
+    {
+        VehicleState* oob = (VehicleState*)m_net_updates[i].veh_state.data();
+        if (oob->time > rnow)
+            break;
+        index_offset = i;
+    }
+
+    VehicleState* oob1 = (VehicleState*)m_net_updates[index_offset    ].veh_state.data();
+    VehicleState* oob2 = (VehicleState*)m_net_updates[index_offset + 1].veh_state.data();
+    char*        netb1 = (char*)        m_net_updates[index_offset    ].node_data.data();
+    char*        netb2 = (char*)        m_net_updates[index_offset + 1].node_data.data();
+    float*     net_rp1 = (float*)       m_net_updates[index_offset    ].wheel_data.data();
+    float*     net_rp2 = (float*)       m_net_updates[index_offset + 1].wheel_data.data();
+
+    float tratio = (float)(rnow - oob1->time) / (float)(oob2->time - oob1->time);
+
+    if (tratio > 4.0f)
+    {
+        m_net_updates.clear();
+        return; // Wait for new data
+    }
+    else if (tratio > 1.0f)
+    {
+        App::GetGameContext()->GetActorManager()->UpdateNetTimeOffset(ar_net_source_id, -std::pow(2, tratio));
+    }
+    else if (index_offset == 0 && (m_net_updates.size() > 5 || (tratio < 0.125f && m_net_updates.size() > 2)))
+    {
+        App::GetGameContext()->GetActorManager()->UpdateNetTimeOffset(ar_net_source_id, +1);
+    }
+
+    half_float::half* halfb1 = reinterpret_cast<half_float::half*>(netb1 + sizeof(float) * 3);
+    half_float::half* halfb2 = reinterpret_cast<half_float::half*>(netb2 + sizeof(float) * 3);
+    Vector3 p1ref = Vector3::ZERO;
+    Vector3 p2ref = Vector3::ZERO;
+    Vector3 p1 = Vector3::ZERO;
+    Vector3 p2 = Vector3::ZERO;
+
+    for (int i = 0; i < m_net_first_wheel_node; i++)
+    {
+        if (i == 0)
+        {
+            // first node is uncompressed
+            p1.x = ((float*)netb1)[0];
+            p1.y = ((float*)netb1)[1];
+            p1.z = ((float*)netb1)[2];
+            p1ref = p1;
+
+            p2.x = ((float*)netb2)[0];
+            p2.y = ((float*)netb2)[1];
+            p2.z = ((float*)netb2)[2];
+            p2ref = p2;
+        }
+        else
+        {
+            // all other nodes are compressed as half-floats (2 bytes)
+            const int bufpos = (i - 1) * 3;
+            const Vector3 p1rel(halfb1[bufpos + 0], halfb1[bufpos + 1], halfb1[bufpos + 2]);
+            const Vector3 p2rel(halfb2[bufpos + 0], halfb2[bufpos + 1], halfb2[bufpos + 2]);
+
+            p1 = p1ref + p1rel;
+            p2 = p2ref + p2rel;
+        }        
+
+        // linear interpolation
+        ar_nodes[i].AbsPosition = p1 + tratio * (p2 - p1);
+        ar_nodes[i].RelPosition = ar_nodes[i].AbsPosition - ar_origin;
+        ar_nodes[i].Velocity    = (p2 - p1) * 1000.0f / (float)(oob2->time - oob1->time);
+    }
+
+    for (int i = 0; i < ar_num_wheels; i++)
+    {
+        float rp = net_rp1[i] + tratio * (net_rp2[i] - net_rp1[i]);
+        //compute ideal positions
+        Vector3 axis = ar_wheels[i].wh_axis_node_1->RelPosition - ar_wheels[i].wh_axis_node_0->RelPosition;
+        axis.normalise();
+        Plane pplan = Plane(axis, ar_wheels[i].wh_axis_node_0->AbsPosition);
+        Vector3 ortho = -pplan.projectVector(ar_wheels[i].wh_near_attach_node->AbsPosition) - ar_wheels[i].wh_axis_node_0->AbsPosition;
+        Vector3 ray = ortho.crossProduct(axis);
+        ray.normalise();
+        ray *= ar_wheels[i].wh_radius;
+        float drp = Math::TWO_PI / (ar_wheels[i].wh_num_nodes / 2);
+        for (int j = 0; j < ar_wheels[i].wh_num_nodes / 2; j++)
+        {
+            Vector3 uray = Quaternion(Radian(rp - drp * j), axis) * ray;
+
+            ar_wheels[i].wh_nodes[j * 2 + 0]->AbsPosition = ar_wheels[i].wh_axis_node_0->AbsPosition + uray;
+            ar_wheels[i].wh_nodes[j * 2 + 0]->RelPosition = ar_wheels[i].wh_nodes[j * 2]->AbsPosition - ar_origin;
+
+            ar_wheels[i].wh_nodes[j * 2 + 1]->AbsPosition = ar_wheels[i].wh_axis_node_1->AbsPosition + uray;
+            ar_wheels[i].wh_nodes[j * 2 + 1]->RelPosition = ar_wheels[i].wh_nodes[j * 2 + 1]->AbsPosition - ar_origin;
+        }
+        ray.normalise();
+        ray *= ar_wheels[i].wh_rim_radius;
+        for (int j = 0; j < ar_wheels[i].wh_num_rim_nodes / 2; j++)
+        {
+            Vector3 uray = Quaternion(Radian(rp - drp * j), axis) * ray;
+
+            ar_wheels[i].wh_rim_nodes[j * 2 + 0]->AbsPosition = ar_wheels[i].wh_axis_node_0->AbsPosition + uray;
+            ar_wheels[i].wh_rim_nodes[j * 2 + 0]->RelPosition = ar_wheels[i].wh_rim_nodes[j * 2]->AbsPosition - ar_origin;
+
+            ar_wheels[i].wh_rim_nodes[j * 2 + 1]->AbsPosition = ar_wheels[i].wh_axis_node_1->AbsPosition + uray;
+            ar_wheels[i].wh_rim_nodes[j * 2 + 1]->RelPosition = ar_wheels[i].wh_rim_nodes[j * 2 + 1]->AbsPosition - ar_origin;
+        }
+    }
+    this->UpdateBoundingBoxes();
+    this->calculateAveragePosition();
+
+    float engspeed = oob1->engine_speed + tratio * (oob2->engine_speed - oob1->engine_speed);
+    float engforce = oob1->engine_force + tratio * (oob2->engine_force - oob1->engine_force);
+    float engclutch = oob1->engine_clutch + tratio * (oob2->engine_clutch - oob1->engine_clutch);
+    float netwspeed = oob1->wheelspeed + tratio * (oob2->wheelspeed - oob1->wheelspeed);
+    float netbrake = oob1->brake + tratio * (oob2->brake - oob1->brake);
+
+    ar_hydro_dir_wheel_display = oob1->hydrodirstate;
+    ar_wheel_speed = netwspeed;
+
+    int gear = oob1->engine_gear;
+    const BitMask_t flagmask = oob1->flagmask;
+
+    if (ar_engine)
+    {
+        SOUND_MODULATE(ar_instance_id, SS_MOD_ENGINE, engspeed);
+        SOUND_MODULATE(ar_instance_id, SS_MOD_INJECTOR, engforce);
+    }
+    if (ar_num_aeroengines > 0)
+    {
+        SOUND_MODULATE(ar_instance_id, SS_MOD_AEROENGINE1, engspeed);
+        SOUND_MODULATE(ar_instance_id, SS_MOD_AEROENGINE2, engspeed);
+        SOUND_MODULATE(ar_instance_id, SS_MOD_AEROENGINE3, engspeed);
+        SOUND_MODULATE(ar_instance_id, SS_MOD_AEROENGINE4, engspeed);
+    }
+
+    ar_brake = netbrake;
+
+    if (ar_engine)
+    {
+        int automode = -1;
+             if ((flagmask & NETMASK_ENGINE_MODE_AUTOMATIC)     != 0) { automode = static_cast<int>(SimGearboxMode::AUTO); }
+        else if ((flagmask & NETMASK_ENGINE_MODE_SEMIAUTO)      != 0) { automode = static_cast<int>(SimGearboxMode::SEMI_AUTO); }
+        else if ((flagmask & NETMASK_ENGINE_MODE_MANUAL)        != 0) { automode = static_cast<int>(SimGearboxMode::MANUAL); }
+        else if ((flagmask & NETMASK_ENGINE_MODE_MANUAL_STICK)  != 0) { automode = static_cast<int>(SimGearboxMode::MANUAL_STICK); }
+        else if ((flagmask & NETMASK_ENGINE_MODE_MANUAL_RANGES) != 0) { automode = static_cast<int>(SimGearboxMode::MANUAL_RANGES); }
+
+        bool contact = ((flagmask & NETMASK_ENGINE_CONT) != 0);
+        bool running = ((flagmask & NETMASK_ENGINE_RUN) != 0);
+
+        ar_engine->pushNetworkState(engspeed, engforce, engclutch, gear, running, contact, automode);
+    }
+
+    // set particle cannon
+    if (((flagmask & NETMASK_PARTICLE) != 0) != ar_cparticles_active)
+        toggleCustomParticles();
+
+    m_antilockbrake = flagmask & NETMASK_ALB_ACTIVE;
+    m_tractioncontrol = flagmask & NETMASK_TC_ACTIVE;
+    ar_parking_brake = flagmask & NETMASK_PBRAKE;
+
+    this->setLightStateMask(oob1->lightmask);
+
+    if ((flagmask & NETMASK_HORN))
+        SOUND_START(ar_instance_id, SS_TRIG_HORN);
+    else
+        SOUND_STOP(ar_instance_id, SS_TRIG_HORN);
+
+    if ((oob1->lightmask & RoRnet::LIGHTMASK_REVERSE) && ar_engine && ar_engine->isRunning())
+        SOUND_START(ar_instance_id, SS_TRIG_REVERSE_GEAR);
+    else
+        SOUND_STOP(ar_instance_id, SS_TRIG_REVERSE_GEAR);
+
+    for (int i = 0; i < index_offset; i++)
+    {
+        m_net_updates.pop_front();
+    }
+
+    m_net_initialized = true;
+}
+
+static void debugLogNodeMass(Actor* actor)
+{
+    float total_tyre = 0.f; int num_tyre = 0;
+    float total_loaded = 0.f; int num_loaded = 0;
+    float total_override = 0.f; int num_override = 0;
+    float total = 0.f;
+
+    for (int i = 0; i < actor->ar_num_nodes; i++)
+    {
+        if (actor->ar_nodes[i].nd_tyre_node)
+        {
+            total_tyre += actor->ar_nodes[i].mass;
+            total += actor->ar_nodes[i].mass;
+            num_tyre++;
+        }
+        else if (actor->ar_nodes[i].nd_loaded_mass)
+        {
+            total_loaded += actor->ar_nodes[i].mass;
+            total += actor->ar_nodes[i].mass;
+            num_loaded++;
+        
+            if (actor->ar_nodes[i].nd_override_mass)
+            {
+                total_override += actor->ar_nodes[i].mass;
+                total += actor->ar_nodes[i].mass;
+                num_override++;
+            }
+        }
+        else
+        {
+            total += actor->ar_nodes[i].mass;
+        }
+    }
+    LOG(fmt::format("Node masses: total: {} kg, tyre ({} nodes): {} kg, loaded ({} nodes): {} kg, override ({} nodes): {} kg",
+        total,
+        num_tyre, total_tyre, 
+        num_loaded, total_loaded, 
+        num_override, total_override));
+}
+
+void Actor::recalculateNodeMasses()
+{
+    // Originally `calc_masses2(Real total, bool reCalc)`, where `total` was always the dry mass.
+    // ------------------------------------------------------------------------------------------
+
+    if (App::diag_truck_mass->getBool())
+    {
+        LOG(fmt::format("recalculateNodeMasses() - before reset (dry mass: {} kg, loaded mass: {} kg, prev. calculated total mass: {} kg",
+            ar_dry_mass, ar_load_mass, ar_total_mass));
+        debugLogNodeMass(this);
+    }
+
+    // Recalculate loaded nodes
+    ar_masscount = 0;
+    for (int i = 0; i < ar_num_nodes; i++)
+    {
+        if (!ar_nodes[i].nd_tyre_node && ar_nodes[i].nd_loaded_mass && !ar_nodes[i].nd_override_mass)
+        {
+            ar_masscount++;
+        }
+    }
+
+    //reset
+    for (int i = 0; i < ar_num_nodes; i++)
+    {
+        if (!ar_nodes[i].nd_tyre_node)
+        {
+            if (!ar_nodes[i].nd_loaded_mass)
+            {
+                // Normal mass
+                ar_nodes[i].mass = 0;
+            }
+            else if (!ar_nodes[i].nd_override_mass)
+            {
+                // Loaded mass
+                ar_nodes[i].mass = ar_load_mass / (float)ar_masscount;
+            }
+            else
+            {
+                // Override mass
+                ar_nodes[i].mass = ar_nodes_override_loadweights[i];
+            }
+        }
+    }
+    //average linear density
+    // Note this uses the reference (initial) length, so it should give consistent results.
+    Real len = 0.0f;
+    for (int i = 0; i < ar_num_beams; i++)
+    {
+        if (ar_beams[i].bm_type != BEAM_VIRTUAL)
+        {
+            Real half_newlen = ar_beams[i].refL / 2.0;
+            if (!ar_beams[i].p1->nd_tyre_node)
+                len += half_newlen;
+            if (!ar_beams[i].p2->nd_tyre_node)
+                len += half_newlen;
+        }
+    }
+
+    for (int i = 0; i < ar_num_beams; i++)
+    {
+        if (ar_beams[i].bm_type != BEAM_VIRTUAL)
+        {
+            Real half_mass = ar_beams[i].refL * ar_dry_mass / len / 2.0f;
+            if (!ar_beams[i].p1->nd_tyre_node)
+                ar_beams[i].p1->mass += half_mass;
+            if (!ar_beams[i].p2->nd_tyre_node)
+                ar_beams[i].p2->mass += half_mass;
+        }
+    }
+
+    if (App::diag_truck_mass->getBool())
+    {
+        LOG(fmt::format("recalculateNodeMasses() - average linear density (total beam len: {}m)", len));
+        debugLogNodeMass(this);
+    }
+
+    //fix rope masses
+    for (std::vector<rope_t>::iterator it = ar_ropes.begin(); it != ar_ropes.end(); it++)
+    {
+        it->rp_beam->p2->mass = 100.0f;
+    }
+
+    // Apply pre-defined cinecam node mass
+    for (int i = 0; i < this->ar_num_cinecams; ++i)
+    {
+        // TODO: this expects all cinecams to be defined in root module (i.e. outside 'section/end_section')
+        ROR_ASSERT(m_used_actor_entry);
+        ROR_ASSERT(m_used_actor_entry->actor_def);
+        ar_nodes[ar_cinecam_node[i]].mass = m_used_actor_entry->actor_def->root_module->cinecam[i].node_mass;
+    }
+
+    if (App::diag_truck_mass->getBool())
+    {
+        LOG("recalculateNodeMasses() - ropes and cinecams");
+        debugLogNodeMass(this);
+    }
+
+    //update mass
+    for (int i = 0; i < ar_num_nodes; i++)
+    {
+        if (!ar_nodes[i].nd_tyre_node &&
+            !(ar_minimass_skip_loaded_nodes && ar_nodes[i].nd_loaded_mass) &&
+            ar_nodes[i].mass < ar_minimass[i])
+        {
+            if (App::diag_truck_mass->getBool())
+            {
+                char buf[300];
+                snprintf(buf, 300, "Node '%d' mass (%f Kg) is too light. Resetting to 'minimass' (%f Kg)", i, ar_nodes[i].mass, ar_minimass[i]);
+                LOG(buf);
+            }
+            ar_nodes[i].mass = ar_minimass[i];
+        }
+    }
+
+    if (App::diag_truck_mass->getBool())
+    {
+        LOG(fmt::format("recalculateNodeMasses() - minimass (ar_minimass_skip_loaded_nodes: {})",
+            ar_minimass_skip_loaded_nodes));
+        debugLogNodeMass(this);
+    }
+
+    ar_total_mass = 0;
+    for (int i = 0; i < ar_num_nodes; i++)
+    {
+        if (App::diag_truck_mass->getBool())
+        {
+            String msg = "Node " + TOSTRING(i) + " : " + TOSTRING((int)ar_nodes[i].mass) + " kg";
+            if (ar_nodes[i].nd_loaded_mass)
+            {
+                if (ar_nodes[i].nd_override_mass)
+                    msg += " (overriden by node mass)";
+                else
+                    msg += " (normal load node: " + TOSTRING(ar_load_mass) + " kg / " + TOSTRING(ar_masscount) + " nodes)";
+            }
+            LOG(msg);
+        }
+        ar_total_mass += ar_nodes[i].mass;
+    }
+    LOG("TOTAL VEHICLE MASS: " + TOSTRING((int)ar_total_mass) +" kg");
+}
+
+float Actor::getTotalMass(bool withLocked)
+{
+    if (ar_state == ActorState::DISPOSED)
+        return 0.f;
+
+    if (!withLocked)
+        return ar_total_mass; // already computed in RecalculateNodeMasses
+
+    float mass = ar_total_mass;
+
+    for (ActorPtr& actor : ar_linked_actors)
+    {
+        mass += actor->ar_total_mass;
+    }
+
+    return mass;
+}
+
+void Actor::DetermineLinkedActors()
+{
+    // BEWARE: `ar_linked_actors` includes both direct and indirect links!
+    // --------------------------------------------------------------------------------------------------
+
+    ar_linked_actors.clear();
+
+    bool found = true;
+    std::map<ActorPtr, bool> lookup_table; // tracks visited actors
+
+    lookup_table.insert(std::pair<ActorPtr, bool>(this, false));
+
+    while (found)
+    {
+        found = false;
+
+        for (auto it_actor = lookup_table.begin(); it_actor != lookup_table.end(); ++it_actor)
+        {
+            if (!it_actor->second) // not visited yet?
+            {
+                ActorPtr actor = it_actor->first;
+                for (auto inter_actor_link: App::GetGameContext()->GetActorManager()->inter_actor_links)
+                {
+                    auto actor_pair = inter_actor_link.second;
+                    if (actor == actor_pair.first || actor == actor_pair.second)
+                    {
+                        auto other_actor = (actor != actor_pair.first) ? actor_pair.first : actor_pair.second;
+                        auto ret = lookup_table.insert(std::pair<ActorPtr, bool>(other_actor, false));
+                        if (ret.second)
+                        {
+                            ar_linked_actors.push_back(other_actor);
+                            found = true;
+                        }
+                    }
+                }
+                it_actor->second = true; // mark visited
+            }
+        }
+    }
+}
+
+int Actor::getWheelNodeCount() const
+{
+    return m_wheel_node_count;
+}
+
+void Actor::calcNodeConnectivityGraph()
+{
+    int i;
+
+    ar_node_to_node_connections.resize(ar_num_nodes, std::vector<int>());
+    ar_node_to_beam_connections.resize(ar_num_nodes, std::vector<int>());
+
+    for (i = 0; i < ar_num_beams; i++)
+    {
+        if (ar_beams[i].p1 != NULL && ar_beams[i].p2 != NULL && ar_beams[i].p1->pos >= 0 && ar_beams[i].p2->pos >= 0)
+        {
+            ar_node_to_node_connections[ar_beams[i].p1->pos].push_back(ar_beams[i].p2->pos);
+            ar_node_to_beam_connections[ar_beams[i].p1->pos].push_back(i);
+            ar_node_to_node_connections[ar_beams[i].p2->pos].push_back(ar_beams[i].p1->pos);
+            ar_node_to_beam_connections[ar_beams[i].p2->pos].push_back(i);
+        }
+    }
+}
+
+bool Actor::Intersects(ActorPtr actor, Vector3 offset)
+{
+    Vector3 bb_min = ar_bounding_box.getMinimum() + offset;
+    Vector3 bb_max = ar_bounding_box.getMaximum() + offset;
+    AxisAlignedBox bb = AxisAlignedBox(bb_min, bb_max);
+
+    if (!bb.intersects(actor->ar_bounding_box))
+        return false;
+
+    // Test own (contactable) beams against others cabs
+    for (int i = 0; i < ar_num_beams; i++)
+    {
+        if (!(ar_beams[i].p1->nd_contacter || ar_beams[i].p1->nd_contactable) ||
+            !(ar_beams[i].p2->nd_contacter || ar_beams[i].p2->nd_contactable))
+            continue;
+
+        Vector3 origin = ar_beams[i].p1->AbsPosition + offset;
+        Vector3 target = ar_beams[i].p2->AbsPosition + offset;
+
+        Ray ray(origin, target - origin);
+
+        for (int j = 0; j < actor->ar_num_collcabs; j++)
+        {
+            int index = actor->ar_collcabs[j] * 3;
+            Vector3 a = actor->ar_nodes[actor->ar_cabs[index + 0]].AbsPosition;
+            Vector3 b = actor->ar_nodes[actor->ar_cabs[index + 1]].AbsPosition;
+            Vector3 c = actor->ar_nodes[actor->ar_cabs[index + 2]].AbsPosition;
+
+            auto result = Ogre::Math::intersects(ray, a, b, c);
+            if (result.first && result.second < 1.0f)
+            {
+                return true;
+            }
+        }
+    }
+
+    // Test own cabs against others (contactable) beams
+    for (int i = 0; i < actor->ar_num_beams; i++)
+    {
+        if (!(actor->ar_beams[i].p1->nd_contacter || actor->ar_beams[i].p1->nd_contactable) ||
+            !(actor->ar_beams[i].p2->nd_contacter || actor->ar_beams[i].p2->nd_contactable))
+            continue;
+
+        Vector3 origin = actor->ar_beams[i].p1->AbsPosition;
+        Vector3 target = actor->ar_beams[i].p2->AbsPosition;
+
+        Ray ray(origin, target - origin);
+
+        for (int j = 0; j < ar_num_collcabs; j++)
+        {
+            int index = ar_collcabs[j] * 3;
+            Vector3 a = ar_nodes[ar_cabs[index + 0]].AbsPosition + offset;
+            Vector3 b = ar_nodes[ar_cabs[index + 1]].AbsPosition + offset;
+            Vector3 c = ar_nodes[ar_cabs[index + 2]].AbsPosition + offset;
+
+            auto result = Ogre::Math::intersects(ray, a, b, c);
+            if (result.first && result.second < 1.0f)
+            {
+                return true;
+            }
+        }
+    }
+
+    return false;
+}
+
+Vector3 Actor::calculateCollisionOffset(Vector3 direction)
+{
+    if (direction == Vector3::ZERO)
+        return Vector3::ZERO;
+
+    Real max_distance = direction.normalise();
+
+    // collision displacement
+    Vector3 collision_offset = Vector3::ZERO;
+
+    while (collision_offset.length() < max_distance)
+    {
+        Vector3 bb_min = ar_bounding_box.getMinimum() + collision_offset;
+        Vector3 bb_max = ar_bounding_box.getMaximum() + collision_offset;
+        AxisAlignedBox bb = AxisAlignedBox(bb_min, bb_max);
+
+        bool collision = false;
+
+        for (ActorPtr& actor : App::GetGameContext()->GetActorManager()->GetActors())
+        {
+            if (actor == this)
+                continue;
+            if (!bb.intersects(actor->ar_bounding_box))
+                continue;
+
+            // Test own contactables against others cabs
+            if (m_intra_point_col_detector)
+            {
+                for (int i = 0; i < actor->ar_num_collcabs; i++)
+                {
+                    int tmpv = actor->ar_collcabs[i] * 3;
+                    node_t* no = &actor->ar_nodes[actor->ar_cabs[tmpv]];
+                    node_t* na = &actor->ar_nodes[actor->ar_cabs[tmpv + 1]];
+                    node_t* nb = &actor->ar_nodes[actor->ar_cabs[tmpv + 2]];
+
+                    m_intra_point_col_detector->query(no->AbsPosition - collision_offset,
+                        na->AbsPosition - collision_offset,
+                        nb->AbsPosition - collision_offset,
+                        actor->ar_collision_range * 3.0f);
+
+                    if (collision = !m_intra_point_col_detector->hit_list.empty())
+                        break;
+                }
+
+                if (collision)
+                    break;
+            }
+
+            float proximity = std::max(.05f, std::sqrt(std::max(m_min_camera_radius, actor->m_min_camera_radius)) / 50.f);
+
+            // Test proximity of own nodes against others nodes
+            for (int i = 0; i < ar_num_nodes; i++)
+            {
+                if (!ar_nodes[i].nd_contacter && !ar_nodes[i].nd_contactable)
+                    continue;
+
+                Vector3 query_position = ar_nodes[i].AbsPosition + collision_offset;
+
+                for (int j = 0; j < actor->ar_num_nodes; j++)
+                {
+                    if (!actor->ar_nodes[j].nd_contacter && !actor->ar_nodes[j].nd_contactable)
+                        continue;
+
+                    if (collision = query_position.squaredDistance(actor->ar_nodes[j].AbsPosition) < proximity)
+                        break;
+                }
+
+                if (collision)
+                    break;
+            }
+
+            if (collision)
+                break;
+        }
+
+        // Test own cabs against others contacters
+        if (!collision && m_inter_point_col_detector)
+        {
+            for (int i = 0; i < ar_num_collcabs; i++)
+            {
+                int tmpv = ar_collcabs[i] * 3;
+                node_t* no = &ar_nodes[ar_cabs[tmpv]];
+                node_t* na = &ar_nodes[ar_cabs[tmpv + 1]];
+                node_t* nb = &ar_nodes[ar_cabs[tmpv + 2]];
+
+                m_inter_point_col_detector->query(no->AbsPosition + collision_offset,
+                    na->AbsPosition + collision_offset,
+                    nb->AbsPosition + collision_offset,
+                    ar_collision_range * 3.0f);
+
+                if (collision = !m_inter_point_col_detector->hit_list.empty())
+                    break;
+            }
+        }
+
+        // Test beams (between contactable nodes) against cabs
+        if (!collision)
+        {
+            for (ActorPtr& actor : App::GetGameContext()->GetActorManager()->GetActors())
+            {
+                if (actor == this)
+                    continue;
+                if (collision = this->Intersects(actor, collision_offset))
+                    break;
+            }
+        }
+
+        if (!collision)
+            break;
+
+        collision_offset += direction * 0.05f;
+    }
+
+    return collision_offset;
+}
+
+void Actor::resolveCollisions(Ogre::Vector3 direction)
+{
+    if (m_intra_point_col_detector)
+        m_intra_point_col_detector->UpdateIntraPoint(true);
+
+    if (m_inter_point_col_detector)
+        m_inter_point_col_detector->UpdateInterPoint(true);
+
+    Vector3 offset = calculateCollisionOffset(direction);
+
+    if (offset == Vector3::ZERO)
+        return;
+
+    // Additional 20 cm safe-guard (horizontally)
+    offset += 0.2f * Vector3(offset.x, 0.0f, offset.z).normalisedCopy();
+
+    resetPosition(ar_nodes[0].AbsPosition.x + offset.x, ar_nodes[0].AbsPosition.z + offset.z, false, this->getMinHeight() + offset.y);
+}
+
+void Actor::resolveCollisions(float max_distance, bool consider_up)
+{
+    if (m_intra_point_col_detector)
+        m_intra_point_col_detector->UpdateIntraPoint(true);
+
+    if (m_inter_point_col_detector)
+        m_inter_point_col_detector->UpdateInterPoint(true);
+
+    Vector3 u = Vector3::UNIT_Y;
+    Vector3 f = Vector3(getDirection().x, 0.0f, getDirection().z).normalisedCopy();
+    Vector3 l = u.crossProduct(f);
+
+    // Calculate an ideal collision avoidance direction (prefer left over right over [front / back / up])
+    Vector3 left  = calculateCollisionOffset(+l * max_distance);
+    Vector3 right = calculateCollisionOffset(-l * left.length());
+    Vector3 lateral = left.length() < right.length() * 1.1f ? left : right;
+
+    Vector3 front = calculateCollisionOffset(+f * lateral.length());
+    Vector3 back  = calculateCollisionOffset(-f * front.length());
+    Vector3 sagittal = front.length() < back.length() * 1.1f ? front : back;
+
+    Vector3 offset = lateral.length() < sagittal.length() * 1.2f ? lateral : sagittal;
+
+    if (consider_up)
+    {
+        Vector3 up = calculateCollisionOffset(+u * offset.length());
+        if (up.length() * 1.2f < offset.length())
+            offset = up;
+    }
+
+    if (offset == Vector3::ZERO)
+        return;
+
+    // Additional 20 cm safe-guard (horizontally)
+    offset += 0.2f * Vector3(offset.x, 0.0f, offset.z).normalisedCopy();
+
+    resetPosition(ar_nodes[0].AbsPosition.x + offset.x, ar_nodes[0].AbsPosition.z + offset.z, true, this->getMinHeight() + offset.y);
+}
+
+void Actor::calculateAveragePosition()
+{
+    // calculate average position
+    if (ar_custom_camera_node != NODENUM_INVALID)
+    {
+        m_avg_node_position = ar_nodes[ar_custom_camera_node].AbsPosition;
+    }
+    else if (ar_extern_camera_mode == ExtCameraMode::CINECAM && ar_num_cinecams > 0)
+    {
+        // the new (strange) approach: reuse the cinecam node
+        m_avg_node_position = ar_nodes[ar_cinecam_node[0]].AbsPosition;
+    }
+    else if (ar_extern_camera_mode == ExtCameraMode::NODE && ar_extern_camera_node != NODENUM_INVALID)
+    {
+        // the new (strange) approach #2: reuse a specified node
+        m_avg_node_position = ar_nodes[ar_extern_camera_node].AbsPosition;
+    }
+    else
+    {
+        // the classic approach: average over all nodes and beams
+        Vector3 aposition = Vector3::ZERO;
+        for (int n = 0; n < ar_num_nodes; n++)
+        {
+            aposition += ar_nodes[n].AbsPosition;
+        }
+        m_avg_node_position = aposition / ar_num_nodes;
+    }
+}
+
+inline void PadBoundingBox(Ogre::AxisAlignedBox& box) // Internal helper
+{
+    box.setMinimum(box.getMinimum() - BOUNDING_BOX_PADDING);
+    box.setMaximum(box.getMaximum() + BOUNDING_BOX_PADDING);
+}
+
+void Actor::UpdateBoundingBoxes()
+{
+    // Reset
+    ar_bounding_box = AxisAlignedBox::BOX_NULL;
+    ar_predicted_bounding_box = AxisAlignedBox::BOX_NULL;
+    ar_evboxes_bounding_box = AxisAlignedBox::BOX_NULL;
+    for (size_t i = 0; i < ar_collision_bounding_boxes.size(); ++i)
+    {
+        ar_collision_bounding_boxes[i] = AxisAlignedBox::BOX_NULL;
+        ar_predicted_coll_bounding_boxes[i] = AxisAlignedBox::BOX_NULL;
+    }
+
+    // To avoid performance choking by overstretched bounding box (happens when vehicle drops some nodes),
+    // we set a maximum distance limit from the main camera.
+    const float CABNODE_MAX_CAMDIST = 15.f;
+    const Ogre::Vector3 mainCamPos = ar_nodes[ar_main_camera_node_pos].RelPosition;
+
+    // Update
+    for (int i = 0; i < ar_num_nodes; i++)
+    {
+        Vector3 vel = ar_nodes[i].Velocity;
+        Vector3 pos = ar_nodes[i].AbsPosition;
+        int16_t cid = ar_nodes[i].nd_coll_bbox_id;
+
+        ar_bounding_box.merge(pos);                                  // Current box
+        if (mainCamPos.squaredDistance(ar_nodes[i].RelPosition) < (CABNODE_MAX_CAMDIST*CABNODE_MAX_CAMDIST))
+        {
+            ar_evboxes_bounding_box.merge(pos);
+        }
+        ar_predicted_bounding_box.merge(pos);                        // Predicted box (current position)
+        ar_predicted_bounding_box.merge(pos + vel);                  // Predicted box (future position)
+        if (cid != node_t::INVALID_BBOX)
+        {
+            ar_collision_bounding_boxes[cid].merge(pos);
+            ar_predicted_coll_bounding_boxes[cid].merge(pos);
+            ar_predicted_coll_bounding_boxes[cid].merge(pos + vel);
+        }
+    }
+
+    // Finalize - add padding
+    PadBoundingBox(ar_bounding_box);
+    PadBoundingBox(ar_predicted_bounding_box);
+    for (size_t i = 0; i < ar_collision_bounding_boxes.size(); ++i)
+    {
+        PadBoundingBox(ar_collision_bounding_boxes[i]);
+        PadBoundingBox(ar_predicted_coll_bounding_boxes[i]);
+    }
+}
+
+void Actor::UpdatePhysicsOrigin()
+{
+    if (ar_nodes[0].RelPosition.squaredLength() > 10000.0)
+    {
+        Vector3 offset = ar_nodes[0].RelPosition;
+        ar_origin += offset;
+        for (int i = 0; i < ar_num_nodes; i++)
+        {
+            ar_nodes[i].RelPosition -= offset;
+        }
+    }
+}
+
+void Actor::ResetAngle(float rot)
+{
+    // Set origin of rotation to camera node
+    Vector3 origin = ar_nodes[ar_main_camera_node_pos].AbsPosition;
+
+    // Set up matrix for yaw rotation
+    Matrix3 matrix;
+    matrix.FromEulerAnglesXYZ(Radian(0), Radian(-rot + m_spawn_rotation), Radian(0));
+
+    for (int i = 0; i < ar_num_nodes; i++)
+    {
+        // Move node back to origin, apply rotation matrix, and move node back
+        ar_nodes[i].AbsPosition -= origin;
+        ar_nodes[i].AbsPosition = matrix * ar_nodes[i].AbsPosition;
+        ar_nodes[i].AbsPosition += origin;
+        ar_nodes[i].RelPosition = ar_nodes[i].AbsPosition - this->ar_origin;
+    }
+
+    this->UpdateBoundingBoxes();
+    calculateAveragePosition();
+}
+
+void Actor::updateInitPosition()
+{
+    for (int i = 0; i < ar_num_nodes; i++)
+    {
+        ar_initial_node_positions[i] = ar_nodes[i].AbsPosition;
+    }
+}
+
+void Actor::resetPosition(float px, float pz, bool setInitPosition, float miny)
+{
+    // horizontal displacement
+    Vector3 offset = Vector3(px, ar_nodes[0].AbsPosition.y, pz) - ar_nodes[0].AbsPosition;
+    for (int i = 0; i < ar_num_nodes; i++)
+    {
+        ar_nodes[i].AbsPosition += offset;
+        ar_nodes[i].RelPosition = ar_nodes[i].AbsPosition - ar_origin;
+    }
+
+    // vertical displacement
+    float vertical_offset = miny - this->getMinHeight();
+    if (App::GetGameContext()->GetTerrain()->getWater())
+    {
+        vertical_offset += std::max(0.0f, App::GetGameContext()->GetTerrain()->getWater()->GetStaticWaterHeight() - miny);
+    }
+    for (int i = 1; i < ar_num_nodes; i++)
+    {
+        if (ar_nodes[i].nd_no_ground_contact)
+            continue;
+        float terrainHeight = App::GetGameContext()->GetTerrain()->getHeightAt(ar_nodes[i].AbsPosition.x, ar_nodes[i].AbsPosition.z);
+        vertical_offset += std::max(0.0f, terrainHeight - (ar_nodes[i].AbsPosition.y + vertical_offset));
+    }
+    for (int i = 0; i < ar_num_nodes; i++)
+    {
+        ar_nodes[i].AbsPosition.y += vertical_offset;
+        ar_nodes[i].RelPosition = ar_nodes[i].AbsPosition - ar_origin;
+    }
+
+    // mesh displacement
+    float mesh_offset = 0.0f;
+    for (int i = 0; i < ar_num_nodes; i++)
+    {
+        if (mesh_offset >= 1.0f)
+            break;
+        if (ar_nodes[i].nd_no_ground_contact)
+            continue;
+        float offset = mesh_offset;
+        while (offset < 1.0f)
+        {
+            Vector3 query = ar_nodes[i].AbsPosition + Vector3(0.0f, offset, 0.0f);
+            if (!App::GetGameContext()->GetTerrain()->GetCollisions()->collisionCorrect(&query, false))
+            {
+                mesh_offset = offset;
+                break;
+            }
+            offset += 0.001f;
+        }
+    }
+    for (int i = 0; i < ar_num_nodes; i++)
+    {
+        ar_nodes[i].AbsPosition.y += mesh_offset;
+        ar_nodes[i].RelPosition = ar_nodes[i].AbsPosition - ar_origin;
+    }
+
+    resetPosition(Vector3::ZERO, setInitPosition);
+}
+
+void Actor::resetPosition(Ogre::Vector3 translation, bool setInitPosition)
+{
+    // total displacement
+    if (translation != Vector3::ZERO)
+    {
+        Vector3 offset = translation - ar_nodes[0].AbsPosition;
+        for (int i = 0; i < ar_num_nodes; i++)
+        {
+            ar_nodes[i].AbsPosition += offset;
+            ar_nodes[i].RelPosition = ar_nodes[i].AbsPosition - ar_origin;
+        }
+    }
+
+    if (setInitPosition)
+    {
+        for (int i = 0; i < ar_num_nodes; i++)
+        {
+            ar_initial_node_positions[i] = ar_nodes[i].AbsPosition;
+        }
+    }
+
+    this->UpdateBoundingBoxes();
+    calculateAveragePosition();
+}
+
+void Actor::softRespawn(Ogre::Vector3 spawnpos, Ogre::Quaternion spawnrot)
+{
+    // Perform a hard reset (detach any linked actors etc...)
+    this->SyncReset(/*reset_position:*/ false);
+
+    // Move the actor to position
+    ar_origin = spawnpos;
+    for (NodeNum_t i = 0; i < ar_num_nodes; i++)
+    {
+        ar_nodes[i].AbsPosition = spawnpos + ar_nodes_spawn_offsets[i];
+        ar_nodes[i].RelPosition = ar_nodes_spawn_offsets[i];
+        ar_nodes[i].Forces = Ogre::Vector3::ZERO;
+        ar_nodes[i].Velocity = Ogre::Vector3::ZERO;
+    }
+
+    // Apply spawn position & spawn rotation
+    // (code taken as-is from `ActorManager::CreateNewActor()`)
+    for (NodeNum_t i = 0; i < ar_num_nodes; i++)
+    {
+        ar_nodes[i].AbsPosition = spawnpos + spawnrot * (ar_nodes[i].AbsPosition - spawnpos);
+        ar_nodes[i].RelPosition = ar_nodes[i].AbsPosition - ar_origin;
+    };
+}
+
+void Actor::mouseMove(NodeNum_t node, Vector3 pos, float force)
+{
+    m_mouse_grab_node = node;
+    m_mouse_grab_move_force = force * std::pow(ar_total_mass / 3000.0f, 0.75f);
+    m_mouse_grab_pos = pos;
+}
+
+void Actor::toggleWheelDiffMode()
+{
+    for (int i = 0; i < m_num_wheel_diffs; ++i)
+    {
+        m_wheel_diffs[i]->ToggleDifferentialMode();
+    }
+}
+
+void Actor::toggleAxleDiffMode()
+{
+    for (int i = 0; i < m_num_axle_diffs; ++i)
+    {
+        m_axle_diffs[i]->ToggleDifferentialMode();
+    }
+}
+
+void Actor::displayAxleDiffMode()
+{
+    if (m_num_axle_diffs == 0)
+    {
+        App::GetConsole()->putMessage(Console::CONSOLE_MSGTYPE_INFO, Console::CONSOLE_SYSTEM_NOTICE,
+                _L("No inter-axle differential installed on current vehicle!"), "error.png");
+    }
+    else
+    {
+        String message = "";
+        for (int i = 0; i < m_num_axle_diffs; ++i)
+        {
+            if (m_axle_diffs[i])
+            {
+                if (i > 0)
+                    message += "\n";
+
+                int a1 = m_axle_diffs[i]->di_idx_1 + 1;
+                int a2 = m_axle_diffs[i]->di_idx_2 + 1;
+                message += _L("Axle ") + TOSTRING(a1) + " <--> " + _L("Axle ") + TOSTRING(a2) + ": ";
+                message += m_axle_diffs[i]->GetDifferentialTypeName();
+            }
+        }
+        App::GetConsole()->putMessage(Console::CONSOLE_MSGTYPE_INFO, Console::CONSOLE_SYSTEM_NOTICE,
+                "Inter-axle differentials:\n" + message, "cog.png");
+    }
+}
+
+void Actor::displayWheelDiffMode()
+{
+    if (m_num_wheel_diffs == 0)
+    {
+        App::GetConsole()->putMessage(Console::CONSOLE_MSGTYPE_INFO, Console::CONSOLE_SYSTEM_NOTICE,
+                _L("No inter-wheel differential installed on current vehicle!"), "error.png");
+    }
+    else
+    {
+        String message = "";
+        for (int i = 0; i < m_num_wheel_diffs; ++i)
+        {
+            if (m_wheel_diffs[i])
+            {
+                if (i > 0)
+                    message += "\n";
+
+                message += _L("Axle ") + TOSTRING(i + 1) + ": ";
+                message += m_wheel_diffs[i]->GetDifferentialTypeName();
+            }
+        }
+        App::GetConsole()->putMessage(Console::CONSOLE_MSGTYPE_INFO, Console::CONSOLE_SYSTEM_NOTICE,
+                "Inter-wheel differentials:\n" + message, "cog.png");
+    }
+}
+
+void Actor::displayTransferCaseMode()
+{
+    if (m_transfer_case)
+    {
+        App::GetConsole()->putMessage(Console::CONSOLE_MSGTYPE_INFO, Console::CONSOLE_SYSTEM_NOTICE,
+                _L("Transfercase switched to: ") + this->getTransferCaseName(), "cog.png");
+    }
+    else
+    {
+        App::GetConsole()->putMessage(Console::CONSOLE_MSGTYPE_INFO, Console::CONSOLE_SYSTEM_NOTICE,
+                _L("No transfercase installed on current vehicle!"), "error.png");
+    }
+}
+
+void Actor::toggleTransferCaseMode()
+{
+    if (!ar_engine || !m_transfer_case || m_transfer_case->tr_ax_2 < 0 || !m_transfer_case->tr_2wd)
+        return;
+
+    if (m_transfer_case->tr_4wd_mode && !m_transfer_case->tr_2wd_lo)
+    {
+        for (int i = 0; i < m_transfer_case->tr_gear_ratios.size(); i++)
+        {
+            this->toggleTransferCaseGearRatio();
+            if (m_transfer_case->tr_gear_ratios[0] == 1.0f)
+                break;
+        }
+    }
+
+    m_transfer_case->tr_4wd_mode = !m_transfer_case->tr_4wd_mode;
+
+    if (m_transfer_case->tr_4wd_mode)
+    {
+        ar_wheels[m_wheel_diffs[m_transfer_case->tr_ax_2]->di_idx_1].wh_propulsed = WheelPropulsion::FORWARD;
+        ar_wheels[m_wheel_diffs[m_transfer_case->tr_ax_2]->di_idx_2].wh_propulsed = WheelPropulsion::FORWARD;
+        m_num_proped_wheels += 2;
+    }
+    else
+    {
+        ar_wheels[m_wheel_diffs[m_transfer_case->tr_ax_2]->di_idx_1].wh_propulsed = WheelPropulsion::FORWARD;
+        ar_wheels[m_wheel_diffs[m_transfer_case->tr_ax_2]->di_idx_2].wh_propulsed = WheelPropulsion::FORWARD;
+        m_num_proped_wheels -= 2;
+    }
+}
+
+void Actor::toggleTransferCaseGearRatio()
+{
+    if (!ar_engine || !m_transfer_case || m_transfer_case->tr_gear_ratios.size() < 2)
+        return;
+
+    if (m_transfer_case->tr_4wd_mode || m_transfer_case->tr_2wd_lo)
+    {
+        auto gear_ratios = &m_transfer_case->tr_gear_ratios;
+        std::rotate(gear_ratios->begin(), gear_ratios->begin() + 1, gear_ratios->end());
+
+        ar_engine->setTCaseRatio(m_transfer_case->tr_gear_ratios[0]);
+    }
+}
+
+String Actor::getTransferCaseName()
+{
+    String name = "";
+    if (m_transfer_case)
+    {
+        name += m_transfer_case->tr_4wd_mode ? "4WD " : "2WD ";
+        if (m_transfer_case->tr_gear_ratios[0] > 1.0f)
+            name += "Lo (" + TOSTRING(m_transfer_case->tr_gear_ratios[0]) + ":1)";
+        else
+            name += "Hi";
+    }
+    return name;
+}
+
+Ogre::Vector3 Actor::getRotationCenter()
+{
+    Vector3 sum = Vector3::ZERO;
+    std::vector<Vector3> positions;
+    for (int i = 0; i < ar_num_nodes; i++)
+    {
+        Vector3 pos = ar_nodes[i].AbsPosition;
+        const auto it = std::find_if(positions.begin(), positions.end(),
+            [pos](const Vector3 ref) { return pos.positionEquals(ref, 0.01f); });
+        if (it == positions.end())
+        {
+            sum += pos;
+            positions.push_back(pos);
+        }
+    }
+    return sum / positions.size();
+}
+
+float Actor::getMinHeight(bool skip_virtual_nodes)
+{
+    float height = std::numeric_limits<float>::max(); 
+    for (int i = 0; i < ar_num_nodes; i++)
+    {
+        if (!skip_virtual_nodes || !ar_nodes[i].nd_no_ground_contact)
+        {
+            height = std::min(ar_nodes[i].AbsPosition.y, height);
+        }
+    }
+    return (!skip_virtual_nodes || height < std::numeric_limits<float>::max()) ? height : getMinHeight(false);
+}
+
+float Actor::getMaxHeight(bool skip_virtual_nodes)
+{
+    float height = std::numeric_limits<float>::min(); 
+    for (int i = 0; i < ar_num_nodes; i++)
+    {
+        if (!skip_virtual_nodes || !ar_nodes[i].nd_no_ground_contact)
+        {
+            height = std::max(height, ar_nodes[i].AbsPosition.y);
+        }
+    }
+    return (!skip_virtual_nodes || height > std::numeric_limits<float>::min()) ? height : getMaxHeight(false);
+}
+
+float Actor::getHeightAboveGround(bool skip_virtual_nodes)
+{
+    float agl = std::numeric_limits<float>::max(); 
+    for (int i = 0; i < ar_num_nodes; i++)
+    {
+        if (!skip_virtual_nodes || !ar_nodes[i].nd_no_ground_contact)
+        {
+            Vector3 pos = ar_nodes[i].AbsPosition;
+            agl = std::min(pos.y - App::GetGameContext()->GetTerrain()->GetCollisions()->getSurfaceHeight(pos.x, pos.z), agl);
+        }
+    }
+    return (!skip_virtual_nodes || agl < std::numeric_limits<float>::max()) ? agl : getHeightAboveGround(false);
+}
+
+float Actor::getHeightAboveGroundBelow(float height, bool skip_virtual_nodes)
+{
+    float agl = std::numeric_limits<float>::max(); 
+    for (int i = 0; i < ar_num_nodes; i++)
+    {
+        if (!skip_virtual_nodes || !ar_nodes[i].nd_no_ground_contact)
+        {
+            Vector3 pos = ar_nodes[i].AbsPosition;
+            agl = std::min(pos.y - App::GetGameContext()->GetTerrain()->GetCollisions()->getSurfaceHeightBelow(pos.x, pos.z, height), agl);
+        }
+    }
+    return (!skip_virtual_nodes || agl < std::numeric_limits<float>::max()) ? agl : getHeightAboveGroundBelow(height, false);
+}
+
+void Actor::reset(bool keep_position)
+{
+    if (ar_state == ActorState::DISPOSED)
+        return;
+
+    ActorModifyRequest* rq = new ActorModifyRequest;
+    rq->amr_actor = this->ar_instance_id;
+    rq->amr_type  = (keep_position) ? ActorModifyRequest::Type::RESET_ON_SPOT : ActorModifyRequest::Type::RESET_ON_INIT_POS;
+    App::GetGameContext()->PushMessage(Message(MSG_SIM_MODIFY_ACTOR_REQUESTED, (void*)rq));
+}
+
+void Actor::SoftReset()
+{
+    TRIGGER_EVENT_ASYNC(SE_TRUCK_RESET, ar_instance_id);
+
+    float agl = this->getHeightAboveGroundBelow(this->getMaxHeight(true), true);
+
+    if (App::GetGameContext()->GetTerrain()->getWater())
+    {
+        agl = std::min(this->getMinHeight(true) - App::GetGameContext()->GetTerrain()->getWater()->GetStaticWaterHeight(), agl);
+    }
+
+    if (agl < 0.0f)
+    {
+        Vector3 translation = -agl * Vector3::UNIT_Y;
+        this->resetPosition(ar_nodes[0].AbsPosition + translation, false);
+        for (ActorPtr& actor : ar_linked_actors)
+        {
+            actor->resetPosition(actor->ar_nodes[0].AbsPosition + translation, false);
+        }
+    }
+
+    m_ongoing_reset = true;
+}
+
+void Actor::SyncReset(bool reset_position)
+{
+    TRIGGER_EVENT_ASYNC(SE_TRUCK_RESET, ar_instance_id);
+
+    m_reset_timer.reset();
+
+    m_camera_local_gforces_cur = Vector3::ZERO;
+    m_camera_local_gforces_max = Vector3::ZERO;
+
+    ar_hydro_dir_state = 0.0;
+    ar_hydro_aileron_state = 0.0;
+    ar_hydro_rudder_state = 0.0;
+    ar_hydro_elevator_state = 0.0;
+    ar_hydro_dir_wheel_display = 0.0;
+	
+    ar_fusedrag = Vector3::ZERO;
+    this->setBlinkType(BlinkType::BLINK_NONE);
+    ar_parking_brake = false;
+    ar_trailer_parking_brake = false;
+    ar_avg_wheel_speed = 0.0f;
+    ar_wheel_speed = 0.0f;
+    ar_wheel_spin = 0.0f;
+    cc_mode = false;
+
+    ar_origin = Vector3::ZERO;
+    float cur_rot = getRotation();
+    Vector3 cur_position = ar_nodes[0].AbsPosition;
+
+    this->DisjoinInterActorBeams(); // OK to be invoked here - SyncReset() - `processing MSG_SIM_MODIFY_ACTOR_REQUESTED`
+
+    for (int i = 0; i < ar_num_nodes; i++)
+    {
+        ar_nodes[i].AbsPosition = ar_initial_node_positions[i];
+        ar_nodes[i].RelPosition = ar_nodes[i].AbsPosition - ar_origin;
+        ar_nodes[i].Velocity = Vector3::ZERO;
+        ar_nodes[i].Forces = Vector3::ZERO;
+    }
+
+    for (int i = 0; i < ar_num_beams; i++)
+    {
+        ar_beams[i].maxposstress    = ar_beams[i].default_beam_deform;
+        ar_beams[i].maxnegstress    = -ar_beams[i].default_beam_deform;
+        ar_beams[i].minmaxposnegstress = ar_beams[i].default_beam_deform;
+        ar_beams[i].strength        = ar_beams[i].initial_beam_strength;
+        ar_beams[i].L               = ar_beams[i].refL;
+        ar_beams[i].stress          = 0.0;
+        ar_beams[i].bm_broken       = false;
+        ar_beams[i].bm_disabled     = false;
+    }
+
+    this->applyNodeBeamScales();
+
+    // Extra cleanup for inter-actor beams (until the above `ar_beams` loop is fixed)
+
+    for (auto& h : ar_hooks)
+    {
+        h.hk_beam->bm_disabled = true; // should only be active if the hook is locked
+    }
+
+    for (auto& t : ar_ties)
+    {
+        t.ti_locked_ropable = nullptr; // `tieToggle()` doesn't do this - bug or feature? ~ ohlidalp, 06/2024
+        t.ti_beam->bm_disabled = true; // should only be active if the tie is tied
+    }
+
+    // End extra cleanup
+
+    for (auto& r : ar_ropables)
+    {
+        r.attached_ties = 0;
+        r.attached_ropes = 0;
+    }
+
+    for (int i = 0; i < ar_num_wheels; i++)
+    {
+        ar_wheels[i].wh_speed = 0.0;
+        ar_wheels[i].wh_torque = 0.0;
+        ar_wheels[i].wh_avg_speed = 0.0;
+        ar_wheels[i].wh_is_detached = false;
+    }
+
+    if (ar_engine)
+    {
+        if (App::sim_spawn_running->getBool())
+        {
+            ar_engine->startEngine();
+        }
+        ar_engine->setWheelSpin(0.0f);
+    }
+
+    int num_axle_diffs = (m_transfer_case && m_transfer_case->tr_4wd_mode) ? m_num_axle_diffs + 1 : m_num_axle_diffs;
+    for (int i = 0; i < num_axle_diffs; i++)
+        m_axle_diffs[i]->di_delta_rotation = 0.0f;
+    for (int i = 0; i < m_num_wheel_diffs; i++)
+        m_wheel_diffs[i]->di_delta_rotation = 0.0f;
+    for (int i = 0; i < ar_num_aeroengines; i++)
+        ar_aeroengines[i]->reset();
+    for (int i = 0; i < ar_num_screwprops; i++)
+        ar_screwprops[i]->reset();
+    for (int i = 0; i < ar_num_rotators; i++)
+        ar_rotators[i].angle = 0.0;
+    for (int i = 0; i < ar_num_wings; i++)
+        ar_wings[i].fa->broken = false;
+    if (ar_autopilot)
+        this->ar_autopilot->reset();
+    if (m_buoyance)
+        m_buoyance->sink = false;
+
+    for (hydrobeam_t& hydrobeam: ar_hydros)
+    {
+        hydrobeam.hb_inertia.ResetCmdKeyDelay();
+    }
+
+    this->GetGfxActor()->ResetFlexbodies();
+
+    // reset on spot with backspace
+    if (!reset_position)
+    {
+        this->ResetAngle(cur_rot);
+        this->resetPosition(cur_position, false);
+        float agl = this->getHeightAboveGroundBelow(this->getMaxHeight(true), true);
+        if (App::GetGameContext()->GetTerrain()->getWater())
+        {
+            agl = std::min(this->getMinHeight(true) - App::GetGameContext()->GetTerrain()->getWater()->GetStaticWaterHeight(), agl);
+        }
+        if (agl < 0.0f)
+        {
+            this->resetPosition(ar_nodes[0].AbsPosition - agl * Vector3::UNIT_Y, false);
+        }
+    }
+    else
+    {
+        this->UpdateBoundingBoxes();
+        this->calculateAveragePosition();
+    }
+
+    for (int i = 1; i <= MAX_COMMANDS; i++) // BEWARE: commandkeys are indexed 1-MAX_COMMANDS!
+    {
+        ar_command_key[i].commandValue = 0.0;
+        ar_command_key[i].triggerInputValue = 0.0f;
+        ar_command_key[i].playerInputValue = 0.0f;
+        for (auto& b : ar_command_key[i].beams)
+        {
+            b.cmb_state->auto_moving_mode = 0;
+            b.cmb_state->pressed_center_mode = false;
+        }
+    }
+
+    this->resetSlideNodes();
+    if (m_slidenodes_locked)
+    {
+        this->toggleSlideNodeLock(); // OK to be invoked here - SyncReset() - processing MSG_SIM_MODIFY_ACTOR_REQUESTED
+    }
+
+    m_ongoing_reset = true;
+}
+
+void Actor::applyNodeBeamScales()
+{
+    for (int i = 0; i < ar_num_beams; i++)
+    {
+        if ((ar_beams[i].p1->nd_tyre_node || ar_beams[i].p1->nd_rim_node) ||
+            (ar_beams[i].p2->nd_tyre_node || ar_beams[i].p2->nd_rim_node))
+        {
+            ar_beams[i].k = ar_initial_beam_defaults[i].first * ar_nb_wheels_scale.first;
+            ar_beams[i].d = ar_initial_beam_defaults[i].second * ar_nb_wheels_scale.second;
+        }
+        else if (ar_beams[i].bounded == SHOCK1 || ar_beams[i].bounded == SHOCK2 || ar_beams[i].bounded == SHOCK3)
+        {
+            ar_beams[i].k = ar_initial_beam_defaults[i].first * ar_nb_shocks_scale.first;;
+            ar_beams[i].d = ar_initial_beam_defaults[i].second * ar_nb_shocks_scale.second;
+        }
+        else
+        {
+            ar_beams[i].k = ar_initial_beam_defaults[i].first * ar_nb_beams_scale.first;
+            ar_beams[i].d = ar_initial_beam_defaults[i].second * ar_nb_beams_scale.second;
+        }
+    }
+}
+
+void Actor::ForceFeedbackStep(int steps)
+{
+    m_force_sensors.out_body_forces = m_force_sensors.accu_body_forces / steps;
+    if (!ar_hydros.empty()) // Vehicle has hydros?
+    {
+        m_force_sensors.out_hydros_forces = (m_force_sensors.accu_hydros_forces / steps) / ar_hydros.size();    
+    }
+}
+
+void Actor::HandleAngelScriptEvents(float dt)
+{
+#ifdef USE_ANGELSCRIPT
+
+    if (m_water_contact && !m_water_contact_old)
+    {
+        m_water_contact_old = m_water_contact;
+        App::GetScriptEngine()->triggerEvent(SE_TRUCK_TOUCHED_WATER, ar_instance_id);
+    }
+#endif // USE_ANGELSCRIPT
+}
+
+void Actor::searchBeamDefaults()
+{
+    SyncReset(true);
+
+    auto old_beams_scale = ar_nb_beams_scale;
+    auto old_shocks_scale = ar_nb_shocks_scale;
+    auto old_wheels_scale = ar_nb_wheels_scale;
+
+    if (ar_nb_initialized)
+    {
+        ar_nb_beams_scale.first   = Math::RangeRandom(ar_nb_beams_k_interval.first,  ar_nb_beams_k_interval.second);
+        ar_nb_beams_scale.second  = Math::RangeRandom(ar_nb_beams_d_interval.first,  ar_nb_beams_d_interval.second);
+        ar_nb_shocks_scale.first  = Math::RangeRandom(ar_nb_shocks_k_interval.first, ar_nb_shocks_k_interval.second);
+        ar_nb_shocks_scale.second = Math::RangeRandom(ar_nb_shocks_d_interval.first, ar_nb_shocks_d_interval.second);
+        ar_nb_wheels_scale.first  = Math::RangeRandom(ar_nb_wheels_k_interval.first, ar_nb_wheels_k_interval.second);
+        ar_nb_wheels_scale.second = Math::RangeRandom(ar_nb_wheels_d_interval.first, ar_nb_wheels_d_interval.second);
+    }
+    else
+    {
+        ar_nb_beams_scale.first   = Math::Clamp(1.0f, ar_nb_beams_k_interval.first,  ar_nb_beams_k_interval.second);
+        ar_nb_beams_scale.second  = Math::Clamp(1.0f, ar_nb_beams_d_interval.first,  ar_nb_beams_d_interval.second);
+        ar_nb_shocks_scale.first  = Math::Clamp(1.0f, ar_nb_shocks_k_interval.first, ar_nb_shocks_k_interval.second);
+        ar_nb_shocks_scale.second = Math::Clamp(1.0f, ar_nb_shocks_d_interval.first, ar_nb_shocks_d_interval.second);
+        ar_nb_wheels_scale.first  = Math::Clamp(1.0f, ar_nb_wheels_k_interval.first, ar_nb_wheels_k_interval.second);
+        ar_nb_wheels_scale.second = Math::Clamp(1.0f, ar_nb_wheels_d_interval.first, ar_nb_wheels_d_interval.second);
+        ar_nb_reference = std::vector<float>(ar_nb_reference.size(), std::numeric_limits<float>::max());
+        ar_nb_optimum   = std::vector<float>(ar_nb_reference.size(), std::numeric_limits<float>::max());
+    }
+
+    this->applyNodeBeamScales();
+
+    m_ongoing_reset = false;
+    this->CalcForcesEulerPrepare(true);
+    for (int i = 0; i < ar_nb_skip_steps; i++)
+    {
+        this->CalcForcesEulerCompute(i == 0, ar_nb_skip_steps);
+        if (m_ongoing_reset)
+            break;
+    }
+    m_ongoing_reset = true;
+
+    float sum_movement = 0.0f;
+    float movement = 0.0f;
+    float sum_velocity = 0.0f;
+    float velocity = 0.0f;
+    float sum_stress = 0.0f;
+    float stress = 0.0f;
+    int sum_broken = 0;
+    for (int k = 0; k < ar_nb_measure_steps; k++)
+    {
+        this->CalcForcesEulerCompute(false, ar_nb_measure_steps);
+        for (int i = 0; i < ar_num_nodes; i++)
+        {
+            float v = ar_nodes[i].Velocity.length();
+            sum_movement += v / (float)ar_nb_measure_steps;
+            movement = std::max(movement, v);
+        }
+        for (int i = 0; i < ar_num_beams; i++)
+        {
+            Vector3 dis = (ar_beams[i].p1->RelPosition - ar_beams[i].p2->RelPosition).normalisedCopy();
+            float v = (ar_beams[i].p1->Velocity - ar_beams[i].p2->Velocity).dotProduct(dis);
+            sum_velocity += std::abs(v) / (float)ar_nb_measure_steps;
+            velocity = std::max(velocity, std::abs(v));
+            sum_stress += std::abs(ar_beams[i].stress) / (float)ar_nb_measure_steps;
+            stress = std::max(stress, std::abs(ar_beams[i].stress));
+            if (k == 0 && ar_beams[i].bm_broken)
+            {
+                sum_broken++;
+            }
+        }
+        if (sum_broken > ar_nb_reference[6] ||
+                stress > ar_nb_reference[0] ||     velocity > ar_nb_reference[2] ||     movement > ar_nb_optimum[4] ||
+            sum_stress > ar_nb_reference[1] || sum_velocity > ar_nb_reference[3] || sum_movement > ar_nb_optimum[5] * 2.f)
+        {
+            ar_nb_beams_scale  = old_beams_scale;
+            ar_nb_shocks_scale = old_shocks_scale;
+            ar_nb_wheels_scale = old_wheels_scale;
+            SyncReset(true);
+            return;
+        }
+    }
+    SyncReset(true);
+
+    ar_nb_optimum = {stress, sum_stress, velocity, sum_velocity, movement, sum_movement, (float)sum_broken};
+    if (!ar_nb_initialized)
+    {
+        ar_nb_reference = ar_nb_optimum;
+    }
+    ar_nb_initialized = true;
+}
+
+void Actor::HandleInputEvents(float dt)
+{
+    if (!m_ongoing_reset)
+        return;
+
+    if (m_anglesnap_request > 0)
+    {
+        float rotation = Radian(getRotation()).valueDegrees();
+        float target_rotation = std::round(rotation / m_anglesnap_request) * m_anglesnap_request;
+        m_rotation_request = -Degree(target_rotation - rotation).valueRadians();
+	m_rotation_request_center = getRotationCenter();
+        m_anglesnap_request = 0;
+    }
+
+    if (m_rotation_request != 0.0f)
+    {
+        Quaternion rot = Quaternion(Radian(m_rotation_request), Vector3::UNIT_Y);
+
+        for (int i = 0; i < ar_num_nodes; i++)
+        {
+            ar_nodes[i].AbsPosition -= m_rotation_request_center;
+            ar_nodes[i].AbsPosition = rot * ar_nodes[i].AbsPosition;
+            ar_nodes[i].AbsPosition += m_rotation_request_center;
+            ar_nodes[i].RelPosition = ar_nodes[i].AbsPosition - ar_origin;
+            ar_nodes[i].Velocity = rot * ar_nodes[i].Velocity;
+            ar_nodes[i].Forces = rot * ar_nodes[i].Forces;
+        }
+
+        m_rotation_request = 0.0f;
+        this->UpdateBoundingBoxes();
+        calculateAveragePosition();
+    }
+
+    if (m_translation_request != Vector3::ZERO)
+    {
+        for (int i = 0; i < ar_num_nodes; i++)
+        {
+            ar_nodes[i].AbsPosition += m_translation_request;
+            ar_nodes[i].RelPosition = ar_nodes[i].AbsPosition - ar_origin;
+        }
+
+        m_translation_request = Vector3::ZERO;
+        UpdateBoundingBoxes();
+        calculateAveragePosition();
+    }
+}
+
+void Actor::sendStreamSetup()
+{
+    RoRnet::ActorStreamRegister reg;
+    memset(&reg, 0, sizeof(RoRnet::ActorStreamRegister));
+    reg.status = 0;
+    reg.type = 0;
+    reg.time = App::GetGameContext()->GetActorManager()->GetNetTime();
+
+    // Send the filename in "Bundle-qualified" format, i.e. "mybundle.zip:myactor.truck"
+    std::string bname;
+    std::string bpath;
+    Ogre::StringUtil::splitFilename(m_used_actor_entry->resource_bundle_path, bname, bpath);
+    std::string bq_filename = fmt::format("{}:{}", bname, ar_filename);
+    strncpy(reg.name, bq_filename.c_str(), 128);
+    
+    // Skin and sectionconfig
+    if (m_used_skin_entry != nullptr)
+    {
+        strncpy(reg.skin, m_used_skin_entry->dname.c_str(), 60);
+    }
+    strncpy(reg.sectionconfig, m_section_config.c_str(), 60);
+
+#ifdef USE_SOCKETW
+    App::GetNetwork()->AddLocalStream((RoRnet::StreamRegister *)&reg, sizeof(RoRnet::ActorStreamRegister));
+#endif // USE_SOCKETW
+
+    ar_net_source_id = reg.origin_sourceid;
+    ar_net_stream_id = reg.origin_streamid;
+}
+
+void Actor::sendStreamData()
+{
+    using namespace RoRnet;
+#ifdef USE_SOCKETW
+    if (ar_net_timer.getMilliseconds() - ar_net_last_update_time < 100)
+        return;
+
+    ar_net_last_update_time = ar_net_timer.getMilliseconds();
+
+    //look if the packet is too big first
+    if (m_net_total_buffer_size + sizeof(RoRnet::VehicleState) > RORNET_MAX_MESSAGE_LENGTH)
+    {
+        ErrorUtils::ShowError(_L("Actor is too big to be sent over the net."), _L("Network error!"));
+        exit(126);
+    }
+
+    char send_buffer[RORNET_MAX_MESSAGE_LENGTH] = {0};
+
+    unsigned int packet_len = 0;
+
+    // RoRnet::VehicleState is at the beginning of the buffer
+    {
+        RoRnet::VehicleState* send_oob = (RoRnet::VehicleState *)send_buffer;
+        packet_len += sizeof(RoRnet::VehicleState);
+
+        send_oob->flagmask = 0;
+
+        send_oob->time = App::GetGameContext()->GetActorManager()->GetNetTime();
+        if (ar_engine)
+        {
+            send_oob->engine_speed = ar_engine->getRPM();
+            send_oob->engine_force = ar_engine->getAcc();
+            send_oob->engine_clutch = ar_engine->getClutch();
+            send_oob->engine_gear = ar_engine->getGear();
+
+            if (ar_engine->hasContact())
+                send_oob->flagmask += NETMASK_ENGINE_CONT;
+            if (ar_engine->isRunning())
+                send_oob->flagmask += NETMASK_ENGINE_RUN;
+
+            switch (ar_engine->getAutoMode())
+            {
+            case RoR::SimGearboxMode::AUTO: send_oob->flagmask += NETMASK_ENGINE_MODE_AUTOMATIC;
+                break;
+            case RoR::SimGearboxMode::SEMI_AUTO: send_oob->flagmask += NETMASK_ENGINE_MODE_SEMIAUTO;
+                break;
+            case RoR::SimGearboxMode::MANUAL: send_oob->flagmask += NETMASK_ENGINE_MODE_MANUAL;
+                break;
+            case RoR::SimGearboxMode::MANUAL_STICK: send_oob->flagmask += NETMASK_ENGINE_MODE_MANUAL_STICK;
+                break;
+            case RoR::SimGearboxMode::MANUAL_RANGES: send_oob->flagmask += NETMASK_ENGINE_MODE_MANUAL_RANGES;
+                break;
+            }
+        }
+        if (ar_num_aeroengines > 0)
+        {
+            float rpm = ar_aeroengines[0]->getRPM();
+            send_oob->engine_speed = rpm;
+        }
+
+        send_oob->hydrodirstate = ar_hydro_dir_state;
+        send_oob->brake = ar_brake;
+        send_oob->wheelspeed = ar_wheel_speed;
+
+        // RoRnet::Netmask
+
+        if (getCustomParticleMode())
+            send_oob->flagmask += NETMASK_PARTICLE;
+
+        if (ar_parking_brake)
+            send_oob->flagmask += NETMASK_PBRAKE;
+        if (m_tractioncontrol)
+            send_oob->flagmask += NETMASK_TC_ACTIVE;
+        if (m_antilockbrake)
+            send_oob->flagmask += NETMASK_ALB_ACTIVE;
+
+        if (SOUND_GET_STATE(ar_instance_id, SS_TRIG_HORN))
+            send_oob->flagmask += NETMASK_HORN;
+
+        // RoRnet::Lightmask
+
+        send_oob->lightmask = m_lightmask; // That's it baby :)
+    }
+
+    // then process the contents
+    {
+        char* ptr = send_buffer + sizeof(RoRnet::VehicleState);
+        float* send_nodes = (float *)ptr;
+        packet_len += m_net_total_buffer_size;
+
+        // copy data into the buffer
+        int i;
+
+        // reference node first
+        Vector3& refpos = ar_nodes[0].AbsPosition;
+        send_nodes[0] = refpos.x;
+        send_nodes[1] = refpos.y;
+        send_nodes[2] = refpos.z;
+
+        ptr += sizeof(float) * 3;// plus 3 floats from above
+
+        // then copy the other nodes into a compressed half_float format
+        half_float::half* sbuf = (half_float::half*)ptr;
+        for (i = 1; i < m_net_first_wheel_node; i++)
+        {
+            Ogre::Vector3 relpos = ar_nodes[i].AbsPosition - ar_nodes[0].AbsPosition;
+            sbuf[(i-1) * 3 + 0] = static_cast<half_float::half>(relpos.x);
+            sbuf[(i-1) * 3 + 1] = static_cast<half_float::half>(relpos.y);
+            sbuf[(i-1) * 3 + 2] = static_cast<half_float::half>(relpos.z);
+
+            ptr += sizeof(half_float::half) * 3; // increase pointer
+        }
+
+        // then to the wheels
+        float* wfbuf = (float*)ptr;
+        for (i = 0; i < ar_num_wheels; i++)
+        {
+            wfbuf[i] = ar_wheels[i].wh_net_rp;
+        }
+        ptr += ar_num_wheels * sizeof(float);
+
+        // Then the anim key states
+        for (size_t i = 0; i < m_prop_anim_key_states.size(); i++)
+        {
+            if (m_prop_anim_key_states[i].anim_active)
+            {
+                // Pack as bit array, starting with most signifficant bit
+                char& dst_byte = *(ptr + (i / 8));
+                char mask = ((char)m_prop_anim_key_states[i].anim_active) << (7 - (i % 8));
+                dst_byte |= mask;
+            }
+        }
+    }
+
+    App::GetNetwork()->AddPacket(ar_net_stream_id, MSG2_STREAM_DATA_DISCARDABLE, packet_len, send_buffer);
+#endif //SOCKETW
+}
+
+void Actor::CalcAnimators(hydrobeam_t const& hydrobeam, float &cstate, int &div)
+{
+    // boat rudder
+    if (hydrobeam.hb_anim_flags & ANIM_FLAG_BRUDDER)
+    {
+        int spi;
+        float ctmp = 0.0f;
+        for (spi = 0; spi < ar_num_screwprops; spi++)
+            if (ar_screwprops[spi])
+                ctmp += ar_screwprops[spi]->getRudder();
+
+        if (spi > 0)
+            ctmp = ctmp / spi;
+        cstate = ctmp;
+        div++;
+    }
+
+    // boat throttle
+    if (hydrobeam.hb_anim_flags & ANIM_FLAG_BTHROTTLE)
+    {
+        int spi;
+        float ctmp = 0.0f;
+        for (spi = 0; spi < ar_num_screwprops; spi++)
+            if (ar_screwprops[spi])
+                ctmp += ar_screwprops[spi]->getThrottle();
+
+        if (spi > 0)
+            ctmp = ctmp / spi;
+        cstate = ctmp;
+        div++;
+    }
+
+    // differential lock status
+    if (hydrobeam.hb_anim_flags & ANIM_FLAG_DIFFLOCK)
+    {
+        if (m_num_wheel_diffs && m_wheel_diffs[0])
+        {
+            String name = m_wheel_diffs[0]->GetDifferentialTypeName();
+            if (name == "Open")
+                cstate = 0.0f;
+            if (name == "Split")
+                cstate = 0.5f;
+            if (name == "Locked")
+                cstate = 1.0f;
+        }
+        else // no axles/diffs avail, mode is split by default
+            cstate = 0.5f;
+
+        div++;
+    }
+
+    // heading
+    if (hydrobeam.hb_anim_flags & ANIM_FLAG_HEADING)
+    {
+        float heading = getRotation();
+        // rad2deg limitedrange  -1 to +1
+        cstate = (heading * 57.29578f) / 360.0f;
+        div++;
+    }
+
+    // torque
+    if (ar_engine && hydrobeam.hb_anim_flags & ANIM_FLAG_TORQUE)
+    {
+        float torque = ar_engine->getCrankFactor();
+        if (torque <= 0.0f)
+            torque = 0.0f;
+        if (torque >= ar_anim_previous_crank)
+            cstate -= torque / 10.0f;
+        else
+            cstate = 0.0f;
+
+        if (cstate <= -1.0f)
+            cstate = -1.0f;
+        ar_anim_previous_crank = torque;
+        div++;
+    }
+
+    // shifterseq, to amimate sequentiell shifting
+    if (ar_engine && (hydrobeam.hb_anim_flags & ANIM_FLAG_SHIFTER) && hydrobeam.hb_anim_param == 3.0f)
+    {
+
+        int shifter = ar_engine->getGear();
+        if (shifter > m_previous_gear)
+        {
+            cstate = 1.0f;
+            ar_anim_shift_timer = 0.2f;
+        }
+        if (shifter < m_previous_gear)
+        {
+            cstate = -1.0f;
+            ar_anim_shift_timer = -0.2f;
+        }
+        m_previous_gear = shifter;
+
+        if (ar_anim_shift_timer > 0.0f)
+        {
+            cstate = 1.0f;
+            ar_anim_shift_timer -= PHYSICS_DT;
+            if (ar_anim_shift_timer < 0.0f)
+                ar_anim_shift_timer = 0.0f;
+        }
+        if (ar_anim_shift_timer < 0.0f)
+        {
+            cstate = -1.0f;
+            ar_anim_shift_timer += PHYSICS_DT;
+            if (ar_anim_shift_timer > 0.0f)
+                ar_anim_shift_timer = 0.0f;
+        }
+
+        div++;
+    }
+
+    // shifterman1, left/right
+    if (ar_engine && (hydrobeam.hb_anim_flags & ANIM_FLAG_SHIFTER) && hydrobeam.hb_anim_param == 1.0f)
+    {
+        int shifter = ar_engine->getGear();
+        if (!shifter)
+        {
+            cstate = -0.5f;
+        }
+        else if (shifter < 0)
+        {
+            cstate = 1.0f;
+        }
+        else
+        {
+            cstate -= int((shifter - 1.0) / 2.0);
+        }
+        div++;
+    }
+
+    // shifterman2, up/down
+    if (ar_engine && (hydrobeam.hb_anim_flags & ANIM_FLAG_SHIFTER) && hydrobeam.hb_anim_param == 2.0f)
+    {
+        int shifter = ar_engine->getGear();
+        cstate = 0.5f;
+        if (shifter < 0)
+        {
+            cstate = 1.0f;
+        }
+        if (shifter > 0)
+        {
+            cstate = shifter % 2;
+        }
+        div++;
+    }
+
+    // shifterlinear, to amimate cockpit gearselect gauge and autotransmission stick
+    if (ar_engine && (hydrobeam.hb_anim_flags & ANIM_FLAG_SHIFTER) && hydrobeam.hb_anim_param == 4.0f)
+    {
+        int shifter = ar_engine->getGear();
+        int numgears = ar_engine->getNumGears();
+        cstate -= (shifter + 2.0) / (numgears + 2.0);
+        div++;
+    }
+
+    // parking brake
+    if (hydrobeam.hb_anim_flags & ANIM_FLAG_PBRAKE)
+    {
+        float pbrake = ar_parking_brake;
+        cstate -= pbrake;
+        div++;
+    }
+
+    // speedo ( scales with speedomax )
+    if (hydrobeam.hb_anim_flags & ANIM_FLAG_SPEEDO)
+    {
+        float speedo = ar_wheel_speed / ar_guisettings_speedo_max_kph;
+        cstate -= speedo * 3.0f;
+        div++;
+    }
+
+    // engine tacho ( scales with maxrpm, default is 3500 )
+    if (ar_engine && hydrobeam.hb_anim_flags & ANIM_FLAG_TACHO)
+    {
+        float tacho = ar_engine->getRPM() / ar_engine->getShiftUpRPM();
+        cstate -= tacho;
+        div++;
+    }
+
+    // turbo
+    if (ar_engine && hydrobeam.hb_anim_flags & ANIM_FLAG_TURBO)
+    {
+        float turbo = ar_engine->getTurboPSI() * 3.34;
+        cstate -= turbo / 67.0f;
+        div++;
+    }
+
+    // brake
+    if (hydrobeam.hb_anim_flags & ANIM_FLAG_BRAKE)
+    {
+        cstate -= ar_brake;
+        div++;
+    }
+
+    // accelerator
+    if (ar_engine && hydrobeam.hb_anim_flags & ANIM_FLAG_ACCEL)
+    {
+        float accel = ar_engine->getAcc();
+        cstate -= accel + 0.06f;
+        //( small correction, get acc is nver smaller then 0.06.
+        div++;
+    }
+
+    // clutch
+    if (ar_engine && hydrobeam.hb_anim_flags & ANIM_FLAG_CLUTCH)
+    {
+        float clutch = ar_engine->getClutch();
+        cstate -= fabs(1.0f - clutch);
+        div++;
+    }
+
+    // aeroengines (hb_anim_param is the engine index)
+    if ((int)hydrobeam.hb_anim_param < ar_num_aeroengines)
+    {
+        int aenum = (int)hydrobeam.hb_anim_param;
+        if (hydrobeam.hb_anim_flags & ANIM_FLAG_RPM)
+        {
+            float angle;
+            float pcent = ar_aeroengines[aenum]->getRPMpc();
+            if (pcent < 60.0)
+                angle = -5.0 + pcent * 1.9167;
+            else if (pcent < 110.0)
+                angle = 110.0 + (pcent - 60.0) * 4.075;
+            else
+                angle = 314.0;
+            cstate -= angle / 314.0f;
+            div++;
+        }
+        if (hydrobeam.hb_anim_flags & ANIM_FLAG_THROTTLE)
+        {
+            float throttle = ar_aeroengines[aenum]->getThrottle();
+            cstate -= throttle;
+            div++;
+        }
+
+        if (hydrobeam.hb_anim_flags & ANIM_FLAG_AETORQUE)
+            if (ar_aeroengines[aenum]->getType() == AeroEngineType::AE_XPROP)
+            {
+                Turboprop* tp = (Turboprop*)ar_aeroengines[aenum].GetRef();
+                cstate = (100.0 * tp->indicated_torque / tp->max_torque) / 120.0f;
+                div++;
+            }
+
+        if (hydrobeam.hb_anim_flags & ANIM_FLAG_AEPITCH)
+            if (ar_aeroengines[aenum]->getType() == AeroEngineType::AE_XPROP)
+            {
+                Turboprop* tp = (Turboprop*)ar_aeroengines[aenum].GetRef();
+                cstate = tp->pitch / 120.0f;
+                div++;
+            }
+
+        if (hydrobeam.hb_anim_flags & ANIM_FLAG_AESTATUS)
+        {
+            if (!ar_aeroengines[aenum]->getIgnition())
+                cstate = 0.0f;
+            else
+                cstate = 0.5f;
+            if (ar_aeroengines[aenum]->isFailed())
+                cstate = 1.0f;
+            div++;
+        }
+    }
+
+    // airspeed indicator
+    if (hydrobeam.hb_anim_flags & ANIM_FLAG_AIRSPEED)
+    {
+        float ground_speed_kt = ar_nodes[0].Velocity.length() * 1.9438;
+        float altitude = ar_nodes[0].AbsPosition.y;
+        float sea_level_pressure = 101325; //in Pa
+        float airpressure = sea_level_pressure * pow(1.0 - 0.0065 * altitude / 288.15, 5.24947); //in Pa
+        float airdensity = airpressure * 0.0000120896;//1.225 at sea level
+        float kt = ground_speed_kt * sqrt(airdensity / 1.225);
+        cstate -= kt / 100.0f;
+        div++;
+    }
+
+    // vvi indicator
+    if (hydrobeam.hb_anim_flags & ANIM_FLAG_VVI)
+    {
+        float vvi = ar_nodes[0].Velocity.y * 196.85;
+        // limit vvi scale to +/- 6m/s
+        cstate -= vvi / 6000.0f;
+        if (cstate >= 1.0f)
+            cstate = 1.0f;
+        if (cstate <= -1.0f)
+            cstate = -1.0f;
+        div++;
+    }
+
+    // altimeter
+    if (hydrobeam.hb_anim_flags & ANIM_FLAG_ALTIMETER)
+    {
+        //altimeter indicator 1k oscillating
+        if (hydrobeam.hb_anim_param == 3.0f)
+        {
+            float altimeter = (ar_nodes[0].AbsPosition.y * 1.1811) / 360.0f;
+            int alti_int = int(altimeter);
+            float alti_mod = (altimeter - alti_int);
+            cstate -= alti_mod;
+        }
+
+        //altimeter indicator 10k oscillating
+        if (hydrobeam.hb_anim_param == 2.0f)
+        {
+            float alti = ar_nodes[0].AbsPosition.y * 1.1811 / 3600.0f;
+            int alti_int = int(alti);
+            float alti_mod = (alti - alti_int);
+            cstate -= alti_mod;
+            if (cstate <= -1.0f)
+                cstate = -1.0f;
+        }
+
+        //altimeter indicator 100k limited
+        if (hydrobeam.hb_anim_param == 1.0f)
+        {
+            float alti = ar_nodes[0].AbsPosition.y * 1.1811 / 36000.0f;
+            cstate -= alti;
+            if (cstate <= -1.0f)
+                cstate = -1.0f;
+        }
+        div++;
+    }
+
+    // AOA
+    if (hydrobeam.hb_anim_flags & ANIM_FLAG_AOA)
+    {
+        float aoa = 0;
+        if (ar_num_wings > 4)
+            aoa = (ar_wings[4].fa->aoa) / 25.0f;
+        if ((ar_nodes[0].Velocity.length() * 1.9438) < 10.0f)
+            aoa = 0;
+        cstate -= aoa;
+        if (cstate <= -1.0f)
+            cstate = -1.0f;
+        if (cstate >= 1.0f)
+            cstate = 1.0f;
+        div++;
+    }
+
+    // roll
+    if (hydrobeam.hb_anim_flags & ANIM_FLAG_ROLL)
+    {
+        Vector3 rollv = this->GetCameraRoll();
+        Vector3 dirv = this->GetCameraDir();
+        Vector3 upv = dirv.crossProduct(-rollv);
+        float rollangle = asin(rollv.dotProduct(Vector3::UNIT_Y));
+        // rad to deg
+        rollangle = Math::RadiansToDegrees(rollangle);
+        // flip to other side when upside down
+        if (upv.y < 0)
+            rollangle = 180.0f - rollangle;
+        cstate = rollangle / 180.0f;
+        // data output is -0.5 to 1.5, normalize to -1 to +1 without changing the zero position.
+        // this is vital for the animator beams and does not effect the animated props
+        if (cstate >= 1.0f)
+            cstate = cstate - 2.0f;
+        div++;
+    }
+
+    // pitch
+    if (hydrobeam.hb_anim_flags & ANIM_FLAG_PITCH)
+    {
+        Vector3 dirv = this->GetCameraDir();
+        float pitchangle = asin(dirv.dotProduct(Vector3::UNIT_Y));
+        // radian to degrees with a max cstate of +/- 1.0
+        cstate = (Math::RadiansToDegrees(pitchangle) / 90.0f);
+        div++;
+    }
+
+    // airbrake
+    if (hydrobeam.hb_anim_flags & ANIM_FLAG_AIRBRAKE)
+    {
+        float airbrake = ar_airbrake_intensity;
+        // cstate limited to -1.0f
+        cstate -= airbrake / 5.0f;
+        div++;
+    }
+
+    // flaps
+    if (hydrobeam.hb_anim_flags & ANIM_FLAG_FLAP)
+    {
+        float flaps = FLAP_ANGLES[ar_aerial_flap];
+        // cstate limited to -1.0f
+        cstate = flaps;
+        div++;
+    }
+}
+
+void Actor::CalcCabCollisions()
+{
+    for (int i = 0; i < ar_num_nodes; i++)
+    {
+        ar_nodes[i].nd_has_mesh_contact = false;
+    }
+    if (m_intra_point_col_detector != nullptr)
+    {
+        m_intra_point_col_detector->UpdateIntraPoint();
+        ResolveIntraActorCollisions(PHYSICS_DT,
+            *m_intra_point_col_detector,
+            ar_num_collcabs,
+            ar_collcabs,
+            ar_cabs,
+            ar_intra_collcabrate,
+            ar_nodes,
+            ar_collision_range,
+            *ar_submesh_ground_model);
+    }
+}
+
+void Actor::CalcShocks2(int i, Real difftoBeamL, Real& k, Real& d, Real v)
+{
+    if (v > 0) // Extension
+    {
+        k = ar_beams[i].shock->springout;
+        d = ar_beams[i].shock->dampout;
+        // add progression
+        float logafactor = 1.0f;
+        if (ar_beams[i].longbound != 0.0f)
+        {
+            logafactor = difftoBeamL / (ar_beams[i].longbound * ar_beams[i].L);
+            logafactor = std::min(logafactor * logafactor, 1.0f);
+        }
+        k += ar_beams[i].shock->sprogout * k * logafactor;
+        d += ar_beams[i].shock->dprogout * d * logafactor;
+    }
+    else // Compression
+    {
+        k = ar_beams[i].shock->springin;
+        d = ar_beams[i].shock->dampin;
+        // add progression
+        float logafactor = 1.0f;
+        if (ar_beams[i].shortbound != 0.0f)
+        {
+            logafactor = difftoBeamL / (ar_beams[i].shortbound * ar_beams[i].L);
+            logafactor = std::min(logafactor * logafactor, 1.0f);
+        }
+        k += ar_beams[i].shock->sprogin * k * logafactor;
+        d += ar_beams[i].shock->dprogin * d * logafactor;
+    }
+    if (ar_beams[i].shock->flags & SHOCK_FLAG_SOFTBUMP)
+    {
+        // soft bump shocks
+        float beamsLep = ar_beams[i].L * 0.8f;
+        float longboundprelimit = ar_beams[i].longbound * beamsLep;
+        float shortboundprelimit = -ar_beams[i].shortbound * beamsLep;
+        if (difftoBeamL > longboundprelimit)
+        {
+            // reset to longbound progressive values (oscillating beam workaround)
+            k = ar_beams[i].shock->springout;
+            d = ar_beams[i].shock->dampout;
+            // add progression
+            float logafactor = 1.0f;
+            if (ar_beams[i].longbound != 0.0f)
+            {
+                logafactor = difftoBeamL / (ar_beams[i].longbound * ar_beams[i].L);
+                logafactor = std::min(logafactor * logafactor, 1.0f);
+            }
+            k += ar_beams[i].shock->sprogout * k * logafactor;
+            d += ar_beams[i].shock->dprogout * d * logafactor;
+            // add shortbump progression
+            logafactor = 1.0f;
+            if (ar_beams[i].longbound != 0.0f)
+            {
+                logafactor = ((difftoBeamL - longboundprelimit) * 5.0f) / (ar_beams[i].longbound * ar_beams[i].L);
+                logafactor = std::min(logafactor * logafactor, 1.0f);
+            }
+            k += (k + 100.0f) * ar_beams[i].shock->sprogout * logafactor;
+            d += (d + 100.0f) * ar_beams[i].shock->dprogout * logafactor;
+            if (v < 0)
+            // rebound mode..get new values
+            {
+                k = ar_beams[i].shock->springin;
+                d = ar_beams[i].shock->dampin;
+            }
+        }
+        else if (difftoBeamL < shortboundprelimit)
+        {
+            // reset to shortbound progressive values (oscillating beam workaround)
+            k = ar_beams[i].shock->springin;
+            d = ar_beams[i].shock->dampin;
+            // add progression
+            float logafactor = 1.0f;
+            if (ar_beams[i].shortbound != 0.0f)
+            {
+                logafactor = difftoBeamL / (ar_beams[i].shortbound * ar_beams[i].L);
+                logafactor = std::min(logafactor * logafactor, 1.0f);
+            }
+            k += ar_beams[i].shock->sprogin * k * logafactor;
+            d += ar_beams[i].shock->dprogin * d * logafactor;
+            // add shortbump progression
+            logafactor = 1.0f;
+            if (ar_beams[i].shortbound != 0.0f)
+            {
+                logafactor = ((difftoBeamL - shortboundprelimit) * 5.0f) / (ar_beams[i].shortbound * ar_beams[i].L);
+                logafactor = std::min(logafactor * logafactor, 1.0f);
+            }
+            k += (k + 100.0f) * ar_beams[i].shock->sprogout * logafactor;
+            d += (d + 100.0f) * ar_beams[i].shock->dprogout * logafactor;
+            if (v > 0)
+            // rebound mode..get new values
+            {
+                k = ar_beams[i].shock->springout;
+                d = ar_beams[i].shock->dampout;
+            }
+        }
+        if (difftoBeamL > ar_beams[i].longbound * ar_beams[i].L || difftoBeamL < -ar_beams[i].shortbound * ar_beams[i].L)
+        {
+            // block reached...hard bump in soft mode with 4x default damping
+            k = std::max(k, ar_beams[i].shock->sbd_spring);
+            d = std::max(d, ar_beams[i].shock->sbd_damp);
+        }
+    }
+    else if (difftoBeamL > ar_beams[i].longbound * ar_beams[i].L || difftoBeamL < -ar_beams[i].shortbound * ar_beams[i].L)
+    {
+        // hard (normal) shock bump
+        k = ar_beams[i].shock->sbd_spring;
+        d = ar_beams[i].shock->sbd_damp;
+    }
+}
+
+void Actor::CalcShocks3(int i, Real difftoBeamL, Real &k, Real& d, Real v)
+{
+    if (difftoBeamL > ar_beams[i].longbound * ar_beams[i].L)
+    {
+        float interp_ratio =  difftoBeamL - ar_beams[i].longbound  * ar_beams[i].L;
+        k += (ar_beams[i].shock->sbd_spring - k) * interp_ratio;
+        d += (ar_beams[i].shock->sbd_damp   - d) * interp_ratio;
+    }
+    else if (difftoBeamL < -ar_beams[i].shortbound * ar_beams[i].L)
+    {
+        float interp_ratio = -difftoBeamL - ar_beams[i].shortbound * ar_beams[i].L;
+        k += (ar_beams[i].shock->sbd_spring - k) * interp_ratio;
+        d += (ar_beams[i].shock->sbd_damp   - d) * interp_ratio;
+    }
+    else if (v > 0) // Extension
+    {
+        v = Math::Clamp(std::abs(v), +0.15f, +20.0f);
+        k = ar_beams[i].shock->springout;
+        d = ar_beams[i].shock->dampout * ar_beams[i].shock->dslowout * std::min(v,        ar_beams[i].shock->splitout) +
+            ar_beams[i].shock->dampout * ar_beams[i].shock->dfastout * std::max(0.0f, v - ar_beams[i].shock->splitout);
+        d /= v;
+    }
+    else if (v < 0) // Compression
+    {
+        v = Math::Clamp(std::abs(v), +0.15f, +20.0f);
+        k = ar_beams[i].shock->springin;
+        d = ar_beams[i].shock->dampin  * ar_beams[i].shock->dslowin  * std::min(v,        ar_beams[i].shock->splitin ) +
+            ar_beams[i].shock->dampin  * ar_beams[i].shock->dfastin  * std::max(0.0f, v - ar_beams[i].shock->splitin );
+        d /= v;
+    }
+}
+
+void Actor::CalcTriggers(int i, Real difftoBeamL, bool trigger_hooks)
+{
+    if ((ar_beams[i].shock->flags & SHOCK_FLAG_ISTRIGGER) && ar_beams[i].shock->trigger_enabled) // this is a trigger and its enabled
+    {
+        const float dt = PHYSICS_DT;
+
+        if (difftoBeamL > ar_beams[i].longbound * ar_beams[i].L || difftoBeamL < -ar_beams[i].shortbound * ar_beams[i].L) // that has hit boundary
+        {
+            ar_beams[i].shock->trigger_switch_state -= dt;
+            if (ar_beams[i].shock->trigger_switch_state <= 0.0f) // emergency release for dead-switched trigger
+                ar_beams[i].shock->trigger_switch_state = 0.0f;
+            if (ar_beams[i].shock->flags & SHOCK_FLAG_TRG_BLOCKER) // this is an enabled blocker and past boundary
+            {
+                for (int scount = i + 1; scount <= i + ar_beams[i].shock->trigger_cmdshort; scount++) // (cycle blockerbeamID +1) to (blockerbeamID + beams to lock)
+                {
+                    if (ar_beams[scount].shock && (ar_beams[scount].shock->flags & SHOCK_FLAG_ISTRIGGER)) // don't mess anything up if the user set the number too big
+                    {
+                        if (m_trigger_debug_enabled && !ar_beams[scount].shock->trigger_enabled && ar_beams[i].shock->last_debug_state != 1)
+                        {
+                            LOG(" Trigger disabled. Blocker BeamID " + TOSTRING(i) + " enabled trigger " + TOSTRING(scount));
+                            ar_beams[i].shock->last_debug_state = 1;
+                        }
+                        ar_beams[scount].shock->trigger_enabled = false; // disable the trigger
+                    }
+                }
+            }
+            else if (ar_beams[i].shock->flags & SHOCK_FLAG_TRG_BLOCKER_A) // this is an enabled inverted blocker and inside boundary
+            {
+                for (int scount = i + 1; scount <= i + ar_beams[i].shock->trigger_cmdlong; scount++) // (cycle blockerbeamID + 1) to (blockerbeamID + beams to release)
+                {
+                    if (ar_beams[scount].shock && (ar_beams[scount].shock->flags & SHOCK_FLAG_ISTRIGGER)) // don't mess anything up if the user set the number too big
+                    {
+                        if (m_trigger_debug_enabled && ar_beams[scount].shock->trigger_enabled && ar_beams[i].shock->last_debug_state != 9)
+                        {
+                            LOG(" Trigger enabled. Inverted Blocker BeamID " + TOSTRING(i) + " disabled trigger " + TOSTRING(scount));
+                            ar_beams[i].shock->last_debug_state = 9;
+                        }
+                        ar_beams[scount].shock->trigger_enabled = true; // enable the triggers
+                    }
+                }
+            }
+            else if (ar_beams[i].shock->flags & SHOCK_FLAG_TRG_CMD_BLOCKER) // this an enabled cmd-key-blocker and past a boundary
+            {
+                ar_command_key[ar_beams[i].shock->trigger_cmdshort].trigger_cmdkeyblock_state = false; // Release the cmdKey
+                if (m_trigger_debug_enabled && ar_beams[i].shock->last_debug_state != 2)
+                {
+                    LOG(" F-key trigger block released. Blocker BeamID " + TOSTRING(i) + " Released F" + TOSTRING(ar_beams[i].shock->trigger_cmdshort));
+                    ar_beams[i].shock->last_debug_state = 2;
+                }
+            }
+            else if (ar_beams[i].shock->flags & SHOCK_FLAG_TRG_CMD_SWITCH) // this is an enabled cmdkey switch and past a boundary
+            {
+                if (!ar_beams[i].shock->trigger_switch_state)// this switch is triggered first time in this boundary
+                {
+                    for (int scount = 0; scount < ar_num_shocks; scount++)
+                    {
+                        int short1 = ar_beams[ar_shocks[scount].beamid].shock->trigger_cmdshort; // cmdshort of checked trigger beam
+                        int short2 = ar_beams[i].shock->trigger_cmdshort; // cmdshort of switch beam
+                        int long1 = ar_beams[ar_shocks[scount].beamid].shock->trigger_cmdlong; // cmdlong of checked trigger beam
+                        int long2 = ar_beams[i].shock->trigger_cmdlong; // cmdlong of switch beam
+                        int tmpi = ar_beams[ar_shocks[scount].beamid].shock->beamid; // beamID global of checked trigger beam
+                        if (((short1 == short2 && long1 == long2) || (short1 == long2 && long1 == short2)) && i != tmpi) // found both command triggers then swap if its not the switching trigger
+                        {
+                            int tmpcmdkey = ar_beams[ar_shocks[scount].beamid].shock->trigger_cmdlong;
+                            ar_beams[ar_shocks[scount].beamid].shock->trigger_cmdlong = ar_beams[ar_shocks[scount].beamid].shock->trigger_cmdshort;
+                            ar_beams[ar_shocks[scount].beamid].shock->trigger_cmdshort = tmpcmdkey;
+                            ar_beams[i].shock->trigger_switch_state = ar_beams[i].shock->trigger_boundary_t; //prevent trigger switching again before leaving boundaries or timeout
+                            if (m_trigger_debug_enabled && ar_beams[i].shock->last_debug_state != 3)
+                            {
+                                LOG(" Trigger F-key commands switched. Switch BeamID " + TOSTRING(i)+ " switched commands of Trigger BeamID " + TOSTRING(ar_beams[ar_shocks[scount].beamid].shock->beamid) + " to cmdShort: F" + TOSTRING(ar_beams[ar_shocks[scount].beamid].shock->trigger_cmdshort) + ", cmdlong: F" + TOSTRING(ar_beams[ar_shocks[scount].beamid].shock->trigger_cmdlong));
+                                ar_beams[i].shock->last_debug_state = 3;
+                            }
+                        }
+                    }
+                }
+            }
+            else
+            { // just a trigger, check high/low boundary and set action
+                if (difftoBeamL > ar_beams[i].longbound * ar_beams[i].L) // trigger past longbound
+                {
+                    if (ar_beams[i].shock->flags & SHOCK_FLAG_TRG_HOOK_UNLOCK)
+                    {
+                        if (trigger_hooks)
+                        {
+                            //autolock hooktoggle unlock
+                            //hookToggle(ar_beams[i].shock->trigger_cmdlong, HOOK_UNLOCK, NODENUM_INVALID);
+                            ActorLinkingRequest* rq = new ActorLinkingRequest();
+                            rq->alr_type = ActorLinkingRequestType::HOOK_UNLOCK;
+                            rq->alr_actor_instance_id = ar_instance_id;
+                            rq->alr_hook_group = ar_beams[i].shock->trigger_cmdlong;
+                            App::GetGameContext()->PushMessage(Message(MSG_SIM_ACTOR_LINKING_REQUESTED, rq));
+                        }
+                    }
+                    else if (ar_beams[i].shock->flags & SHOCK_FLAG_TRG_HOOK_LOCK)
+                    {
+                        if (trigger_hooks)
+                        {
+                            //autolock hooktoggle lock
+                            //hookToggle(ar_beams[i].shock->trigger_cmdlong, HOOK_LOCK, NODENUM_INVALID);
+                            ActorLinkingRequest* rq = new ActorLinkingRequest();
+                            rq->alr_type = ActorLinkingRequestType::HOOK_LOCK;
+                            rq->alr_actor_instance_id = ar_instance_id;
+                            rq->alr_hook_group = ar_beams[i].shock->trigger_cmdlong;
+                            App::GetGameContext()->PushMessage(Message(MSG_SIM_ACTOR_LINKING_REQUESTED, rq));
+                        }
+                    }
+                    else if (ar_beams[i].shock->flags & SHOCK_FLAG_TRG_ENGINE)
+                    {
+                        engineTriggerHelper(ar_beams[i].shock->trigger_cmdshort, EngineTriggerType(ar_beams[i].shock->trigger_cmdlong), 1.0f);
+                    }
+                    else
+                    {
+                        //just a trigger
+                        if (!ar_command_key[ar_beams[i].shock->trigger_cmdlong].trigger_cmdkeyblock_state) // related cmdkey is not blocked
+                        {
+                            if (ar_beams[i].shock->flags & SHOCK_FLAG_TRG_CONTINUOUS)
+                                ar_command_key[ar_beams[i].shock->trigger_cmdshort].triggerInputValue = 1; // continuous trigger only operates on trigger_cmdshort
+                            else
+                                ar_command_key[ar_beams[i].shock->trigger_cmdlong].triggerInputValue = 1;
+                            if (m_trigger_debug_enabled && ar_beams[i].shock->last_debug_state != 4)
+                            {
+                                LOG(" Trigger Longbound activated. Trigger BeamID " + TOSTRING(i) + " Triggered F" + TOSTRING(ar_beams[i].shock->trigger_cmdlong));
+                                ar_beams[i].shock->last_debug_state = 4;
+                            }
+                        }
+                    }
+                }
+                else // trigger past short bound
+                {
+                    if (ar_beams[i].shock->flags & SHOCK_FLAG_TRG_HOOK_UNLOCK)
+                    {
+                        if (trigger_hooks)
+                        {
+                            //autolock hooktoggle unlock
+                            //hookToggle(ar_beams[i].shock->trigger_cmdshort, HOOK_UNLOCK, NODENUM_INVALID);
+                            ActorLinkingRequest* rq = new ActorLinkingRequest();
+                            rq->alr_type = ActorLinkingRequestType::HOOK_UNLOCK;
+                            rq->alr_actor_instance_id = ar_instance_id;
+                            rq->alr_hook_group = ar_beams[i].shock->trigger_cmdshort;
+                            App::GetGameContext()->PushMessage(Message(MSG_SIM_ACTOR_LINKING_REQUESTED, rq));
+                        }
+                    }
+                    else if (ar_beams[i].shock->flags & SHOCK_FLAG_TRG_HOOK_LOCK)
+                    {
+                        if (trigger_hooks)
+                        {
+                            //autolock hooktoggle lock
+                            //hookToggle(ar_beams[i].shock->trigger_cmdshort, HOOK_LOCK, NODENUM_INVALID);
+                            ActorLinkingRequest* rq = new ActorLinkingRequest();
+                            rq->alr_type = ActorLinkingRequestType::HOOK_LOCK;
+                            rq->alr_actor_instance_id = ar_instance_id;
+                            rq->alr_hook_group = ar_beams[i].shock->trigger_cmdshort;
+                            App::GetGameContext()->PushMessage(Message(MSG_SIM_ACTOR_LINKING_REQUESTED, rq));
+                        }
+                    }
+                    else if (ar_beams[i].shock->flags & SHOCK_FLAG_TRG_ENGINE)
+                    {
+                        bool triggerValue = !(ar_beams[i].shock->flags & SHOCK_FLAG_TRG_CONTINUOUS); // 0 if trigger is continuous, 1 otherwise
+
+                        engineTriggerHelper(ar_beams[i].shock->trigger_cmdshort, EngineTriggerType(ar_beams[i].shock->trigger_cmdlong), triggerValue);
+                    }
+                    else
+                    {
+                        //just a trigger
+                        if (!ar_command_key[ar_beams[i].shock->trigger_cmdshort].trigger_cmdkeyblock_state) // related cmdkey is not blocked
+                        {
+                            if (ar_beams[i].shock->flags & SHOCK_FLAG_TRG_CONTINUOUS)
+                                ar_command_key[ar_beams[i].shock->trigger_cmdshort].triggerInputValue = 0; // continuous trigger only operates on trigger_cmdshort
+                            else
+                                ar_command_key[ar_beams[i].shock->trigger_cmdshort].triggerInputValue = 1;
+
+                            if (m_trigger_debug_enabled && ar_beams[i].shock->last_debug_state != 5)
+                            {
+                                LOG(" Trigger Shortbound activated. Trigger BeamID " + TOSTRING(i) + " Triggered F" + TOSTRING(ar_beams[i].shock->trigger_cmdshort));
+                                ar_beams[i].shock->last_debug_state = 5;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        else // this is a trigger inside boundaries and its enabled
+        {
+            if (ar_beams[i].shock->flags & SHOCK_FLAG_TRG_CONTINUOUS) // this is an enabled continuous trigger
+            {
+                if (ar_beams[i].longbound - ar_beams[i].shortbound > 0.0f)
+                {
+                    float diffPercentage = difftoBeamL / ar_beams[i].L;
+                    float triggerValue = (diffPercentage - ar_beams[i].shortbound) / (ar_beams[i].longbound - ar_beams[i].shortbound);
+
+                    triggerValue = std::max(0.0f, triggerValue);
+                    triggerValue = std::min(triggerValue, 1.0f);
+
+                    if (ar_beams[i].shock->flags & SHOCK_FLAG_TRG_ENGINE) // this trigger controls an engine
+                    {
+                        engineTriggerHelper(ar_beams[i].shock->trigger_cmdshort, EngineTriggerType(ar_beams[i].shock->trigger_cmdlong), triggerValue);
+                    }
+                    else
+                    {
+                        // normal trigger
+                        ar_command_key[ar_beams[i].shock->trigger_cmdshort].triggerInputValue = triggerValue;
+                        ar_command_key[ar_beams[i].shock->trigger_cmdlong].triggerInputValue = triggerValue;
+                    }
+                }
+            }
+            else if (ar_beams[i].shock->flags & SHOCK_FLAG_TRG_BLOCKER) // this is an enabled blocker and inside boundary
+            {
+                for (int scount = i + 1; scount <= i + ar_beams[i].shock->trigger_cmdlong; scount++) // (cycle blockerbeamID + 1) to (blockerbeamID + beams to release)
+                {
+                    if (ar_beams[scount].shock && (ar_beams[scount].shock->flags & SHOCK_FLAG_ISTRIGGER)) // don't mess anything up if the user set the number too big
+                    {
+                        if (m_trigger_debug_enabled && ar_beams[scount].shock->trigger_enabled && ar_beams[i].shock->last_debug_state != 6)
+                        {
+                            LOG(" Trigger enabled. Blocker BeamID " + TOSTRING(i) + " disabled trigger " + TOSTRING(scount));
+                            ar_beams[i].shock->last_debug_state = 6;
+                        }
+                        ar_beams[scount].shock->trigger_enabled = true; // enable the triggers
+                    }
+                }
+            }
+            else if (ar_beams[i].shock->flags & SHOCK_FLAG_TRG_BLOCKER_A) // this is an enabled reverse blocker and past boundary
+            {
+                for (int scount = i + 1; scount <= i + ar_beams[i].shock->trigger_cmdshort; scount++) // (cylce blockerbeamID +1) to (blockerbeamID + beams tob lock)
+                {
+                    if (ar_beams[scount].shock && (ar_beams[scount].shock->flags & SHOCK_FLAG_ISTRIGGER)) // dont mess anything up if the user set the number too big
+                    {
+                        if (m_trigger_debug_enabled && !ar_beams[scount].shock->trigger_enabled && ar_beams[i].shock->last_debug_state != 10)
+                        {
+                            LOG(" Trigger disabled. Inverted Blocker BeamID " + TOSTRING(i) + " enabled trigger " + TOSTRING(scount));
+                            ar_beams[i].shock->last_debug_state = 10;
+                        }
+                        ar_beams[scount].shock->trigger_enabled = false; // disable the trigger
+                    }
+                }
+            }
+            else if ((ar_beams[i].shock->flags & SHOCK_FLAG_TRG_CMD_SWITCH) && ar_beams[i].shock->trigger_switch_state) // this is a switch that was activated and is back inside boundaries again
+            {
+                ar_beams[i].shock->trigger_switch_state = 0.0f; //trigger_switch reset
+                if (m_trigger_debug_enabled && ar_beams[i].shock->last_debug_state != 7)
+                {
+                    LOG(" Trigger switch reset. Switch BeamID " + TOSTRING(i));
+                    ar_beams[i].shock->last_debug_state = 7;
+                }
+            }
+            else if ((ar_beams[i].shock->flags & SHOCK_FLAG_TRG_CMD_BLOCKER) && !ar_command_key[ar_beams[i].shock->trigger_cmdshort].trigger_cmdkeyblock_state) // this cmdkeyblocker is inside boundaries and cmdkeystate is diabled
+            {
+                ar_command_key[ar_beams[i].shock->trigger_cmdshort].trigger_cmdkeyblock_state = true; // activate trigger blocking
+                if (m_trigger_debug_enabled && ar_beams[i].shock->last_debug_state != 8)
+                {
+                    LOG(" F-key trigger blocked. Blocker BeamID " + TOSTRING(i) + " Blocked F" + TOSTRING(ar_beams[i].shock->trigger_cmdshort));
+                    ar_beams[i].shock->last_debug_state = 8;
+                }
+            }
+        }
+    }
+}
+
+void Actor::setAirbrakeIntensity(float intensity)
+{
+    if (intensity > 5)
+        intensity = 5;
+    else if (intensity < 0)
+        intensity = 0;
+
+    ar_airbrake_intensity = intensity;
+    for (Airbrake* ab: ar_airbrakes)
+    {
+        ab->updatePosition((float)ar_airbrake_intensity / 5.0);
+    }
+}
+
+void Actor::setAircraftFlaps(int flapsLevel)
+{
+    if (flapsLevel > 5)
+        flapsLevel = 5;
+    else if (flapsLevel < 0)
+        flapsLevel = 0;
+
+    ar_aerial_flap = flapsLevel;
+}
+
+// call this once per frame in order to update the skidmarks
+void Actor::updateSkidmarks()
+{
+    for (int i = 0; i < ar_num_wheels; i++)
+    {
+        if (!m_skid_trails[i])
+            continue;
+
+        for (int j = 0; j < ar_wheels[i].wh_num_nodes; j++)
+        {
+            auto n = ar_wheels[i].wh_nodes[j];
+            if (!n || !n->nd_has_ground_contact || n->nd_last_collision_gm == nullptr ||
+                    n->nd_last_collision_gm->fx_type != Collisions::FX_HARD)
+            {
+                continue;
+            }
+            if (n->nd_avg_collision_slip > 6.f && n->nd_last_collision_slip.squaredLength() > 9.f)
+            {
+                m_skid_trails[i]->update(n->AbsPosition, j, n->nd_avg_collision_slip, n->nd_last_collision_gm->name);
+                return;
+            }
+        }
+    }
+}
+
+void Actor::prepareInside(bool inside)
+{
+    // TODO: this whole function belongs to GfxActor ~ 08/2018
+    if (inside)
+    {
+        App::GetCameraManager()->GetCamera()->setNearClipDistance(0.1f);
+
+        // enable transparent seat
+        MaterialPtr seatmat = (MaterialPtr)(MaterialManager::getSingleton().getByName("driversseat"));
+        seatmat->setDepthWriteEnabled(false);
+        seatmat->setSceneBlending(SBT_TRANSPARENT_ALPHA);
+    }
+    else
+    {
+        if (ar_dashboard)
+        {
+            ar_dashboard->setVisible(false);
+        }
+
+        App::GetCameraManager()->GetCamera()->setNearClipDistance(0.5f);
+
+        // disable transparent seat
+        MaterialPtr seatmat = (MaterialPtr)(MaterialManager::getSingleton().getByName("driversseat"));
+        seatmat->setDepthWriteEnabled(true);
+        seatmat->setSceneBlending(SBT_REPLACE);
+    }
+
+  // TEMPORARY - until this function is moved to GfxActor ~ 08/2018
+  //  if (m_cab_scene_node != nullptr)
+  //  {
+  //      m_gfx_actor->GetCabTransMaterial()->setReceiveShadows(!inside);
+  //  }
+
+    if (App::gfx_reduce_shadows->getBool())
+    {
+        m_gfx_actor->SetCastShadows(!inside);
+    }
+}
+
+void Actor::toggleHeadlights()
+{
+    // export light command
+    ActorPtr player_actor = App::GetGameContext()->GetPlayerActor();
+    if (ar_state == ActorState::LOCAL_SIMULATED && this == player_actor.GetRef() && ar_forward_commands)
+    {
+        for (ActorPtr& actor : App::GetGameContext()->GetActorManager()->GetActors())
+        {
+            if (actor->ar_state == ActorState::LOCAL_SIMULATED && this != actor.GetRef() && actor->ar_import_commands)
+                actor->toggleHeadlights();
+        }
+    }
+
+    // flip the flag
+    BITMASK_SET(m_lightmask, RoRnet::LIGHTMASK_HEADLIGHT, !this->getHeadlightsVisible());
+
+    // sync cab light state
+    m_gfx_actor->SetCabLightsActive(this->getHeadlightsVisible());
+
+    TRIGGER_EVENT_ASYNC(SE_TRUCK_LIGHT_TOGGLE, ar_instance_id);
+}
+
+void Actor::forceAllFlaresOff()
+{
+    for (size_t i = 0; i < ar_flares.size(); i++)
+    {
+        ar_flares[i].snode->setVisible(false);
+    }
+}
+
+void Actor::updateFlareStates(float dt)
+{
+    if (m_flares_mode == GfxFlaresMode::NONE) { return; }
+
+    for (size_t i = 0; i < this->ar_flares.size(); i++)
+    {
+        // let the light blink
+        if (ar_flares[i].blinkdelay != 0)
+        {
+            ar_flares[i].blinkdelay_curr -= dt;
+            if (ar_flares[i].blinkdelay_curr <= 0)
+            {
+                ar_flares[i].blinkdelay_curr = ar_flares[i].blinkdelay;
+                ar_flares[i].blinkdelay_state = !ar_flares[i].blinkdelay_state;
+            }
+        }
+        else
+        {
+            ar_flares[i].blinkdelay_state = true;
+        }
+
+        // manage light states
+        bool isvisible = false;
+        switch (ar_flares[i].fl_type)
+        {
+        case FlareType::HEADLIGHT: isvisible = (m_lightmask & RoRnet::LIGHTMASK_HEADLIGHT); break;
+        case FlareType::HIGH_BEAM: isvisible = (m_lightmask & RoRnet::LIGHTMASK_HIGHBEAMS); break;
+        case FlareType::FOG_LIGHT: isvisible = (m_lightmask & RoRnet::LIGHTMASK_FOGLIGHTS); break;
+        case FlareType::SIDELIGHT: isvisible = (m_lightmask & RoRnet::LIGHTMASK_SIDELIGHTS); break;
+        case FlareType::TAIL_LIGHT: isvisible = (m_lightmask & RoRnet::LIGHTMASK_HEADLIGHT); break;
+        case FlareType::BRAKE_LIGHT: isvisible = (m_lightmask & RoRnet::LIGHTMASK_BRAKES); break;
+        case FlareType::REVERSE_LIGHT: isvisible = (m_lightmask & RoRnet::LIGHTMASK_REVERSE); break;
+        case FlareType::BLINKER_LEFT: isvisible = (m_lightmask & RoRnet::LIGHTMASK_BLINK_LEFT || m_lightmask & RoRnet::LIGHTMASK_BLINK_WARN); break;
+        case FlareType::BLINKER_RIGHT: isvisible = (m_lightmask & RoRnet::LIGHTMASK_BLINK_RIGHT || m_lightmask & RoRnet::LIGHTMASK_BLINK_WARN); break;
+        case FlareType::DASHBOARD: isvisible = ar_dashboard->_getBool(ar_flares[i].dashboard_link); break;
+        case FlareType::USER: isvisible = this->getCustomLightVisible(ar_flares[i].controlnumber); break;
+        }
+
+        // apply blinking
+        isvisible = isvisible && ar_flares[i].blinkdelay_state;
+
+        // update turn signal state
+        switch (ar_flares[i].fl_type)
+        {
+            case FlareType::BLINKER_LEFT: m_blinker_left_lit = isvisible; break;
+            case FlareType::BLINKER_RIGHT: m_blinker_right_lit = isvisible; break;
+            default:;
+        }
+
+        // update light intensity
+        if (ar_flares[i].uses_inertia)
+        {
+            ar_flares[i].intensity = ar_flares[i].inertia.CalcSimpleDelay(isvisible, dt);
+        }
+        else
+        {
+            ar_flares[i].intensity = (float)isvisible;
+        }
+    }
+}
+
+void Actor::toggleBlinkType(BlinkType blink)
+{
+    if (this->getBlinkType() == blink)
+        setBlinkType(BLINK_NONE);
+    else
+        setBlinkType(blink);
+}
+
+void Actor::setBlinkType(BlinkType blink)
+{
+    if (ar_state == ActorState::DISPOSED)
+        return;
+
+    switch (blink)
+    {
+    case BlinkType::BLINK_LEFT:
+        BITMASK_SET_1(m_lightmask, RoRnet::LIGHTMASK_BLINK_LEFT);
+        BITMASK_SET_0(m_lightmask, RoRnet::LIGHTMASK_BLINK_RIGHT);
+        BITMASK_SET_0(m_lightmask, RoRnet::LIGHTMASK_BLINK_WARN);
+        SOUND_START(ar_instance_id, SS_TRIG_TURN_SIGNAL);
+        break;
+    case BlinkType::BLINK_RIGHT:
+        BITMASK_SET_0(m_lightmask, RoRnet::LIGHTMASK_BLINK_LEFT);
+        BITMASK_SET_1(m_lightmask, RoRnet::LIGHTMASK_BLINK_RIGHT);
+        BITMASK_SET_0(m_lightmask, RoRnet::LIGHTMASK_BLINK_WARN);
+        SOUND_START(ar_instance_id, SS_TRIG_TURN_SIGNAL);
+        break;
+    case BlinkType::BLINK_WARN:
+        BITMASK_SET_0(m_lightmask, RoRnet::LIGHTMASK_BLINK_LEFT);
+        BITMASK_SET_0(m_lightmask, RoRnet::LIGHTMASK_BLINK_RIGHT);
+        BITMASK_SET_1(m_lightmask, RoRnet::LIGHTMASK_BLINK_WARN);
+        SOUND_START(ar_instance_id, SS_TRIG_TURN_SIGNAL);
+        break;
+    case BlinkType::BLINK_NONE:
+        BITMASK_SET_0(m_lightmask, RoRnet::LIGHTMASK_BLINK_LEFT);
+        BITMASK_SET_0(m_lightmask, RoRnet::LIGHTMASK_BLINK_RIGHT);
+        BITMASK_SET_0(m_lightmask, RoRnet::LIGHTMASK_BLINK_WARN);
+        SOUND_STOP(ar_instance_id, SS_TRIG_TURN_SIGNAL);
+        break;
+    }
+}
+
+void Actor::autoBlinkReset()
+{
+    // TODO: make this set-able per actor
+    const float blink_lock_range = App::io_blink_lock_range->getFloat();
+
+    if (this->getBlinkType() == BLINK_LEFT && ar_hydro_dir_state < -blink_lock_range)
+    {
+        // passed the threshold: the turn signal gets locked
+        m_blinker_autoreset = true;
+    }
+
+    if (this->getBlinkType() == BLINK_LEFT && m_blinker_autoreset && ar_hydro_dir_state > -blink_lock_range)
+    {
+        // steering wheel turned back: turn signal gets automatically unlocked
+        setBlinkType(BLINK_NONE);
+        m_blinker_autoreset = false;
+    }
+
+    // same for the right turn signal
+    if (this->getBlinkType() == BLINK_RIGHT && ar_hydro_dir_state > blink_lock_range)
+        m_blinker_autoreset = true;
+
+    if (this->getBlinkType() == BLINK_RIGHT && m_blinker_autoreset && ar_hydro_dir_state < blink_lock_range)
+    {
+        setBlinkType(BLINK_NONE);
+        m_blinker_autoreset = false;
+    }
+}
+
+void Actor::setLightStateMask(BitMask_t lightmask)
+{
+    using namespace RoRnet;
+
+    // Perform any special toggling logic where needed.
+    if ((m_lightmask & LIGHTMASK_HEADLIGHT) != (lightmask & LIGHTMASK_HEADLIGHT))
+        this->toggleHeadlights();
+    if ((m_lightmask & LIGHTMASK_BEACONS) != (lightmask & LIGHTMASK_BEACONS))
+        this->beaconsToggle();
+
+    BlinkType btype = BLINK_NONE;
+    if ((lightmask & LIGHTMASK_BLINK_LEFT) != 0)
+        btype = BLINK_LEFT;
+    else if ((lightmask & LIGHTMASK_BLINK_RIGHT) != 0)
+        btype = BLINK_RIGHT;
+    else if ((lightmask & LIGHTMASK_BLINK_WARN) != 0)
+        btype = BLINK_WARN;
+    this->setBlinkType(btype);
+
+    // Update all lights at once (this overwrites the toggled lights with the same value, so it's harmless).
+    m_lightmask = lightmask;
+}
+
+void Actor::importLightStateMask(BitMask_t lightmask)
+{
+    // Override incoming '0' bits where "no import" is set.
+    BITMASK_SET_1(lightmask, m_lightmask & m_flaregroups_no_import);
+    // Override incoming '1' bits where "no import" is set.
+    BITMASK_SET_0(lightmask, ~m_lightmask & m_flaregroups_no_import);
+
+    this->setLightStateMask(lightmask);
+}
+
+void Actor::toggleCustomParticles()
+{
+    if (ar_state == ActorState::DISPOSED)
+        return;
+
+    ar_cparticles_active = !ar_cparticles_active;
+
+    //ScriptEvent - Particle Toggle
+    TRIGGER_EVENT_ASYNC(SE_TRUCK_CPARTICLES_TOGGLE, ar_instance_id);
+}
+
+void Actor::updateSoundSources()
+{
+#ifdef USE_OPENAL
+    if (App::GetSoundScriptManager()->isDisabled())
+        return;
+    for (int i = 0; i < ar_num_soundsources; i++)
+    {
+        // TODO: Investigate segfaults after terrain reloads ~ ulteq 11/2018
+        ar_soundsources[i].ssi->setPosition(ar_nodes[ar_soundsources[i].nodenum].AbsPosition);
+        ar_soundsources[i].ssi->setVelocity(ar_nodes[ar_soundsources[i].nodenum].Velocity);
+    }
+    //also this, so it is updated always, and for any vehicle
+    SOUND_MODULATE(ar_instance_id, SS_MOD_AIRSPEED, ar_nodes[0].Velocity.length() * 1.9438);
+    SOUND_MODULATE(ar_instance_id, SS_MOD_WHEELSPEED, ar_wheel_speed * 3.6);
+#endif //OPENAL
+}
+
+void Actor::updateVisual(float dt)
+{
+    Vector3 ref(Vector3::UNIT_Y);
+    autoBlinkReset();
+    updateSoundSources();
+
+#ifdef USE_OPENAL
+    //airplane radio chatter
+    if (ar_driveable == AIRPLANE && ar_state != ActorState::LOCAL_SLEEPING)
+    {
+        // play random chatter at random time
+        m_avionic_chatter_timer -= dt;
+        if (m_avionic_chatter_timer < 0)
+        {
+            SOUND_PLAY_ONCE(ar_instance_id, SS_TRIG_AVICHAT01 + Math::RangeRandom(0, 12));
+            m_avionic_chatter_timer = Math::RangeRandom(11, 30);
+        }
+    }
+#endif //openAL
+
+    // Wings (only physics, graphics are updated in GfxActor)
+    float autoaileron = 0;
+    float autorudder = 0;
+    float autoelevator = 0;
+    if (ar_autopilot)
+    {
+        ar_autopilot->UpdateIls();
+        autoaileron = ar_autopilot->getAilerons();
+        autorudder = ar_autopilot->getRudder();
+        autoelevator = ar_autopilot->getElevator();
+        ar_autopilot->gpws_update(ar_posnode_spawn_height);
+    }
+    autoaileron += ar_aileron;
+    autorudder += ar_rudder;
+    autoelevator += ar_elevator;
+    if (autoaileron < -1.0)
+        autoaileron = -1.0;
+    if (autoaileron > 1.0)
+        autoaileron = 1.0;
+    if (autorudder < -1.0)
+        autorudder = -1.0;
+    if (autorudder > 1.0)
+        autorudder = 1.0;
+    if (autoelevator < -1.0)
+        autoelevator = -1.0;
+    if (autoelevator > 1.0)
+        autoelevator = 1.0;
+    for (int i = 0; i < ar_num_wings; i++)
+    {
+        if (ar_wings[i].fa->type == 'a')
+            ar_wings[i].fa->setControlDeflection(autoaileron);
+        if (ar_wings[i].fa->type == 'b')
+            ar_wings[i].fa->setControlDeflection(-autoaileron);
+        if (ar_wings[i].fa->type == 'r')
+            ar_wings[i].fa->setControlDeflection(autorudder);
+        if (ar_wings[i].fa->type == 'e' || ar_wings[i].fa->type == 'S' || ar_wings[i].fa->type == 'T')
+            ar_wings[i].fa->setControlDeflection(autoelevator);
+        if (ar_wings[i].fa->type == 'f')
+            ar_wings[i].fa->setControlDeflection(FLAP_ANGLES[ar_aerial_flap]);
+        if (ar_wings[i].fa->type == 'c' || ar_wings[i].fa->type == 'V')
+            ar_wings[i].fa->setControlDeflection((autoaileron + autoelevator) / 2.0);
+        if (ar_wings[i].fa->type == 'd' || ar_wings[i].fa->type == 'U')
+            ar_wings[i].fa->setControlDeflection((-autoaileron + autoelevator) / 2.0);
+        if (ar_wings[i].fa->type == 'g')
+            ar_wings[i].fa->setControlDeflection((autoaileron + FLAP_ANGLES[ar_aerial_flap]) / 2.0);
+        if (ar_wings[i].fa->type == 'h')
+            ar_wings[i].fa->setControlDeflection((-autoaileron + FLAP_ANGLES[ar_aerial_flap]) / 2.0);
+        if (ar_wings[i].fa->type == 'i')
+            ar_wings[i].fa->setControlDeflection((-autoelevator + autorudder) / 2.0);
+        if (ar_wings[i].fa->type == 'j')
+            ar_wings[i].fa->setControlDeflection((autoelevator + autorudder) / 2.0);
+        ar_wings[i].fa->updateVerticesPhysics(); // Actual graphics update moved to GfxActor
+    }
+    //setup commands for hydros
+    ar_hydro_aileron_command = autoaileron;
+    ar_hydro_rudder_command = autorudder;
+    ar_hydro_elevator_command = autoelevator;
+}
+
+void Actor::AddInterActorBeam(beam_t* beam, ActorPtr other, ActorLinkingRequestType type)
+{
+    // We can't assert the beam setup here because ropes do it differently (not actually using inter-beams, just exhibiting the same gamelogic).
+    beam->bm_locked_actor = other; // This isn't entirely valid for 'ropes' either, but for compatibility I won't touch it now ~ ohlidalp, 2024
+
+    auto pos = std::find(ar_inter_beams.begin(), ar_inter_beams.end(), beam);
+    ROR_ASSERT(pos == ar_inter_beams.end());
+    if (pos == ar_inter_beams.end())
+    {
+        ar_inter_beams.push_back(beam);
+    }
+
+    const bool linked_before = App::GetGameContext()->GetActorManager()->AreActorsDirectlyLinked(this, other);
+    ROR_ASSERT(App::GetGameContext()->GetActorManager()->inter_actor_links.find(beam) == App::GetGameContext()->GetActorManager()->inter_actor_links.end());
+    std::pair<ActorPtr, ActorPtr> actor_pair(this, other);
+    App::GetGameContext()->GetActorManager()->inter_actor_links[beam] = actor_pair;
+    const bool linked_now = App::GetGameContext()->GetActorManager()->AreActorsDirectlyLinked(this, other);
+
+    if (linked_before != linked_now)
+    {
+        // Update lists of directly/indirectly linked actors.
+        this->DetermineLinkedActors();
+        for (ActorPtr& actor : this->ar_linked_actors)
+            actor->DetermineLinkedActors();
+
+        other->DetermineLinkedActors();
+        for (ActorPtr& actor : other->ar_linked_actors)
+            actor->DetermineLinkedActors();
+
+        // Forward toggled states.
+        for (ActorPtr& actor : this->ar_linked_actors)
+        {
+            actor->ar_physics_paused = this->ar_physics_paused;
+            actor->GetGfxActor()->SetDebugView(this->GetGfxActor()->GetDebugView());
+        }
+
+        // Let scripts know.
+        TRIGGER_EVENT_ASYNC(SE_GENERIC_TRUCK_LINKING_CHANGED, 1, (int)type, this->ar_instance_id, other->ar_instance_id);
+    }
+}
+
+void Actor::RemoveInterActorBeam(beam_t* beam, ActorLinkingRequestType type)
+{
+    ROR_ASSERT(beam->bm_locked_actor);
+    ROR_ASSERT(beam->bm_locked_actor->ar_state != ActorState::DISPOSED);
+    ActorPtr other = beam->bm_locked_actor;
+    beam->bm_locked_actor = nullptr;
+
+    auto pos = std::find(ar_inter_beams.begin(), ar_inter_beams.end(), beam);
+    ROR_ASSERT(pos != ar_inter_beams.end());
+    if (pos != ar_inter_beams.end())
+    {
+        ar_inter_beams.erase(pos);
+    }
+
+    const bool linked_before = App::GetGameContext()->GetActorManager()->AreActorsDirectlyLinked(this, other);
+    auto it = App::GetGameContext()->GetActorManager()->inter_actor_links.find(beam);
+    ROR_ASSERT(it != App::GetGameContext()->GetActorManager()->inter_actor_links.end());
+    if (it != App::GetGameContext()->GetActorManager()->inter_actor_links.end())
+    {
+        App::GetGameContext()->GetActorManager()->inter_actor_links.erase(it);
+    }
+    const bool linked_now = App::GetGameContext()->GetActorManager()->AreActorsDirectlyLinked(this, other);
+
+    if (linked_before != linked_now)
+    {
+        // Update lists of directly/indirectly linked actors.
+        this->DetermineLinkedActors();
+        for (ActorPtr& actor : this->ar_linked_actors)
+            actor->DetermineLinkedActors();
+
+        // This should never fail (a disposing actor should disconnect everything first)
+        // but there seems to be a bug at the moment.
+        if (other->ar_state != ActorState::DISPOSED)
+        {
+            other->DetermineLinkedActors();
+            for (ActorPtr& actor : other->ar_linked_actors)
+                actor->DetermineLinkedActors();
+
+            // Reset toggled states.
+            other->ar_physics_paused = false;
+            other->GetGfxActor()->SetDebugView(DebugViewType::DEBUGVIEW_NONE);
+            for (ActorPtr& actor : other->ar_linked_actors)
+            {
+                actor->ar_physics_paused = false;
+                actor->GetGfxActor()->SetDebugView(DebugViewType::DEBUGVIEW_NONE);
+            }
+        }
+
+        // Let scripts know.
+        TRIGGER_EVENT_ASYNC(SE_GENERIC_TRUCK_LINKING_CHANGED, 0, (int)type, this->ar_instance_id, other->ar_instance_id);
+    }
+}
+
+void Actor::DisjoinInterActorBeams()
+{
+    // Helper for `MSG_SIM_MODIFY/DELETE_ACTOR_REQUESTED`, do not invoke otherwise!
+    // Removes all (both ways) inter-actor connections from this actor.
+    // Note the repetitive 'OK to be invoked...' comments are for fulltext search results.
+    // ------------------------------------------------------------------
+
+    // Remove all inter-linking beams which belong to this actor.
+    this->hookToggle(-1, ActorLinkingRequestType::HOOK_RESET); // OK to be invoked here - DisjoinInterActorBeams() - `processing MSG_SIM_MODIFY/DELETE_ACTOR_REQUESTED`
+    this->ropeToggle(-1, ActorLinkingRequestType::ROPE_RESET); // OK to be invoked here - DisjoinInterActorBeams() - `processing MSG_SIM_MODIFY/DELETE_ACTOR_REQUESTED`
+    this->tieToggle(-1, ActorLinkingRequestType::TIE_RESET); // OK to be invoked here - DisjoinInterActorBeams() - `processing MSG_SIM_MODIFY/DELETE_ACTOR_REQUESTED`
+
+    // Remove any possible links from other actors to this actor.
+    for (ActorPtr& other_actor : App::GetGameContext()->GetActorManager()->GetActors())
+    {
+        if (other_actor->ar_state != ActorState::LOCAL_SIMULATED)
+            continue;
+
+        // Use the new `unlock_filter` param to only unlock the links to this actor (brute force but safe approach).
+        other_actor->hookToggle(-1, ActorLinkingRequestType::HOOK_RESET, NODENUM_INVALID, /*unlock_filter:*/ar_instance_id); // OK to be invoked here - DisjoinInterActorBeams() - `processing MSG_SIM_MODIFY/DELETE_ACTOR_REQUESTED`
+        other_actor->tieToggle(-1, ActorLinkingRequestType::TIE_RESET, /*unlock_filter:*/ar_instance_id); // OK to be invoked here - DisjoinInterActorBeams() - `processing MSG_SIM_MODIFY/DELETE_ACTOR_REQUESTED`
+        other_actor->ropeToggle(-1, ActorLinkingRequestType::ROPE_RESET, /*unlock_filter:*/ar_instance_id); // OK to be invoked here - DisjoinInterActorBeams() - `processing MSG_SIM_MODIFY/DELETE_ACTOR_REQUESTED`
+    }
+}
+
+void Actor::tieToggle(int group, ActorLinkingRequestType mode, ActorInstanceID_t forceunlock_filter)
+{
+    ActorPtr player_actor = App::GetGameContext()->GetPlayerActor();
+
+    // untie all ties if one is tied
+    bool istied = false;
+
+    for (std::vector<tie_t>::iterator it = ar_ties.begin(); it != ar_ties.end(); it++)
+    {
+        // only handle ties with correct group
+        if (group != -1 && (it->ti_group != -1 && it->ti_group != group))
+            continue;
+
+        // When RESET-ing, filter by the locked actor, if specified.
+        if (mode == ActorLinkingRequestType::TIE_RESET
+            && forceunlock_filter != ACTORINSTANCEID_INVALID && it->ti_locked_actor && it->ti_locked_actor->ar_instance_id != forceunlock_filter)
+        {
+            continue;
+        }
+
+        // if tied, untie it.
+        if (it->ti_tied)
+        {
+            istied = !it->ti_beam->bm_disabled;
+
+            // tie is locked and should get unlocked and stop tying
+            it->ti_tied = false;
+            it->ti_tying = false;
+            if (it->ti_locked_ropable)
+                it->ti_locked_ropable->attached_ties--;
+            // disable the ties beam
+            it->ti_beam->p2 = &ar_nodes[0];
+            it->ti_beam->bm_inter_actor = false;
+            it->ti_beam->bm_disabled = true;
+            if (it->ti_locked_actor != this)
+            {
+                this->RemoveInterActorBeam(it->ti_beam, mode); // OK to invoke here - tieToggle() - processing `MSG_SIM_ACTOR_LINKING_REQUESTED`
+            }
+            it->ti_locked_actor = nullptr;
+        }
+    }
+
+    // iterate over all ties
+    if (!istied && mode == ActorLinkingRequestType::TIE_TOGGLE)
+    {
+        for (std::vector<tie_t>::iterator it = ar_ties.begin(); it != ar_ties.end(); it++)
+        {
+            // only handle ties with correct group
+            if (group != -1 && (it->ti_group != -1 && it->ti_group != group))
+                continue;
+
+            if (!it->ti_tied)
+            {
+                // tie is unlocked and should get locked, search new remote ropable to lock to
+                float mindist = it->ti_beam->refL;
+                node_t* nearest_node = 0;
+                ActorPtr nearest_actor = 0;
+                ropable_t* locktedto = 0;
+                // iterate over all actors
+                for (ActorPtr& actor : App::GetGameContext()->GetActorManager()->GetActors())
+                {
+                    if (actor->ar_state == ActorState::LOCAL_SLEEPING ||
+                        (actor == this && it->ti_no_self_lock))
+                    {
+                        continue;
+                    }
+
+                    // and their ropables
+                    for (std::vector<ropable_t>::iterator itr = actor->ar_ropables.begin(); itr != actor->ar_ropables.end(); itr++)
+                    {
+                        // if the ropable is not multilock and used, then discard this ropable
+                        if (!itr->multilock && itr->attached_ties > 0)
+                            continue;
+
+                        // skip if tienode is ropable too (no selflock)
+                        if (this == actor.GetRef() && itr->node->pos == it->ti_beam->p1->pos)
+                            continue;
+
+                        // calculate the distance and record the nearest ropable
+                        float dist = (it->ti_beam->p1->AbsPosition - itr->node->AbsPosition).length();
+                        if (dist < mindist)
+                        {
+                            mindist = dist;
+                            nearest_node = itr->node;
+                            nearest_actor = actor;
+                            locktedto = &(*itr);
+                        }
+                    }
+                }
+                // if we found a ropable, then tie towards it
+                if (nearest_node)
+                {
+                    // enable the beam and visually display the beam
+                    it->ti_beam->bm_disabled = false;
+                    // now trigger the tying action
+                    it->ti_locked_actor = nearest_actor;
+                    it->ti_beam->p2 = nearest_node;
+                    it->ti_beam->bm_inter_actor = nearest_actor != this;
+                    it->ti_beam->stress = 0;
+                    it->ti_beam->L = it->ti_beam->refL;
+                    it->ti_tied = true;
+                    it->ti_tying = true;
+                    it->ti_locked_ropable = locktedto;
+                    it->ti_locked_ropable->attached_ties++;
+                    if (it->ti_beam->bm_inter_actor)
+                    {
+                        this->AddInterActorBeam(it->ti_beam, nearest_actor, mode); // OK to invoke here - tieToggle() - processing `MSG_SIM_ACTOR_LINKING_REQUESTED`
+                    }
+                }
+            }
+        }
+    }
+
+    //ScriptEvent - Tie toggle
+    TRIGGER_EVENT_ASYNC(SE_TRUCK_TIE_TOGGLE, ar_instance_id);
+}
+
+void Actor::ropeToggle(int group, ActorLinkingRequestType mode, ActorInstanceID_t forceunlock_filter)
+{
+    ActorPtr player_actor = App::GetGameContext()->GetPlayerActor();
+
+    // iterate over all ropes
+    for (std::vector<rope_t>::iterator it = ar_ropes.begin(); it != ar_ropes.end(); it++)
+    {
+        // only handle ropes with correct group
+        if (group != -1 && (it->rp_group != -1 && it->rp_group != group))
+            continue;
+
+        // When RESET-ing, filter by the locked actor, if specified.
+        if (mode == ActorLinkingRequestType::ROPE_RESET
+            && forceunlock_filter != ACTORINSTANCEID_INVALID && it->rp_locked_actor && it->rp_locked_actor->ar_instance_id != forceunlock_filter)
+        {
+            continue;
+        }
+
+        if (it->rp_locked == LOCKED || it->rp_locked == PRELOCK) // Do this for both `ROPE_TOGGLE` and `ROPE_RESET`
+        {
+            // we unlock ropes
+            it->rp_locked = UNLOCKED;
+            // remove node locking
+            if (it->rp_locked_ropable)
+                it->rp_locked_ropable->attached_ropes--;
+            if (it->rp_locked_actor != this)
+            {
+                this->RemoveInterActorBeam(it->rp_beam, mode); // OK to invoke here - ropeToggle() - processing `MSG_SIM_ACTOR_LINKING_REQUESTED`
+            }
+            it->rp_locked_actor = nullptr;
+            it->rp_locked_ropable = nullptr;
+        }
+        else if (mode == ActorLinkingRequestType::ROPE_TOGGLE) // Do this only for `ROPE_TOGGLE`
+        {
+            //we lock ropes
+            // search new remote ropable to lock to
+            float mindist = it->rp_beam->L;
+            ActorPtr nearest_actor = nullptr;
+            ropable_t* rop = 0;
+            // iterate over all actor_slots
+            for (ActorPtr& actor : App::GetGameContext()->GetActorManager()->GetActors())
+            {
+                if (actor->ar_state == ActorState::LOCAL_SLEEPING)
+                    continue;
+                // and their ropables
+                for (std::vector<ropable_t>::iterator itr = actor->ar_ropables.begin(); itr != actor->ar_ropables.end(); itr++)
+                {
+                    // if the ropable is not multilock and used, then discard this ropable
+                    if (!itr->multilock && itr->attached_ropes > 0)
+                        continue;
+
+                    // calculate the distance and record the nearest ropable
+                    float dist = (it->rp_beam->p1->AbsPosition - itr->node->AbsPosition).length();
+                    if (dist < mindist)
+                    {
+                        mindist = dist;
+                        nearest_actor = actor;
+                        rop = &(*itr);
+                    }
+                }
+            }
+            // if we found a ropable, then lock it
+            if (nearest_actor)
+            {
+                //okay, we have found a rope to tie
+                it->rp_locked = LOCKED;
+                it->rp_locked_ropable = rop;
+                it->rp_locked_ropable->attached_ropes++;
+                if (nearest_actor != this)
+                {
+                     this->AddInterActorBeam(it->rp_beam, nearest_actor, mode); // OK to invoke here - ropeToggle() - processing `MSG_SIM_ACTOR_LINKING_REQUESTED`
+                }
+            }
+        }
+    }
+}
+
+void Actor::hookToggle(int group, ActorLinkingRequestType mode, NodeNum_t mousenode /*=NODENUM_INVALID*/, ActorInstanceID_t forceunlock_filter)
+{
+    ROR_ASSERT(mode == ActorLinkingRequestType::HOOK_LOCK || mode == ActorLinkingRequestType::HOOK_UNLOCK
+            || mode == ActorLinkingRequestType::HOOK_TOGGLE || mode == ActorLinkingRequestType::HOOK_MOUSE_TOGGLE
+            || mode == ActorLinkingRequestType::HOOK_RESET);
+
+    // iterate over all hooks
+    for (std::vector<hook_t>::iterator it = ar_hooks.begin(); it != ar_hooks.end(); it++)
+    {
+        if (mode == ActorLinkingRequestType::HOOK_MOUSE_TOGGLE && it->hk_hook_node->pos != mousenode)
+        {
+            //skip all other nodes except the one manually toggled by mouse
+            continue;
+        }
+        if (mode == ActorLinkingRequestType::HOOK_TOGGLE && group == -1)
+        {
+            //manually triggerd (EV_COMMON_LOCK). Toggle all hooks groups with group#: -1, 0, 1 ++
+            if (it->hk_group <= -2)
+                continue;
+        }
+        if (mode == ActorLinkingRequestType::HOOK_LOCK && group == -2)
+        {
+            //automatic lock attempt (cyclic with doupdate). Toggle all hooks groups with group#: -2, -3, -4 --, skip the ones which are not autolock (triggered only)
+            if (it->hk_group >= -1 || !it->hk_autolock)
+                continue;
+        }
+        if (mode == ActorLinkingRequestType::HOOK_UNLOCK && group == -2)
+        {
+            //manual unlock ALL autolock and triggerlock, do not unlock standard hooks (EV_COMMON_AUTOLOCK)
+            if (it->hk_group >= -1 || !it->hk_autolock)
+                continue;
+        }
+        if ((mode == ActorLinkingRequestType::HOOK_LOCK || mode == ActorLinkingRequestType::HOOK_UNLOCK) && group <= -3)
+        {
+            //trigger beam lock or unlock. Toggle one hook group with group#: group
+            if (it->hk_group != group)
+                continue;
+        }
+        if ((mode == ActorLinkingRequestType::HOOK_LOCK || mode == ActorLinkingRequestType::HOOK_UNLOCK) && group >= -1)
+        {
+            continue;
+        }
+        if (mode == ActorLinkingRequestType::HOOK_LOCK && it->hk_timer > 0.0f)
+        {
+            //check relock delay timer for autolock nodes and skip if not 0
+            continue;
+        }
+
+        // When RESET-ing, filter by the locked actor, if specified.
+        if (mode == ActorLinkingRequestType::HOOK_RESET
+            && forceunlock_filter != ACTORINSTANCEID_INVALID && it->hk_locked_actor && it->hk_locked_actor->ar_instance_id != forceunlock_filter)
+        {
+            continue;
+        }
+
+        ActorPtr prev_locked_actor = it->hk_locked_actor; // memorize current value
+
+        // do this only for toggle or lock attempts, skip prelocked or locked nodes for performance
+        if ((mode != ActorLinkingRequestType::HOOK_UNLOCK && mode != ActorLinkingRequestType::HOOK_RESET) && it->hk_locked == UNLOCKED)
+        {
+            // we lock hooks
+            // search new remote ropable to lock to
+            float mindist = it->hk_lockrange;
+            float distance = 100000000.0f;
+            // iterate over all actor_slots
+            for (ActorPtr& actor : App::GetGameContext()->GetActorManager()->GetActors())
+            {
+                if (actor->ar_state == ActorState::LOCAL_SLEEPING)
+                    continue;
+                if (this == actor.GetRef() && !it->hk_selflock)
+                    continue; // don't lock to self
+
+                node_t* nearest_node = nullptr;
+                for (int i = 0; i < actor->ar_num_nodes; i++)
+                {
+                    // skip all nodes with lockgroup 9999 (deny lock)
+                    if (actor->ar_nodes[i].nd_lockgroup == 9999)
+                        continue;
+
+                    // exclude this truck and its current hooknode from the locking search
+                    if (this == actor.GetRef() && i == it->hk_hook_node->pos)
+                        continue;
+
+                    // a lockgroup for this hooknode is set -> skip all nodes that do not have the same lockgroup (-1 = default(all nodes))
+                    if (it->hk_lockgroup != -1 && it->hk_lockgroup != actor->ar_nodes[i].nd_lockgroup)
+                        continue;
+
+                    // measure distance
+                    float n2n_distance = (it->hk_hook_node->AbsPosition - actor->ar_nodes[i].AbsPosition).length();
+                    if (n2n_distance < mindist)
+                    {
+                        if (distance >= n2n_distance)
+                        {
+                            // located a node that is closer
+                            distance = n2n_distance;
+                            nearest_node = &actor->ar_nodes[i];
+                        }
+                    }
+                }
+                if (nearest_node)
+                {
+                    // we found a node, lock to it
+                    it->hk_lock_node = nearest_node;
+                    it->hk_locked_actor = actor;
+                    it->hk_locked = PRELOCK;
+                    //enable beam if not enabled yet between those 2 nodes
+                    if (it->hk_beam->bm_disabled)
+                    {
+                        it->hk_beam->p2 = it->hk_lock_node;
+                        it->hk_beam->bm_inter_actor = (it->hk_locked_actor != nullptr);
+                        it->hk_beam->L = (it->hk_hook_node->AbsPosition - it->hk_lock_node->AbsPosition).length();
+                        it->hk_beam->bm_disabled = false;
+                        this->AddInterActorBeam(it->hk_beam, it->hk_locked_actor, mode); // OK to invoke here - hookToggle() - processing `MSG_SIM_ACTOR_LINKING_REQUESTED`
+                    }
+                }
+            }
+        }
+        // this is a locked or prelocked hook and its not a locking attempt or the locked actor was removed (bm_inter_actor == false)
+        else if ((it->hk_locked == LOCKED || it->hk_locked == PRELOCK) && (mode != ActorLinkingRequestType::HOOK_LOCK || !it->hk_beam->bm_inter_actor))
+        {
+            // we unlock ropes immediatelly
+            it->hk_locked = UNLOCKED;
+            this->RemoveInterActorBeam(it->hk_beam, mode); // OK to invoke here - hookToggle() - processing `MSG_SIM_ACTOR_LINKING_REQUESTED`
+            if (it->hk_group <= -2)
+            {
+                // autolock timer: if we're hard-resetting the actor, force immediate relock, otherwise restart the countdown.
+                it->hk_timer = (mode == ActorLinkingRequestType::HOOK_RESET) ? 0.f : it->hk_timer_preset;
+            }
+            it->hk_lock_node = 0;
+            it->hk_locked_actor = 0;
+            //disable hook-assistance beam
+            it->hk_beam->p2 = &ar_nodes[0];
+            it->hk_beam->bm_inter_actor = false;
+            it->hk_beam->L = (ar_nodes[0].AbsPosition - it->hk_hook_node->AbsPosition).length();
+            it->hk_beam->bm_disabled = true;
+        }
+    }
+}
+
+void Actor::parkingbrakeToggle()
+{
+    if (ar_state == ActorState::DISPOSED)
+        return;
+
+    ar_parking_brake = !ar_parking_brake;
+
+    if (ar_parking_brake)
+        SOUND_START(ar_instance_id, SS_TRIG_PARK);
+    else
+        SOUND_STOP(ar_instance_id, SS_TRIG_PARK);
+
+    TRIGGER_EVENT_ASYNC(SE_TRUCK_PARKINGBRAKE_TOGGLE, ar_instance_id);
+}
+
+void Actor::antilockbrakeToggle()
+{
+    if (ar_state == ActorState::DISPOSED)
+        return;
+
+    if (!alb_notoggle)
+        alb_mode = !alb_mode;
+}
+
+void Actor::tractioncontrolToggle()
+{
+    if (ar_state == ActorState::DISPOSED)
+        return;
+
+    if (!tc_notoggle)
+        tc_mode = !tc_mode;
+}
+
+void Actor::beaconsToggle()
+{
+    if (ar_state == ActorState::DISPOSED)
+        return;
+
+    if (m_flares_mode == GfxFlaresMode::NONE)
+    {
+        return;
+    }
+    // flip the flag
+    BITMASK_SET(m_lightmask, RoRnet::LIGHTMASK_BEACONS, !this->getBeaconMode());
+
+    //ScriptEvent - Beacon toggle
+    TRIGGER_EVENT_ASYNC(SE_TRUCK_BEACONS_TOGGLE, ar_instance_id);
+}
+
+void Actor::muteAllSounds()
+{
+#ifdef USE_OPENAL
+    if (ar_state == ActorState::DISPOSED)
+        return;
+
+    for (int i = 0; i < ar_num_soundsources; i++)
+    {
+        if (ar_soundsources[i].ssi)
+            ar_soundsources[i].ssi->setEnabled(false);
+    }
+#endif // USE_OPENAL
+}
+
+void Actor::unmuteAllSounds()
+{
+#ifdef USE_OPENAL
+    if (ar_state == ActorState::DISPOSED)
+        return;
+
+    for (int i = 0; i < ar_num_soundsources; i++)
+    {
+        bool enabled = (ar_soundsources[i].type == -2 || ar_soundsources[i].type == ar_current_cinecam);
+        ar_soundsources[i].ssi->setEnabled(enabled);
+    }
+#endif // USE_OPENAL
+}
+
+void Actor::NotifyActorCameraChanged()
+{
+    // change sound setup
+#ifdef USE_OPENAL
+    if (ar_state == ActorState::DISPOSED)
+        return;
+
+    for (int i = 0; i < ar_num_soundsources; i++)
+    {
+        bool enabled = (ar_soundsources[i].type == -2 || ar_soundsources[i].type == ar_current_cinecam);
+        ar_soundsources[i].ssi->setEnabled(enabled);
+    }
+#endif // USE_OPENAL
+
+    // NOTE: Prop visibility now updated in GfxActor::UpdateProps() ~ only_a_ptr, 06/2018
+
+
+}
+
+//Returns the number of active (non bounded) beams connected to a node
+int Actor::GetNumActiveConnectedBeams(int nodeid)
+{
+    int totallivebeams = 0;
+    for (unsigned int ni = 0; ni < ar_node_to_beam_connections[nodeid].size(); ++ni)
+    {
+        if (!ar_beams[ar_node_to_beam_connections[nodeid][ni]].bm_disabled && !ar_beams[ar_node_to_beam_connections[nodeid][ni]].bounded)
+            totallivebeams++;
+    }
+    return totallivebeams;
+}
+
+bool Actor::isTied()
+{
+    for (std::vector<tie_t>::iterator it = ar_ties.begin(); it != ar_ties.end(); it++)
+        if (it->ti_tied)
+            return true;
+    return false;
+}
+
+bool Actor::isLocked()
+{
+    for (std::vector<hook_t>::iterator it = ar_hooks.begin(); it != ar_hooks.end(); it++)
+        if (it->hk_locked == LOCKED)
+            return true;
+    return false;
+}
+
+void Actor::updateDashBoards(float dt)
+{
+    if (!ar_dashboard)
+        return;
+    // some temp vars
+    Vector3 dir;
+
+    // engine and gears
+    if (ar_engine)
+    {
+        // gears first
+        int gear = ar_engine->getGear();
+        ar_dashboard->setInt(DD_ENGINE_GEAR, gear);
+
+        int numGears = (int)ar_engine->getNumGears();
+        ar_dashboard->setInt(DD_ENGINE_NUM_GEAR, numGears);
+
+        String str = String();
+
+        // now construct that classic gear string
+        if (gear > 0)
+            str = TOSTRING(gear) + "/" + TOSTRING(numGears);
+        else if (gear == 0)
+            str = String("N");
+        else
+            str = String("R");
+
+        ar_dashboard->setChar(DD_ENGINE_GEAR_STRING, str.c_str());
+
+        // R N D 2 1 String
+        int cg = ar_engine->getAutoShift();
+        if (cg != Engine::MANUALMODE)
+        {
+            str = ((cg == Engine::REAR) ? "#ffffff" : "#868686") + String("R\n");
+            str += ((cg == Engine::NEUTRAL) ? "#ff0012" : "#8a000a") + String("N\n");
+            str += ((cg == Engine::DRIVE) ? "#12ff00" : "#248c00") + String("D\n");
+            str += ((cg == Engine::TWO) ? "#ffffff" : "#868686") + String("2\n");
+            str += ((cg == Engine::ONE) ? "#ffffff" : "#868686") + String("1");
+        }
+        else
+        {
+            //str = "#b8b8b8M\na\nn\nu\na\nl";
+            str = "#b8b8b8M\na\nn\nu";
+        }
+        ar_dashboard->setChar(DD_ENGINE_AUTOGEAR_STRING, str.c_str());
+
+        // autogears
+        int autoGear = ar_engine->getAutoShift();
+        ar_dashboard->setInt(DD_ENGINE_AUTO_GEAR, autoGear);
+
+        // clutch
+        float clutch = ar_engine->getClutch();
+        ar_dashboard->setFloat(DD_ENGINE_CLUTCH, clutch);
+
+        // accelerator
+        float acc = ar_engine->getAcc();
+        ar_dashboard->setFloat(DD_ACCELERATOR, acc);
+
+        // RPM
+        float rpm = ar_engine->getRPM();
+        ar_dashboard->setFloat(DD_ENGINE_RPM, rpm);
+
+        // turbo
+        float turbo = ar_engine->getTurboPSI() * 3.34f; // MAGIC :/
+        ar_dashboard->setFloat(DD_ENGINE_TURBO, turbo);
+
+        // ignition
+        bool ign = (ar_engine->hasContact() && !ar_engine->isRunning());
+        ar_dashboard->setBool(DD_ENGINE_IGNITION, ign);
+
+        // battery
+        bool batt = (ar_engine->hasContact() && !ar_engine->isRunning());
+        ar_dashboard->setBool(DD_ENGINE_BATTERY, batt);
+
+        // clutch warning
+        bool cw = (fabs(ar_engine->getTorque()) >= ar_engine->getClutchForce() * 10.0f);
+        ar_dashboard->setBool(DD_ENGINE_CLUTCH_WARNING, cw);
+    }
+
+    // brake
+    ar_dashboard->setFloat(DD_BRAKE, ar_brake);
+
+    Vector3 cam_dir  = this->GetCameraDir();
+    Vector3 cam_roll = this->GetCameraRoll();
+
+    // speedo
+    float velocity = ar_nodes[0].Velocity.length();
+    if (cam_dir != Vector3::ZERO)
+    {
+        velocity = cam_dir.dotProduct(ar_nodes[0].Velocity);
+    }
+
+    // KPH
+    float cur_speed_kph = ar_wheel_speed * 3.6f;
+    float smooth_kph = (cur_speed_kph * 0.3) + (ar_dashboard->_getFloat(DD_ENGINE_SPEEDO_KPH) * 0.7);
+    ar_dashboard->setFloat(DD_ENGINE_SPEEDO_KPH, smooth_kph);
+
+    // MPH
+    float cur_speed_mph = ar_wheel_speed * 2.23693629f;
+    float smooth_mph = (cur_speed_mph * 0.3) + (ar_dashboard->_getFloat(DD_ENGINE_SPEEDO_MPH) * 0.7);
+    ar_dashboard->setFloat(DD_ENGINE_SPEEDO_MPH, smooth_mph);
+
+    // roll
+    if (cam_roll != Vector3::ZERO)
+    {
+        float angle = asin(cam_roll.dotProduct(Vector3::UNIT_Y));
+
+        float f = Radian(angle).valueDegrees();
+        ar_dashboard->setFloat(DD_ROLL, f);
+    }
+
+    // active shocks / roll correction
+    if (this->ar_has_active_shocks)
+    {
+        // TOFIX: certainly not working:
+        float roll_corr = - m_stabilizer_shock_ratio * 10.0f;
+        ar_dashboard->setFloat(DD_ROLL_CORR, roll_corr);
+
+        bool corr_active = (m_stabilizer_shock_request > 0);
+        ar_dashboard->setBool(DD_ROLL_CORR_ACTIVE, corr_active);
+    }
+
+    // pitch
+    if (cam_dir != Vector3::ZERO)
+    {
+        float angle = asin(cam_dir.dotProduct(Vector3::UNIT_Y));
+
+        float f = Radian(angle).valueDegrees();
+        ar_dashboard->setFloat(DD_PITCH, f);
+    }
+
+    // parking brake
+    ar_dashboard->setBool(DD_PARKINGBRAKE, ar_parking_brake);
+
+    // locked lamp
+    bool locked = isLocked();
+    ar_dashboard->setBool(DD_LOCKED, locked);
+
+    // low pressure lamp
+    bool low_pres = !ar_engine_hydraulics_ready;
+    ar_dashboard->setBool(DD_LOW_PRESSURE, low_pres);
+
+    // turn signals already done by `updateFlareStates()` and `setBlinkType()`
+
+    // Traction Control
+    if (!tc_nodash)
+    {
+        int dash_tc_mode = 1; // 0 = not present, 1 = off, 2 = on, 3 = active
+        if (tc_mode)
+        {
+            if (m_tractioncontrol)
+                dash_tc_mode = 3;
+            else
+                dash_tc_mode = 2;
+        }
+        ar_dashboard->setInt(DD_TRACTIONCONTROL_MODE, dash_tc_mode);
+    }
+
+    // Anti Lock Brake
+    if (!alb_nodash)
+    {
+        int dash_alb_mode = 1; // 0 = not present, 1 = off, 2 = on, 3 = active
+        if (alb_mode)
+        {
+            if (m_antilockbrake)
+                dash_alb_mode = 3;
+            else
+                dash_alb_mode = 2;
+        }
+        ar_dashboard->setInt(DD_ANTILOCKBRAKE_MODE, dash_alb_mode);
+    }
+
+    // load secured lamp
+    int ties_mode = 0; // 0 = not locked, 1 = prelock, 2 = lock
+    if (isTied())
+    {
+        if (fabs(ar_command_key[0].commandValue) > 0.000001f)
+            ties_mode = 1;
+        else
+            ties_mode = 2;
+    }
+    ar_dashboard->setInt(DD_TIES_MODE, ties_mode);
+
+    // Boat things now: screwprops and alike
+    if (ar_num_screwprops)
+    {
+        // the throttle and rudder
+        for (int i = 0; i < ar_num_screwprops && i < DD_MAX_SCREWPROP; i++)
+        {
+            float throttle = ar_screwprops[i]->getThrottle();
+            ar_dashboard->setFloat(DD_SCREW_THROTTLE_0 + i, throttle);
+
+            float steering = ar_screwprops[i]->getRudder();
+            ar_dashboard->setFloat(DD_SCREW_STEER_0 + i, steering);
+        }
+
+        // water depth display, only if we have a screw prop at least
+        float depth = this->getHeightAboveGround();
+        ar_dashboard->setFloat(DD_WATER_DEPTH, depth);
+
+        // water speed
+        Vector3 hdir = this->GetCameraDir();
+        float knots = hdir.dotProduct(ar_nodes[ar_main_camera_node_pos].Velocity) * 1.9438f; // 1.943 = m/s in knots/s
+        ar_dashboard->setFloat(DD_WATER_SPEED, knots);
+    }
+
+    // now airplane things, aeroengines, etc.
+    if (ar_num_aeroengines)
+    {
+        for (int i = 0; i < ar_num_aeroengines && i < DD_MAX_AEROENGINE; i++)
+        {
+            float throttle = ar_aeroengines[i]->getThrottle();
+            ar_dashboard->setFloat(DD_AEROENGINE_THROTTLE_0 + i, throttle);
+
+            bool failed = ar_aeroengines[i]->isFailed();
+            ar_dashboard->setBool(DD_AEROENGINE_FAILED_0 + i, failed);
+
+            float pcent = ar_aeroengines[i]->getRPMpc();
+            ar_dashboard->setFloat(DD_AEROENGINE_RPM_0 + i, pcent);
+        }
+    }
+
+    // wings stuff, you dont need an aeroengine
+    if (ar_num_wings)
+    {
+        for (int i = 0; i < ar_num_wings && i < DD_MAX_WING; i++)
+        {
+            // Angle of Attack (AOA)
+            float aoa = ar_wings[i].fa->aoa;
+            ar_dashboard->setFloat(DD_WING_AOA_0 + i, aoa);
+        }
+    }
+
+    // some things only activate when a wing or an aeroengine is present
+    if (ar_num_wings || ar_num_aeroengines)
+    {
+        //airspeed
+        {
+            float ground_speed_kt = ar_nodes[0].Velocity.length() * 1.9438f; // 1.943 = m/s in knots/s
+
+            //tropospheric model valid up to 11.000m (33.000ft)
+            float altitude = ar_nodes[0].AbsPosition.y;
+            //float sea_level_temperature = 273.15 + 15.0; //in Kelvin // MAGICs D:
+            float sea_level_pressure = 101325; //in Pa
+            //float airtemperature        = sea_level_temperature - altitude * 0.0065f; //in Kelvin
+            float airpressure = sea_level_pressure * pow(1.0f - 0.0065f * altitude / 288.15f, 5.24947f); //in Pa
+            float airdensity = airpressure * 0.0000120896f; //1.225 at sea level
+
+            float knots = ground_speed_kt * sqrt(airdensity / 1.225f); //KIAS
+            ar_dashboard->setFloat(DD_AIRSPEED, knots);
+        }
+
+        // altimeter (height above ground)
+        {
+            float alt = ar_nodes[0].AbsPosition.y * 1.1811f; // MAGIC
+            ar_dashboard->setFloat(DD_ALTITUDE, alt);
+
+            char altc[11];
+            sprintf(altc, "%03u", (int)(ar_nodes[0].AbsPosition.y / 30.48f)); // MAGIC
+            ar_dashboard->setChar(DD_ALTITUDE_STRING, altc);
+        }
+    }
+
+    ar_dashboard->setFloat(DD_ODOMETER_TOTAL, m_odometer_total);
+    ar_dashboard->setFloat(DD_ODOMETER_USER, m_odometer_user);
+
+    // set the features of this vehicle once
+    if (!m_hud_features_ok)
+    {
+        bool hasEngine = (ar_engine != nullptr);
+        bool hasturbo = false;
+        bool autogearVisible = false;
+
+        if (hasEngine)
+        {
+            hasturbo = ar_engine->hasTurbo();
+            autogearVisible = (ar_engine->getAutoShift() != Engine::MANUALMODE);
+        }
+
+        ar_dashboard->setEnabled(DD_ENGINE_TURBO, hasturbo);
+        ar_dashboard->setEnabled(DD_ENGINE_GEAR, hasEngine);
+        ar_dashboard->setEnabled(DD_ENGINE_NUM_GEAR, hasEngine);
+        ar_dashboard->setEnabled(DD_ENGINE_GEAR_STRING, hasEngine);
+        ar_dashboard->setEnabled(DD_ENGINE_AUTO_GEAR, hasEngine);
+        ar_dashboard->setEnabled(DD_ENGINE_CLUTCH, hasEngine);
+        ar_dashboard->setEnabled(DD_ENGINE_RPM, hasEngine);
+        ar_dashboard->setEnabled(DD_ENGINE_IGNITION, hasEngine);
+        ar_dashboard->setEnabled(DD_ENGINE_BATTERY, hasEngine);
+        ar_dashboard->setEnabled(DD_ENGINE_CLUTCH_WARNING, hasEngine);
+
+        ar_dashboard->setEnabled(DD_TRACTIONCONTROL_MODE, !tc_nodash);
+        ar_dashboard->setEnabled(DD_ANTILOCKBRAKE_MODE, !alb_nodash);
+        ar_dashboard->setEnabled(DD_TIES_MODE, !ar_ties.empty());
+        ar_dashboard->setEnabled(DD_LOCKED, !ar_hooks.empty());
+
+        ar_dashboard->setEnabled(DD_ENGINE_AUTOGEAR_STRING, autogearVisible);
+
+        ar_dashboard->updateFeatures();
+        m_hud_features_ok = true;
+    }
+
+    // Lights (all kinds)
+    //   PLEASE maintain the same order as in 'DashBoardManager.h'
+
+    ar_dashboard->setBool(DD_CUSTOM_LIGHT1 , m_lightmask & RoRnet::LIGHTMASK_CUSTOM1   );
+    ar_dashboard->setBool(DD_CUSTOM_LIGHT2 , m_lightmask & RoRnet::LIGHTMASK_CUSTOM2   );
+    ar_dashboard->setBool(DD_CUSTOM_LIGHT3 , m_lightmask & RoRnet::LIGHTMASK_CUSTOM3   );
+    ar_dashboard->setBool(DD_CUSTOM_LIGHT4 , m_lightmask & RoRnet::LIGHTMASK_CUSTOM4   );
+    ar_dashboard->setBool(DD_CUSTOM_LIGHT5 , m_lightmask & RoRnet::LIGHTMASK_CUSTOM5   );
+    ar_dashboard->setBool(DD_CUSTOM_LIGHT6 , m_lightmask & RoRnet::LIGHTMASK_CUSTOM6   );
+    ar_dashboard->setBool(DD_CUSTOM_LIGHT7 , m_lightmask & RoRnet::LIGHTMASK_CUSTOM7   );
+    ar_dashboard->setBool(DD_CUSTOM_LIGHT8 , m_lightmask & RoRnet::LIGHTMASK_CUSTOM8   );
+    ar_dashboard->setBool(DD_CUSTOM_LIGHT9 , m_lightmask & RoRnet::LIGHTMASK_CUSTOM9   );
+    ar_dashboard->setBool(DD_CUSTOM_LIGHT10, m_lightmask & RoRnet::LIGHTMASK_CUSTOM10  );
+
+    ar_dashboard->setBool(DD_HEADLIGHTS    , m_lightmask & RoRnet::LIGHTMASK_HEADLIGHT ); 
+    ar_dashboard->setBool(DD_HIGHBEAMS     , m_lightmask & RoRnet::LIGHTMASK_HIGHBEAMS ); 
+    ar_dashboard->setBool(DD_FOGLIGHTS     , m_lightmask & RoRnet::LIGHTMASK_FOGLIGHTS ); 
+    ar_dashboard->setBool(DD_SIDELIGHTS    , m_lightmask & RoRnet::LIGHTMASK_SIDELIGHTS); 
+    ar_dashboard->setBool(DD_LIGHTS_LEGACY , m_lightmask & RoRnet::LIGHTMASK_SIDELIGHTS); 
+    ar_dashboard->setBool(DD_BRAKE_LIGHTS  , m_lightmask & RoRnet::LIGHTMASK_BRAKES    ); 
+    ar_dashboard->setBool(DD_REVERSE_LIGHT , m_lightmask & RoRnet::LIGHTMASK_REVERSE   ); 
+    ar_dashboard->setBool(DD_BEACONS       , m_lightmask & RoRnet::LIGHTMASK_BEACONS   ); 
+
+    ar_dashboard->setBool(DD_SIGNAL_WARNING,   m_blinker_right_lit && m_blinker_left_lit);
+    ar_dashboard->setBool(DD_SIGNAL_TURNRIGHT, m_blinker_right_lit);
+    ar_dashboard->setBool(DD_SIGNAL_TURNLEFT,  m_blinker_left_lit);
+
+    // TODO: compass value
+
+#if 0
+    // ADI - attitude director indicator
+    //roll
+	Vector3 rollv=curr_truck->ar_nodes[curr_truck->ar_camera_node_pos[0]].RelPosition-curr_truck->ar_nodes[curr_truck->ar_camera_node_roll[0]].RelPosition;
+	rollv.normalise();
+	float rollangle=asin(rollv.dotProduct(Vector3::UNIT_Y));
+
+    //pitch
+	Vector3 dirv=curr_truck->ar_nodes[curr_truck->ar_camera_node_pos[0]].RelPosition-curr_truck->ar_nodes[curr_truck->ar_camera_node_dir[0]].RelPosition;
+	dirv.normalise();
+	float pitchangle=asin(dirv.dotProduct(Vector3::UNIT_Y));
+	Vector3 upv=dirv.crossProduct(-rollv);
+	if (upv.y<0) rollangle=3.14159-rollangle;
+	RoR::App::GetOverlayWrapper()->adibugstexture->setTextureRotate(Radian(-rollangle));
+	RoR::App::GetOverlayWrapper()->aditapetexture->setTextureVScroll(-pitchangle*0.25);
+	RoR::App::GetOverlayWrapper()->aditapetexture->setTextureRotate(Radian(-rollangle));
+
+    // HSI - Horizontal Situation Indicator
+	Vector3 idir=curr_truck->ar_nodes[curr_truck->ar_camera_node_pos[0]].RelPosition-curr_truck->ar_nodes[curr_truck->ar_camera_node_dir[0]].RelPosition;
+    //			idir.normalise();
+	float dirangle=atan2(idir.dotProduct(Vector3::UNIT_X), idir.dotProduct(-Vector3::UNIT_Z));
+	RoR::App::GetOverlayWrapper()->hsirosetexture->setTextureRotate(Radian(dirangle));
+	if (curr_truck->autopilot)
+	{
+		RoR::App::GetOverlayWrapper()->hsibugtexture->setTextureRotate(Radian(dirangle)-Degree(curr_truck->autopilot->heading));
+		float vdev=0;
+		float hdev=0;
+		curr_truck->autopilot->getRadioFix(localizers, free_localizer, &vdev, &hdev);
+		if (hdev>15) hdev=15;
+		if (hdev<-15) hdev=-15;
+		RoR::App::GetOverlayWrapper()->hsivtexture->setTextureUScroll(-hdev*0.02);
+		if (vdev>15) vdev=15;
+		if (vdev<-15) vdev=-15;
+		RoR::App::GetOverlayWrapper()->hsihtexture->setTextureVScroll(-vdev*0.02);
+	}
+
+    // VVI - Vertical Velocity Indicator
+	float vvi=curr_truck->ar_nodes[0].Velocity.y*196.85;
+	if (vvi<1000.0 && vvi>-1000.0) angle=vvi*0.047;
+	if (vvi>1000.0 && vvi<6000.0) angle=47.0+(vvi-1000.0)*0.01175;
+	if (vvi>6000.0) angle=105.75;
+	if (vvi<-1000.0 && vvi>-6000.0) angle=-47.0+(vvi+1000.0)*0.01175;
+	if (vvi<-6000.0) angle=-105.75;
+	RoR::App::GetOverlayWrapper()->vvitexture->setTextureRotate(Degree(-angle+90.0));
+
+
+	if (curr_truck->aeroengines[0]->getType() == AeroEngineType::AE_XPROP)
+	{
+		Turboprop *tp=(Turboprop*)curr_truck->aeroengines[0];
+    //pitch
+		RoR::App::GetOverlayWrapper()->airpitch1texture->setTextureRotate(Degree(-tp->pitch*2.0));
+    //torque
+		pcent=100.0*tp->indicated_torque/tp->max_torque;
+		if (pcent<60.0) angle=-5.0+pcent*1.9167;
+		else if (pcent<110.0) angle=110.0+(pcent-60.0)*4.075;
+		else angle=314.0;
+		RoR::App::GetOverlayWrapper()->airtorque1texture->setTextureRotate(Degree(-angle));
+	}
+
+	if (ftp>1 && curr_truck->aeroengines[1]->getType() == AeroEngineType::AE_XPROP)
+	{
+		Turboprop *tp=(Turboprop*)curr_truck->aeroengines[1];
+    //pitch
+		RoR::App::GetOverlayWrapper()->airpitch2texture->setTextureRotate(Degree(-tp->pitch*2.0));
+    //torque
+		pcent=100.0*tp->indicated_torque/tp->max_torque;
+		if (pcent<60.0) angle=-5.0+pcent*1.9167;
+		else if (pcent<110.0) angle=110.0+(pcent-60.0)*4.075;
+		else angle=314.0;
+		RoR::App::GetOverlayWrapper()->airtorque2texture->setTextureRotate(Degree(-angle));
+	}
+
+	if (ftp>2 && curr_truck->aeroengines[2]->getType() == AeroEngineType::AE_XPROP)
+	{
+		Turboprop *tp=(Turboprop*)curr_truck->aeroengines[2];
+    //pitch
+		RoR::App::GetOverlayWrapper()->airpitch3texture->setTextureRotate(Degree(-tp->pitch*2.0));
+    //torque
+		pcent=100.0*tp->indicated_torque/tp->max_torque;
+		if (pcent<60.0) angle=-5.0+pcent*1.9167;
+		else if (pcent<110.0) angle=110.0+(pcent-60.0)*4.075;
+		else angle=314.0;
+		RoR::App::GetOverlayWrapper()->airtorque3texture->setTextureRotate(Degree(-angle));
+	}
+
+	if (ftp>3 && curr_truck->aeroengines[3]->getType() == AeroEngineType::AE_XPROP)
+	{
+		Turboprop *tp=(Turboprop*)curr_truck->aeroengines[3];
+    //pitch
+		RoR::App::GetOverlayWrapper()->airpitch4texture->setTextureRotate(Degree(-tp->pitch*2.0));
+    //torque
+		pcent=100.0*tp->indicated_torque/tp->max_torque;
+		if (pcent<60.0) angle=-5.0+pcent*1.9167;
+		else if (pcent<110.0) angle=110.0+(pcent-60.0)*4.075;
+		else angle=314.0;
+		RoR::App::GetOverlayWrapper()->airtorque4texture->setTextureRotate(Degree(-angle));
+	}
+
+    //starters
+	if (curr_truck->aeroengines[0]->getIgnition()) RoR::App::GetOverlayWrapper()->engstarto1->setMaterialName("tracks/engstart-on"); else RoR::App::GetOverlayWrapper()->engstarto1->setMaterialName("tracks/engstart-off");
+	if (ftp>1 && curr_truck->aeroengines[1]->getIgnition()) RoR::App::GetOverlayWrapper()->engstarto2->setMaterialName("tracks/engstart-on"); else RoR::App::GetOverlayWrapper()->engstarto2->setMaterialName("tracks/engstart-off");
+	if (ftp>2 && curr_truck->aeroengines[2]->getIgnition()) RoR::App::GetOverlayWrapper()->engstarto3->setMaterialName("tracks/engstart-on"); else RoR::App::GetOverlayWrapper()->engstarto3->setMaterialName("tracks/engstart-off");
+	if (ftp>3 && curr_truck->aeroengines[3]->getIgnition()) RoR::App::GetOverlayWrapper()->engstarto4->setMaterialName("tracks/engstart-on"); else RoR::App::GetOverlayWrapper()->engstarto4->setMaterialName("tracks/engstart-off");
+}
+
+#endif //0
+    ar_dashboard->update(dt);
+}
+
+void Actor::calculateLocalGForces()
+{
+    Vector3 cam_dir  = this->GetCameraDir();
+    Vector3 cam_roll = this->GetCameraRoll();
+    Vector3 cam_up   = cam_dir.crossProduct(cam_roll);
+
+    float gravity = App::GetGameContext()->GetTerrain()->getGravity();
+
+    float vertacc = m_camera_gforces.dotProduct(cam_up) + gravity;
+    float longacc = m_camera_gforces.dotProduct(cam_dir);
+    float latacc  = m_camera_gforces.dotProduct(cam_roll);
+
+    m_camera_local_gforces_cur = Vector3(vertacc, longacc, latacc) / gravity;
+
+    // Let it settle before we start recording the maximum forces
+    if (m_reset_timer.getMilliseconds() > 500)
+    {
+        m_camera_local_gforces_max.makeCeil(-m_camera_local_gforces_cur);
+        m_camera_local_gforces_max.makeCeil(+m_camera_local_gforces_cur);
+    }
+}
+
+void Actor::engineTriggerHelper(int engineNumber, EngineTriggerType type, float triggerValue)
+{
+    // engineNumber = placeholder: actors do not have multiple engines yet
+
+    switch (type)
+    {
+    case TRG_ENGINE_CLUTCH:
+        if (ar_engine)
+            ar_engine->setClutch(triggerValue);
+        break;
+    case TRG_ENGINE_BRAKE:
+        ar_brake = triggerValue;
+        break;
+    case TRG_ENGINE_ACC:
+        if (ar_engine)
+            ar_engine->setAcc(triggerValue);
+        break;
+    case TRG_ENGINE_RPM:
+        // TODO: Implement setTargetRPM in the Engine.cpp
+        break;
+    case TRG_ENGINE_SHIFTUP:
+        if (ar_engine)
+            ar_engine->shift(1);
+        break;
+    case TRG_ENGINE_SHIFTDOWN:
+        if (ar_engine)
+            ar_engine->shift(-1);
+        break;
+    default:
+        break;
+    }
+}
+
+Actor::Actor(
+    ActorInstanceID_t actor_id,
+    unsigned int vector_index,
+    RigDef::DocumentPtr def,
+    RoR::ActorSpawnRequest rq
+) 
+    // Special values
+    : ar_nb_optimum(7, std::numeric_limits<float>::max())
+    , ar_nb_reference(7, std::numeric_limits<float>::max())
+    , m_tyre_pressure(this)
+    , ar_nb_beams_scale(std::make_pair(1.0f, 1.0f))
+    , ar_nb_shocks_scale(std::make_pair(1.0f, 1.0f))
+    , ar_nb_wheels_scale(std::make_pair(1.0f, 1.0f))
+    , ar_nb_beams_k_interval(std::make_pair(0.1f, 2.0f))
+    , ar_nb_beams_d_interval(std::make_pair(0.1f, 2.0f))
+    , ar_nb_shocks_k_interval(std::make_pair(0.1f, 8.0f))
+    , ar_nb_shocks_d_interval(std::make_pair(0.1f, 8.0f))
+    , ar_nb_wheels_k_interval(std::make_pair(1.0f, 1.0f))
+    , ar_nb_wheels_d_interval(std::make_pair(1.0f, 1.0f))
+
+    // Constructor parameters
+    , m_avg_node_position_prev(rq.asr_position)
+    , m_preloaded_with_terrain(rq.asr_origin == RoR::ActorSpawnRequest::Origin::TERRN_DEF)
+    , m_avg_node_position(rq.asr_position)
+    , ar_instance_id(actor_id)
+    , ar_vector_index(vector_index)
+    , m_avg_proped_wheel_radius(0.2f)
+    , ar_filename(rq.asr_cache_entry->fname)
+    , m_section_config(rq.asr_config)
+    , m_used_actor_entry(rq.asr_cache_entry)
+    , m_used_skin_entry(rq.asr_skin_entry)
+    , m_working_tuneup_def(rq.asr_working_tuneup)
+
+    // Public bit flags
+    , ar_update_physics(false)
+    , ar_disable_aerodyn_turbulent_drag(false)
+    , ar_engine_hydraulics_ready(true) // !!
+    , ar_guisettings_use_engine_max_rpm(false)
+    , ar_hydro_speed_coupling(false)
+    , ar_collision_relevant(false)
+    , ar_is_police(false)
+    , ar_rescuer_flag(false)
+    , ar_forward_commands(false)
+    , ar_import_commands(false)
+    , ar_toggle_ropes(false)
+    , ar_toggle_ties(false)
+
+    // Private bit flags
+    , m_hud_features_ok(false)
+    , m_slidenodes_locked(false)
+    , m_net_initialized(false)
+    , m_water_contact(false)
+    , m_water_contact_old(false)
+    , m_has_command_beams(false)
+    , ar_cparticles_active(false)
+    , m_beam_break_debug_enabled(false)
+    , m_beam_deform_debug_enabled(false)
+    , m_trigger_debug_enabled(false)
+    , m_disable_default_sounds(false)
+    , m_disable_smoke(false)
+{
+}
+
+float Actor::getSteeringAngle()
+{
+    return ar_hydro_dir_command;
+}
+
+std::vector<authorinfo_t> Actor::getAuthors()
+{
+    return authors;
+}
+
+std::vector<std::string> Actor::getDescription()
+{
+    return m_description;
+}
+
+void Actor::setMass(float m)
+{
+    ar_dry_mass = m;
+}
+
+void Actor::setLoadedMass(float m)
+{
+    ar_load_mass = m;
+}
+
+void Actor::setNodeMass(int nodeNumber, float m)
+{
+    if (nodeNumber >= 0 && nodeNumber < ar_num_nodes)
+    {
+        ar_nodes_override_loadweights[nodeNumber] = m;
+    }
+}
+
+void Actor::setNodeMassOptions(int nodeNumber, bool loaded, bool overrideMass)
+{
+    if (nodeNumber >= 0 && nodeNumber < ar_num_nodes)
+    {
+        ar_nodes[nodeNumber].nd_loaded_mass = loaded;
+        ar_nodes[nodeNumber].nd_override_mass = overrideMass;
+    }
+}
+
+bool Actor::getCustomLightVisible(int number)
+{
+    if (number < 0 || number >= MAX_CLIGHTS)
+    {
+        LOG(fmt::format("invalid custom-light ID {}, allowed range is 0-{}", number, MAX_CLIGHTS-1));
+        return false;
+    }
+
+    if (number == 0) return (m_lightmask & RoRnet::LIGHTMASK_CUSTOM1);
+    if (number == 1) return (m_lightmask & RoRnet::LIGHTMASK_CUSTOM2);
+    if (number == 2) return (m_lightmask & RoRnet::LIGHTMASK_CUSTOM3);
+    if (number == 3) return (m_lightmask & RoRnet::LIGHTMASK_CUSTOM4);
+    if (number == 4) return (m_lightmask & RoRnet::LIGHTMASK_CUSTOM5);
+    if (number == 5) return (m_lightmask & RoRnet::LIGHTMASK_CUSTOM6);
+    if (number == 6) return (m_lightmask & RoRnet::LIGHTMASK_CUSTOM7);
+    if (number == 7) return (m_lightmask & RoRnet::LIGHTMASK_CUSTOM8);
+    if (number == 8) return (m_lightmask & RoRnet::LIGHTMASK_CUSTOM9);
+    if (number == 9) return (m_lightmask & RoRnet::LIGHTMASK_CUSTOM10);
+
+    return false;
+}
+
+void Actor::setCustomLightVisible(int number, bool visible)
+{
+    if (number < 0 || number >= MAX_CLIGHTS)
+    {
+        LOG(fmt::format("invalid Light ID {}, allowed range is 0-{}", number, MAX_CLIGHTS-1));
+        return;
+    }
+
+    if (number == 0) BITMASK_SET(m_lightmask, RoRnet::LIGHTMASK_CUSTOM1 , visible);
+    if (number == 1) BITMASK_SET(m_lightmask, RoRnet::LIGHTMASK_CUSTOM2 , visible);
+    if (number == 2) BITMASK_SET(m_lightmask, RoRnet::LIGHTMASK_CUSTOM3 , visible);
+    if (number == 3) BITMASK_SET(m_lightmask, RoRnet::LIGHTMASK_CUSTOM4 , visible);
+    if (number == 4) BITMASK_SET(m_lightmask, RoRnet::LIGHTMASK_CUSTOM5 , visible);
+    if (number == 5) BITMASK_SET(m_lightmask, RoRnet::LIGHTMASK_CUSTOM6 , visible);
+    if (number == 6) BITMASK_SET(m_lightmask, RoRnet::LIGHTMASK_CUSTOM7 , visible);
+    if (number == 7) BITMASK_SET(m_lightmask, RoRnet::LIGHTMASK_CUSTOM8 , visible);
+    if (number == 8) BITMASK_SET(m_lightmask, RoRnet::LIGHTMASK_CUSTOM9 , visible);
+    if (number == 9) BITMASK_SET(m_lightmask, RoRnet::LIGHTMASK_CUSTOM10, visible);
+}
+
+int Actor::countCustomLights(int number)
+{
+    if (number < 0 || number >= MAX_CLIGHTS)
+    {
+        LOG(fmt::format("invalid custom-light ID {}, allowed range is 0-{}", number, MAX_CLIGHTS-1));
+        return -1;
+    }
+
+    int count = 0;
+    for (int i = 0; i < ar_flares.size(); i++)
+    {
+        if (ar_flares[i].controlnumber == number)
+            count++;
+    }
+    return count;
+}
+
+int Actor::countFlaresByType(FlareType type)
+{
+    int count = 0;
+    for (int i = 0; i < ar_flares.size(); i++)
+    {
+        if (ar_flares[i].fl_type == type)
+            count++;
+    }
+    return count;
+}
+
+BlinkType Actor::getBlinkType()
+{
+    if (m_lightmask & RoRnet::LIGHTMASK_BLINK_LEFT) return BlinkType::BLINK_LEFT;
+    if (m_lightmask & RoRnet::LIGHTMASK_BLINK_RIGHT) return BlinkType::BLINK_RIGHT;
+    if (m_lightmask & RoRnet::LIGHTMASK_BLINK_WARN) return BlinkType::BLINK_WARN;
+    return BlinkType::BLINK_NONE;
+}
+
+bool Actor::getCustomParticleMode()
+{
+    return ar_cparticles_active;
+}
+
+Ogre::Real Actor::getMinimalCameraRadius()
+{
+    return m_min_camera_radius;
+}
+
+AeroEnginePtr Actor::getAircraftEngine(int index)
+{
+    return (index >= 0 && index < ar_num_aeroengines) ? ar_aeroengines[index] : nullptr;
+}
+
+AeroEnginePtr Actor::getTurbojet(int index)
+{
+    if (index >= 0 && index < ar_num_aeroengines &&
+        ar_aeroengines[index]->getType() == AeroEngineType::AE_TURBOJET)
+    {
+        return ar_aeroengines[index];
+    }
+    else
+    {
+        return nullptr;
+    }
+}
+
+AeroEnginePtr Actor::getTurboprop(int index)
+{
+    if (index >= 0 && index < ar_num_aeroengines &&
+        ar_aeroengines[index]->getType() == AeroEngineType::AE_XPROP)
+    {
+        return ar_aeroengines[index];
+    }
+    else
+    {
+        return nullptr;
+    }
+}
+
+ScrewpropPtr Actor::getScrewprop(int index)
+{
+    return (index >= 0 && index < ar_num_screwprops) ? ar_screwprops[index] : nullptr;
+}
+
+Replay* Actor::getReplay()
+{
+    if (m_replay_handler && m_replay_handler->isValid())
+        return m_replay_handler;
+    else
+        return nullptr;
+}
+
+Ogre::MaterialPtr Actor::getManagedMaterialInstance(const std::string& orig_name)
+{
+    auto it = ar_managed_materials.find(orig_name);
+    if (it != ar_managed_materials.end())
+        return it->second;
+    else
+        return Ogre::MaterialPtr(); // null
+}
+
+std::vector<std::string> Actor::getManagedMaterialNames()
+{
+    std::vector<std::string> names;
+    for (auto it = ar_managed_materials.begin(); it != ar_managed_materials.end(); ++it)
+    {
+        names.push_back(it->first);
+    }
+    return names;
+}
+
+Vector3 Actor::getNodePosition(int nodeNumber)
+{
+    if (nodeNumber >= 0 && nodeNumber < ar_num_nodes)
+    {
+        return ar_nodes[nodeNumber].AbsPosition;
+    }
+    else
+    {
+        return Ogre::Vector3::ZERO;
+    }
+}
+
+float Actor::getNodeInitialMass(int nodeNumber)
+{
+    if (nodeNumber >= 0 && nodeNumber < ar_num_nodes)
+    {
+        return ar_initial_node_masses[nodeNumber];
+    }
+    else
+    {
+        return 0;
+    }
+}
+
+float Actor::getNodeMass(int nodeNumber)
+{
+    if (nodeNumber >= 0 && nodeNumber < ar_num_nodes)
+    {
+        return ar_nodes[nodeNumber].mass;
+    }
+    else
+    {
+        return 0;
+    }
+}
+
+Vector3 Actor::getNodeVelocity(int nodeNumber)
+{
+    if (nodeNumber >= 0 && nodeNumber < ar_num_nodes)
+    {
+        return ar_nodes[nodeNumber].Velocity;
+    }
+    else
+    {
+        return Ogre::Vector3::ZERO;
+    }
+}
+
+Vector3 Actor::getNodeForces(int nodeNumber)
+{
+    if (nodeNumber >= 0 && nodeNumber < ar_num_nodes)
+    {
+        return ar_nodes[nodeNumber].Forces;
+    }
+    else
+    {
+        return Ogre::Vector3::ZERO;
+    }
+}
+
+void Actor::getNodeMassOptions(int nodeNumber, bool& loaded, bool& overrideMass)
+{
+    if (nodeNumber >= 0 && nodeNumber < ar_num_nodes)
+    {
+        loaded = ar_nodes[nodeNumber].nd_loaded_mass;
+        overrideMass = ar_nodes[nodeNumber].nd_override_mass;
+    }
+    else
+    {
+        loaded = false;
+        overrideMass = false;
+    }
+}
+
+bool Actor::isNodeWheelRim(int nodeNumber)
+{
+    if (nodeNumber >= 0 && nodeNumber < ar_num_nodes)
+    {
+        return ar_nodes[nodeNumber].nd_rim_node;
+    }
+    else
+    {
+        return false;
+    }
+}
+
+bool Actor::isNodeWheelTire(int nodeNumber)
+{
+    if (nodeNumber >= 0 && nodeNumber < ar_num_nodes)
+    {
+        return ar_nodes[nodeNumber].nd_tyre_node;
+    }
+    else
+    {
+        return false;
+    }
+}
+
+void Actor::WriteDiagnosticDump(std::string const& fileName)
+{
+    // Purpose: to diff against output from https://github.com/only-a-ptr/rigs-of-rods/tree/retro-0407
+    std::stringstream buf;
+
+    buf << "[nodes]" << std::endl;
+    for (int i = 0; i < ar_num_nodes; i++)
+    {
+        buf 
+            << "  pos:"              << std::setw(3) << ar_nodes[i].pos // indicated pos in node buffer
+                                        << ((ar_nodes[i].pos != i) ? " !!sync " : "") // warn if the indicated pos doesn't match
+            << " (nodes)"
+            << " id:"                << std::setw(3) << ar_nodes_id[i]
+            << " name:"              << std::setw(ar_nodes_name_top_length) << ar_nodes_name[i]
+            << ", buoyancy:"         << std::setw(8) << ar_nodes[i].buoyancy
+            << ", loaded:"           << (int)(ar_nodes[i].nd_loaded_mass)
+            << " (wheels)"
+            << " wheel_rim:"         << (int)ar_nodes[i].nd_rim_node
+            << ", wheel_tyre:"       << (int)ar_nodes[i].nd_tyre_node
+            << " (set_node_defaults)"
+            << " mass:"              << std::setw(8) << ar_nodes[i].mass // param 1 load weight
+            << ", friction_coef:"    << std::setw(5) << ar_nodes[i].friction_coef // param 2 friction coef
+            << ", volume_coef:"      << ar_nodes[i].volume_coef // param 3 volume coef
+            << ", surface_coef:"     << ar_nodes[i].surface_coef // param 4 surface coef
+            << ", overrideMass:"     << ar_nodes[i].nd_override_mass // depends on param 1 load weight
+
+            // only set by `ActorSpawner::UpdateCollcabContacterNodes()` based on collcabs
+            // The 'retro-0407' equivalent is `node::contacter` set by `Beam::updateContacterNodes()` based on collcabs!
+            << " (collcabs)"
+            << " "                   << ar_nodes[i].nd_cab_node
+            << std::endl;
+    }
+
+    buf << "[beams]" << std::endl;
+    for (int i = 0; i < ar_num_beams; i++)
+    {
+        buf
+            << "  "                  << std::setw(4) << i // actual pos in beam buffer
+            << ", node1:"            << std::setw(3) << ((ar_beams[i].p1) ? ar_nodes_id[ar_beams[i].p1->pos] : -1)
+            << ", node2:"            << std::setw(3) << ((ar_beams[i].p2) ? ar_nodes_id[ar_beams[i].p2->pos] : -1)
+            << ", refLen:"           << std::setw(9) << ar_beams[i].refL
+            << " (set_beam_defaults/scale)"
+            << " spring:"            << std::setw(8) << ar_beams[i].k //param1 default_spring
+            << ", damp:"             << std::setw(8) << ar_beams[i].d //param2 default_damp
+            << ", default_deform:"   << std::setw(8) << ar_beams[i].default_beam_deform //param3 default_deform
+            << ", strength:"         << std::setw(8) << ar_beams[i].strength //param4 default_break
+                                        //param5 default_beam_diameter ~ only visual
+                                        //param6 default_beam_material2 ~ only visual
+            << ", plastic_coef:"     << std::setw(8) << ar_beams[i].plastic_coef //param7 default_plastic_coef
+            << std::endl;
+    }
+
+    // Write out to 'logs' using OGRE resource system - works with Unicode paths on Windows
+    Ogre::DataStreamPtr outStream = Ogre::ResourceGroupManager::getSingleton().createResource(fileName, RGN_LOGS, /*overwrite=*/true);
+    std::string text = buf.str();
+    outStream->write(text.c_str(), text.length());
+}
+
+void Actor::UpdatePropAnimInputEvents()
+{
+    for (PropAnimKeyState& state : m_prop_anim_key_states)
+    {
+        bool ev_active = App::GetInputEngine()->getEventValue(state.event_id);
+        if (state.eventlock_present)
+        {
+            // Toggle-mode
+            if (ev_active && (ev_active != state.event_active_prev))
+            {
+                state.anim_active = !state.anim_active;
+            }
+        }
+        else
+        {
+            // Direct-mode
+            state.anim_active = ev_active;
+        }
+        state.event_active_prev = ev_active;
+    }
+}
+
+std::string Actor::getTruckFileResourceGroup()
+{
+    return m_used_actor_entry->resource_group;
+}
+
+CacheEntryPtr& Actor::getUsedActorEntry()
+{
+    return m_used_actor_entry;
+}
+
+CacheEntryPtr& Actor::getUsedSkinEntry()
+{
+    return m_used_skin_entry;
+}
+
+CacheEntryPtrVec& Actor::getUsedAddonpartEntries()
+{
+    return m_used_addonpart_entries;
+}
+
+CacheEntryPtrVec& Actor::getUsedAssetpackEntries()
+{
+    return m_used_assetpack_entries;
+}
+
+TuneupDefPtr& Actor::getWorkingTuneupDef()
+{
+    return m_working_tuneup_def;
+}
+
+void Actor::ensureWorkingTuneupDef()
+{
+    if (!m_working_tuneup_def)
+    {
+        m_working_tuneup_def = new TuneupDef();
+        m_working_tuneup_def->name = fmt::format("Tuned {}", ar_filename);
+    }
+}
+
+void Actor::removeWorkingTuneupDef()
+{
+    m_working_tuneup_def = nullptr;
+}
+
+float Actor::getShockSpringRate(int shock_number)
+{
+    if (shock_number >= 0 && shock_number < ar_num_shocks)
+    {
+        return ar_beams[ar_shocks[shock_number].beamid].debug_k;
+    }
+    return -1.f;
+}
+
+float Actor::getShockDamping(int shock_number)
+{
+    if (shock_number >= 0 && shock_number < ar_num_shocks)
+    {
+        return ar_beams[ar_shocks[shock_number].beamid].debug_d;
+    }
+    return -1.f;
+}
+
+float Actor::getShockVelocity(int shock_number)
+{
+    if (shock_number >= 0 && shock_number < ar_num_shocks)
+    {
+        return ar_beams[ar_shocks[shock_number].beamid].debug_v;
+    }
+    return -1.f;
+}
+
+int Actor::getShockNode1(int shock_number)
+{
+    if (shock_number >= 0 && shock_number < ar_num_shocks)
+    {
+        return ar_beams[ar_shocks[shock_number].beamid].p1->pos;
+    }
+    return -1.f;
+}
+
+int Actor::getShockNode2(int shock_number)
+{
+    if (shock_number >= 0 && shock_number < ar_num_shocks)
+    {
+        return ar_beams[ar_shocks[shock_number].beamid].p2->pos;
+    }
+    return -1.f;
+}
+
+void Actor::setSimAttribute(ActorSimAttr attr, float val)
+{
+    if (App::mp_state->getEnum<MpState>() == MpState::CONNECTED)
+    {
+        App::GetConsole()->putMessage(Console::CONSOLE_MSGTYPE_INFO, Console::CONSOLE_SYSTEM_WARNING,
+            "Cannot change simulation attributes in multiplayer mode.");
+        return;
+    }
+
+    LOG(fmt::format("[RoR|Actor] setSimAttribute: '{}' = {}", ActorSimAttrToString(attr), val));
+
+    TRIGGER_EVENT_ASYNC(SE_ANGELSCRIPT_MANIPULATIONS, ASMANIP_ACTORSIMATTR_SET, attr, 0, 0, ActorSimAttrToString(attr), fmt::format("{}", val));
+
+    // PLEASE maintain the same order as in `enum ActorSimAttr`
+    switch (attr)
+    {
+        // TractionControl
+    case ACTORSIMATTR_TC_RATIO: tc_ratio = val; return;
+    case ACTORSIMATTR_TC_PULSE_TIME: tc_pulse_time = val; return;
+    case ACTORSIMATTR_TC_WHEELSLIP_CONSTANT: tc_wheelslip_constant = val; return;
+
+        // Engine
+    case ACTORSIMATTR_ENGINE_SHIFTDOWN_RPM:     if (ar_engine) { ar_engine->m_engine_shiftup_rpm = val; } return;
+    case ACTORSIMATTR_ENGINE_SHIFTUP_RPM:       if (ar_engine) { ar_engine->m_engine_max_rpm = val; } return;
+    case ACTORSIMATTR_ENGINE_TORQUE:            if (ar_engine) { ar_engine->m_engine_torque = val; } return;
+    case ACTORSIMATTR_ENGINE_DIFF_RATIO:        if (ar_engine) { ar_engine->m_diff_ratio = val; } return;
+    case ACTORSIMATTR_ENGINE_GEAR_RATIOS_ARRAY: return;
+
+        // Engoption
+    case ACTORSIMATTR_ENGOPTION_ENGINE_INERTIA:   if (ar_engine) { ar_engine->m_engine_inertia = val; } return;
+    case ACTORSIMATTR_ENGOPTION_ENGINE_TYPE:      if (ar_engine) { ar_engine->m_engine_type = (char)val; } return;
+    case ACTORSIMATTR_ENGOPTION_CLUTCH_FORCE:     if (ar_engine) { ar_engine->m_clutch_force = val; } return;
+    case ACTORSIMATTR_ENGOPTION_SHIFT_TIME:       if (ar_engine) { ar_engine->m_shift_time = val; } return;
+    case ACTORSIMATTR_ENGOPTION_CLUTCH_TIME:      if (ar_engine) { ar_engine->m_clutch_time = val; } return;
+    case ACTORSIMATTR_ENGOPTION_POST_SHIFT_TIME:  if (ar_engine) { ar_engine->m_post_shift_time = val; } return;
+    case ACTORSIMATTR_ENGOPTION_STALL_RPM:        if (ar_engine) { ar_engine->m_engine_stall_rpm = val; } return;
+    case ACTORSIMATTR_ENGOPTION_IDLE_RPM:         if (ar_engine) { ar_engine->m_engine_idle_rpm = val; } return;
+    case ACTORSIMATTR_ENGOPTION_MAX_IDLE_MIXTURE: if (ar_engine) { ar_engine->m_max_idle_mixture = val; } return;
+    case ACTORSIMATTR_ENGOPTION_MIN_IDLE_MIXTURE: if (ar_engine) { ar_engine->m_min_idle_mixture = val; } return;
+    case ACTORSIMATTR_ENGOPTION_BRAKING_TORQUE:   if (ar_engine) { ar_engine->m_braking_torque = val; } return;
+
+        // Engturbo2 (actually 'engturbo' with type=2) 
+    case ACTORSIMATTR_ENGTURBO2_INERTIA_FACTOR:      if (ar_engine && ar_engine->m_turbo_ver == 2) { ar_engine->m_turbo_inertia_factor = val; } return;
+    case ACTORSIMATTR_ENGTURBO2_NUM_TURBOS:          if (ar_engine && ar_engine->m_turbo_ver == 2) { ar_engine->m_num_turbos = val; } return;
+    case ACTORSIMATTR_ENGTURBO2_MAX_RPM:             if (ar_engine && ar_engine->m_turbo_ver == 2) { ar_engine->m_max_turbo_rpm = val; } return;
+    case ACTORSIMATTR_ENGTURBO2_ENGINE_RPM_OP:       if (ar_engine && ar_engine->m_turbo_ver == 2) { ar_engine->m_turbo_engine_rpm_operation = val; } return;
+    case ACTORSIMATTR_ENGTURBO2_BOV_ENABLED:         if (ar_engine && ar_engine->m_turbo_ver == 2) { ar_engine->m_turbo_has_bov = (bool)val; } return;
+    case ACTORSIMATTR_ENGTURBO2_BOV_MIN_PSI:         if (ar_engine && ar_engine->m_turbo_ver == 2) { ar_engine->m_min_bov_psi = val; } return;
+    case ACTORSIMATTR_ENGTURBO2_WASTEGATE_ENABLED:   if (ar_engine && ar_engine->m_turbo_ver == 2) { ar_engine->m_turbo_has_wastegate = (bool)val; } return;
+    case ACTORSIMATTR_ENGTURBO2_WASTEGATE_MAX_PSI:   if (ar_engine && ar_engine->m_turbo_ver == 2) { ar_engine->m_min_wastegate_psi = val; } return;
+    case ACTORSIMATTR_ENGTURBO2_WASTEGATE_THRESHOLD_N: if (ar_engine && ar_engine->m_turbo_ver == 2) { ar_engine->m_turbo_wg_threshold_n = val; } return;
+    case ACTORSIMATTR_ENGTURBO2_WASTEGATE_THRESHOLD_P: if (ar_engine && ar_engine->m_turbo_ver == 2) { ar_engine->m_turbo_wg_threshold_p = val; } return;
+    case ACTORSIMATTR_ENGTURBO2_ANTILAG_ENABLED:     if (ar_engine && ar_engine->m_turbo_ver == 2) { ar_engine->m_turbo_has_antilag = (bool)val; } return;
+    case ACTORSIMATTR_ENGTURBO2_ANTILAG_CHANCE:      if (ar_engine && ar_engine->m_turbo_ver == 2) { ar_engine->m_antilag_rand_chance = val; } return;
+    case ACTORSIMATTR_ENGTURBO2_ANTILAG_MIN_RPM:     if (ar_engine && ar_engine->m_turbo_ver == 2) { ar_engine->m_antilag_min_rpm = val; } return;
+    case ACTORSIMATTR_ENGTURBO2_ANTILAG_POWER:       if (ar_engine && ar_engine->m_turbo_ver == 2) { ar_engine->m_antilag_power_factor = val; } return;
+
+    default: return;
+    }
+}
+
+float Actor::getSimAttribute(ActorSimAttr attr)
+{
+    // PLEASE maintain the same order as in `enum ActorSimAttr`
+    switch (attr)
+    {
+        // TractionControl
+    case ACTORSIMATTR_TC_RATIO: return tc_ratio;
+    case ACTORSIMATTR_TC_PULSE_TIME: return tc_pulse_time;
+    case ACTORSIMATTR_TC_WHEELSLIP_CONSTANT: return tc_wheelslip_constant;
+
+        // Engine
+    case ACTORSIMATTR_ENGINE_SHIFTDOWN_RPM:     if (ar_engine) { return ar_engine->m_engine_shiftup_rpm; } return 0.f;
+    case ACTORSIMATTR_ENGINE_SHIFTUP_RPM:       if (ar_engine) { return ar_engine->m_engine_max_rpm; } return 0.f;
+    case ACTORSIMATTR_ENGINE_TORQUE:            if (ar_engine) { return ar_engine->m_engine_torque; } return 0.f;
+    case ACTORSIMATTR_ENGINE_DIFF_RATIO:        if (ar_engine) { return ar_engine->m_diff_ratio; } return 0.f;
+    case ACTORSIMATTR_ENGINE_GEAR_RATIOS_ARRAY: return 0.f;
+
+        // Engoption
+    case ACTORSIMATTR_ENGOPTION_ENGINE_INERTIA:   if (ar_engine) { return ar_engine->m_engine_inertia; } return 0.f;
+    case ACTORSIMATTR_ENGOPTION_ENGINE_TYPE:      if (ar_engine) { return (float)ar_engine->m_engine_type; } return 0.f;
+    case ACTORSIMATTR_ENGOPTION_CLUTCH_FORCE:     if (ar_engine) { return ar_engine->m_clutch_force; } return 0.f;
+    case ACTORSIMATTR_ENGOPTION_SHIFT_TIME:       if (ar_engine) { return ar_engine->m_shift_time; } return 0.f;
+    case ACTORSIMATTR_ENGOPTION_CLUTCH_TIME:      if (ar_engine) { return ar_engine->m_clutch_time; } return 0.f;
+    case ACTORSIMATTR_ENGOPTION_POST_SHIFT_TIME:  if (ar_engine) { return ar_engine->m_post_shift_time; } return 0.f;
+    case ACTORSIMATTR_ENGOPTION_STALL_RPM:        if (ar_engine) { return ar_engine->m_engine_stall_rpm; } return 0.f;
+    case ACTORSIMATTR_ENGOPTION_IDLE_RPM:         if (ar_engine) { return ar_engine->m_engine_idle_rpm; } return 0.f;
+    case ACTORSIMATTR_ENGOPTION_MAX_IDLE_MIXTURE: if (ar_engine) { return ar_engine->m_max_idle_mixture; } return 0.f;
+    case ACTORSIMATTR_ENGOPTION_MIN_IDLE_MIXTURE: if (ar_engine) { return ar_engine->m_min_idle_mixture; } return 0.f;
+    case ACTORSIMATTR_ENGOPTION_BRAKING_TORQUE:   if (ar_engine) { return ar_engine->m_braking_torque; } return 0.f;
+
+        // Engturbo2 (actually 'engturbo' with type=2) 
+    case ACTORSIMATTR_ENGTURBO2_INERTIA_FACTOR:        if (ar_engine && ar_engine->m_turbo_ver == 2) { return ar_engine->m_turbo_inertia_factor; } return 0.f;
+    case ACTORSIMATTR_ENGTURBO2_NUM_TURBOS:            if (ar_engine && ar_engine->m_turbo_ver == 2) { return ar_engine->m_num_turbos; } return 0.f;
+    case ACTORSIMATTR_ENGTURBO2_MAX_RPM:               if (ar_engine && ar_engine->m_turbo_ver == 2) { return ar_engine->m_max_turbo_rpm; } return 0.f;
+    case ACTORSIMATTR_ENGTURBO2_ENGINE_RPM_OP:         if (ar_engine && ar_engine->m_turbo_ver == 2) { return ar_engine->m_turbo_engine_rpm_operation; } return 0.f;
+    case ACTORSIMATTR_ENGTURBO2_BOV_ENABLED:           if (ar_engine && ar_engine->m_turbo_ver == 2) { return (float)ar_engine->m_turbo_has_bov; } return 0.f;
+    case ACTORSIMATTR_ENGTURBO2_BOV_MIN_PSI:           if (ar_engine && ar_engine->m_turbo_ver == 2) { return ar_engine->m_min_bov_psi; } return 0.f;
+    case ACTORSIMATTR_ENGTURBO2_WASTEGATE_ENABLED:     if (ar_engine && ar_engine->m_turbo_ver == 2) { return (float)ar_engine->m_turbo_has_wastegate; } return 0.f;
+    case ACTORSIMATTR_ENGTURBO2_WASTEGATE_MAX_PSI:     if (ar_engine && ar_engine->m_turbo_ver == 2) { return ar_engine->m_min_wastegate_psi; } return 0.f;
+    case ACTORSIMATTR_ENGTURBO2_WASTEGATE_THRESHOLD_N: if (ar_engine && ar_engine->m_turbo_ver == 2) { return ar_engine->m_turbo_wg_threshold_n; } return 0.f;
+    case ACTORSIMATTR_ENGTURBO2_WASTEGATE_THRESHOLD_P: if (ar_engine && ar_engine->m_turbo_ver == 2) { return ar_engine->m_turbo_wg_threshold_p; } return 0.f;
+    case ACTORSIMATTR_ENGTURBO2_ANTILAG_ENABLED:       if (ar_engine && ar_engine->m_turbo_ver == 2) { return (float)ar_engine->m_turbo_has_antilag; } return 0.f;
+    case ACTORSIMATTR_ENGTURBO2_ANTILAG_CHANCE:        if (ar_engine && ar_engine->m_turbo_ver == 2) { return ar_engine->m_antilag_rand_chance; } return 0.f;
+    case ACTORSIMATTR_ENGTURBO2_ANTILAG_MIN_RPM:       if (ar_engine && ar_engine->m_turbo_ver == 2) { return ar_engine->m_antilag_min_rpm; } return 0.f;
+    case ACTORSIMATTR_ENGTURBO2_ANTILAG_POWER:         if (ar_engine && ar_engine->m_turbo_ver == 2) { return ar_engine->m_antilag_power_factor; } return 0.f;
+
+    default: return 0.f;
+    }
+}
+
+void Actor::setForcedCinecam(CineCameraID_t cinecam_id, BitMask_t flags)
+{
+    ar_forced_cinecam = cinecam_id;
+    ar_forced_cinecam_flags = flags;
+}
+
+void Actor::clearForcedCinecam()
+{
+    this->setForcedCinecam(CINECAMERAID_INVALID, 0);
+}
+
+bool Actor::getForcedCinecam(CineCameraID_t& cinecam_id, BitMask_t& flags)
+{
+    cinecam_id = ar_forced_cinecam;
+    flags = ar_forced_cinecam_flags;
+    return (ar_forced_cinecam != CINECAMERAID_INVALID);
+}

@@ -1,0 +1,13 @@
+prefix=C:/a1e/Tests/c1e/C2e/build/deps
+exec_prefix=${prefix}
+libdir=${prefix}/lib
+includedir=${prefix}/include
+plugindir=${libdir}/OGRE
+
+Name: OGRE (static lib)
+Description: Object-Oriented Graphics Rendering Engine
+Version: 1.12.9
+URL: http://www.ogre3d.org
+Requires: freetype2, zziplib, x11, xt, xaw7, gl
+Libs: -L${libdir} -L${plugindir} -lOgreMainStatic  -lfreeimage
+Cflags: -I${includedir} -I${includedir}/OGRE 

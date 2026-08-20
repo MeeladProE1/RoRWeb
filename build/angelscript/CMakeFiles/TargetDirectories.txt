@@ -1,0 +1,7 @@
+C:/a1e/Tests/c1e/C2e/build/angelscript/CMakeFiles/angelscript.dir
+C:/a1e/Tests/c1e/C2e/build/angelscript/CMakeFiles/edit_cache.dir
+C:/a1e/Tests/c1e/C2e/build/angelscript/CMakeFiles/rebuild_cache.dir
+C:/a1e/Tests/c1e/C2e/build/angelscript/CMakeFiles/list_install_components.dir
+C:/a1e/Tests/c1e/C2e/build/angelscript/CMakeFiles/install.dir
+C:/a1e/Tests/c1e/C2e/build/angelscript/CMakeFiles/install/local.dir
+C:/a1e/Tests/c1e/C2e/build/angelscript/CMakeFiles/install/strip.dir

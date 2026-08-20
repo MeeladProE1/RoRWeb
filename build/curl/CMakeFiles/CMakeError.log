@@ -1,0 +1,448 @@
+Determining size of __int64 failed with the following output:
+Change Dir: 'C:/a1e/Tests/c1e/C2e/build/curl/CMakeFiles/CMakeTmp'
+
+Run Build Command(s): "C:/Program Files/CMake/bin/cmake.exe" -E env VERBOSE=1 C:/MinGW/bin/mingw32-make.exe -f Makefile cmTC_1dea3/fast
+C:/MinGW/bin/mingw32-make.exe  -f CMakeFiles\cmTC_1dea3.dir\build.make CMakeFiles/cmTC_1dea3.dir/build
+mingw32-make.exe[1]: Entering directory 'C:/a1e/Tests/c1e/C2e/build/curl/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_1dea3.dir/SIZEOF___INT64.c.o
+C:\a1e\Tests\c1e\C2e\emsdk\upstream\emscripten\emcc.exe   -pthread  -Wextra -Wall -pedantic -Wbad-function-cast -Wconversion -Winline -Wmissing-declarations -Wmissing-prototypes -Wnested-externs -Wno-long-long -Wno-multichar -Wpointer-arith -Wshadow -Wsign-compare -Wundef -Wunused -Wwrite-strings -Wcast-align -Wdeclaration-after-statement -Wempty-body -Wendif-labels -Wfloat-equal -Wignored-qualifiers -Wno-format-nonliteral -Wno-sign-conversion -Wno-system-headers -Wstrict-prototypes -Wtype-limits -Wvla -Wshift-sign-overflow -Wshorten-64-to-32 -Wdouble-promotion -Wenum-conversion -Wunused-const-variable -Wcomma -Wmissing-variable-declarations -Wassign-enum -Wextra-semi-stmt  -MD -MT CMakeFiles/cmTC_1dea3.dir/SIZEOF___INT64.c.o -MF CMakeFiles\cmTC_1dea3.dir\SIZEOF___INT64.c.o.d -o CMakeFiles\cmTC_1dea3.dir\SIZEOF___INT64.c.o -c C:\a1e\Tests\c1e\C2e\build\curl\CMakeFiles\CheckTypeSize\SIZEOF___INT64.c
+C:\a1e\Tests\c1e\C2e\build\curl\CMakeFiles\CheckTypeSize\SIZEOF___INT64.c:25:12: error: use of undeclared identifier '__int64'
+   25 |   ('0' + ((SIZE / 10000)%10)),
+      |            ^~~~
+C:\a1e\Tests\c1e\C2e\build\curl\CMakeFiles\CheckTypeSize\SIZEOF___INT64.c:23:22: note: expanded from macro 'SIZE'
+   23 | #define SIZE (sizeof(__int64))
+      |                      ^~~~~~~
+C:\a1e\Tests\c1e\C2e\build\curl\CMakeFiles\CheckTypeSize\SIZEOF___INT64.c:26:12: error: use of undeclared identifier '__int64'
+   26 |   ('0' + ((SIZE / 1000)%10)),
+      |            ^~~~
+C:\a1e\Tests\c1e\C2e\build\curl\CMakeFiles\CheckTypeSize\SIZEOF___INT64.c:23:22: note: expanded from macro 'SIZE'
+   23 | #define SIZE (sizeof(__int64))
+      |                      ^~~~~~~
+C:\a1e\Tests\c1e\C2e\build\curl\CMakeFiles\CheckTypeSize\SIZEOF___INT64.c:27:12: error: use of undeclared identifier '__int64'
+   27 |   ('0' + ((SIZE / 100)%10)),
+      |            ^~~~
+C:\a1e\Tests\c1e\C2e\build\curl\CMakeFiles\CheckTypeSize\SIZEOF___INT64.c:23:22: note: expanded from macro 'SIZE'
+   23 | #define SIZE (sizeof(__int64))
+      |                      ^~~~~~~
+C:\a1e\Tests\c1e\C2e\build\curl\CMakeFiles\CheckTypeSize\SIZEOF___INT64.c:28:12: error: use of undeclared identifier '__int64'
+   28 |   ('0' + ((SIZE / 10)%10)),
+      |            ^~~~
+C:\a1e\Tests\c1e\C2e\build\curl\CMakeFiles\CheckTypeSize\SIZEOF___INT64.c:23:22: note: expanded from macro 'SIZE'
+   23 | #define SIZE (sizeof(__int64))
+      |                      ^~~~~~~
+C:\a1e\Tests\c1e\C2e\build\curl\CMakeFiles\CheckTypeSize\SIZEOF___INT64.c:29:12: error: use of undeclared identifier '__int64'
+   29 |   ('0' +  (SIZE    % 10)),
+      |            ^~~~
+C:\a1e\Tests\c1e\C2e\build\curl\CMakeFiles\CheckTypeSize\SIZEOF___INT64.c:23:22: note: expanded from macro 'SIZE'
+   23 | #define SIZE (sizeof(__int64))
+      |                      ^~~~~~~
+5 errors generated.
+CMakeFiles\cmTC_1dea3.dir\build.make:77: recipe for target 'CMakeFiles/cmTC_1dea3.dir/SIZEOF___INT64.c.o' failed
+mingw32-make.exe[1]: *** [CMakeFiles/cmTC_1dea3.dir/SIZEOF___INT64.c.o] Error 1
+mingw32-make.exe[1]: Leaving directory 'C:/a1e/Tests/c1e/C2e/build/curl/CMakeFiles/CMakeTmp'
+Makefile:126: recipe for target 'cmTC_1dea3/fast' failed
+mingw32-make.exe: *** [cmTC_1dea3/fast] Error 2
+
+
+C:/a1e/Tests/c1e/C2e/build/curl/CMakeFiles/CheckTypeSize/SIZEOF___INT64.c:
+#include <sys/types.h>
+#include <stdint.h>
+#include <stddef.h>
+
+
+#undef KEY
+#if defined(__i386)
+# define KEY '_','_','i','3','8','6'
+#elif defined(__x86_64)
+# define KEY '_','_','x','8','6','_','6','4'
+#elif defined(__ppc__)
+# define KEY '_','_','p','p','c','_','_'
+#elif defined(__ppc64__)
+# define KEY '_','_','p','p','c','6','4','_','_'
+#elif defined(__aarch64__)
+# define KEY '_','_','a','a','r','c','h','6','4','_','_'
+#elif defined(__ARM_ARCH_7A__)
+# define KEY '_','_','A','R','M','_','A','R','C','H','_','7','A','_','_'
+#elif defined(__ARM_ARCH_7S__)
+# define KEY '_','_','A','R','M','_','A','R','C','H','_','7','S','_','_'
+#endif
+
+#define SIZE (sizeof(__int64))
+char info_size[] =  {'I', 'N', 'F', 'O', ':', 's','i','z','e','[',
+  ('0' + ((SIZE / 10000)%10)),
+  ('0' + ((SIZE / 1000)%10)),
+  ('0' + ((SIZE / 100)%10)),
+  ('0' + ((SIZE / 10)%10)),
+  ('0' +  (SIZE    % 10)),
+  ']',
+#ifdef KEY
+  ' ','k','e','y','[', KEY, ']',
+#endif
+  '\0'};
+
+#ifdef __CLASSIC_C__
+int main(argc, argv) int argc; char *argv[];
+#else
+int main(int argc, char *argv[])
+#endif
+{
+  int require = 0;
+  require += info_size[argc];
+  (void)argv;
+  return require;
+}
+
+
+Determining size of ADDRESS_FAMILY failed with the following output:
+Change Dir: 'C:/a1e/Tests/c1e/C2e/build/curl/CMakeFiles/CMakeTmp'
+
+Run Build Command(s): "C:/Program Files/CMake/bin/cmake.exe" -E env VERBOSE=1 C:/MinGW/bin/mingw32-make.exe -f Makefile cmTC_43639/fast
+C:/MinGW/bin/mingw32-make.exe  -f CMakeFiles\cmTC_43639.dir\build.make CMakeFiles/cmTC_43639.dir/build
+mingw32-make.exe[1]: Entering directory 'C:/a1e/Tests/c1e/C2e/build/curl/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_43639.dir/SIZEOF_ADDRESS_FAMILY.c.o
+C:\a1e\Tests\c1e\C2e\emsdk\upstream\emscripten\emcc.exe   -pthread  -Wextra -Wall -pedantic -Wbad-function-cast -Wconversion -Winline -Wmissing-declarations -Wmissing-prototypes -Wnested-externs -Wno-long-long -Wno-multichar -Wpointer-arith -Wshadow -Wsign-compare -Wundef -Wunused -Wwrite-strings -Wcast-align -Wdeclaration-after-statement -Wempty-body -Wendif-labels -Wfloat-equal -Wignored-qualifiers -Wno-format-nonliteral -Wno-sign-conversion -Wno-system-headers -Wstrict-prototypes -Wtype-limits -Wvla -Wshift-sign-overflow -Wshorten-64-to-32 -Wdouble-promotion -Wenum-conversion -Wunused-const-variable -Wcomma -Wmissing-variable-declarations -Wassign-enum -Wextra-semi-stmt  -MD -MT CMakeFiles/cmTC_43639.dir/SIZEOF_ADDRESS_FAMILY.c.o -MF CMakeFiles\cmTC_43639.dir\SIZEOF_ADDRESS_FAMILY.c.o.d -o CMakeFiles\cmTC_43639.dir\SIZEOF_ADDRESS_FAMILY.c.o -c C:\a1e\Tests\c1e\C2e\build\curl\CMakeFiles\CheckTypeSize\SIZEOF_ADDRESS_FAMILY.c
+C:\a1e\Tests\c1e\C2e\build\curl\CMakeFiles\CheckTypeSize\SIZEOF_ADDRESS_FAMILY.c:4:10: fatal error: 'ws2def.h' file not found
+    4 | #include "ws2def.h"
+      |          ^~~~~~~~~~
+1 error generated.
+CMakeFiles\cmTC_43639.dir\build.make:77: recipe for target 'CMakeFiles/cmTC_43639.dir/SIZEOF_ADDRESS_FAMILY.c.o' failed
+mingw32-make.exe[1]: *** [CMakeFiles/cmTC_43639.dir/SIZEOF_ADDRESS_FAMILY.c.o] Error 1
+mingw32-make.exe[1]: Leaving directory 'C:/a1e/Tests/c1e/C2e/build/curl/CMakeFiles/CMakeTmp'
+Makefile:126: recipe for target 'cmTC_43639/fast' failed
+mingw32-make.exe: *** [cmTC_43639/fast] Error 2
+
+
+C:/a1e/Tests/c1e/C2e/build/curl/CMakeFiles/CheckTypeSize/SIZEOF_ADDRESS_FAMILY.c:
+#include <sys/types.h>
+#include <stdint.h>
+#include <stddef.h>
+#include "ws2def.h"
+
+
+#undef KEY
+#if defined(__i386)
+# define KEY '_','_','i','3','8','6'
+#elif defined(__x86_64)
+# define KEY '_','_','x','8','6','_','6','4'
+#elif defined(__ppc__)
+# define KEY '_','_','p','p','c','_','_'
+#elif defined(__ppc64__)
+# define KEY '_','_','p','p','c','6','4','_','_'
+#elif defined(__aarch64__)
+# define KEY '_','_','a','a','r','c','h','6','4','_','_'
+#elif defined(__ARM_ARCH_7A__)
+# define KEY '_','_','A','R','M','_','A','R','C','H','_','7','A','_','_'
+#elif defined(__ARM_ARCH_7S__)
+# define KEY '_','_','A','R','M','_','A','R','C','H','_','7','S','_','_'
+#endif
+
+#define SIZE (sizeof(ADDRESS_FAMILY))
+char info_size[] =  {'I', 'N', 'F', 'O', ':', 's','i','z','e','[',
+  ('0' + ((SIZE / 10000)%10)),
+  ('0' + ((SIZE / 1000)%10)),
+  ('0' + ((SIZE / 100)%10)),
+  ('0' + ((SIZE / 10)%10)),
+  ('0' +  (SIZE    % 10)),
+  ']',
+#ifdef KEY
+  ' ','k','e','y','[', KEY, ']',
+#endif
+  '\0'};
+
+#ifdef __CLASSIC_C__
+int main(argc, argv) int argc; char *argv[];
+#else
+int main(int argc, char *argv[])
+#endif
+{
+  int require = 0;
+  require += info_size[argc];
+  (void)argv;
+  return require;
+}
+
+
+Performing Curl Test HAVE_IOCTLSOCKET failed with the following output:
+Change Dir: 'C:/a1e/Tests/c1e/C2e/build/curl/CMakeFiles/CMakeTmp'
+
+Run Build Command(s): "C:/Program Files/CMake/bin/cmake.exe" -E env VERBOSE=1 C:/MinGW/bin/mingw32-make.exe -f Makefile cmTC_3f20c/fast
+C:/MinGW/bin/mingw32-make.exe  -f CMakeFiles\cmTC_3f20c.dir\build.make CMakeFiles/cmTC_3f20c.dir/build
+mingw32-make.exe[1]: Entering directory 'C:/a1e/Tests/c1e/C2e/build/curl/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_3f20c.dir/CurlTests.c.o
+C:\a1e\Tests\c1e\C2e\emsdk\upstream\emscripten\emcc.exe   -pthread  -Wextra -Wall -pedantic -Wbad-function-cast -Wconversion -Winline -Wmissing-declarations -Wmissing-prototypes -Wnested-externs -Wno-long-long -Wno-multichar -Wpointer-arith -Wshadow -Wsign-compare -Wundef -Wunused -Wwrite-strings -Wcast-align -Wdeclaration-after-statement -Wempty-body -Wendif-labels -Wfloat-equal -Wignored-qualifiers -Wno-format-nonliteral -Wno-sign-conversion -Wno-system-headers -Wstrict-prototypes -Wtype-limits -Wvla -Wshift-sign-overflow -Wshorten-64-to-32 -Wdouble-promotion -Wenum-conversion -Wunused-const-variable -Wcomma -Wmissing-variable-declarations -Wassign-enum -Wextra-semi-stmt -DHAVE_IOCTLSOCKET  -DHAVE_INTTYPES_H -DHAVE_SYS_IOCTL_H -DHAVE_SYS_PARAM_H -DHAVE_SYS_POLL_H -DHAVE_SYS_RESOURCE_H -DHAVE_SYS_SELECT_H -DHAVE_SYS_SOCKET_H -DHAVE_SYS_STAT_H -DHAVE_SYS_TIME_H -DHAVE_SYS_TYPES_H -DHAVE_SYS_UN_H -DHAVE_SYS_XATTR_H -DHAVE_ARPA_INET_H -DHAVE_ARPA_TFTP_H -DHAVE_FCNTL_H -DHAVE_IFADDRS_H -DHAVE_LIBGEN_H -DHAVE_LOCALE_H -DHAVE_NET_IF_H -DHAVE_NETDB_H -DHAVE_NETINET_IN_H -DHAVE_NETINET_TCP_H -DHAVE_POLL_H -DHAVE_PWD_H -DHAVE_SETJMP_H -DHAVE_SIGNAL_H -DHAVE_STDATOMIC_H -DHAVE_STDBOOL_H -DHAVE_STDINT_H -DHAVE_STDLIB_H -DHAVE_STRING_H -DHAVE_STRINGS_H -DHAVE_STROPTS_H -DHAVE_TERMIOS_H -DHAVE_TIME_H -DHAVE_UNISTD_H -DHAVE_UTIME_H -DHAVE_STDDEF_H -DHAVE_SYS_UTSNAME_H -MD -MT CMakeFiles/cmTC_3f20c.dir/CurlTests.c.o -MF CMakeFiles\cmTC_3f20c.dir\CurlTests.c.o.d -o CMakeFiles\cmTC_3f20c.dir\CurlTests.c.o -c C:\a1e\Tests\c1e\C2e\source\curl\CMake\CurlTests.c
+C:\a1e\Tests\c1e\C2e\source\curl\CMake\CurlTests.c:216:6: warning: a function declaration without a prototype is deprecated in all versions of C [-Wstrict-prototypes]
+  216 | main ()
+      |      ^
+      |       void
+C:\a1e\Tests\c1e\C2e\source\curl\CMake\CurlTests.c:221:24: error: call to undeclared function 'ioctlsocket'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
+  221 |  unsigned long flags = ioctlsocket(socket, FIONBIO, &flags);
+      |                        ^
+C:\a1e\Tests\c1e\C2e\source\curl\CMake\CurlTests.c:221:44: error: use of undeclared identifier 'FIONBIO'
+  221 |  unsigned long flags = ioctlsocket(socket, FIONBIO, &flags);
+      |                                            ^~~~~~~
+C:\a1e\Tests\c1e\C2e\source\curl\CMake\CurlTests.c:223:3: warning: empty expression statement has no effect; remove unnecessary ';' to silence this warning [-Wextra-semi-stmt]
+  223 |   ;
+      |   ^
+2 warnings and 2 errors generated.
+CMakeFiles\cmTC_3f20c.dir\build.make:77: recipe for target 'CMakeFiles/cmTC_3f20c.dir/CurlTests.c.o' failed
+mingw32-make.exe[1]: *** [CMakeFiles/cmTC_3f20c.dir/CurlTests.c.o] Error 1
+mingw32-make.exe[1]: Leaving directory 'C:/a1e/Tests/c1e/C2e/build/curl/CMakeFiles/CMakeTmp'
+Makefile:126: recipe for target 'cmTC_3f20c/fast' failed
+mingw32-make.exe: *** [cmTC_3f20c/fast] Error 2
+
+
+Performing Curl Test HAVE_IOCTLSOCKET_CAMEL failed with the following output:
+Change Dir: 'C:/a1e/Tests/c1e/C2e/build/curl/CMakeFiles/CMakeTmp'
+
+Run Build Command(s): "C:/Program Files/CMake/bin/cmake.exe" -E env VERBOSE=1 C:/MinGW/bin/mingw32-make.exe -f Makefile cmTC_96e20/fast
+C:/MinGW/bin/mingw32-make.exe  -f CMakeFiles\cmTC_96e20.dir\build.make CMakeFiles/cmTC_96e20.dir/build
+mingw32-make.exe[1]: Entering directory 'C:/a1e/Tests/c1e/C2e/build/curl/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_96e20.dir/CurlTests.c.o
+C:\a1e\Tests\c1e\C2e\emsdk\upstream\emscripten\emcc.exe   -pthread  -Wextra -Wall -pedantic -Wbad-function-cast -Wconversion -Winline -Wmissing-declarations -Wmissing-prototypes -Wnested-externs -Wno-long-long -Wno-multichar -Wpointer-arith -Wshadow -Wsign-compare -Wundef -Wunused -Wwrite-strings -Wcast-align -Wdeclaration-after-statement -Wempty-body -Wendif-labels -Wfloat-equal -Wignored-qualifiers -Wno-format-nonliteral -Wno-sign-conversion -Wno-system-headers -Wstrict-prototypes -Wtype-limits -Wvla -Wshift-sign-overflow -Wshorten-64-to-32 -Wdouble-promotion -Wenum-conversion -Wunused-const-variable -Wcomma -Wmissing-variable-declarations -Wassign-enum -Wextra-semi-stmt -DHAVE_IOCTLSOCKET_CAMEL  -DHAVE_INTTYPES_H -DHAVE_SYS_IOCTL_H -DHAVE_SYS_PARAM_H -DHAVE_SYS_POLL_H -DHAVE_SYS_RESOURCE_H -DHAVE_SYS_SELECT_H -DHAVE_SYS_SOCKET_H -DHAVE_SYS_STAT_H -DHAVE_SYS_TIME_H -DHAVE_SYS_TYPES_H -DHAVE_SYS_UN_H -DHAVE_SYS_XATTR_H -DHAVE_ARPA_INET_H -DHAVE_ARPA_TFTP_H -DHAVE_FCNTL_H -DHAVE_IFADDRS_H -DHAVE_LIBGEN_H -DHAVE_LOCALE_H -DHAVE_NET_IF_H -DHAVE_NETDB_H -DHAVE_NETINET_IN_H -DHAVE_NETINET_TCP_H -DHAVE_POLL_H -DHAVE_PWD_H -DHAVE_SETJMP_H -DHAVE_SIGNAL_H -DHAVE_STDATOMIC_H -DHAVE_STDBOOL_H -DHAVE_STDINT_H -DHAVE_STDLIB_H -DHAVE_STRING_H -DHAVE_STRINGS_H -DHAVE_STROPTS_H -DHAVE_TERMIOS_H -DHAVE_TIME_H -DHAVE_UNISTD_H -DHAVE_UTIME_H -DHAVE_STDDEF_H -DHAVE_SYS_UTSNAME_H -MD -MT CMakeFiles/cmTC_96e20.dir/CurlTests.c.o -MF CMakeFiles\cmTC_96e20.dir\CurlTests.c.o.d -o CMakeFiles\cmTC_96e20.dir\CurlTests.c.o -c C:\a1e\Tests\c1e\C2e\source\curl\CMake\CurlTests.c
+C:\a1e\Tests\c1e\C2e\source\curl\CMake\CurlTests.c:241:6: warning: a function declaration without a prototype is deprecated in all versions of C [-Wstrict-prototypes]
+  241 | main ()
+      |      ^
+      |       void
+C:\a1e\Tests\c1e\C2e\source\curl\CMake\CurlTests.c:245:13: error: call to undeclared function 'IoctlSocket'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
+  245 |     if(0 != IoctlSocket(0, 0, 0))
+      |             ^
+C:\a1e\Tests\c1e\C2e\source\curl\CMake\CurlTests.c:247:3: warning: empty expression statement has no effect; remove unnecessary ';' to silence this warning [-Wextra-semi-stmt]
+  247 |   ;
+      |   ^
+2 warnings and 1 error generated.
+CMakeFiles\cmTC_96e20.dir\build.make:77: recipe for target 'CMakeFiles/cmTC_96e20.dir/CurlTests.c.o' failed
+mingw32-make.exe[1]: *** [CMakeFiles/cmTC_96e20.dir/CurlTests.c.o] Error 1
+mingw32-make.exe[1]: Leaving directory 'C:/a1e/Tests/c1e/C2e/build/curl/CMakeFiles/CMakeTmp'
+Makefile:126: recipe for target 'cmTC_96e20/fast' failed
+mingw32-make.exe: *** [cmTC_96e20/fast] Error 2
+
+
+Performing Curl Test HAVE_IOCTLSOCKET_CAMEL_FIONBIO failed with the following output:
+Change Dir: 'C:/a1e/Tests/c1e/C2e/build/curl/CMakeFiles/CMakeTmp'
+
+Run Build Command(s): "C:/Program Files/CMake/bin/cmake.exe" -E env VERBOSE=1 C:/MinGW/bin/mingw32-make.exe -f Makefile cmTC_7a801/fast
+C:/MinGW/bin/mingw32-make.exe  -f CMakeFiles\cmTC_7a801.dir\build.make CMakeFiles/cmTC_7a801.dir/build
+mingw32-make.exe[1]: Entering directory 'C:/a1e/Tests/c1e/C2e/build/curl/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_7a801.dir/CurlTests.c.o
+C:\a1e\Tests\c1e\C2e\emsdk\upstream\emscripten\emcc.exe   -pthread  -Wextra -Wall -pedantic -Wbad-function-cast -Wconversion -Winline -Wmissing-declarations -Wmissing-prototypes -Wnested-externs -Wno-long-long -Wno-multichar -Wpointer-arith -Wshadow -Wsign-compare -Wundef -Wunused -Wwrite-strings -Wcast-align -Wdeclaration-after-statement -Wempty-body -Wendif-labels -Wfloat-equal -Wignored-qualifiers -Wno-format-nonliteral -Wno-sign-conversion -Wno-system-headers -Wstrict-prototypes -Wtype-limits -Wvla -Wshift-sign-overflow -Wshorten-64-to-32 -Wdouble-promotion -Wenum-conversion -Wunused-const-variable -Wcomma -Wmissing-variable-declarations -Wassign-enum -Wextra-semi-stmt -DHAVE_IOCTLSOCKET_CAMEL_FIONBIO  -DHAVE_INTTYPES_H -DHAVE_SYS_IOCTL_H -DHAVE_SYS_PARAM_H -DHAVE_SYS_POLL_H -DHAVE_SYS_RESOURCE_H -DHAVE_SYS_SELECT_H -DHAVE_SYS_SOCKET_H -DHAVE_SYS_STAT_H -DHAVE_SYS_TIME_H -DHAVE_SYS_TYPES_H -DHAVE_SYS_UN_H -DHAVE_SYS_XATTR_H -DHAVE_ARPA_INET_H -DHAVE_ARPA_TFTP_H -DHAVE_FCNTL_H -DHAVE_IFADDRS_H -DHAVE_LIBGEN_H -DHAVE_LOCALE_H -DHAVE_NET_IF_H -DHAVE_NETDB_H -DHAVE_NETINET_IN_H -DHAVE_NETINET_TCP_H -DHAVE_POLL_H -DHAVE_PWD_H -DHAVE_SETJMP_H -DHAVE_SIGNAL_H -DHAVE_STDATOMIC_H -DHAVE_STDBOOL_H -DHAVE_STDINT_H -DHAVE_STDLIB_H -DHAVE_STRING_H -DHAVE_STRINGS_H -DHAVE_STROPTS_H -DHAVE_TERMIOS_H -DHAVE_TIME_H -DHAVE_UNISTD_H -DHAVE_UTIME_H -DHAVE_STDDEF_H -DHAVE_SYS_UTSNAME_H -MD -MT CMakeFiles/cmTC_7a801.dir/CurlTests.c.o -MF CMakeFiles\cmTC_7a801.dir\CurlTests.c.o.d -o CMakeFiles\cmTC_7a801.dir\CurlTests.c.o -c C:\a1e\Tests\c1e\C2e\source\curl\CMake\CurlTests.c
+C:\a1e\Tests\c1e\C2e\source\curl\CMake\CurlTests.c:264:6: warning: a function declaration without a prototype is deprecated in all versions of C [-Wstrict-prototypes]
+  264 | main ()
+      |      ^
+      |       void
+C:\a1e\Tests\c1e\C2e\source\curl\CMake\CurlTests.c:269:17: error: call to undeclared function 'IoctlSocket'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
+  269 |         if(0 != IoctlSocket(0, FIONBIO, &flags))
+      |                 ^
+C:\a1e\Tests\c1e\C2e\source\curl\CMake\CurlTests.c:269:32: error: use of undeclared identifier 'FIONBIO'
+  269 |         if(0 != IoctlSocket(0, FIONBIO, &flags))
+      |                                ^~~~~~~
+C:\a1e\Tests\c1e\C2e\source\curl\CMake\CurlTests.c:271:3: warning: empty expression statement has no effect; remove unnecessary ';' to silence this warning [-Wextra-semi-stmt]
+  271 |   ;
+      |   ^
+2 warnings and 2 errors generated.
+CMakeFiles\cmTC_7a801.dir\build.make:77: recipe for target 'CMakeFiles/cmTC_7a801.dir/CurlTests.c.o' failed
+mingw32-make.exe[1]: *** [CMakeFiles/cmTC_7a801.dir/CurlTests.c.o] Error 1
+mingw32-make.exe[1]: Leaving directory 'C:/a1e/Tests/c1e/C2e/build/curl/CMakeFiles/CMakeTmp'
+Makefile:126: recipe for target 'cmTC_7a801/fast' failed
+mingw32-make.exe: *** [cmTC_7a801/fast] Error 2
+
+
+Performing Curl Test HAVE_IOCTLSOCKET_FIONBIO failed with the following output:
+Change Dir: 'C:/a1e/Tests/c1e/C2e/build/curl/CMakeFiles/CMakeTmp'
+
+Run Build Command(s): "C:/Program Files/CMake/bin/cmake.exe" -E env VERBOSE=1 C:/MinGW/bin/mingw32-make.exe -f Makefile cmTC_b7506/fast
+C:/MinGW/bin/mingw32-make.exe  -f CMakeFiles\cmTC_b7506.dir\build.make CMakeFiles/cmTC_b7506.dir/build
+mingw32-make.exe[1]: Entering directory 'C:/a1e/Tests/c1e/C2e/build/curl/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_b7506.dir/CurlTests.c.o
+C:\a1e\Tests\c1e\C2e\emsdk\upstream\emscripten\emcc.exe   -pthread  -Wextra -Wall -pedantic -Wbad-function-cast -Wconversion -Winline -Wmissing-declarations -Wmissing-prototypes -Wnested-externs -Wno-long-long -Wno-multichar -Wpointer-arith -Wshadow -Wsign-compare -Wundef -Wunused -Wwrite-strings -Wcast-align -Wdeclaration-after-statement -Wempty-body -Wendif-labels -Wfloat-equal -Wignored-qualifiers -Wno-format-nonliteral -Wno-sign-conversion -Wno-system-headers -Wstrict-prototypes -Wtype-limits -Wvla -Wshift-sign-overflow -Wshorten-64-to-32 -Wdouble-promotion -Wenum-conversion -Wunused-const-variable -Wcomma -Wmissing-variable-declarations -Wassign-enum -Wextra-semi-stmt -DHAVE_IOCTLSOCKET_FIONBIO  -DHAVE_INTTYPES_H -DHAVE_SYS_IOCTL_H -DHAVE_SYS_PARAM_H -DHAVE_SYS_POLL_H -DHAVE_SYS_RESOURCE_H -DHAVE_SYS_SELECT_H -DHAVE_SYS_SOCKET_H -DHAVE_SYS_STAT_H -DHAVE_SYS_TIME_H -DHAVE_SYS_TYPES_H -DHAVE_SYS_UN_H -DHAVE_SYS_XATTR_H -DHAVE_ARPA_INET_H -DHAVE_ARPA_TFTP_H -DHAVE_FCNTL_H -DHAVE_IFADDRS_H -DHAVE_LIBGEN_H -DHAVE_LOCALE_H -DHAVE_NET_IF_H -DHAVE_NETDB_H -DHAVE_NETINET_IN_H -DHAVE_NETINET_TCP_H -DHAVE_POLL_H -DHAVE_PWD_H -DHAVE_SETJMP_H -DHAVE_SIGNAL_H -DHAVE_STDATOMIC_H -DHAVE_STDBOOL_H -DHAVE_STDINT_H -DHAVE_STDLIB_H -DHAVE_STRING_H -DHAVE_STRINGS_H -DHAVE_STROPTS_H -DHAVE_TERMIOS_H -DHAVE_TIME_H -DHAVE_UNISTD_H -DHAVE_UTIME_H -DHAVE_STDDEF_H -DHAVE_SYS_UTSNAME_H -MD -MT CMakeFiles/cmTC_b7506.dir/CurlTests.c.o -MF CMakeFiles\cmTC_b7506.dir\CurlTests.c.o.d -o CMakeFiles\cmTC_b7506.dir\CurlTests.c.o -c C:\a1e\Tests\c1e\C2e\source\curl\CMake\CurlTests.c
+C:\a1e\Tests\c1e\C2e\source\curl\CMake\CurlTests.c:288:6: warning: a function declaration without a prototype is deprecated in all versions of C [-Wstrict-prototypes]
+  288 | main ()
+      |      ^
+      |       void
+C:\a1e\Tests\c1e\C2e\source\curl\CMake\CurlTests.c:292:17: error: call to undeclared function 'ioctlsocket'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
+  292 |         if(0 != ioctlsocket(0, FIONBIO, &flags))
+      |                 ^
+C:\a1e\Tests\c1e\C2e\source\curl\CMake\CurlTests.c:292:32: error: use of undeclared identifier 'FIONBIO'
+  292 |         if(0 != ioctlsocket(0, FIONBIO, &flags))
+      |                                ^~~~~~~
+C:\a1e\Tests\c1e\C2e\source\curl\CMake\CurlTests.c:295:3: warning: empty expression statement has no effect; remove unnecessary ';' to silence this warning [-Wextra-semi-stmt]
+  295 |   ;
+      |   ^
+2 warnings and 2 errors generated.
+CMakeFiles\cmTC_b7506.dir\build.make:77: recipe for target 'CMakeFiles/cmTC_b7506.dir/CurlTests.c.o' failed
+mingw32-make.exe[1]: *** [CMakeFiles/cmTC_b7506.dir/CurlTests.c.o] Error 1
+mingw32-make.exe[1]: Leaving directory 'C:/a1e/Tests/c1e/C2e/build/curl/CMakeFiles/CMakeTmp'
+Makefile:126: recipe for target 'cmTC_b7506/fast' failed
+mingw32-make.exe: *** [cmTC_b7506/fast] Error 2
+
+
+Performing Curl Test HAVE_SETSOCKOPT_SO_NONBLOCK failed with the following output:
+Change Dir: 'C:/a1e/Tests/c1e/C2e/build/curl/CMakeFiles/CMakeTmp'
+
+Run Build Command(s): "C:/Program Files/CMake/bin/cmake.exe" -E env VERBOSE=1 C:/MinGW/bin/mingw32-make.exe -f Makefile cmTC_9a87b/fast
+C:/MinGW/bin/mingw32-make.exe  -f CMakeFiles\cmTC_9a87b.dir\build.make CMakeFiles/cmTC_9a87b.dir/build
+mingw32-make.exe[1]: Entering directory 'C:/a1e/Tests/c1e/C2e/build/curl/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_9a87b.dir/CurlTests.c.o
+C:\a1e\Tests\c1e\C2e\emsdk\upstream\emscripten\emcc.exe   -pthread  -Wextra -Wall -pedantic -Wbad-function-cast -Wconversion -Winline -Wmissing-declarations -Wmissing-prototypes -Wnested-externs -Wno-long-long -Wno-multichar -Wpointer-arith -Wshadow -Wsign-compare -Wundef -Wunused -Wwrite-strings -Wcast-align -Wdeclaration-after-statement -Wempty-body -Wendif-labels -Wfloat-equal -Wignored-qualifiers -Wno-format-nonliteral -Wno-sign-conversion -Wno-system-headers -Wstrict-prototypes -Wtype-limits -Wvla -Wshift-sign-overflow -Wshorten-64-to-32 -Wdouble-promotion -Wenum-conversion -Wunused-const-variable -Wcomma -Wmissing-variable-declarations -Wassign-enum -Wextra-semi-stmt -DHAVE_SETSOCKOPT_SO_NONBLOCK  -DHAVE_INTTYPES_H -DHAVE_SYS_IOCTL_H -DHAVE_SYS_PARAM_H -DHAVE_SYS_POLL_H -DHAVE_SYS_RESOURCE_H -DHAVE_SYS_SELECT_H -DHAVE_SYS_SOCKET_H -DHAVE_SYS_STAT_H -DHAVE_SYS_TIME_H -DHAVE_SYS_TYPES_H -DHAVE_SYS_UN_H -DHAVE_SYS_XATTR_H -DHAVE_ARPA_INET_H -DHAVE_ARPA_TFTP_H -DHAVE_FCNTL_H -DHAVE_IFADDRS_H -DHAVE_LIBGEN_H -DHAVE_LOCALE_H -DHAVE_NET_IF_H -DHAVE_NETDB_H -DHAVE_NETINET_IN_H -DHAVE_NETINET_TCP_H -DHAVE_POLL_H -DHAVE_PWD_H -DHAVE_SETJMP_H -DHAVE_SIGNAL_H -DHAVE_STDATOMIC_H -DHAVE_STDBOOL_H -DHAVE_STDINT_H -DHAVE_STDLIB_H -DHAVE_STRING_H -DHAVE_STRINGS_H -DHAVE_STROPTS_H -DHAVE_TERMIOS_H -DHAVE_TIME_H -DHAVE_UNISTD_H -DHAVE_UTIME_H -DHAVE_STDDEF_H -DHAVE_SYS_UTSNAME_H -MD -MT CMakeFiles/cmTC_9a87b.dir/CurlTests.c.o -MF CMakeFiles\cmTC_9a87b.dir\CurlTests.c.o.d -o CMakeFiles\cmTC_9a87b.dir\CurlTests.c.o -c C:\a1e\Tests\c1e\C2e\source\curl\CMake\CurlTests.c
+C:\a1e\Tests\c1e\C2e\source\curl\CMake\CurlTests.c:382:6: warning: a function declaration without a prototype is deprecated in all versions of C [-Wstrict-prototypes]
+  382 | main ()
+      |      ^
+      |       void
+C:\a1e\Tests\c1e\C2e\source\curl\CMake\CurlTests.c:384:43: error: use of undeclared identifier 'SO_NONBLOCK'
+  384 |         if(0 != setsockopt(0, SOL_SOCKET, SO_NONBLOCK, 0, 0))
+      |                                           ^~~~~~~~~~~
+C:\a1e\Tests\c1e\C2e\source\curl\CMake\CurlTests.c:386:3: warning: empty expression statement has no effect; remove unnecessary ';' to silence this warning [-Wextra-semi-stmt]
+  386 |   ;
+      |   ^
+2 warnings and 1 error generated.
+CMakeFiles\cmTC_9a87b.dir\build.make:77: recipe for target 'CMakeFiles/cmTC_9a87b.dir/CurlTests.c.o' failed
+mingw32-make.exe[1]: *** [CMakeFiles/cmTC_9a87b.dir/CurlTests.c.o] Error 1
+mingw32-make.exe[1]: Leaving directory 'C:/a1e/Tests/c1e/C2e/build/curl/CMakeFiles/CMakeTmp'
+Makefile:126: recipe for target 'cmTC_9a87b/fast' failed
+mingw32-make.exe: *** [cmTC_9a87b/fast] Error 2
+
+
+Performing Curl Test HAVE_GETHOSTBYNAME_R_3 failed with the following output:
+Change Dir: 'C:/a1e/Tests/c1e/C2e/build/curl/CMakeFiles/CMakeTmp'
+
+Run Build Command(s): "C:/Program Files/CMake/bin/cmake.exe" -E env VERBOSE=1 C:/MinGW/bin/mingw32-make.exe -f Makefile cmTC_ea234/fast
+C:/MinGW/bin/mingw32-make.exe  -f CMakeFiles\cmTC_ea234.dir\build.make CMakeFiles/cmTC_ea234.dir/build
+mingw32-make.exe[1]: Entering directory 'C:/a1e/Tests/c1e/C2e/build/curl/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_ea234.dir/CurlTests.c.o
+C:\a1e\Tests\c1e\C2e\emsdk\upstream\emscripten\emcc.exe   -pthread  -Wextra -Wall -pedantic -Wbad-function-cast -Wconversion -Winline -Wmissing-declarations -Wmissing-prototypes -Wnested-externs -Wno-long-long -Wno-multichar -Wpointer-arith -Wshadow -Wsign-compare -Wundef -Wunused -Wwrite-strings -Wcast-align -Wdeclaration-after-statement -Wempty-body -Wendif-labels -Wfloat-equal -Wignored-qualifiers -Wno-format-nonliteral -Wno-sign-conversion -Wno-system-headers -Wstrict-prototypes -Wtype-limits -Wvla -Wshift-sign-overflow -Wshorten-64-to-32 -Wdouble-promotion -Wenum-conversion -Wunused-const-variable -Wcomma -Wmissing-variable-declarations -Wassign-enum -Wextra-semi-stmt -DHAVE_GETHOSTBYNAME_R_3  -DHAVE_INTTYPES_H -DHAVE_SYS_IOCTL_H -DHAVE_SYS_PARAM_H -DHAVE_SYS_POLL_H -DHAVE_SYS_RESOURCE_H -DHAVE_SYS_SELECT_H -DHAVE_SYS_SOCKET_H -DHAVE_SYS_STAT_H -DHAVE_SYS_TIME_H -DHAVE_SYS_TYPES_H -DHAVE_SYS_UN_H -DHAVE_SYS_XATTR_H -DHAVE_ARPA_INET_H -DHAVE_ARPA_TFTP_H -DHAVE_FCNTL_H -DHAVE_IFADDRS_H -DHAVE_LIBGEN_H -DHAVE_LOCALE_H -DHAVE_NET_IF_H -DHAVE_NETDB_H -DHAVE_NETINET_IN_H -DHAVE_NETINET_TCP_H -DHAVE_POLL_H -DHAVE_PWD_H -DHAVE_SETJMP_H -DHAVE_SIGNAL_H -DHAVE_STDATOMIC_H -DHAVE_STDBOOL_H -DHAVE_STDINT_H -DHAVE_STDLIB_H -DHAVE_STRING_H -DHAVE_STRINGS_H -DHAVE_STROPTS_H -DHAVE_TERMIOS_H -DHAVE_TIME_H -DHAVE_UNISTD_H -DHAVE_UTIME_H -DHAVE_STDDEF_H -DHAVE_SYS_UTSNAME_H -MD -MT CMakeFiles/cmTC_ea234.dir/CurlTests.c.o -MF CMakeFiles\cmTC_ea234.dir\CurlTests.c.o.d -o CMakeFiles\cmTC_ea234.dir\CurlTests.c.o -c C:\a1e\Tests\c1e\C2e\source\curl\CMake\CurlTests.c
+C:\a1e\Tests\c1e\C2e\source\curl\CMake\CurlTests.c:92:9: warning: initializing 'char *' with an expression of type 'const char[12]' discards qualifiers [-Wincompatible-pointer-types-discards-qualifiers]
+   92 |   char *address = "example.com";
+      |         ^         ~~~~~~~~~~~~~
+C:\a1e\Tests\c1e\C2e\source\curl\CMake\CurlTests.c:99:23: error: variable has incomplete type 'struct hostent_data'
+   99 |   struct hostent_data hdata;
+      |                       ^
+C:\a1e\Tests\c1e\C2e\source\curl\CMake\CurlTests.c:99:10: note: forward declaration of 'struct hostent_data'
+   99 |   struct hostent_data hdata;
+      |          ^
+1 warning and 1 error generated.
+CMakeFiles\cmTC_ea234.dir\build.make:77: recipe for target 'CMakeFiles/cmTC_ea234.dir/CurlTests.c.o' failed
+mingw32-make.exe[1]: *** [CMakeFiles/cmTC_ea234.dir/CurlTests.c.o] Error 1
+mingw32-make.exe[1]: Leaving directory 'C:/a1e/Tests/c1e/C2e/build/curl/CMakeFiles/CMakeTmp'
+Makefile:126: recipe for target 'cmTC_ea234/fast' failed
+mingw32-make.exe: *** [cmTC_ea234/fast] Error 2
+
+
+Performing Curl Test HAVE_GETHOSTBYNAME_R_5 failed with the following output:
+Change Dir: 'C:/a1e/Tests/c1e/C2e/build/curl/CMakeFiles/CMakeTmp'
+
+Run Build Command(s): "C:/Program Files/CMake/bin/cmake.exe" -E env VERBOSE=1 C:/MinGW/bin/mingw32-make.exe -f Makefile cmTC_90556/fast
+C:/MinGW/bin/mingw32-make.exe  -f CMakeFiles\cmTC_90556.dir\build.make CMakeFiles/cmTC_90556.dir/build
+mingw32-make.exe[1]: Entering directory 'C:/a1e/Tests/c1e/C2e/build/curl/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_90556.dir/CurlTests.c.o
+C:\a1e\Tests\c1e\C2e\emsdk\upstream\emscripten\emcc.exe   -pthread  -Wextra -Wall -pedantic -Wbad-function-cast -Wconversion -Winline -Wmissing-declarations -Wmissing-prototypes -Wnested-externs -Wno-long-long -Wno-multichar -Wpointer-arith -Wshadow -Wsign-compare -Wundef -Wunused -Wwrite-strings -Wcast-align -Wdeclaration-after-statement -Wempty-body -Wendif-labels -Wfloat-equal -Wignored-qualifiers -Wno-format-nonliteral -Wno-sign-conversion -Wno-system-headers -Wstrict-prototypes -Wtype-limits -Wvla -Wshift-sign-overflow -Wshorten-64-to-32 -Wdouble-promotion -Wenum-conversion -Wunused-const-variable -Wcomma -Wmissing-variable-declarations -Wassign-enum -Wextra-semi-stmt -DHAVE_GETHOSTBYNAME_R_5  -DHAVE_INTTYPES_H -DHAVE_SYS_IOCTL_H -DHAVE_SYS_PARAM_H -DHAVE_SYS_POLL_H -DHAVE_SYS_RESOURCE_H -DHAVE_SYS_SELECT_H -DHAVE_SYS_SOCKET_H -DHAVE_SYS_STAT_H -DHAVE_SYS_TIME_H -DHAVE_SYS_TYPES_H -DHAVE_SYS_UN_H -DHAVE_SYS_XATTR_H -DHAVE_ARPA_INET_H -DHAVE_ARPA_TFTP_H -DHAVE_FCNTL_H -DHAVE_IFADDRS_H -DHAVE_LIBGEN_H -DHAVE_LOCALE_H -DHAVE_NET_IF_H -DHAVE_NETDB_H -DHAVE_NETINET_IN_H -DHAVE_NETINET_TCP_H -DHAVE_POLL_H -DHAVE_PWD_H -DHAVE_SETJMP_H -DHAVE_SIGNAL_H -DHAVE_STDATOMIC_H -DHAVE_STDBOOL_H -DHAVE_STDINT_H -DHAVE_STDLIB_H -DHAVE_STRING_H -DHAVE_STRINGS_H -DHAVE_STROPTS_H -DHAVE_TERMIOS_H -DHAVE_TIME_H -DHAVE_UNISTD_H -DHAVE_UTIME_H -DHAVE_STDDEF_H -DHAVE_SYS_UTSNAME_H -MD -MT CMakeFiles/cmTC_90556.dir/CurlTests.c.o -MF CMakeFiles\cmTC_90556.dir\CurlTests.c.o.d -o CMakeFiles\cmTC_90556.dir\CurlTests.c.o -c C:\a1e\Tests\c1e\C2e\source\curl\CMake\CurlTests.c
+C:\a1e\Tests\c1e\C2e\source\curl\CMake\CurlTests.c:92:9: warning: initializing 'char *' with an expression of type 'const char[12]' discards qualifiers [-Wincompatible-pointer-types-discards-qualifiers]
+   92 |   char *address = "example.com";
+      |         ^         ~~~~~~~~~~~~~
+C:\a1e\Tests\c1e\C2e\source\curl\CMake\CurlTests.c:114:60: error: too few arguments to function call, expected 6, have 5
+  114 |   rc = gethostbyname_r(address, &h, buffer, 8192, &h_errnop);
+      |        ~~~~~~~~~~~~~~~                                     ^
+C:\a1e\Tests\c1e\C2e\emsdk\upstream\emscripten\cache\sysroot/include\compat\netdb.h:16:5: note: 'gethostbyname_r' declared here
+   16 | int gethostbyname_r(const char *, struct hostent *, char *, size_t, struct hostent **, int *);
+      |     ^               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+1 warning and 1 error generated.
+CMakeFiles\cmTC_90556.dir\build.make:77: recipe for target 'CMakeFiles/cmTC_90556.dir/CurlTests.c.o' failed
+mingw32-make.exe[1]: *** [CMakeFiles/cmTC_90556.dir/CurlTests.c.o] Error 1
+mingw32-make.exe[1]: Leaving directory 'C:/a1e/Tests/c1e/C2e/build/curl/CMakeFiles/CMakeTmp'
+Makefile:126: recipe for target 'cmTC_90556/fast' failed
+mingw32-make.exe: *** [cmTC_90556/fast] Error 2
+
+
+Performing Curl Test HAVE_GETHOSTBYNAME_R_3_REENTRANT failed with the following output:
+Change Dir: 'C:/a1e/Tests/c1e/C2e/build/curl/CMakeFiles/CMakeTmp'
+
+Run Build Command(s): "C:/Program Files/CMake/bin/cmake.exe" -E env VERBOSE=1 C:/MinGW/bin/mingw32-make.exe -f Makefile cmTC_e971a/fast
+C:/MinGW/bin/mingw32-make.exe  -f CMakeFiles\cmTC_e971a.dir\build.make CMakeFiles/cmTC_e971a.dir/build
+mingw32-make.exe[1]: Entering directory 'C:/a1e/Tests/c1e/C2e/build/curl/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_e971a.dir/CurlTests.c.o
+C:\a1e\Tests\c1e\C2e\emsdk\upstream\emscripten\emcc.exe   -pthread  -Wextra -Wall -pedantic -Wbad-function-cast -Wconversion -Winline -Wmissing-declarations -Wmissing-prototypes -Wnested-externs -Wno-long-long -Wno-multichar -Wpointer-arith -Wshadow -Wsign-compare -Wundef -Wunused -Wwrite-strings -Wcast-align -Wdeclaration-after-statement -Wempty-body -Wendif-labels -Wfloat-equal -Wignored-qualifiers -Wno-format-nonliteral -Wno-sign-conversion -Wno-system-headers -Wstrict-prototypes -Wtype-limits -Wvla -Wshift-sign-overflow -Wshorten-64-to-32 -Wdouble-promotion -Wenum-conversion -Wunused-const-variable -Wcomma -Wmissing-variable-declarations -Wassign-enum -Wextra-semi-stmt -DHAVE_GETHOSTBYNAME_R_3_REENTRANT  -DHAVE_INTTYPES_H -DHAVE_SYS_IOCTL_H -DHAVE_SYS_PARAM_H -DHAVE_SYS_POLL_H -DHAVE_SYS_RESOURCE_H -DHAVE_SYS_SELECT_H -DHAVE_SYS_SOCKET_H -DHAVE_SYS_STAT_H -DHAVE_SYS_TIME_H -DHAVE_SYS_TYPES_H -DHAVE_SYS_UN_H -DHAVE_SYS_XATTR_H -DHAVE_ARPA_INET_H -DHAVE_ARPA_TFTP_H -DHAVE_FCNTL_H -DHAVE_IFADDRS_H -DHAVE_LIBGEN_H -DHAVE_LOCALE_H -DHAVE_NET_IF_H -DHAVE_NETDB_H -DHAVE_NETINET_IN_H -DHAVE_NETINET_TCP_H -DHAVE_POLL_H -DHAVE_PWD_H -DHAVE_SETJMP_H -DHAVE_SIGNAL_H -DHAVE_STDATOMIC_H -DHAVE_STDBOOL_H -DHAVE_STDINT_H -DHAVE_STDLIB_H -DHAVE_STRING_H -DHAVE_STRINGS_H -DHAVE_STROPTS_H -DHAVE_TERMIOS_H -DHAVE_TIME_H -DHAVE_UNISTD_H -DHAVE_UTIME_H -DHAVE_STDDEF_H -DHAVE_SYS_UTSNAME_H -MD -MT CMakeFiles/cmTC_e971a.dir/CurlTests.c.o -MF CMakeFiles\cmTC_e971a.dir\CurlTests.c.o.d -o CMakeFiles\cmTC_e971a.dir\CurlTests.c.o -c C:\a1e\Tests\c1e\C2e\source\curl\CMake\CurlTests.c
+C:\a1e\Tests\c1e\C2e\source\curl\CMake\CurlTests.c:80:12: warning: '_REENTRANT' macro redefined [-Wmacro-redefined]
+   80 | #   define _REENTRANT
+      |            ^
+<built-in>:369:9: note: previous definition is here
+  369 | #define _REENTRANT 1
+      |         ^
+C:\a1e\Tests\c1e\C2e\source\curl\CMake\CurlTests.c:92:9: warning: initializing 'char *' with an expression of type 'const char[12]' discards qualifiers [-Wincompatible-pointer-types-discards-qualifiers]
+   92 |   char *address = "example.com";
+      |         ^         ~~~~~~~~~~~~~
+C:\a1e\Tests\c1e\C2e\source\curl\CMake\CurlTests.c:99:23: error: variable has incomplete type 'struct hostent_data'
+   99 |   struct hostent_data hdata;
+      |                       ^
+C:\a1e\Tests\c1e\C2e\source\curl\CMake\CurlTests.c:99:10: note: forward declaration of 'struct hostent_data'
+   99 |   struct hostent_data hdata;
+      |          ^
+2 warnings and 1 error generated.
+CMakeFiles\cmTC_e971a.dir\build.make:77: recipe for target 'CMakeFiles/cmTC_e971a.dir/CurlTests.c.o' failed
+mingw32-make.exe[1]: *** [CMakeFiles/cmTC_e971a.dir/CurlTests.c.o] Error 1
+mingw32-make.exe[1]: Leaving directory 'C:/a1e/Tests/c1e/C2e/build/curl/CMakeFiles/CMakeTmp'
+Makefile:126: recipe for target 'cmTC_e971a/fast' failed
+mingw32-make.exe: *** [cmTC_e971a/fast] Error 2
+
+
+Performing Curl Test HAVE_GETHOSTBYNAME_R_5_REENTRANT failed with the following output:
+Change Dir: 'C:/a1e/Tests/c1e/C2e/build/curl/CMakeFiles/CMakeTmp'
+
+Run Build Command(s): "C:/Program Files/CMake/bin/cmake.exe" -E env VERBOSE=1 C:/MinGW/bin/mingw32-make.exe -f Makefile cmTC_e1591/fast
+C:/MinGW/bin/mingw32-make.exe  -f CMakeFiles\cmTC_e1591.dir\build.make CMakeFiles/cmTC_e1591.dir/build
+mingw32-make.exe[1]: Entering directory 'C:/a1e/Tests/c1e/C2e/build/curl/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_e1591.dir/CurlTests.c.o
+C:\a1e\Tests\c1e\C2e\emsdk\upstream\emscripten\emcc.exe   -pthread  -Wextra -Wall -pedantic -Wbad-function-cast -Wconversion -Winline -Wmissing-declarations -Wmissing-prototypes -Wnested-externs -Wno-long-long -Wno-multichar -Wpointer-arith -Wshadow -Wsign-compare -Wundef -Wunused -Wwrite-strings -Wcast-align -Wdeclaration-after-statement -Wempty-body -Wendif-labels -Wfloat-equal -Wignored-qualifiers -Wno-format-nonliteral -Wno-sign-conversion -Wno-system-headers -Wstrict-prototypes -Wtype-limits -Wvla -Wshift-sign-overflow -Wshorten-64-to-32 -Wdouble-promotion -Wenum-conversion -Wunused-const-variable -Wcomma -Wmissing-variable-declarations -Wassign-enum -Wextra-semi-stmt -DHAVE_GETHOSTBYNAME_R_5_REENTRANT  -DHAVE_INTTYPES_H -DHAVE_SYS_IOCTL_H -DHAVE_SYS_PARAM_H -DHAVE_SYS_POLL_H -DHAVE_SYS_RESOURCE_H -DHAVE_SYS_SELECT_H -DHAVE_SYS_SOCKET_H -DHAVE_SYS_STAT_H -DHAVE_SYS_TIME_H -DHAVE_SYS_TYPES_H -DHAVE_SYS_UN_H -DHAVE_SYS_XATTR_H -DHAVE_ARPA_INET_H -DHAVE_ARPA_TFTP_H -DHAVE_FCNTL_H -DHAVE_IFADDRS_H -DHAVE_LIBGEN_H -DHAVE_LOCALE_H -DHAVE_NET_IF_H -DHAVE_NETDB_H -DHAVE_NETINET_IN_H -DHAVE_NETINET_TCP_H -DHAVE_POLL_H -DHAVE_PWD_H -DHAVE_SETJMP_H -DHAVE_SIGNAL_H -DHAVE_STDATOMIC_H -DHAVE_STDBOOL_H -DHAVE_STDINT_H -DHAVE_STDLIB_H -DHAVE_STRING_H -DHAVE_STRINGS_H -DHAVE_STROPTS_H -DHAVE_TERMIOS_H -DHAVE_TIME_H -DHAVE_UNISTD_H -DHAVE_UTIME_H -DHAVE_STDDEF_H -DHAVE_SYS_UTSNAME_H -MD -MT CMakeFiles/cmTC_e1591.dir/CurlTests.c.o -MF CMakeFiles\cmTC_e1591.dir\CurlTests.c.o.d -o CMakeFiles\cmTC_e1591.dir\CurlTests.c.o -c C:\a1e\Tests\c1e\C2e\source\curl\CMake\CurlTests.c
+C:\a1e\Tests\c1e\C2e\source\curl\CMake\CurlTests.c:80:12: warning: '_REENTRANT' macro redefined [-Wmacro-redefined]
+   80 | #   define _REENTRANT
+      |            ^
+<built-in>:369:9: note: previous definition is here
+  369 | #define _REENTRANT 1
+      |         ^
+C:\a1e\Tests\c1e\C2e\source\curl\CMake\CurlTests.c:92:9: warning: initializing 'char *' with an expression of type 'const char[12]' discards qualifiers [-Wincompatible-pointer-types-discards-qualifiers]
+   92 |   char *address = "example.com";
+      |         ^         ~~~~~~~~~~~~~
+C:\a1e\Tests\c1e\C2e\source\curl\CMake\CurlTests.c:114:60: error: too few arguments to function call, expected 6, have 5
+  114 |   rc = gethostbyname_r(address, &h, buffer, 8192, &h_errnop);
+      |        ~~~~~~~~~~~~~~~                                     ^
+C:\a1e\Tests\c1e\C2e\emsdk\upstream\emscripten\cache\sysroot/include\compat\netdb.h:16:5: note: 'gethostbyname_r' declared here
+   16 | int gethostbyname_r(const char *, struct hostent *, char *, size_t, struct hostent **, int *);
+      |     ^               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+2 warnings and 1 error generated.
+CMakeFiles\cmTC_e1591.dir\build.make:77: recipe for target 'CMakeFiles/cmTC_e1591.dir/CurlTests.c.o' failed
+mingw32-make.exe[1]: *** [CMakeFiles/cmTC_e1591.dir/CurlTests.c.o] Error 1
+mingw32-make.exe[1]: Leaving directory 'C:/a1e/Tests/c1e/C2e/build/curl/CMakeFiles/CMakeTmp'
+Makefile:126: recipe for target 'cmTC_e1591/fast' failed
+mingw32-make.exe: *** [cmTC_e1591/fast] Error 2
+
+
+Performing Curl Test HAVE_GLIBC_STRERROR_R failed with the following output:
+Change Dir: 'C:/a1e/Tests/c1e/C2e/build/curl/CMakeFiles/CMakeTmp'
+
+Run Build Command(s): "C:/Program Files/CMake/bin/cmake.exe" -E env VERBOSE=1 C:/MinGW/bin/mingw32-make.exe -f Makefile cmTC_bac64/fast
+C:/MinGW/bin/mingw32-make.exe  -f CMakeFiles\cmTC_bac64.dir\build.make CMakeFiles/cmTC_bac64.dir/build
+mingw32-make.exe[1]: Entering directory 'C:/a1e/Tests/c1e/C2e/build/curl/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_bac64.dir/CurlTests.c.o
+C:\a1e\Tests\c1e\C2e\emsdk\upstream\emscripten\emcc.exe   -pthread  -Wextra -Wall -pedantic -Wbad-function-cast -Wconversion -Winline -Wmissing-declarations -Wmissing-prototypes -Wnested-externs -Wno-long-long -Wno-multichar -Wpointer-arith -Wshadow -Wsign-compare -Wundef -Wunused -Wwrite-strings -Wcast-align -Wdeclaration-after-statement -Wempty-body -Wendif-labels -Wfloat-equal -Wignored-qualifiers -Wno-format-nonliteral -Wno-sign-conversion -Wno-system-headers -Wstrict-prototypes -Wtype-limits -Wvla -Wshift-sign-overflow -Wshorten-64-to-32 -Wdouble-promotion -Wenum-conversion -Wunused-const-variable -Wcomma -Wmissing-variable-declarations -Wassign-enum -Wextra-semi-stmt -DHAVE_GLIBC_STRERROR_R  -DHAVE_INTTYPES_H -DHAVE_SYS_IOCTL_H -DHAVE_SYS_PARAM_H -DHAVE_SYS_POLL_H -DHAVE_SYS_RESOURCE_H -DHAVE_SYS_SELECT_H -DHAVE_SYS_SOCKET_H -DHAVE_SYS_STAT_H -DHAVE_SYS_TIME_H -DHAVE_SYS_TYPES_H -DHAVE_SYS_UN_H -DHAVE_SYS_XATTR_H -DHAVE_ARPA_INET_H -DHAVE_ARPA_TFTP_H -DHAVE_FCNTL_H -DHAVE_IFADDRS_H -DHAVE_LIBGEN_H -DHAVE_LOCALE_H -DHAVE_NET_IF_H -DHAVE_NETDB_H -DHAVE_NETINET_IN_H -DHAVE_NETINET_TCP_H -DHAVE_POLL_H -DHAVE_PWD_H -DHAVE_SETJMP_H -DHAVE_SIGNAL_H -DHAVE_STDATOMIC_H -DHAVE_STDBOOL_H -DHAVE_STDINT_H -DHAVE_STDLIB_H -DHAVE_STRING_H -DHAVE_STRINGS_H -DHAVE_STROPTS_H -DHAVE_TERMIOS_H -DHAVE_TIME_H -DHAVE_UNISTD_H -DHAVE_UTIME_H -DHAVE_STDDEF_H -DHAVE_SYS_UTSNAME_H -MD -MT CMakeFiles/cmTC_bac64.dir/CurlTests.c.o -MF CMakeFiles\cmTC_bac64.dir\CurlTests.c.o.d -o CMakeFiles\cmTC_bac64.dir\CurlTests.c.o -c C:\a1e\Tests\c1e\C2e\source\curl\CMake\CurlTests.c
+C:\a1e\Tests\c1e\C2e\source\curl\CMake\CurlTests.c:394:17: warning: unused parameter 'c' [-Wunused-parameter]
+  394 | void check(char c) {}
+      |                 ^
+C:\a1e\Tests\c1e\C2e\source\curl\CMake\CurlTests.c:394:6: warning: no previous prototype for function 'check' [-Wmissing-prototypes]
+  394 | void check(char c) {}
+      |      ^
+C:\a1e\Tests\c1e\C2e\source\curl\CMake\CurlTests.c:394:1: note: declare 'static' if the function is not intended to be used outside of this translation unit
+  394 | void check(char c) {}
+      | ^
+      | static 
+C:\a1e\Tests\c1e\C2e\source\curl\CMake\CurlTests.c:397:6: warning: a function declaration without a prototype is deprecated in all versions of C [-Wstrict-prototypes]
+  397 | main () {
+      |      ^
+      |       void
+C:\a1e\Tests\c1e\C2e\source\curl\CMake\CurlTests.c:400:51: error: subscripted value is not an array, pointer, or vector
+  400 |   check(strerror_r(EACCES, buffer, sizeof(buffer))[0]);
+      |         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~
+3 warnings and 1 error generated.
+CMakeFiles\cmTC_bac64.dir\build.make:77: recipe for target 'CMakeFiles/cmTC_bac64.dir/CurlTests.c.o' failed
+mingw32-make.exe[1]: *** [CMakeFiles/cmTC_bac64.dir/CurlTests.c.o] Error 1
+mingw32-make.exe[1]: Leaving directory 'C:/a1e/Tests/c1e/C2e/build/curl/CMakeFiles/CMakeTmp'
+Makefile:126: recipe for target 'cmTC_bac64/fast' failed
+mingw32-make.exe: *** [cmTC_bac64/fast] Error 2
+
+

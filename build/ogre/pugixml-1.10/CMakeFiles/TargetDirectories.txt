@@ -1,0 +1,7 @@
+C:/a1e/Tests/c1e/C2e/build/ogre/pugixml-1.10/CMakeFiles/pugixml.dir
+C:/a1e/Tests/c1e/C2e/build/ogre/pugixml-1.10/CMakeFiles/edit_cache.dir
+C:/a1e/Tests/c1e/C2e/build/ogre/pugixml-1.10/CMakeFiles/rebuild_cache.dir
+C:/a1e/Tests/c1e/C2e/build/ogre/pugixml-1.10/CMakeFiles/list_install_components.dir
+C:/a1e/Tests/c1e/C2e/build/ogre/pugixml-1.10/CMakeFiles/install.dir
+C:/a1e/Tests/c1e/C2e/build/ogre/pugixml-1.10/CMakeFiles/install/local.dir
+C:/a1e/Tests/c1e/C2e/build/ogre/pugixml-1.10/CMakeFiles/install/strip.dir

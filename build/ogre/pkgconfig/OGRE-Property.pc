@@ -1,0 +1,11 @@
+prefix=C:/a1e/Tests/c1e/C2e/build/deps
+exec_prefix=${prefix}
+libdir=${prefix}/lib
+includedir=${prefix}/include
+
+Name: OGRE-Property
+Description: General purpose property component for OGRE
+Version: 1.12.9
+Requires: OGRE = 1.12.9
+Libs: -L${libdir} -lOgrePropertyStatic
+Cflags: -I${includedir}/OGRE/Property 

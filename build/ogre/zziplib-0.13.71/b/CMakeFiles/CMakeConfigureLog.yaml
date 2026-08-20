@@ -1,0 +1,985 @@
+
+---
+events:
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-3.30/Modules/CMakeDetermineSystem.cmake:200 (message)"
+      - "CMakeLists.txt:2 (project)"
+    message: |
+      The target system is: Emscripten - 1 - x86
+      The host system is: Windows - 10.0.19045 - AMD64
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-3.30/Modules/CheckIncludeFiles.cmake:132 (try_compile)"
+      - "zzip/CMakeLists.txt:34 (check_include_files)"
+    checks:
+      - "Looking for include file byteswap.h"
+    directories:
+      source: "C:/a1e/Tests/c1e/C2e/build/ogre/zziplib-0.13.71/b/CMakeFiles/CMakeScratch/TryCompile-m46d26"
+      binary: "C:/a1e/Tests/c1e/C2e/build/ogre/zziplib-0.13.71/b/CMakeFiles/CMakeScratch/TryCompile-m46d26"
+    cmakeVariables:
+      CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS: "C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/emscan-deps.exe"
+      CMAKE_C_FLAGS: ""
+      CMAKE_MODULE_PATH: "C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/cmake/Modules;C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/cmake/Modules;C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/cmake/Modules;C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/cmake/Modules;C:/a1e/Tests/c1e/C2e/build/ogre/zziplib-0.13.71/CMakeScripts"
+    buildResult:
+      variable: "ZZIP_HAVE_BYTESWAP_H"
+      cached: true
+      stdout: |
+        Change Dir: 'C:/a1e/Tests/c1e/C2e/build/ogre/zziplib-0.13.71/b/CMakeFiles/CMakeScratch/TryCompile-m46d26'
+        
+        Run Build Command(s): C:/a1e/Tests/c1e/C2e/python/Scripts/ninja.exe -v cmTC_d40f4
+        [1/2] C:\\a1e\\Tests\\c1e\\C2e\\emsdk\\upstream\\emscripten\\emcc.exe    -MD -MT CMakeFiles/cmTC_d40f4.dir/ZZIP_HAVE_BYTESWAP_H.c.o -MF CMakeFiles\\cmTC_d40f4.dir\\ZZIP_HAVE_BYTESWAP_H.c.o.d -o CMakeFiles/cmTC_d40f4.dir/ZZIP_HAVE_BYTESWAP_H.c.o -c C:/a1e/Tests/c1e/C2e/build/ogre/zziplib-0.13.71/b/CMakeFiles/CMakeScratch/TryCompile-m46d26/ZZIP_HAVE_BYTESWAP_H.c
+        [2/2] C:\\Windows\\system32\\cmd.exe /C "cd . && C:\\a1e\\Tests\\c1e\\C2e\\emsdk\\upstream\\emscripten\\emcc.exe   CMakeFiles/cmTC_d40f4.dir/ZZIP_HAVE_BYTESWAP_H.c.o -o cmTC_d40f4.js   && cd ."
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-3.30/Modules/CheckIncludeFiles.cmake:132 (try_compile)"
+      - "zzip/CMakeLists.txt:35 (check_include_files)"
+    checks:
+      - "Looking for include file direct.h"
+    directories:
+      source: "C:/a1e/Tests/c1e/C2e/build/ogre/zziplib-0.13.71/b/CMakeFiles/CMakeScratch/TryCompile-eb6up1"
+      binary: "C:/a1e/Tests/c1e/C2e/build/ogre/zziplib-0.13.71/b/CMakeFiles/CMakeScratch/TryCompile-eb6up1"
+    cmakeVariables:
+      CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS: "C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/emscan-deps.exe"
+      CMAKE_C_FLAGS: ""
+      CMAKE_MODULE_PATH: "C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/cmake/Modules;C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/cmake/Modules;C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/cmake/Modules;C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/cmake/Modules;C:/a1e/Tests/c1e/C2e/build/ogre/zziplib-0.13.71/CMakeScripts"
+    buildResult:
+      variable: "ZZIP_HAVE_DIRECT_H"
+      cached: true
+      stdout: |
+        Change Dir: 'C:/a1e/Tests/c1e/C2e/build/ogre/zziplib-0.13.71/b/CMakeFiles/CMakeScratch/TryCompile-eb6up1'
+        
+        Run Build Command(s): C:/a1e/Tests/c1e/C2e/python/Scripts/ninja.exe -v cmTC_37166
+        [1/2] C:\\a1e\\Tests\\c1e\\C2e\\emsdk\\upstream\\emscripten\\emcc.exe    -MD -MT CMakeFiles/cmTC_37166.dir/ZZIP_HAVE_DIRECT_H.c.o -MF CMakeFiles\\cmTC_37166.dir\\ZZIP_HAVE_DIRECT_H.c.o.d -o CMakeFiles/cmTC_37166.dir/ZZIP_HAVE_DIRECT_H.c.o -c C:/a1e/Tests/c1e/C2e/build/ogre/zziplib-0.13.71/b/CMakeFiles/CMakeScratch/TryCompile-eb6up1/ZZIP_HAVE_DIRECT_H.c
+        FAILED: [code=1] CMakeFiles/cmTC_37166.dir/ZZIP_HAVE_DIRECT_H.c.o 
+        C:\\a1e\\Tests\\c1e\\C2e\\emsdk\\upstream\\emscripten\\emcc.exe    -MD -MT CMakeFiles/cmTC_37166.dir/ZZIP_HAVE_DIRECT_H.c.o -MF CMakeFiles\\cmTC_37166.dir\\ZZIP_HAVE_DIRECT_H.c.o.d -o CMakeFiles/cmTC_37166.dir/ZZIP_HAVE_DIRECT_H.c.o -c C:/a1e/Tests/c1e/C2e/build/ogre/zziplib-0.13.71/b/CMakeFiles/CMakeScratch/TryCompile-eb6up1/ZZIP_HAVE_DIRECT_H.c
+        C:/a1e/Tests/c1e/C2e/build/ogre/zziplib-0.13.71/b/CMakeFiles/CMakeScratch/TryCompile-eb6up1/ZZIP_HAVE_DIRECT_H.c:2:10: fatal error: 'direct.h' file not found
+            2 | #include <direct.h>
+              |          ^~~~~~~~~~
+        1 error generated.
+        ninja: build stopped: subcommand failed.
+        
+      exitCode: 1
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-3.30/Modules/CheckIncludeFiles.cmake:132 (try_compile)"
+      - "zzip/CMakeLists.txt:38 (check_include_files)"
+    checks:
+      - "Looking for include file dirent.h"
+    directories:
+      source: "C:/a1e/Tests/c1e/C2e/build/ogre/zziplib-0.13.71/b/CMakeFiles/CMakeScratch/TryCompile-kv5ren"
+      binary: "C:/a1e/Tests/c1e/C2e/build/ogre/zziplib-0.13.71/b/CMakeFiles/CMakeScratch/TryCompile-kv5ren"
+    cmakeVariables:
+      CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS: "C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/emscan-deps.exe"
+      CMAKE_C_FLAGS: ""
+      CMAKE_MODULE_PATH: "C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/cmake/Modules;C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/cmake/Modules;C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/cmake/Modules;C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/cmake/Modules;C:/a1e/Tests/c1e/C2e/build/ogre/zziplib-0.13.71/CMakeScripts"
+    buildResult:
+      variable: "ZZIP_HAVE_DIRENT_H"
+      cached: true
+      stdout: |
+        Change Dir: 'C:/a1e/Tests/c1e/C2e/build/ogre/zziplib-0.13.71/b/CMakeFiles/CMakeScratch/TryCompile-kv5ren'
+        
+        Run Build Command(s): C:/a1e/Tests/c1e/C2e/python/Scripts/ninja.exe -v cmTC_8f793
+        [1/2] C:\\a1e\\Tests\\c1e\\C2e\\emsdk\\upstream\\emscripten\\emcc.exe    -MD -MT CMakeFiles/cmTC_8f793.dir/ZZIP_HAVE_DIRENT_H.c.o -MF CMakeFiles\\cmTC_8f793.dir\\ZZIP_HAVE_DIRENT_H.c.o.d -o CMakeFiles/cmTC_8f793.dir/ZZIP_HAVE_DIRENT_H.c.o -c C:/a1e/Tests/c1e/C2e/build/ogre/zziplib-0.13.71/b/CMakeFiles/CMakeScratch/TryCompile-kv5ren/ZZIP_HAVE_DIRENT_H.c
+        [2/2] C:\\Windows\\system32\\cmd.exe /C "cd . && C:\\a1e\\Tests\\c1e\\C2e\\emsdk\\upstream\\emscripten\\emcc.exe   CMakeFiles/cmTC_8f793.dir/ZZIP_HAVE_DIRENT_H.c.o -o cmTC_8f793.js   && cd ."
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-3.30/Modules/CheckIncludeFiles.cmake:132 (try_compile)"
+      - "zzip/CMakeLists.txt:41 (check_include_files)"
+    checks:
+      - "Looking for include file dlfcn.h"
+    directories:
+      source: "C:/a1e/Tests/c1e/C2e/build/ogre/zziplib-0.13.71/b/CMakeFiles/CMakeScratch/TryCompile-ftmpla"
+      binary: "C:/a1e/Tests/c1e/C2e/build/ogre/zziplib-0.13.71/b/CMakeFiles/CMakeScratch/TryCompile-ftmpla"
+    cmakeVariables:
+      CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS: "C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/emscan-deps.exe"
+      CMAKE_C_FLAGS: ""
+      CMAKE_MODULE_PATH: "C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/cmake/Modules;C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/cmake/Modules;C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/cmake/Modules;C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/cmake/Modules;C:/a1e/Tests/c1e/C2e/build/ogre/zziplib-0.13.71/CMakeScripts"
+    buildResult:
+      variable: "ZZIP_HAVE_DLFCN_H"
+      cached: true
+      stdout: |
+        Change Dir: 'C:/a1e/Tests/c1e/C2e/build/ogre/zziplib-0.13.71/b/CMakeFiles/CMakeScratch/TryCompile-ftmpla'
+        
+        Run Build Command(s): C:/a1e/Tests/c1e/C2e/python/Scripts/ninja.exe -v cmTC_d4c41
+        [1/2] C:\\a1e\\Tests\\c1e\\C2e\\emsdk\\upstream\\emscripten\\emcc.exe    -MD -MT CMakeFiles/cmTC_d4c41.dir/ZZIP_HAVE_DLFCN_H.c.o -MF CMakeFiles\\cmTC_d4c41.dir\\ZZIP_HAVE_DLFCN_H.c.o.d -o CMakeFiles/cmTC_d4c41.dir/ZZIP_HAVE_DLFCN_H.c.o -c C:/a1e/Tests/c1e/C2e/build/ogre/zziplib-0.13.71/b/CMakeFiles/CMakeScratch/TryCompile-ftmpla/ZZIP_HAVE_DLFCN_H.c
+        [2/2] C:\\Windows\\system32\\cmd.exe /C "cd . && C:\\a1e\\Tests\\c1e\\C2e\\emsdk\\upstream\\emscripten\\emcc.exe   CMakeFiles/cmTC_d4c41.dir/ZZIP_HAVE_DLFCN_H.c.o -o cmTC_d4c41.js   && cd ."
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-3.30/Modules/CheckIncludeFiles.cmake:132 (try_compile)"
+      - "zzip/CMakeLists.txt:42 (check_include_files)"
+    checks:
+      - "Looking for include file fnmatch.h"
+    directories:
+      source: "C:/a1e/Tests/c1e/C2e/build/ogre/zziplib-0.13.71/b/CMakeFiles/CMakeScratch/TryCompile-ht9f79"
+      binary: "C:/a1e/Tests/c1e/C2e/build/ogre/zziplib-0.13.71/b/CMakeFiles/CMakeScratch/TryCompile-ht9f79"
+    cmakeVariables:
+      CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS: "C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/emscan-deps.exe"
+      CMAKE_C_FLAGS: ""
+      CMAKE_MODULE_PATH: "C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/cmake/Modules;C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/cmake/Modules;C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/cmake/Modules;C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/cmake/Modules;C:/a1e/Tests/c1e/C2e/build/ogre/zziplib-0.13.71/CMakeScripts"
+    buildResult:
+      variable: "ZZIP_HAVE_FNMATCH_H"
+      cached: true
+      stdout: |
+        Change Dir: 'C:/a1e/Tests/c1e/C2e/build/ogre/zziplib-0.13.71/b/CMakeFiles/CMakeScratch/TryCompile-ht9f79'
+        
+        Run Build Command(s): C:/a1e/Tests/c1e/C2e/python/Scripts/ninja.exe -v cmTC_bd404
+        [1/2] C:\\a1e\\Tests\\c1e\\C2e\\emsdk\\upstream\\emscripten\\emcc.exe    -MD -MT CMakeFiles/cmTC_bd404.dir/ZZIP_HAVE_FNMATCH_H.c.o -MF CMakeFiles\\cmTC_bd404.dir\\ZZIP_HAVE_FNMATCH_H.c.o.d -o CMakeFiles/cmTC_bd404.dir/ZZIP_HAVE_FNMATCH_H.c.o -c C:/a1e/Tests/c1e/C2e/build/ogre/zziplib-0.13.71/b/CMakeFiles/CMakeScratch/TryCompile-ht9f79/ZZIP_HAVE_FNMATCH_H.c
+        [2/2] C:\\Windows\\system32\\cmd.exe /C "cd . && C:\\a1e\\Tests\\c1e\\C2e\\emsdk\\upstream\\emscripten\\emcc.exe   CMakeFiles/cmTC_bd404.dir/ZZIP_HAVE_FNMATCH_H.c.o -o cmTC_bd404.js   && cd ."
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-3.30/Modules/CheckIncludeFiles.cmake:132 (try_compile)"
+      - "zzip/CMakeLists.txt:43 (check_include_files)"
+    checks:
+      - "Looking for include file inttypes.h"
+    directories:
+      source: "C:/a1e/Tests/c1e/C2e/build/ogre/zziplib-0.13.71/b/CMakeFiles/CMakeScratch/TryCompile-s28ldl"
+      binary: "C:/a1e/Tests/c1e/C2e/build/ogre/zziplib-0.13.71/b/CMakeFiles/CMakeScratch/TryCompile-s28ldl"
+    cmakeVariables:
+      CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS: "C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/emscan-deps.exe"
+      CMAKE_C_FLAGS: ""
+      CMAKE_MODULE_PATH: "C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/cmake/Modules;C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/cmake/Modules;C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/cmake/Modules;C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/cmake/Modules;C:/a1e/Tests/c1e/C2e/build/ogre/zziplib-0.13.71/CMakeScripts"
+    buildResult:
+      variable: "ZZIP_HAVE_INTTYPES_H"
+      cached: true
+      stdout: |
+        Change Dir: 'C:/a1e/Tests/c1e/C2e/build/ogre/zziplib-0.13.71/b/CMakeFiles/CMakeScratch/TryCompile-s28ldl'
+        
+        Run Build Command(s): C:/a1e/Tests/c1e/C2e/python/Scripts/ninja.exe -v cmTC_7386b
+        [1/2] C:\\a1e\\Tests\\c1e\\C2e\\emsdk\\upstream\\emscripten\\emcc.exe    -MD -MT CMakeFiles/cmTC_7386b.dir/ZZIP_HAVE_INTTYPES_H.c.o -MF CMakeFiles\\cmTC_7386b.dir\\ZZIP_HAVE_INTTYPES_H.c.o.d -o CMakeFiles/cmTC_7386b.dir/ZZIP_HAVE_INTTYPES_H.c.o -c C:/a1e/Tests/c1e/C2e/build/ogre/zziplib-0.13.71/b/CMakeFiles/CMakeScratch/TryCompile-s28ldl/ZZIP_HAVE_INTTYPES_H.c
+        [2/2] C:\\Windows\\system32\\cmd.exe /C "cd . && C:\\a1e\\Tests\\c1e\\C2e\\emsdk\\upstream\\emscripten\\emcc.exe   CMakeFiles/cmTC_7386b.dir/ZZIP_HAVE_INTTYPES_H.c.o -o cmTC_7386b.js   && cd ."
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-3.30/Modules/CheckIncludeFiles.cmake:132 (try_compile)"
+      - "zzip/CMakeLists.txt:44 (check_include_files)"
+    checks:
+      - "Looking for include file io.h"
+    directories:
+      source: "C:/a1e/Tests/c1e/C2e/build/ogre/zziplib-0.13.71/b/CMakeFiles/CMakeScratch/TryCompile-uxmubv"
+      binary: "C:/a1e/Tests/c1e/C2e/build/ogre/zziplib-0.13.71/b/CMakeFiles/CMakeScratch/TryCompile-uxmubv"
+    cmakeVariables:
+      CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS: "C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/emscan-deps.exe"
+      CMAKE_C_FLAGS: ""
+      CMAKE_MODULE_PATH: "C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/cmake/Modules;C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/cmake/Modules;C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/cmake/Modules;C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/cmake/Modules;C:/a1e/Tests/c1e/C2e/build/ogre/zziplib-0.13.71/CMakeScripts"
+    buildResult:
+      variable: "ZZIP_HAVE_IO_H"
+      cached: true
+      stdout: |
+        Change Dir: 'C:/a1e/Tests/c1e/C2e/build/ogre/zziplib-0.13.71/b/CMakeFiles/CMakeScratch/TryCompile-uxmubv'
+        
+        Run Build Command(s): C:/a1e/Tests/c1e/C2e/python/Scripts/ninja.exe -v cmTC_c134e
+        [1/2] C:\\a1e\\Tests\\c1e\\C2e\\emsdk\\upstream\\emscripten\\emcc.exe    -MD -MT CMakeFiles/cmTC_c134e.dir/ZZIP_HAVE_IO_H.c.o -MF CMakeFiles\\cmTC_c134e.dir\\ZZIP_HAVE_IO_H.c.o.d -o CMakeFiles/cmTC_c134e.dir/ZZIP_HAVE_IO_H.c.o -c C:/a1e/Tests/c1e/C2e/build/ogre/zziplib-0.13.71/b/CMakeFiles/CMakeScratch/TryCompile-uxmubv/ZZIP_HAVE_IO_H.c
+        FAILED: [code=1] CMakeFiles/cmTC_c134e.dir/ZZIP_HAVE_IO_H.c.o 
+        C:\\a1e\\Tests\\c1e\\C2e\\emsdk\\upstream\\emscripten\\emcc.exe    -MD -MT CMakeFiles/cmTC_c134e.dir/ZZIP_HAVE_IO_H.c.o -MF CMakeFiles\\cmTC_c134e.dir\\ZZIP_HAVE_IO_H.c.o.d -o CMakeFiles/cmTC_c134e.dir/ZZIP_HAVE_IO_H.c.o -c C:/a1e/Tests/c1e/C2e/build/ogre/zziplib-0.13.71/b/CMakeFiles/CMakeScratch/TryCompile-uxmubv/ZZIP_HAVE_IO_H.c
+        C:/a1e/Tests/c1e/C2e/build/ogre/zziplib-0.13.71/b/CMakeFiles/CMakeScratch/TryCompile-uxmubv/ZZIP_HAVE_IO_H.c:2:10: fatal error: 'io.h' file not found
+            2 | #include <io.h>
+              |          ^~~~~~
+        1 error generated.
+        ninja: build stopped: subcommand failed.
+        
+      exitCode: 1
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-3.30/Modules/CheckIncludeFiles.cmake:132 (try_compile)"
+      - "zzip/CMakeLists.txt:45 (check_include_files)"
+    checks:
+      - "Looking for include file memory.h"
+    directories:
+      source: "C:/a1e/Tests/c1e/C2e/build/ogre/zziplib-0.13.71/b/CMakeFiles/CMakeScratch/TryCompile-vdvucg"
+      binary: "C:/a1e/Tests/c1e/C2e/build/ogre/zziplib-0.13.71/b/CMakeFiles/CMakeScratch/TryCompile-vdvucg"
+    cmakeVariables:
+      CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS: "C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/emscan-deps.exe"
+      CMAKE_C_FLAGS: ""
+      CMAKE_MODULE_PATH: "C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/cmake/Modules;C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/cmake/Modules;C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/cmake/Modules;C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/cmake/Modules;C:/a1e/Tests/c1e/C2e/build/ogre/zziplib-0.13.71/CMakeScripts"
+    buildResult:
+      variable: "ZZIP_HAVE_MEMORY_H"
+      cached: true
+      stdout: |
+        Change Dir: 'C:/a1e/Tests/c1e/C2e/build/ogre/zziplib-0.13.71/b/CMakeFiles/CMakeScratch/TryCompile-vdvucg'
+        
+        Run Build Command(s): C:/a1e/Tests/c1e/C2e/python/Scripts/ninja.exe -v cmTC_18c3d
+        [1/2] C:\\a1e\\Tests\\c1e\\C2e\\emsdk\\upstream\\emscripten\\emcc.exe    -MD -MT CMakeFiles/cmTC_18c3d.dir/ZZIP_HAVE_MEMORY_H.c.o -MF CMakeFiles\\cmTC_18c3d.dir\\ZZIP_HAVE_MEMORY_H.c.o.d -o CMakeFiles/cmTC_18c3d.dir/ZZIP_HAVE_MEMORY_H.c.o -c C:/a1e/Tests/c1e/C2e/build/ogre/zziplib-0.13.71/b/CMakeFiles/CMakeScratch/TryCompile-vdvucg/ZZIP_HAVE_MEMORY_H.c
+        [2/2] C:\\Windows\\system32\\cmd.exe /C "cd . && C:\\a1e\\Tests\\c1e\\C2e\\emsdk\\upstream\\emscripten\\emcc.exe   CMakeFiles/cmTC_18c3d.dir/ZZIP_HAVE_MEMORY_H.c.o -o cmTC_18c3d.js   && cd ."
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-3.30/Modules/CheckIncludeFiles.cmake:132 (try_compile)"
+      - "zzip/CMakeLists.txt:46 (check_include_files)"
+    checks:
+      - "Looking for include file ndir.h"
+    directories:
+      source: "C:/a1e/Tests/c1e/C2e/build/ogre/zziplib-0.13.71/b/CMakeFiles/CMakeScratch/TryCompile-0wsl0e"
+      binary: "C:/a1e/Tests/c1e/C2e/build/ogre/zziplib-0.13.71/b/CMakeFiles/CMakeScratch/TryCompile-0wsl0e"
+    cmakeVariables:
+      CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS: "C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/emscan-deps.exe"
+      CMAKE_C_FLAGS: ""
+      CMAKE_MODULE_PATH: "C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/cmake/Modules;C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/cmake/Modules;C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/cmake/Modules;C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/cmake/Modules;C:/a1e/Tests/c1e/C2e/build/ogre/zziplib-0.13.71/CMakeScripts"
+    buildResult:
+      variable: "ZZIP_HAVE_NDIR_H"
+      cached: true
+      stdout: |
+        Change Dir: 'C:/a1e/Tests/c1e/C2e/build/ogre/zziplib-0.13.71/b/CMakeFiles/CMakeScratch/TryCompile-0wsl0e'
+        
+        Run Build Command(s): C:/a1e/Tests/c1e/C2e/python/Scripts/ninja.exe -v cmTC_18f46
+        [1/2] C:\\a1e\\Tests\\c1e\\C2e\\emsdk\\upstream\\emscripten\\emcc.exe    -MD -MT CMakeFiles/cmTC_18f46.dir/ZZIP_HAVE_NDIR_H.c.o -MF CMakeFiles\\cmTC_18f46.dir\\ZZIP_HAVE_NDIR_H.c.o.d -o CMakeFiles/cmTC_18f46.dir/ZZIP_HAVE_NDIR_H.c.o -c C:/a1e/Tests/c1e/C2e/build/ogre/zziplib-0.13.71/b/CMakeFiles/CMakeScratch/TryCompile-0wsl0e/ZZIP_HAVE_NDIR_H.c
+        FAILED: [code=1] CMakeFiles/cmTC_18f46.dir/ZZIP_HAVE_NDIR_H.c.o 
+        C:\\a1e\\Tests\\c1e\\C2e\\emsdk\\upstream\\emscripten\\emcc.exe    -MD -MT CMakeFiles/cmTC_18f46.dir/ZZIP_HAVE_NDIR_H.c.o -MF CMakeFiles\\cmTC_18f46.dir\\ZZIP_HAVE_NDIR_H.c.o.d -o CMakeFiles/cmTC_18f46.dir/ZZIP_HAVE_NDIR_H.c.o -c C:/a1e/Tests/c1e/C2e/build/ogre/zziplib-0.13.71/b/CMakeFiles/CMakeScratch/TryCompile-0wsl0e/ZZIP_HAVE_NDIR_H.c
+        C:/a1e/Tests/c1e/C2e/build/ogre/zziplib-0.13.71/b/CMakeFiles/CMakeScratch/TryCompile-0wsl0e/ZZIP_HAVE_NDIR_H.c:2:10: fatal error: 'ndir.h' file not found
+            2 | #include <ndir.h>
+              |          ^~~~~~~~
+        1 error generated.
+        ninja: build stopped: subcommand failed.
+        
+      exitCode: 1
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-3.30/Modules/CheckIncludeFiles.cmake:132 (try_compile)"
+      - "zzip/CMakeLists.txt:47 (check_include_files)"
+    checks:
+      - "Looking for include file stdint.h"
+    directories:
+      source: "C:/a1e/Tests/c1e/C2e/build/ogre/zziplib-0.13.71/b/CMakeFiles/CMakeScratch/TryCompile-btrmsw"
+      binary: "C:/a1e/Tests/c1e/C2e/build/ogre/zziplib-0.13.71/b/CMakeFiles/CMakeScratch/TryCompile-btrmsw"
+    cmakeVariables:
+      CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS: "C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/emscan-deps.exe"
+      CMAKE_C_FLAGS: ""
+      CMAKE_MODULE_PATH: "C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/cmake/Modules;C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/cmake/Modules;C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/cmake/Modules;C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/cmake/Modules;C:/a1e/Tests/c1e/C2e/build/ogre/zziplib-0.13.71/CMakeScripts"
+    buildResult:
+      variable: "ZZIP_HAVE_STDINT_H"
+      cached: true
+      stdout: |
+        Change Dir: 'C:/a1e/Tests/c1e/C2e/build/ogre/zziplib-0.13.71/b/CMakeFiles/CMakeScratch/TryCompile-btrmsw'
+        
+        Run Build Command(s): C:/a1e/Tests/c1e/C2e/python/Scripts/ninja.exe -v cmTC_36bd5
+        [1/2] C:\\a1e\\Tests\\c1e\\C2e\\emsdk\\upstream\\emscripten\\emcc.exe    -MD -MT CMakeFiles/cmTC_36bd5.dir/ZZIP_HAVE_STDINT_H.c.o -MF CMakeFiles\\cmTC_36bd5.dir\\ZZIP_HAVE_STDINT_H.c.o.d -o CMakeFiles/cmTC_36bd5.dir/ZZIP_HAVE_STDINT_H.c.o -c C:/a1e/Tests/c1e/C2e/build/ogre/zziplib-0.13.71/b/CMakeFiles/CMakeScratch/TryCompile-btrmsw/ZZIP_HAVE_STDINT_H.c
+        [2/2] C:\\Windows\\system32\\cmd.exe /C "cd . && C:\\a1e\\Tests\\c1e\\C2e\\emsdk\\upstream\\emscripten\\emcc.exe   CMakeFiles/cmTC_36bd5.dir/ZZIP_HAVE_STDINT_H.c.o -o cmTC_36bd5.js   && cd ."
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-3.30/Modules/CheckIncludeFiles.cmake:132 (try_compile)"
+      - "zzip/CMakeLists.txt:48 (check_include_files)"
+    checks:
+      - "Looking for include file stdlib.h"
+    directories:
+      source: "C:/a1e/Tests/c1e/C2e/build/ogre/zziplib-0.13.71/b/CMakeFiles/CMakeScratch/TryCompile-urk5s7"
+      binary: "C:/a1e/Tests/c1e/C2e/build/ogre/zziplib-0.13.71/b/CMakeFiles/CMakeScratch/TryCompile-urk5s7"
+    cmakeVariables:
+      CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS: "C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/emscan-deps.exe"
+      CMAKE_C_FLAGS: ""
+      CMAKE_MODULE_PATH: "C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/cmake/Modules;C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/cmake/Modules;C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/cmake/Modules;C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/cmake/Modules;C:/a1e/Tests/c1e/C2e/build/ogre/zziplib-0.13.71/CMakeScripts"
+    buildResult:
+      variable: "ZZIP_HAVE_STDLIB_H"
+      cached: true
+      stdout: |
+        Change Dir: 'C:/a1e/Tests/c1e/C2e/build/ogre/zziplib-0.13.71/b/CMakeFiles/CMakeScratch/TryCompile-urk5s7'
+        
+        Run Build Command(s): C:/a1e/Tests/c1e/C2e/python/Scripts/ninja.exe -v cmTC_231b1
+        [1/2] C:\\a1e\\Tests\\c1e\\C2e\\emsdk\\upstream\\emscripten\\emcc.exe    -MD -MT CMakeFiles/cmTC_231b1.dir/ZZIP_HAVE_STDLIB_H.c.o -MF CMakeFiles\\cmTC_231b1.dir\\ZZIP_HAVE_STDLIB_H.c.o.d -o CMakeFiles/cmTC_231b1.dir/ZZIP_HAVE_STDLIB_H.c.o -c C:/a1e/Tests/c1e/C2e/build/ogre/zziplib-0.13.71/b/CMakeFiles/CMakeScratch/TryCompile-urk5s7/ZZIP_HAVE_STDLIB_H.c
+        [2/2] C:\\Windows\\system32\\cmd.exe /C "cd . && C:\\a1e\\Tests\\c1e\\C2e\\emsdk\\upstream\\emscripten\\emcc.exe   CMakeFiles/cmTC_231b1.dir/ZZIP_HAVE_STDLIB_H.c.o -o cmTC_231b1.js   && cd ."
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-3.30/Modules/CheckFunctionExists.cmake:86 (try_compile)"
+      - "zzip/CMakeLists.txt:49 (check_function_exists)"
+    checks:
+      - "Looking for strcasecmp"
+    directories:
+      source: "C:/a1e/Tests/c1e/C2e/build/ogre/zziplib-0.13.71/b/CMakeFiles/CMakeScratch/TryCompile-h0th9z"
+      binary: "C:/a1e/Tests/c1e/C2e/build/ogre/zziplib-0.13.71/b/CMakeFiles/CMakeScratch/TryCompile-h0th9z"
+    cmakeVariables:
+      CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS: "C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/emscan-deps.exe"
+      CMAKE_C_FLAGS: ""
+      CMAKE_MODULE_PATH: "C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/cmake/Modules;C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/cmake/Modules;C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/cmake/Modules;C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/cmake/Modules;C:/a1e/Tests/c1e/C2e/build/ogre/zziplib-0.13.71/CMakeScripts"
+    buildResult:
+      variable: "ZZIP_HAVE_STRCASECMP"
+      cached: true
+      stdout: |
+        Change Dir: 'C:/a1e/Tests/c1e/C2e/build/ogre/zziplib-0.13.71/b/CMakeFiles/CMakeScratch/TryCompile-h0th9z'
+        
+        Run Build Command(s): C:/a1e/Tests/c1e/C2e/python/Scripts/ninja.exe -v cmTC_20e8d
+        [1/2] C:\\a1e\\Tests\\c1e\\C2e\\emsdk\\upstream\\emscripten\\emcc.exe   -DCHECK_FUNCTION_EXISTS=strcasecmp -MD -MT CMakeFiles/cmTC_20e8d.dir/CheckFunctionExists.c.o -MF CMakeFiles\\cmTC_20e8d.dir\\CheckFunctionExists.c.o.d -o CMakeFiles/cmTC_20e8d.dir/CheckFunctionExists.c.o -c C:/a1e/Tests/c1e/C2e/build/ogre/zziplib-0.13.71/b/CMakeFiles/CMakeScratch/TryCompile-h0th9z/CheckFunctionExists.c
+        C:/a1e/Tests/c1e/C2e/build/ogre/zziplib-0.13.71/b/CMakeFiles/CMakeScratch/TryCompile-h0th9z/CheckFunctionExists.c:7:3: warning: incompatible redeclaration of library function 'strcasecmp' [-Wincompatible-library-redeclaration]
+            7 |   CHECK_FUNCTION_EXISTS(void);
+              |   ^
+        <command line>:1:31: note: expanded from macro 'CHECK_FUNCTION_EXISTS'
+            1 | #define CHECK_FUNCTION_EXISTS strcasecmp
+              |                               ^
+        C:/a1e/Tests/c1e/C2e/build/ogre/zziplib-0.13.71/b/CMakeFiles/CMakeScratch/TryCompile-h0th9z/CheckFunctionExists.c:7:3: note: 'strcasecmp' is a builtin with type 'int (const char *, const char *)'
+        <command line>:1:31: note: expanded from macro 'CHECK_FUNCTION_EXISTS'
+            1 | #define CHECK_FUNCTION_EXISTS strcasecmp
+              |                               ^
+        1 warning generated.
+        [2/2] C:\\Windows\\system32\\cmd.exe /C "cd . && C:\\a1e\\Tests\\c1e\\C2e\\emsdk\\upstream\\emscripten\\emcc.exe -DCHECK_FUNCTION_EXISTS=strcasecmp  CMakeFiles/cmTC_20e8d.dir/CheckFunctionExists.c.o -o cmTC_20e8d.js   && cd ."
+        wasm-ld: warning: function signature mismatch: strcasecmp
+        >>> defined as () -> i32 in CMakeFiles/cmTC_20e8d.dir/CheckFunctionExists.c.o
+        >>> defined as (i32, i32) -> i32 in C:\\a1e\\Tests\\c1e\\C2e\\emsdk\\upstream\\emscripten\\cache\\sysroot\\lib\\wasm32-emscripten\\libc-debug.a(strcasecmp.o)
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-3.30/Modules/CheckIncludeFiles.cmake:132 (try_compile)"
+      - "zzip/CMakeLists.txt:50 (check_include_files)"
+    checks:
+      - "Looking for include file strings.h"
+    directories:
+      source: "C:/a1e/Tests/c1e/C2e/build/ogre/zziplib-0.13.71/b/CMakeFiles/CMakeScratch/TryCompile-xdxsit"
+      binary: "C:/a1e/Tests/c1e/C2e/build/ogre/zziplib-0.13.71/b/CMakeFiles/CMakeScratch/TryCompile-xdxsit"
+    cmakeVariables:
+      CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS: "C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/emscan-deps.exe"
+      CMAKE_C_FLAGS: ""
+      CMAKE_MODULE_PATH: "C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/cmake/Modules;C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/cmake/Modules;C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/cmake/Modules;C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/cmake/Modules;C:/a1e/Tests/c1e/C2e/build/ogre/zziplib-0.13.71/CMakeScripts"
+    buildResult:
+      variable: "ZZIP_HAVE_STRINGS_H"
+      cached: true
+      stdout: |
+        Change Dir: 'C:/a1e/Tests/c1e/C2e/build/ogre/zziplib-0.13.71/b/CMakeFiles/CMakeScratch/TryCompile-xdxsit'
+        
+        Run Build Command(s): C:/a1e/Tests/c1e/C2e/python/Scripts/ninja.exe -v cmTC_550b2
+        [1/2] C:\\a1e\\Tests\\c1e\\C2e\\emsdk\\upstream\\emscripten\\emcc.exe    -MD -MT CMakeFiles/cmTC_550b2.dir/ZZIP_HAVE_STRINGS_H.c.o -MF CMakeFiles\\cmTC_550b2.dir\\ZZIP_HAVE_STRINGS_H.c.o.d -o CMakeFiles/cmTC_550b2.dir/ZZIP_HAVE_STRINGS_H.c.o -c C:/a1e/Tests/c1e/C2e/build/ogre/zziplib-0.13.71/b/CMakeFiles/CMakeScratch/TryCompile-xdxsit/ZZIP_HAVE_STRINGS_H.c
+        [2/2] C:\\Windows\\system32\\cmd.exe /C "cd . && C:\\a1e\\Tests\\c1e\\C2e\\emsdk\\upstream\\emscripten\\emcc.exe   CMakeFiles/cmTC_550b2.dir/ZZIP_HAVE_STRINGS_H.c.o -o cmTC_550b2.js   && cd ."
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-3.30/Modules/CheckIncludeFiles.cmake:132 (try_compile)"
+      - "zzip/CMakeLists.txt:51 (check_include_files)"
+    checks:
+      - "Looking for include file string.h"
+    directories:
+      source: "C:/a1e/Tests/c1e/C2e/build/ogre/zziplib-0.13.71/b/CMakeFiles/CMakeScratch/TryCompile-2qqtw8"
+      binary: "C:/a1e/Tests/c1e/C2e/build/ogre/zziplib-0.13.71/b/CMakeFiles/CMakeScratch/TryCompile-2qqtw8"
+    cmakeVariables:
+      CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS: "C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/emscan-deps.exe"
+      CMAKE_C_FLAGS: ""
+      CMAKE_MODULE_PATH: "C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/cmake/Modules;C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/cmake/Modules;C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/cmake/Modules;C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/cmake/Modules;C:/a1e/Tests/c1e/C2e/build/ogre/zziplib-0.13.71/CMakeScripts"
+    buildResult:
+      variable: "ZZIP_HAVE_STRING_H"
+      cached: true
+      stdout: |
+        Change Dir: 'C:/a1e/Tests/c1e/C2e/build/ogre/zziplib-0.13.71/b/CMakeFiles/CMakeScratch/TryCompile-2qqtw8'
+        
+        Run Build Command(s): C:/a1e/Tests/c1e/C2e/python/Scripts/ninja.exe -v cmTC_50ca7
+        [1/2] C:\\a1e\\Tests\\c1e\\C2e\\emsdk\\upstream\\emscripten\\emcc.exe    -MD -MT CMakeFiles/cmTC_50ca7.dir/ZZIP_HAVE_STRING_H.c.o -MF CMakeFiles\\cmTC_50ca7.dir\\ZZIP_HAVE_STRING_H.c.o.d -o CMakeFiles/cmTC_50ca7.dir/ZZIP_HAVE_STRING_H.c.o -c C:/a1e/Tests/c1e/C2e/build/ogre/zziplib-0.13.71/b/CMakeFiles/CMakeScratch/TryCompile-2qqtw8/ZZIP_HAVE_STRING_H.c
+        [2/2] C:\\Windows\\system32\\cmd.exe /C "cd . && C:\\a1e\\Tests\\c1e\\C2e\\emsdk\\upstream\\emscripten\\emcc.exe   CMakeFiles/cmTC_50ca7.dir/ZZIP_HAVE_STRING_H.c.o -o cmTC_50ca7.js   && cd ."
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-3.30/Modules/CheckFunctionExists.cmake:86 (try_compile)"
+      - "zzip/CMakeLists.txt:52 (check_function_exists)"
+    checks:
+      - "Looking for strndup"
+    directories:
+      source: "C:/a1e/Tests/c1e/C2e/build/ogre/zziplib-0.13.71/b/CMakeFiles/CMakeScratch/TryCompile-ifkgbj"
+      binary: "C:/a1e/Tests/c1e/C2e/build/ogre/zziplib-0.13.71/b/CMakeFiles/CMakeScratch/TryCompile-ifkgbj"
+    cmakeVariables:
+      CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS: "C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/emscan-deps.exe"
+      CMAKE_C_FLAGS: ""
+      CMAKE_MODULE_PATH: "C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/cmake/Modules;C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/cmake/Modules;C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/cmake/Modules;C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/cmake/Modules;C:/a1e/Tests/c1e/C2e/build/ogre/zziplib-0.13.71/CMakeScripts"
+    buildResult:
+      variable: "ZZIP_HAVE_STRNDUP"
+      cached: true
+      stdout: |
+        Change Dir: 'C:/a1e/Tests/c1e/C2e/build/ogre/zziplib-0.13.71/b/CMakeFiles/CMakeScratch/TryCompile-ifkgbj'
+        
+        Run Build Command(s): C:/a1e/Tests/c1e/C2e/python/Scripts/ninja.exe -v cmTC_52dcf
+        [1/2] C:\\a1e\\Tests\\c1e\\C2e\\emsdk\\upstream\\emscripten\\emcc.exe   -DCHECK_FUNCTION_EXISTS=strndup -MD -MT CMakeFiles/cmTC_52dcf.dir/CheckFunctionExists.c.o -MF CMakeFiles\\cmTC_52dcf.dir\\CheckFunctionExists.c.o.d -o CMakeFiles/cmTC_52dcf.dir/CheckFunctionExists.c.o -c C:/a1e/Tests/c1e/C2e/build/ogre/zziplib-0.13.71/b/CMakeFiles/CMakeScratch/TryCompile-ifkgbj/CheckFunctionExists.c
+        C:/a1e/Tests/c1e/C2e/build/ogre/zziplib-0.13.71/b/CMakeFiles/CMakeScratch/TryCompile-ifkgbj/CheckFunctionExists.c:7:3: warning: incompatible redeclaration of library function 'strndup' [-Wincompatible-library-redeclaration]
+            7 |   CHECK_FUNCTION_EXISTS(void);
+              |   ^
+        <command line>:1:31: note: expanded from macro 'CHECK_FUNCTION_EXISTS'
+            1 | #define CHECK_FUNCTION_EXISTS strndup
+              |                               ^
+        C:/a1e/Tests/c1e/C2e/build/ogre/zziplib-0.13.71/b/CMakeFiles/CMakeScratch/TryCompile-ifkgbj/CheckFunctionExists.c:7:3: note: 'strndup' is a builtin with type 'char *(const char *, __size_t)' (aka 'char *(const char *, unsigned long)')
+        <command line>:1:31: note: expanded from macro 'CHECK_FUNCTION_EXISTS'
+            1 | #define CHECK_FUNCTION_EXISTS strndup
+              |                               ^
+        1 warning generated.
+        [2/2] C:\\Windows\\system32\\cmd.exe /C "cd . && C:\\a1e\\Tests\\c1e\\C2e\\emsdk\\upstream\\emscripten\\emcc.exe -DCHECK_FUNCTION_EXISTS=strndup  CMakeFiles/cmTC_52dcf.dir/CheckFunctionExists.c.o -o cmTC_52dcf.js   && cd ."
+        wasm-ld: warning: function signature mismatch: strndup
+        >>> defined as () -> i32 in CMakeFiles/cmTC_52dcf.dir/CheckFunctionExists.c.o
+        >>> defined as (i32, i32) -> i32 in C:\\a1e\\Tests\\c1e\\C2e\\emsdk\\upstream\\emscripten\\cache\\sysroot\\lib\\wasm32-emscripten\\libc-debug.a(strndup.o)
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-3.30/Modules/CheckIncludeFiles.cmake:132 (try_compile)"
+      - "zzip/CMakeLists.txt:53 (check_include_files)"
+    checks:
+      - "Looking for include file sys/dir.h"
+    directories:
+      source: "C:/a1e/Tests/c1e/C2e/build/ogre/zziplib-0.13.71/b/CMakeFiles/CMakeScratch/TryCompile-u8teb1"
+      binary: "C:/a1e/Tests/c1e/C2e/build/ogre/zziplib-0.13.71/b/CMakeFiles/CMakeScratch/TryCompile-u8teb1"
+    cmakeVariables:
+      CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS: "C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/emscan-deps.exe"
+      CMAKE_C_FLAGS: ""
+      CMAKE_MODULE_PATH: "C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/cmake/Modules;C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/cmake/Modules;C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/cmake/Modules;C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/cmake/Modules;C:/a1e/Tests/c1e/C2e/build/ogre/zziplib-0.13.71/CMakeScripts"
+    buildResult:
+      variable: "ZZIP_HAVE_SYS_DIR_H"
+      cached: true
+      stdout: |
+        Change Dir: 'C:/a1e/Tests/c1e/C2e/build/ogre/zziplib-0.13.71/b/CMakeFiles/CMakeScratch/TryCompile-u8teb1'
+        
+        Run Build Command(s): C:/a1e/Tests/c1e/C2e/python/Scripts/ninja.exe -v cmTC_0a1d6
+        [1/2] C:\\a1e\\Tests\\c1e\\C2e\\emsdk\\upstream\\emscripten\\emcc.exe    -MD -MT CMakeFiles/cmTC_0a1d6.dir/ZZIP_HAVE_SYS_DIR_H.c.o -MF CMakeFiles\\cmTC_0a1d6.dir\\ZZIP_HAVE_SYS_DIR_H.c.o.d -o CMakeFiles/cmTC_0a1d6.dir/ZZIP_HAVE_SYS_DIR_H.c.o -c C:/a1e/Tests/c1e/C2e/build/ogre/zziplib-0.13.71/b/CMakeFiles/CMakeScratch/TryCompile-u8teb1/ZZIP_HAVE_SYS_DIR_H.c
+        [2/2] C:\\Windows\\system32\\cmd.exe /C "cd . && C:\\a1e\\Tests\\c1e\\C2e\\emsdk\\upstream\\emscripten\\emcc.exe   CMakeFiles/cmTC_0a1d6.dir/ZZIP_HAVE_SYS_DIR_H.c.o -o cmTC_0a1d6.js   && cd ."
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-3.30/Modules/CheckIncludeFiles.cmake:132 (try_compile)"
+      - "zzip/CMakeLists.txt:54 (check_include_files)"
+    checks:
+      - "Looking for include file sys/int_types.h"
+    directories:
+      source: "C:/a1e/Tests/c1e/C2e/build/ogre/zziplib-0.13.71/b/CMakeFiles/CMakeScratch/TryCompile-jzv5vb"
+      binary: "C:/a1e/Tests/c1e/C2e/build/ogre/zziplib-0.13.71/b/CMakeFiles/CMakeScratch/TryCompile-jzv5vb"
+    cmakeVariables:
+      CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS: "C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/emscan-deps.exe"
+      CMAKE_C_FLAGS: ""
+      CMAKE_MODULE_PATH: "C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/cmake/Modules;C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/cmake/Modules;C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/cmake/Modules;C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/cmake/Modules;C:/a1e/Tests/c1e/C2e/build/ogre/zziplib-0.13.71/CMakeScripts"
+    buildResult:
+      variable: "ZZIP_HAVE_SYS_INT_TYPES_H"
+      cached: true
+      stdout: |
+        Change Dir: 'C:/a1e/Tests/c1e/C2e/build/ogre/zziplib-0.13.71/b/CMakeFiles/CMakeScratch/TryCompile-jzv5vb'
+        
+        Run Build Command(s): C:/a1e/Tests/c1e/C2e/python/Scripts/ninja.exe -v cmTC_71fb1
+        [1/2] C:\\a1e\\Tests\\c1e\\C2e\\emsdk\\upstream\\emscripten\\emcc.exe    -MD -MT CMakeFiles/cmTC_71fb1.dir/ZZIP_HAVE_SYS_INT_TYPES_H.c.o -MF CMakeFiles\\cmTC_71fb1.dir\\ZZIP_HAVE_SYS_INT_TYPES_H.c.o.d -o CMakeFiles/cmTC_71fb1.dir/ZZIP_HAVE_SYS_INT_TYPES_H.c.o -c C:/a1e/Tests/c1e/C2e/build/ogre/zziplib-0.13.71/b/CMakeFiles/CMakeScratch/TryCompile-jzv5vb/ZZIP_HAVE_SYS_INT_TYPES_H.c
+        FAILED: [code=1] CMakeFiles/cmTC_71fb1.dir/ZZIP_HAVE_SYS_INT_TYPES_H.c.o 
+        C:\\a1e\\Tests\\c1e\\C2e\\emsdk\\upstream\\emscripten\\emcc.exe    -MD -MT CMakeFiles/cmTC_71fb1.dir/ZZIP_HAVE_SYS_INT_TYPES_H.c.o -MF CMakeFiles\\cmTC_71fb1.dir\\ZZIP_HAVE_SYS_INT_TYPES_H.c.o.d -o CMakeFiles/cmTC_71fb1.dir/ZZIP_HAVE_SYS_INT_TYPES_H.c.o -c C:/a1e/Tests/c1e/C2e/build/ogre/zziplib-0.13.71/b/CMakeFiles/CMakeScratch/TryCompile-jzv5vb/ZZIP_HAVE_SYS_INT_TYPES_H.c
+        C:/a1e/Tests/c1e/C2e/build/ogre/zziplib-0.13.71/b/CMakeFiles/CMakeScratch/TryCompile-jzv5vb/ZZIP_HAVE_SYS_INT_TYPES_H.c:2:10: fatal error: 'sys/int_types.h' file not found
+            2 | #include <sys/int_types.h>
+              |          ^~~~~~~~~~~~~~~~~
+        1 error generated.
+        ninja: build stopped: subcommand failed.
+        
+      exitCode: 1
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-3.30/Modules/CheckIncludeFiles.cmake:132 (try_compile)"
+      - "zzip/CMakeLists.txt:55 (check_include_files)"
+    checks:
+      - "Looking for include file sys/mman.h"
+    directories:
+      source: "C:/a1e/Tests/c1e/C2e/build/ogre/zziplib-0.13.71/b/CMakeFiles/CMakeScratch/TryCompile-fpat5j"
+      binary: "C:/a1e/Tests/c1e/C2e/build/ogre/zziplib-0.13.71/b/CMakeFiles/CMakeScratch/TryCompile-fpat5j"
+    cmakeVariables:
+      CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS: "C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/emscan-deps.exe"
+      CMAKE_C_FLAGS: ""
+      CMAKE_MODULE_PATH: "C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/cmake/Modules;C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/cmake/Modules;C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/cmake/Modules;C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/cmake/Modules;C:/a1e/Tests/c1e/C2e/build/ogre/zziplib-0.13.71/CMakeScripts"
+    buildResult:
+      variable: "ZZIP_HAVE_SYS_MMAN_H"
+      cached: true
+      stdout: |
+        Change Dir: 'C:/a1e/Tests/c1e/C2e/build/ogre/zziplib-0.13.71/b/CMakeFiles/CMakeScratch/TryCompile-fpat5j'
+        
+        Run Build Command(s): C:/a1e/Tests/c1e/C2e/python/Scripts/ninja.exe -v cmTC_1e3d3
+        [1/2] C:\\a1e\\Tests\\c1e\\C2e\\emsdk\\upstream\\emscripten\\emcc.exe    -MD -MT CMakeFiles/cmTC_1e3d3.dir/ZZIP_HAVE_SYS_MMAN_H.c.o -MF CMakeFiles\\cmTC_1e3d3.dir\\ZZIP_HAVE_SYS_MMAN_H.c.o.d -o CMakeFiles/cmTC_1e3d3.dir/ZZIP_HAVE_SYS_MMAN_H.c.o -c C:/a1e/Tests/c1e/C2e/build/ogre/zziplib-0.13.71/b/CMakeFiles/CMakeScratch/TryCompile-fpat5j/ZZIP_HAVE_SYS_MMAN_H.c
+        [2/2] C:\\Windows\\system32\\cmd.exe /C "cd . && C:\\a1e\\Tests\\c1e\\C2e\\emsdk\\upstream\\emscripten\\emcc.exe   CMakeFiles/cmTC_1e3d3.dir/ZZIP_HAVE_SYS_MMAN_H.c.o -o cmTC_1e3d3.js   && cd ."
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-3.30/Modules/CheckIncludeFiles.cmake:132 (try_compile)"
+      - "zzip/CMakeLists.txt:56 (check_include_files)"
+    checks:
+      - "Looking for include file sys/ndir.h"
+    directories:
+      source: "C:/a1e/Tests/c1e/C2e/build/ogre/zziplib-0.13.71/b/CMakeFiles/CMakeScratch/TryCompile-dg6dpv"
+      binary: "C:/a1e/Tests/c1e/C2e/build/ogre/zziplib-0.13.71/b/CMakeFiles/CMakeScratch/TryCompile-dg6dpv"
+    cmakeVariables:
+      CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS: "C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/emscan-deps.exe"
+      CMAKE_C_FLAGS: ""
+      CMAKE_MODULE_PATH: "C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/cmake/Modules;C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/cmake/Modules;C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/cmake/Modules;C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/cmake/Modules;C:/a1e/Tests/c1e/C2e/build/ogre/zziplib-0.13.71/CMakeScripts"
+    buildResult:
+      variable: "ZZIP_HAVE_SYS_NDIR_H"
+      cached: true
+      stdout: |
+        Change Dir: 'C:/a1e/Tests/c1e/C2e/build/ogre/zziplib-0.13.71/b/CMakeFiles/CMakeScratch/TryCompile-dg6dpv'
+        
+        Run Build Command(s): C:/a1e/Tests/c1e/C2e/python/Scripts/ninja.exe -v cmTC_16888
+        [1/2] C:\\a1e\\Tests\\c1e\\C2e\\emsdk\\upstream\\emscripten\\emcc.exe    -MD -MT CMakeFiles/cmTC_16888.dir/ZZIP_HAVE_SYS_NDIR_H.c.o -MF CMakeFiles\\cmTC_16888.dir\\ZZIP_HAVE_SYS_NDIR_H.c.o.d -o CMakeFiles/cmTC_16888.dir/ZZIP_HAVE_SYS_NDIR_H.c.o -c C:/a1e/Tests/c1e/C2e/build/ogre/zziplib-0.13.71/b/CMakeFiles/CMakeScratch/TryCompile-dg6dpv/ZZIP_HAVE_SYS_NDIR_H.c
+        FAILED: [code=1] CMakeFiles/cmTC_16888.dir/ZZIP_HAVE_SYS_NDIR_H.c.o 
+        C:\\a1e\\Tests\\c1e\\C2e\\emsdk\\upstream\\emscripten\\emcc.exe    -MD -MT CMakeFiles/cmTC_16888.dir/ZZIP_HAVE_SYS_NDIR_H.c.o -MF CMakeFiles\\cmTC_16888.dir\\ZZIP_HAVE_SYS_NDIR_H.c.o.d -o CMakeFiles/cmTC_16888.dir/ZZIP_HAVE_SYS_NDIR_H.c.o -c C:/a1e/Tests/c1e/C2e/build/ogre/zziplib-0.13.71/b/CMakeFiles/CMakeScratch/TryCompile-dg6dpv/ZZIP_HAVE_SYS_NDIR_H.c
+        C:/a1e/Tests/c1e/C2e/build/ogre/zziplib-0.13.71/b/CMakeFiles/CMakeScratch/TryCompile-dg6dpv/ZZIP_HAVE_SYS_NDIR_H.c:2:10: fatal error: 'sys/ndir.h' file not found
+            2 | #include <sys/ndir.h>
+              |          ^~~~~~~~~~~~
+        1 error generated.
+        ninja: build stopped: subcommand failed.
+        
+      exitCode: 1
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-3.30/Modules/CheckIncludeFiles.cmake:132 (try_compile)"
+      - "zzip/CMakeLists.txt:57 (check_include_files)"
+    checks:
+      - "Looking for include file sys/param.h"
+    directories:
+      source: "C:/a1e/Tests/c1e/C2e/build/ogre/zziplib-0.13.71/b/CMakeFiles/CMakeScratch/TryCompile-1ovpzm"
+      binary: "C:/a1e/Tests/c1e/C2e/build/ogre/zziplib-0.13.71/b/CMakeFiles/CMakeScratch/TryCompile-1ovpzm"
+    cmakeVariables:
+      CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS: "C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/emscan-deps.exe"
+      CMAKE_C_FLAGS: ""
+      CMAKE_MODULE_PATH: "C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/cmake/Modules;C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/cmake/Modules;C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/cmake/Modules;C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/cmake/Modules;C:/a1e/Tests/c1e/C2e/build/ogre/zziplib-0.13.71/CMakeScripts"
+    buildResult:
+      variable: "ZZIP_HAVE_SYS_PARAM_H"
+      cached: true
+      stdout: |
+        Change Dir: 'C:/a1e/Tests/c1e/C2e/build/ogre/zziplib-0.13.71/b/CMakeFiles/CMakeScratch/TryCompile-1ovpzm'
+        
+        Run Build Command(s): C:/a1e/Tests/c1e/C2e/python/Scripts/ninja.exe -v cmTC_70621
+        [1/2] C:\\a1e\\Tests\\c1e\\C2e\\emsdk\\upstream\\emscripten\\emcc.exe    -MD -MT CMakeFiles/cmTC_70621.dir/ZZIP_HAVE_SYS_PARAM_H.c.o -MF CMakeFiles\\cmTC_70621.dir\\ZZIP_HAVE_SYS_PARAM_H.c.o.d -o CMakeFiles/cmTC_70621.dir/ZZIP_HAVE_SYS_PARAM_H.c.o -c C:/a1e/Tests/c1e/C2e/build/ogre/zziplib-0.13.71/b/CMakeFiles/CMakeScratch/TryCompile-1ovpzm/ZZIP_HAVE_SYS_PARAM_H.c
+        [2/2] C:\\Windows\\system32\\cmd.exe /C "cd . && C:\\a1e\\Tests\\c1e\\C2e\\emsdk\\upstream\\emscripten\\emcc.exe   CMakeFiles/cmTC_70621.dir/ZZIP_HAVE_SYS_PARAM_H.c.o -o cmTC_70621.js   && cd ."
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-3.30/Modules/CheckIncludeFiles.cmake:132 (try_compile)"
+      - "zzip/CMakeLists.txt:58 (check_include_files)"
+    checks:
+      - "Looking for include file sys/stat.h"
+    directories:
+      source: "C:/a1e/Tests/c1e/C2e/build/ogre/zziplib-0.13.71/b/CMakeFiles/CMakeScratch/TryCompile-acbggg"
+      binary: "C:/a1e/Tests/c1e/C2e/build/ogre/zziplib-0.13.71/b/CMakeFiles/CMakeScratch/TryCompile-acbggg"
+    cmakeVariables:
+      CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS: "C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/emscan-deps.exe"
+      CMAKE_C_FLAGS: ""
+      CMAKE_MODULE_PATH: "C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/cmake/Modules;C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/cmake/Modules;C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/cmake/Modules;C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/cmake/Modules;C:/a1e/Tests/c1e/C2e/build/ogre/zziplib-0.13.71/CMakeScripts"
+    buildResult:
+      variable: "ZZIP_HAVE_SYS_STAT_H"
+      cached: true
+      stdout: |
+        Change Dir: 'C:/a1e/Tests/c1e/C2e/build/ogre/zziplib-0.13.71/b/CMakeFiles/CMakeScratch/TryCompile-acbggg'
+        
+        Run Build Command(s): C:/a1e/Tests/c1e/C2e/python/Scripts/ninja.exe -v cmTC_d4c5d
+        [1/2] C:\\a1e\\Tests\\c1e\\C2e\\emsdk\\upstream\\emscripten\\emcc.exe    -MD -MT CMakeFiles/cmTC_d4c5d.dir/ZZIP_HAVE_SYS_STAT_H.c.o -MF CMakeFiles\\cmTC_d4c5d.dir\\ZZIP_HAVE_SYS_STAT_H.c.o.d -o CMakeFiles/cmTC_d4c5d.dir/ZZIP_HAVE_SYS_STAT_H.c.o -c C:/a1e/Tests/c1e/C2e/build/ogre/zziplib-0.13.71/b/CMakeFiles/CMakeScratch/TryCompile-acbggg/ZZIP_HAVE_SYS_STAT_H.c
+        [2/2] C:\\Windows\\system32\\cmd.exe /C "cd . && C:\\a1e\\Tests\\c1e\\C2e\\emsdk\\upstream\\emscripten\\emcc.exe   CMakeFiles/cmTC_d4c5d.dir/ZZIP_HAVE_SYS_STAT_H.c.o -o cmTC_d4c5d.js   && cd ."
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-3.30/Modules/CheckIncludeFiles.cmake:132 (try_compile)"
+      - "zzip/CMakeLists.txt:59 (check_include_files)"
+    checks:
+      - "Looking for include file sys/types.h"
+    directories:
+      source: "C:/a1e/Tests/c1e/C2e/build/ogre/zziplib-0.13.71/b/CMakeFiles/CMakeScratch/TryCompile-vv4hpq"
+      binary: "C:/a1e/Tests/c1e/C2e/build/ogre/zziplib-0.13.71/b/CMakeFiles/CMakeScratch/TryCompile-vv4hpq"
+    cmakeVariables:
+      CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS: "C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/emscan-deps.exe"
+      CMAKE_C_FLAGS: ""
+      CMAKE_MODULE_PATH: "C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/cmake/Modules;C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/cmake/Modules;C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/cmake/Modules;C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/cmake/Modules;C:/a1e/Tests/c1e/C2e/build/ogre/zziplib-0.13.71/CMakeScripts"
+    buildResult:
+      variable: "ZZIP_HAVE_SYS_TYPES_H"
+      cached: true
+      stdout: |
+        Change Dir: 'C:/a1e/Tests/c1e/C2e/build/ogre/zziplib-0.13.71/b/CMakeFiles/CMakeScratch/TryCompile-vv4hpq'
+        
+        Run Build Command(s): C:/a1e/Tests/c1e/C2e/python/Scripts/ninja.exe -v cmTC_21929
+        [1/2] C:\\a1e\\Tests\\c1e\\C2e\\emsdk\\upstream\\emscripten\\emcc.exe    -MD -MT CMakeFiles/cmTC_21929.dir/ZZIP_HAVE_SYS_TYPES_H.c.o -MF CMakeFiles\\cmTC_21929.dir\\ZZIP_HAVE_SYS_TYPES_H.c.o.d -o CMakeFiles/cmTC_21929.dir/ZZIP_HAVE_SYS_TYPES_H.c.o -c C:/a1e/Tests/c1e/C2e/build/ogre/zziplib-0.13.71/b/CMakeFiles/CMakeScratch/TryCompile-vv4hpq/ZZIP_HAVE_SYS_TYPES_H.c
+        [2/2] C:\\Windows\\system32\\cmd.exe /C "cd . && C:\\a1e\\Tests\\c1e\\C2e\\emsdk\\upstream\\emscripten\\emcc.exe   CMakeFiles/cmTC_21929.dir/ZZIP_HAVE_SYS_TYPES_H.c.o -o cmTC_21929.js   && cd ."
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-3.30/Modules/CheckIncludeFiles.cmake:132 (try_compile)"
+      - "zzip/CMakeLists.txt:60 (check_include_files)"
+    checks:
+      - "Looking for include file unistd.h"
+    directories:
+      source: "C:/a1e/Tests/c1e/C2e/build/ogre/zziplib-0.13.71/b/CMakeFiles/CMakeScratch/TryCompile-7fwj3t"
+      binary: "C:/a1e/Tests/c1e/C2e/build/ogre/zziplib-0.13.71/b/CMakeFiles/CMakeScratch/TryCompile-7fwj3t"
+    cmakeVariables:
+      CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS: "C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/emscan-deps.exe"
+      CMAKE_C_FLAGS: ""
+      CMAKE_MODULE_PATH: "C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/cmake/Modules;C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/cmake/Modules;C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/cmake/Modules;C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/cmake/Modules;C:/a1e/Tests/c1e/C2e/build/ogre/zziplib-0.13.71/CMakeScripts"
+    buildResult:
+      variable: "ZZIP_HAVE_UNISTD_H"
+      cached: true
+      stdout: |
+        Change Dir: 'C:/a1e/Tests/c1e/C2e/build/ogre/zziplib-0.13.71/b/CMakeFiles/CMakeScratch/TryCompile-7fwj3t'
+        
+        Run Build Command(s): C:/a1e/Tests/c1e/C2e/python/Scripts/ninja.exe -v cmTC_703d6
+        [1/2] C:\\a1e\\Tests\\c1e\\C2e\\emsdk\\upstream\\emscripten\\emcc.exe    -MD -MT CMakeFiles/cmTC_703d6.dir/ZZIP_HAVE_UNISTD_H.c.o -MF CMakeFiles\\cmTC_703d6.dir\\ZZIP_HAVE_UNISTD_H.c.o.d -o CMakeFiles/cmTC_703d6.dir/ZZIP_HAVE_UNISTD_H.c.o -c C:/a1e/Tests/c1e/C2e/build/ogre/zziplib-0.13.71/b/CMakeFiles/CMakeScratch/TryCompile-7fwj3t/ZZIP_HAVE_UNISTD_H.c
+        [2/2] C:\\Windows\\system32\\cmd.exe /C "cd . && C:\\a1e\\Tests\\c1e\\C2e\\emsdk\\upstream\\emscripten\\emcc.exe   CMakeFiles/cmTC_703d6.dir/ZZIP_HAVE_UNISTD_H.c.o -o cmTC_703d6.js   && cd ."
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-3.30/Modules/CheckIncludeFiles.cmake:132 (try_compile)"
+      - "zzip/CMakeLists.txt:61 (check_include_files)"
+    checks:
+      - "Looking for include file winbase.h"
+    directories:
+      source: "C:/a1e/Tests/c1e/C2e/build/ogre/zziplib-0.13.71/b/CMakeFiles/CMakeScratch/TryCompile-vdjszg"
+      binary: "C:/a1e/Tests/c1e/C2e/build/ogre/zziplib-0.13.71/b/CMakeFiles/CMakeScratch/TryCompile-vdjszg"
+    cmakeVariables:
+      CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS: "C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/emscan-deps.exe"
+      CMAKE_C_FLAGS: ""
+      CMAKE_MODULE_PATH: "C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/cmake/Modules;C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/cmake/Modules;C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/cmake/Modules;C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/cmake/Modules;C:/a1e/Tests/c1e/C2e/build/ogre/zziplib-0.13.71/CMakeScripts"
+    buildResult:
+      variable: "ZZIP_HAVE_WINBASE_H"
+      cached: true
+      stdout: |
+        Change Dir: 'C:/a1e/Tests/c1e/C2e/build/ogre/zziplib-0.13.71/b/CMakeFiles/CMakeScratch/TryCompile-vdjszg'
+        
+        Run Build Command(s): C:/a1e/Tests/c1e/C2e/python/Scripts/ninja.exe -v cmTC_321b1
+        [1/2] C:\\a1e\\Tests\\c1e\\C2e\\emsdk\\upstream\\emscripten\\emcc.exe    -MD -MT CMakeFiles/cmTC_321b1.dir/ZZIP_HAVE_WINBASE_H.c.o -MF CMakeFiles\\cmTC_321b1.dir\\ZZIP_HAVE_WINBASE_H.c.o.d -o CMakeFiles/cmTC_321b1.dir/ZZIP_HAVE_WINBASE_H.c.o -c C:/a1e/Tests/c1e/C2e/build/ogre/zziplib-0.13.71/b/CMakeFiles/CMakeScratch/TryCompile-vdjszg/ZZIP_HAVE_WINBASE_H.c
+        FAILED: [code=1] CMakeFiles/cmTC_321b1.dir/ZZIP_HAVE_WINBASE_H.c.o 
+        C:\\a1e\\Tests\\c1e\\C2e\\emsdk\\upstream\\emscripten\\emcc.exe    -MD -MT CMakeFiles/cmTC_321b1.dir/ZZIP_HAVE_WINBASE_H.c.o -MF CMakeFiles\\cmTC_321b1.dir\\ZZIP_HAVE_WINBASE_H.c.o.d -o CMakeFiles/cmTC_321b1.dir/ZZIP_HAVE_WINBASE_H.c.o -c C:/a1e/Tests/c1e/C2e/build/ogre/zziplib-0.13.71/b/CMakeFiles/CMakeScratch/TryCompile-vdjszg/ZZIP_HAVE_WINBASE_H.c
+        C:/a1e/Tests/c1e/C2e/build/ogre/zziplib-0.13.71/b/CMakeFiles/CMakeScratch/TryCompile-vdjszg/ZZIP_HAVE_WINBASE_H.c:2:10: fatal error: 'winbase.h' file not found
+            2 | #include <winbase.h>
+              |          ^~~~~~~~~~~
+        1 error generated.
+        ninja: build stopped: subcommand failed.
+        
+      exitCode: 1
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-3.30/Modules/CheckIncludeFiles.cmake:132 (try_compile)"
+      - "zzip/CMakeLists.txt:62 (check_include_files)"
+    checks:
+      - "Looking for include file windows.h"
+    directories:
+      source: "C:/a1e/Tests/c1e/C2e/build/ogre/zziplib-0.13.71/b/CMakeFiles/CMakeScratch/TryCompile-j63o34"
+      binary: "C:/a1e/Tests/c1e/C2e/build/ogre/zziplib-0.13.71/b/CMakeFiles/CMakeScratch/TryCompile-j63o34"
+    cmakeVariables:
+      CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS: "C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/emscan-deps.exe"
+      CMAKE_C_FLAGS: ""
+      CMAKE_MODULE_PATH: "C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/cmake/Modules;C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/cmake/Modules;C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/cmake/Modules;C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/cmake/Modules;C:/a1e/Tests/c1e/C2e/build/ogre/zziplib-0.13.71/CMakeScripts"
+    buildResult:
+      variable: "ZZIP_HAVE_WINDOWS_H"
+      cached: true
+      stdout: |
+        Change Dir: 'C:/a1e/Tests/c1e/C2e/build/ogre/zziplib-0.13.71/b/CMakeFiles/CMakeScratch/TryCompile-j63o34'
+        
+        Run Build Command(s): C:/a1e/Tests/c1e/C2e/python/Scripts/ninja.exe -v cmTC_e397f
+        [1/2] C:\\a1e\\Tests\\c1e\\C2e\\emsdk\\upstream\\emscripten\\emcc.exe    -MD -MT CMakeFiles/cmTC_e397f.dir/ZZIP_HAVE_WINDOWS_H.c.o -MF CMakeFiles\\cmTC_e397f.dir\\ZZIP_HAVE_WINDOWS_H.c.o.d -o CMakeFiles/cmTC_e397f.dir/ZZIP_HAVE_WINDOWS_H.c.o -c C:/a1e/Tests/c1e/C2e/build/ogre/zziplib-0.13.71/b/CMakeFiles/CMakeScratch/TryCompile-j63o34/ZZIP_HAVE_WINDOWS_H.c
+        FAILED: [code=1] CMakeFiles/cmTC_e397f.dir/ZZIP_HAVE_WINDOWS_H.c.o 
+        C:\\a1e\\Tests\\c1e\\C2e\\emsdk\\upstream\\emscripten\\emcc.exe    -MD -MT CMakeFiles/cmTC_e397f.dir/ZZIP_HAVE_WINDOWS_H.c.o -MF CMakeFiles\\cmTC_e397f.dir\\ZZIP_HAVE_WINDOWS_H.c.o.d -o CMakeFiles/cmTC_e397f.dir/ZZIP_HAVE_WINDOWS_H.c.o -c C:/a1e/Tests/c1e/C2e/build/ogre/zziplib-0.13.71/b/CMakeFiles/CMakeScratch/TryCompile-j63o34/ZZIP_HAVE_WINDOWS_H.c
+        C:/a1e/Tests/c1e/C2e/build/ogre/zziplib-0.13.71/b/CMakeFiles/CMakeScratch/TryCompile-j63o34/ZZIP_HAVE_WINDOWS_H.c:2:10: fatal error: 'windows.h' file not found
+            2 | #include <windows.h>
+              |          ^~~~~~~~~~~
+        1 error generated.
+        ninja: build stopped: subcommand failed.
+        
+      exitCode: 1
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-3.30/Modules/CheckIncludeFiles.cmake:132 (try_compile)"
+      - "zzip/CMakeLists.txt:63 (check_include_files)"
+    checks:
+      - "Looking for include file winnt.h"
+    directories:
+      source: "C:/a1e/Tests/c1e/C2e/build/ogre/zziplib-0.13.71/b/CMakeFiles/CMakeScratch/TryCompile-o41zhm"
+      binary: "C:/a1e/Tests/c1e/C2e/build/ogre/zziplib-0.13.71/b/CMakeFiles/CMakeScratch/TryCompile-o41zhm"
+    cmakeVariables:
+      CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS: "C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/emscan-deps.exe"
+      CMAKE_C_FLAGS: ""
+      CMAKE_MODULE_PATH: "C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/cmake/Modules;C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/cmake/Modules;C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/cmake/Modules;C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/cmake/Modules;C:/a1e/Tests/c1e/C2e/build/ogre/zziplib-0.13.71/CMakeScripts"
+    buildResult:
+      variable: "ZZIP_HAVE_WINNT_H"
+      cached: true
+      stdout: |
+        Change Dir: 'C:/a1e/Tests/c1e/C2e/build/ogre/zziplib-0.13.71/b/CMakeFiles/CMakeScratch/TryCompile-o41zhm'
+        
+        Run Build Command(s): C:/a1e/Tests/c1e/C2e/python/Scripts/ninja.exe -v cmTC_4b41f
+        [1/2] C:\\a1e\\Tests\\c1e\\C2e\\emsdk\\upstream\\emscripten\\emcc.exe    -MD -MT CMakeFiles/cmTC_4b41f.dir/ZZIP_HAVE_WINNT_H.c.o -MF CMakeFiles\\cmTC_4b41f.dir\\ZZIP_HAVE_WINNT_H.c.o.d -o CMakeFiles/cmTC_4b41f.dir/ZZIP_HAVE_WINNT_H.c.o -c C:/a1e/Tests/c1e/C2e/build/ogre/zziplib-0.13.71/b/CMakeFiles/CMakeScratch/TryCompile-o41zhm/ZZIP_HAVE_WINNT_H.c
+        FAILED: [code=1] CMakeFiles/cmTC_4b41f.dir/ZZIP_HAVE_WINNT_H.c.o 
+        C:\\a1e\\Tests\\c1e\\C2e\\emsdk\\upstream\\emscripten\\emcc.exe    -MD -MT CMakeFiles/cmTC_4b41f.dir/ZZIP_HAVE_WINNT_H.c.o -MF CMakeFiles\\cmTC_4b41f.dir\\ZZIP_HAVE_WINNT_H.c.o.d -o CMakeFiles/cmTC_4b41f.dir/ZZIP_HAVE_WINNT_H.c.o -c C:/a1e/Tests/c1e/C2e/build/ogre/zziplib-0.13.71/b/CMakeFiles/CMakeScratch/TryCompile-o41zhm/ZZIP_HAVE_WINNT_H.c
+        C:/a1e/Tests/c1e/C2e/build/ogre/zziplib-0.13.71/b/CMakeFiles/CMakeScratch/TryCompile-o41zhm/ZZIP_HAVE_WINNT_H.c:2:10: fatal error: 'winnt.h' file not found
+            2 | #include <winnt.h>
+              |          ^~~~~~~~~
+        1 error generated.
+        ninja: build stopped: subcommand failed.
+        
+      exitCode: 1
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-3.30/Modules/CheckIncludeFile.cmake:90 (try_compile)"
+      - "C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/cmake/Modules/CheckTypeSize.cmake:223 (check_include_file)"
+      - "zzip/CMakeLists.txt:66 (check_type_size)"
+    checks:
+      - "Looking for sys/types.h"
+    directories:
+      source: "C:/a1e/Tests/c1e/C2e/build/ogre/zziplib-0.13.71/b/CMakeFiles/CMakeScratch/TryCompile-r32kxx"
+      binary: "C:/a1e/Tests/c1e/C2e/build/ogre/zziplib-0.13.71/b/CMakeFiles/CMakeScratch/TryCompile-r32kxx"
+    cmakeVariables:
+      CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS: "C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/emscan-deps.exe"
+      CMAKE_C_FLAGS: ""
+      CMAKE_MODULE_PATH: "C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/cmake/Modules;C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/cmake/Modules;C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/cmake/Modules;C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/cmake/Modules;C:/a1e/Tests/c1e/C2e/build/ogre/zziplib-0.13.71/CMakeScripts"
+    buildResult:
+      variable: "HAVE_SYS_TYPES_H"
+      cached: true
+      stdout: |
+        Change Dir: 'C:/a1e/Tests/c1e/C2e/build/ogre/zziplib-0.13.71/b/CMakeFiles/CMakeScratch/TryCompile-r32kxx'
+        
+        Run Build Command(s): C:/a1e/Tests/c1e/C2e/python/Scripts/ninja.exe -v cmTC_65d8f
+        [1/2] C:\\a1e\\Tests\\c1e\\C2e\\emsdk\\upstream\\emscripten\\emcc.exe    -MD -MT CMakeFiles/cmTC_65d8f.dir/CheckIncludeFile.c.o -MF CMakeFiles\\cmTC_65d8f.dir\\CheckIncludeFile.c.o.d -o CMakeFiles/cmTC_65d8f.dir/CheckIncludeFile.c.o -c C:/a1e/Tests/c1e/C2e/build/ogre/zziplib-0.13.71/b/CMakeFiles/CMakeScratch/TryCompile-r32kxx/CheckIncludeFile.c
+        [2/2] C:\\Windows\\system32\\cmd.exe /C "cd . && C:\\a1e\\Tests\\c1e\\C2e\\emsdk\\upstream\\emscripten\\emcc.exe   CMakeFiles/cmTC_65d8f.dir/CheckIncludeFile.c.o -o cmTC_65d8f.js   && cd ."
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-3.30/Modules/CheckIncludeFile.cmake:90 (try_compile)"
+      - "C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/cmake/Modules/CheckTypeSize.cmake:224 (check_include_file)"
+      - "zzip/CMakeLists.txt:66 (check_type_size)"
+    checks:
+      - "Looking for stdint.h"
+    directories:
+      source: "C:/a1e/Tests/c1e/C2e/build/ogre/zziplib-0.13.71/b/CMakeFiles/CMakeScratch/TryCompile-5cm2qd"
+      binary: "C:/a1e/Tests/c1e/C2e/build/ogre/zziplib-0.13.71/b/CMakeFiles/CMakeScratch/TryCompile-5cm2qd"
+    cmakeVariables:
+      CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS: "C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/emscan-deps.exe"
+      CMAKE_C_FLAGS: ""
+      CMAKE_MODULE_PATH: "C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/cmake/Modules;C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/cmake/Modules;C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/cmake/Modules;C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/cmake/Modules;C:/a1e/Tests/c1e/C2e/build/ogre/zziplib-0.13.71/CMakeScripts"
+    buildResult:
+      variable: "HAVE_STDINT_H"
+      cached: true
+      stdout: |
+        Change Dir: 'C:/a1e/Tests/c1e/C2e/build/ogre/zziplib-0.13.71/b/CMakeFiles/CMakeScratch/TryCompile-5cm2qd'
+        
+        Run Build Command(s): C:/a1e/Tests/c1e/C2e/python/Scripts/ninja.exe -v cmTC_f6a37
+        [1/2] C:\\a1e\\Tests\\c1e\\C2e\\emsdk\\upstream\\emscripten\\emcc.exe    -MD -MT CMakeFiles/cmTC_f6a37.dir/CheckIncludeFile.c.o -MF CMakeFiles\\cmTC_f6a37.dir\\CheckIncludeFile.c.o.d -o CMakeFiles/cmTC_f6a37.dir/CheckIncludeFile.c.o -c C:/a1e/Tests/c1e/C2e/build/ogre/zziplib-0.13.71/b/CMakeFiles/CMakeScratch/TryCompile-5cm2qd/CheckIncludeFile.c
+        [2/2] C:\\Windows\\system32\\cmd.exe /C "cd . && C:\\a1e\\Tests\\c1e\\C2e\\emsdk\\upstream\\emscripten\\emcc.exe   CMakeFiles/cmTC_f6a37.dir/CheckIncludeFile.c.o -o cmTC_f6a37.js   && cd ."
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-3.30/Modules/CheckIncludeFile.cmake:90 (try_compile)"
+      - "C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/cmake/Modules/CheckTypeSize.cmake:225 (check_include_file)"
+      - "zzip/CMakeLists.txt:66 (check_type_size)"
+    checks:
+      - "Looking for stddef.h"
+    directories:
+      source: "C:/a1e/Tests/c1e/C2e/build/ogre/zziplib-0.13.71/b/CMakeFiles/CMakeScratch/TryCompile-x97ti9"
+      binary: "C:/a1e/Tests/c1e/C2e/build/ogre/zziplib-0.13.71/b/CMakeFiles/CMakeScratch/TryCompile-x97ti9"
+    cmakeVariables:
+      CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS: "C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/emscan-deps.exe"
+      CMAKE_C_FLAGS: ""
+      CMAKE_MODULE_PATH: "C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/cmake/Modules;C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/cmake/Modules;C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/cmake/Modules;C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/cmake/Modules;C:/a1e/Tests/c1e/C2e/build/ogre/zziplib-0.13.71/CMakeScripts"
+    buildResult:
+      variable: "HAVE_STDDEF_H"
+      cached: true
+      stdout: |
+        Change Dir: 'C:/a1e/Tests/c1e/C2e/build/ogre/zziplib-0.13.71/b/CMakeFiles/CMakeScratch/TryCompile-x97ti9'
+        
+        Run Build Command(s): C:/a1e/Tests/c1e/C2e/python/Scripts/ninja.exe -v cmTC_2d0db
+        [1/2] C:\\a1e\\Tests\\c1e\\C2e\\emsdk\\upstream\\emscripten\\emcc.exe    -MD -MT CMakeFiles/cmTC_2d0db.dir/CheckIncludeFile.c.o -MF CMakeFiles\\cmTC_2d0db.dir\\CheckIncludeFile.c.o.d -o CMakeFiles/cmTC_2d0db.dir/CheckIncludeFile.c.o -c C:/a1e/Tests/c1e/C2e/build/ogre/zziplib-0.13.71/b/CMakeFiles/CMakeScratch/TryCompile-x97ti9/CheckIncludeFile.c
+        [2/2] C:\\Windows\\system32\\cmd.exe /C "cd . && C:\\a1e\\Tests\\c1e\\C2e\\emsdk\\upstream\\emscripten\\emcc.exe   CMakeFiles/cmTC_2d0db.dir/CheckIncludeFile.c.o -o cmTC_2d0db.js   && cd ."
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/cmake/Modules/CheckTypeSize.cmake:114 (try_compile)"
+      - "C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/cmake/Modules/CheckTypeSize.cmake:239 (__check_type_size_impl)"
+      - "zzip/CMakeLists.txt:66 (check_type_size)"
+    directories:
+      source: "C:/a1e/Tests/c1e/C2e/build/ogre/zziplib-0.13.71/b/CMakeFiles/CMakeTmp"
+      binary: "C:/a1e/Tests/c1e/C2e/build/ogre/zziplib-0.13.71/b/CMakeFiles/CMakeTmp"
+    cmakeVariables:
+      CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS: "C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/emscan-deps.exe"
+      CMAKE_C_FLAGS: ""
+      CMAKE_MODULE_PATH: "C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/cmake/Modules;C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/cmake/Modules;C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/cmake/Modules;C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/cmake/Modules;C:/a1e/Tests/c1e/C2e/build/ogre/zziplib-0.13.71/CMakeScripts"
+    buildResult:
+      variable: "HAVE_ZZIP_SIZEOF_INT"
+      cached: true
+      stdout: |
+        Change Dir: 'C:/a1e/Tests/c1e/C2e/build/ogre/zziplib-0.13.71/b/CMakeFiles/CMakeTmp'
+        
+        Run Build Command(s): C:/a1e/Tests/c1e/C2e/python/Scripts/ninja.exe -v cmTC_831ff
+        [1/2] C:\\a1e\\Tests\\c1e\\C2e\\emsdk\\upstream\\emscripten\\emcc.exe    -MD -MT CMakeFiles/cmTC_831ff.dir/ZZIP_SIZEOF_INT.c.o -MF CMakeFiles\\cmTC_831ff.dir\\ZZIP_SIZEOF_INT.c.o.d -o CMakeFiles/cmTC_831ff.dir/ZZIP_SIZEOF_INT.c.o -c C:/a1e/Tests/c1e/C2e/build/ogre/zziplib-0.13.71/b/CMakeFiles/CheckTypeSize/ZZIP_SIZEOF_INT.c
+        [2/2] C:\\Windows\\system32\\cmd.exe /C "cd . && C:\\a1e\\Tests\\c1e\\C2e\\emsdk\\upstream\\emscripten\\emcc.exe   CMakeFiles/cmTC_831ff.dir/ZZIP_SIZEOF_INT.c.o -o cmTC_831ff.js  --oformat=wasm  -sWASM=1 && cd ."
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/cmake/Modules/CheckTypeSize.cmake:114 (try_compile)"
+      - "C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/cmake/Modules/CheckTypeSize.cmake:239 (__check_type_size_impl)"
+      - "zzip/CMakeLists.txt:67 (check_type_size)"
+    directories:
+      source: "C:/a1e/Tests/c1e/C2e/build/ogre/zziplib-0.13.71/b/CMakeFiles/CMakeTmp"
+      binary: "C:/a1e/Tests/c1e/C2e/build/ogre/zziplib-0.13.71/b/CMakeFiles/CMakeTmp"
+    cmakeVariables:
+      CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS: "C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/emscan-deps.exe"
+      CMAKE_C_FLAGS: ""
+      CMAKE_MODULE_PATH: "C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/cmake/Modules;C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/cmake/Modules;C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/cmake/Modules;C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/cmake/Modules;C:/a1e/Tests/c1e/C2e/build/ogre/zziplib-0.13.71/CMakeScripts"
+    buildResult:
+      variable: "HAVE_ZZIP_SIZEOF_LONG"
+      cached: true
+      stdout: |
+        Change Dir: 'C:/a1e/Tests/c1e/C2e/build/ogre/zziplib-0.13.71/b/CMakeFiles/CMakeTmp'
+        
+        Run Build Command(s): C:/a1e/Tests/c1e/C2e/python/Scripts/ninja.exe -v cmTC_3a9bb
+        [1/2] C:\\a1e\\Tests\\c1e\\C2e\\emsdk\\upstream\\emscripten\\emcc.exe    -MD -MT CMakeFiles/cmTC_3a9bb.dir/ZZIP_SIZEOF_LONG.c.o -MF CMakeFiles\\cmTC_3a9bb.dir\\ZZIP_SIZEOF_LONG.c.o.d -o CMakeFiles/cmTC_3a9bb.dir/ZZIP_SIZEOF_LONG.c.o -c C:/a1e/Tests/c1e/C2e/build/ogre/zziplib-0.13.71/b/CMakeFiles/CheckTypeSize/ZZIP_SIZEOF_LONG.c
+        [2/2] C:\\Windows\\system32\\cmd.exe /C "cd . && C:\\a1e\\Tests\\c1e\\C2e\\emsdk\\upstream\\emscripten\\emcc.exe   CMakeFiles/cmTC_3a9bb.dir/ZZIP_SIZEOF_LONG.c.o -o cmTC_3a9bb.js  --oformat=wasm  -sWASM=1 && cd ."
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/cmake/Modules/CheckTypeSize.cmake:114 (try_compile)"
+      - "C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/cmake/Modules/CheckTypeSize.cmake:239 (__check_type_size_impl)"
+      - "zzip/CMakeLists.txt:68 (check_type_size)"
+    directories:
+      source: "C:/a1e/Tests/c1e/C2e/build/ogre/zziplib-0.13.71/b/CMakeFiles/CMakeTmp"
+      binary: "C:/a1e/Tests/c1e/C2e/build/ogre/zziplib-0.13.71/b/CMakeFiles/CMakeTmp"
+    cmakeVariables:
+      CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS: "C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/emscan-deps.exe"
+      CMAKE_C_FLAGS: ""
+      CMAKE_MODULE_PATH: "C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/cmake/Modules;C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/cmake/Modules;C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/cmake/Modules;C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/cmake/Modules;C:/a1e/Tests/c1e/C2e/build/ogre/zziplib-0.13.71/CMakeScripts"
+    buildResult:
+      variable: "HAVE_ZZIP_SIZEOF_SHORT"
+      cached: true
+      stdout: |
+        Change Dir: 'C:/a1e/Tests/c1e/C2e/build/ogre/zziplib-0.13.71/b/CMakeFiles/CMakeTmp'
+        
+        Run Build Command(s): C:/a1e/Tests/c1e/C2e/python/Scripts/ninja.exe -v cmTC_f712b
+        [1/2] C:\\a1e\\Tests\\c1e\\C2e\\emsdk\\upstream\\emscripten\\emcc.exe    -MD -MT CMakeFiles/cmTC_f712b.dir/ZZIP_SIZEOF_SHORT.c.o -MF CMakeFiles\\cmTC_f712b.dir\\ZZIP_SIZEOF_SHORT.c.o.d -o CMakeFiles/cmTC_f712b.dir/ZZIP_SIZEOF_SHORT.c.o -c C:/a1e/Tests/c1e/C2e/build/ogre/zziplib-0.13.71/b/CMakeFiles/CheckTypeSize/ZZIP_SIZEOF_SHORT.c
+        [2/2] C:\\Windows\\system32\\cmd.exe /C "cd . && C:\\a1e\\Tests\\c1e\\C2e\\emsdk\\upstream\\emscripten\\emcc.exe   CMakeFiles/cmTC_f712b.dir/ZZIP_SIZEOF_SHORT.c.o -o cmTC_f712b.js  --oformat=wasm  -sWASM=1 && cd ."
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-3.30/Modules/CheckIncludeFiles.cmake:132 (try_compile)"
+      - "zzip/CMakeLists.txt:69 (check_include_files)"
+    checks:
+      - "Looking for 4 include files stdlib.h, ..., float.h"
+    directories:
+      source: "C:/a1e/Tests/c1e/C2e/build/ogre/zziplib-0.13.71/b/CMakeFiles/CMakeScratch/TryCompile-xuyj5j"
+      binary: "C:/a1e/Tests/c1e/C2e/build/ogre/zziplib-0.13.71/b/CMakeFiles/CMakeScratch/TryCompile-xuyj5j"
+    cmakeVariables:
+      CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS: "C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/emscan-deps.exe"
+      CMAKE_C_FLAGS: ""
+      CMAKE_MODULE_PATH: "C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/cmake/Modules;C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/cmake/Modules;C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/cmake/Modules;C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/cmake/Modules;C:/a1e/Tests/c1e/C2e/build/ogre/zziplib-0.13.71/CMakeScripts"
+    buildResult:
+      variable: "ZZIP_STDC_HEADERS"
+      cached: true
+      stdout: |
+        Change Dir: 'C:/a1e/Tests/c1e/C2e/build/ogre/zziplib-0.13.71/b/CMakeFiles/CMakeScratch/TryCompile-xuyj5j'
+        
+        Run Build Command(s): C:/a1e/Tests/c1e/C2e/python/Scripts/ninja.exe -v cmTC_3f161
+        [1/2] C:\\a1e\\Tests\\c1e\\C2e\\emsdk\\upstream\\emscripten\\emcc.exe    -MD -MT CMakeFiles/cmTC_3f161.dir/ZZIP_STDC_HEADERS.c.o -MF CMakeFiles\\cmTC_3f161.dir\\ZZIP_STDC_HEADERS.c.o.d -o CMakeFiles/cmTC_3f161.dir/ZZIP_STDC_HEADERS.c.o -c C:/a1e/Tests/c1e/C2e/build/ogre/zziplib-0.13.71/b/CMakeFiles/CMakeScratch/TryCompile-xuyj5j/ZZIP_STDC_HEADERS.c
+        [2/2] C:\\Windows\\system32\\cmd.exe /C "cd . && C:\\a1e\\Tests\\c1e\\C2e\\emsdk\\upstream\\emscripten\\emcc.exe   CMakeFiles/cmTC_3f161.dir/ZZIP_STDC_HEADERS.c.o -o cmTC_3f161.js   && cd ."
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/cmake/Modules/CheckTypeSize.cmake:114 (try_compile)"
+      - "C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/cmake/Modules/CheckTypeSize.cmake:239 (__check_type_size_impl)"
+      - "zzip/CMakeLists.txt:74 (check_type_size)"
+    directories:
+      source: "C:/a1e/Tests/c1e/C2e/build/ogre/zziplib-0.13.71/b/CMakeFiles/CMakeTmp"
+      binary: "C:/a1e/Tests/c1e/C2e/build/ogre/zziplib-0.13.71/b/CMakeFiles/CMakeTmp"
+    cmakeVariables:
+      CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS: "C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/emscan-deps.exe"
+      CMAKE_C_FLAGS: ""
+      CMAKE_MODULE_PATH: "C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/cmake/Modules;C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/cmake/Modules;C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/cmake/Modules;C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/cmake/Modules;C:/a1e/Tests/c1e/C2e/build/ogre/zziplib-0.13.71/CMakeScripts"
+    buildResult:
+      variable: "HAVE_ZZIP_SIZEOF_OFF_T_32"
+      cached: true
+      stdout: |
+        Change Dir: 'C:/a1e/Tests/c1e/C2e/build/ogre/zziplib-0.13.71/b/CMakeFiles/CMakeTmp'
+        
+        Run Build Command(s): C:/a1e/Tests/c1e/C2e/python/Scripts/ninja.exe -v cmTC_5b5f8
+        [1/2] C:\\a1e\\Tests\\c1e\\C2e\\emsdk\\upstream\\emscripten\\emcc.exe -D_LARGEFILE_SOURCE -Doff_t_32=off_t   -MD -MT CMakeFiles/cmTC_5b5f8.dir/ZZIP_SIZEOF_OFF_T_32.c.o -MF CMakeFiles\\cmTC_5b5f8.dir\\ZZIP_SIZEOF_OFF_T_32.c.o.d -o CMakeFiles/cmTC_5b5f8.dir/ZZIP_SIZEOF_OFF_T_32.c.o -c C:/a1e/Tests/c1e/C2e/build/ogre/zziplib-0.13.71/b/CMakeFiles/CheckTypeSize/ZZIP_SIZEOF_OFF_T_32.c
+        [2/2] C:\\Windows\\system32\\cmd.exe /C "cd . && C:\\a1e\\Tests\\c1e\\C2e\\emsdk\\upstream\\emscripten\\emcc.exe   CMakeFiles/cmTC_5b5f8.dir/ZZIP_SIZEOF_OFF_T_32.c.o -o cmTC_5b5f8.js  --oformat=wasm  -sWASM=1 && cd ."
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/cmake/Modules/CheckTypeSize.cmake:114 (try_compile)"
+      - "C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/cmake/Modules/CheckTypeSize.cmake:239 (__check_type_size_impl)"
+      - "zzip/CMakeLists.txt:76 (check_type_size)"
+    directories:
+      source: "C:/a1e/Tests/c1e/C2e/build/ogre/zziplib-0.13.71/b/CMakeFiles/CMakeTmp"
+      binary: "C:/a1e/Tests/c1e/C2e/build/ogre/zziplib-0.13.71/b/CMakeFiles/CMakeTmp"
+    cmakeVariables:
+      CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS: "C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/emscan-deps.exe"
+      CMAKE_C_FLAGS: ""
+      CMAKE_MODULE_PATH: "C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/cmake/Modules;C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/cmake/Modules;C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/cmake/Modules;C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/cmake/Modules;C:/a1e/Tests/c1e/C2e/build/ogre/zziplib-0.13.71/CMakeScripts"
+    buildResult:
+      variable: "HAVE_ZZIP_SIZEOF_OFF_T_64"
+      cached: true
+      stdout: |
+        Change Dir: 'C:/a1e/Tests/c1e/C2e/build/ogre/zziplib-0.13.71/b/CMakeFiles/CMakeTmp'
+        
+        Run Build Command(s): C:/a1e/Tests/c1e/C2e/python/Scripts/ninja.exe -v cmTC_dbe4a
+        [1/2] C:\\a1e\\Tests\\c1e\\C2e\\emsdk\\upstream\\emscripten\\emcc.exe -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_LARGE_FILES -Doff_t_64=off_t   -MD -MT CMakeFiles/cmTC_dbe4a.dir/ZZIP_SIZEOF_OFF_T_64.c.o -MF CMakeFiles\\cmTC_dbe4a.dir\\ZZIP_SIZEOF_OFF_T_64.c.o.d -o CMakeFiles/cmTC_dbe4a.dir/ZZIP_SIZEOF_OFF_T_64.c.o -c C:/a1e/Tests/c1e/C2e/build/ogre/zziplib-0.13.71/b/CMakeFiles/CheckTypeSize/ZZIP_SIZEOF_OFF_T_64.c
+        [2/2] C:\\Windows\\system32\\cmd.exe /C "cd . && C:\\a1e\\Tests\\c1e\\C2e\\emsdk\\upstream\\emscripten\\emcc.exe   CMakeFiles/cmTC_dbe4a.dir/ZZIP_SIZEOF_OFF_T_64.c.o -o cmTC_dbe4a.js  --oformat=wasm  -sWASM=1 && cd ."
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/cmake/Modules/CheckTypeSize.cmake:114 (try_compile)"
+      - "C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/cmake/Modules/CheckTypeSize.cmake:239 (__check_type_size_impl)"
+      - "zzip/CMakeLists.txt:78 (check_type_size)"
+    directories:
+      source: "C:/a1e/Tests/c1e/C2e/build/ogre/zziplib-0.13.71/b/CMakeFiles/CMakeTmp"
+      binary: "C:/a1e/Tests/c1e/C2e/build/ogre/zziplib-0.13.71/b/CMakeFiles/CMakeTmp"
+    cmakeVariables:
+      CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS: "C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/emscan-deps.exe"
+      CMAKE_C_FLAGS: ""
+      CMAKE_MODULE_PATH: "C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/cmake/Modules;C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/cmake/Modules;C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/cmake/Modules;C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/cmake/Modules;C:/a1e/Tests/c1e/C2e/build/ogre/zziplib-0.13.71/CMakeScripts"
+    buildResult:
+      variable: "HAVE_ZZIP_SIZEOF_OFF64_T"
+      cached: true
+      stdout: |
+        Change Dir: 'C:/a1e/Tests/c1e/C2e/build/ogre/zziplib-0.13.71/b/CMakeFiles/CMakeTmp'
+        
+        Run Build Command(s): C:/a1e/Tests/c1e/C2e/python/Scripts/ninja.exe -v cmTC_231a2
+        [1/2] C:\\a1e\\Tests\\c1e\\C2e\\emsdk\\upstream\\emscripten\\emcc.exe -D_LARGEFILE64_SOURCE   -MD -MT CMakeFiles/cmTC_231a2.dir/ZZIP_SIZEOF_OFF64_T.c.o -MF CMakeFiles\\cmTC_231a2.dir\\ZZIP_SIZEOF_OFF64_T.c.o.d -o CMakeFiles/cmTC_231a2.dir/ZZIP_SIZEOF_OFF64_T.c.o -c C:/a1e/Tests/c1e/C2e/build/ogre/zziplib-0.13.71/b/CMakeFiles/CheckTypeSize/ZZIP_SIZEOF_OFF64_T.c
+        [2/2] C:\\Windows\\system32\\cmd.exe /C "cd . && C:\\a1e\\Tests\\c1e\\C2e\\emsdk\\upstream\\emscripten\\emcc.exe   CMakeFiles/cmTC_231a2.dir/ZZIP_SIZEOF_OFF64_T.c.o -o cmTC_231a2.js  --oformat=wasm  -sWASM=1 && cd ."
+        
+      exitCode: 0
+...

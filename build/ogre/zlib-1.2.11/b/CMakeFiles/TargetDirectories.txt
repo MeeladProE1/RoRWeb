@@ -1,0 +1,13 @@
+C:/a1e/Tests/c1e/C2e/build/ogre/zlib-1.2.11/b/CMakeFiles/zlib.dir
+C:/a1e/Tests/c1e/C2e/build/ogre/zlib-1.2.11/b/CMakeFiles/zlibstatic.dir
+C:/a1e/Tests/c1e/C2e/build/ogre/zlib-1.2.11/b/CMakeFiles/example.dir
+C:/a1e/Tests/c1e/C2e/build/ogre/zlib-1.2.11/b/CMakeFiles/minigzip.dir
+C:/a1e/Tests/c1e/C2e/build/ogre/zlib-1.2.11/b/CMakeFiles/example64.dir
+C:/a1e/Tests/c1e/C2e/build/ogre/zlib-1.2.11/b/CMakeFiles/minigzip64.dir
+C:/a1e/Tests/c1e/C2e/build/ogre/zlib-1.2.11/b/CMakeFiles/test.dir
+C:/a1e/Tests/c1e/C2e/build/ogre/zlib-1.2.11/b/CMakeFiles/edit_cache.dir
+C:/a1e/Tests/c1e/C2e/build/ogre/zlib-1.2.11/b/CMakeFiles/rebuild_cache.dir
+C:/a1e/Tests/c1e/C2e/build/ogre/zlib-1.2.11/b/CMakeFiles/list_install_components.dir
+C:/a1e/Tests/c1e/C2e/build/ogre/zlib-1.2.11/b/CMakeFiles/install.dir
+C:/a1e/Tests/c1e/C2e/build/ogre/zlib-1.2.11/b/CMakeFiles/install/local.dir
+C:/a1e/Tests/c1e/C2e/build/ogre/zlib-1.2.11/b/CMakeFiles/install/strip.dir

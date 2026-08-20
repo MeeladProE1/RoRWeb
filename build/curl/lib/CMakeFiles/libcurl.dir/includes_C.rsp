@@ -1,0 +1,1 @@
+-IC:/a1e/Tests/c1e/C2e/source/curl/include -IC:/a1e/Tests/c1e/C2e/build/curl/lib/../include -IC:/a1e/Tests/c1e/C2e/source/curl/lib/.. -IC:/a1e/Tests/c1e/C2e/source/curl/lib/../include -IC:/a1e/Tests/c1e/C2e/build/curl/lib/.. -IC:/a1e/Tests/c1e/C2e/source/curl/lib -IC:/a1e/Tests/c1e/C2e/build/curl/lib

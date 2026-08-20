@@ -1,0 +1,7 @@
+
+import * from "OneTexture.material"
+
+material PanelColumnTop : OneTexture
+{
+	set $texture_unit "top.png"
+}

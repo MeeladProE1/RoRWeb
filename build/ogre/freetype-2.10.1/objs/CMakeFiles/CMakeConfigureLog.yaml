@@ -1,0 +1,90 @@
+
+---
+events:
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-3.30/Modules/CMakeDetermineSystem.cmake:200 (message)"
+      - "CMakeLists.txt:134 (project)"
+    message: |
+      The target system is: Emscripten - 1 - x86
+      The host system is: Windows - 10.0.19045 - AMD64
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-3.30/Modules/CheckIncludeFile.cmake:90 (try_compile)"
+      - "CMakeLists.txt:214 (check_include_file)"
+    checks:
+      - "Looking for unistd.h"
+    directories:
+      source: "C:/a1e/Tests/c1e/C2e/build/ogre/freetype-2.10.1/objs/CMakeFiles/CMakeScratch/TryCompile-nn2djv"
+      binary: "C:/a1e/Tests/c1e/C2e/build/ogre/freetype-2.10.1/objs/CMakeFiles/CMakeScratch/TryCompile-nn2djv"
+    cmakeVariables:
+      CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS: "C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/emscan-deps.exe"
+      CMAKE_C_FLAGS: ""
+      CMAKE_MODULE_PATH: "C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/cmake/Modules;C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/cmake/Modules;C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/cmake/Modules;C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/cmake/Modules;C:/a1e/Tests/c1e/C2e/build/ogre/freetype-2.10.1/builds/cmake"
+    buildResult:
+      variable: "HAVE_UNISTD_H"
+      cached: true
+      stdout: |
+        Change Dir: 'C:/a1e/Tests/c1e/C2e/build/ogre/freetype-2.10.1/objs/CMakeFiles/CMakeScratch/TryCompile-nn2djv'
+        
+        Run Build Command(s): C:\\a1e\\Tests\\c1e\\C2e\\python\\Scripts\\ninja.exe -v cmTC_d06c9
+        [1/2] C:\\a1e\\Tests\\c1e\\C2e\\emsdk\\upstream\\emscripten\\em++.exe    -MD -MT CMakeFiles/cmTC_d06c9.dir/CheckIncludeFile.c.o -MF CMakeFiles\\cmTC_d06c9.dir\\CheckIncludeFile.c.o.d -o CMakeFiles/cmTC_d06c9.dir/CheckIncludeFile.c.o -c C:/a1e/Tests/c1e/C2e/build/ogre/freetype-2.10.1/objs/CMakeFiles/CMakeScratch/TryCompile-nn2djv/CheckIncludeFile.c
+        clang++: warning: treating 'c' input as 'c++' when in C++ mode, this behavior is deprecated [-Wdeprecated]
+        [2/2] C:\\Windows\\system32\\cmd.exe /C "cd . && C:\\a1e\\Tests\\c1e\\C2e\\emsdk\\upstream\\emscripten\\em++.exe   CMakeFiles/cmTC_d06c9.dir/CheckIncludeFile.c.o -o cmTC_d06c9.js   && cd ."
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-3.30/Modules/CheckIncludeFile.cmake:90 (try_compile)"
+      - "CMakeLists.txt:215 (check_include_file)"
+    checks:
+      - "Looking for fcntl.h"
+    directories:
+      source: "C:/a1e/Tests/c1e/C2e/build/ogre/freetype-2.10.1/objs/CMakeFiles/CMakeScratch/TryCompile-sds3fe"
+      binary: "C:/a1e/Tests/c1e/C2e/build/ogre/freetype-2.10.1/objs/CMakeFiles/CMakeScratch/TryCompile-sds3fe"
+    cmakeVariables:
+      CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS: "C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/emscan-deps.exe"
+      CMAKE_C_FLAGS: ""
+      CMAKE_MODULE_PATH: "C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/cmake/Modules;C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/cmake/Modules;C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/cmake/Modules;C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/cmake/Modules;C:/a1e/Tests/c1e/C2e/build/ogre/freetype-2.10.1/builds/cmake"
+    buildResult:
+      variable: "HAVE_FCNTL_H"
+      cached: true
+      stdout: |
+        Change Dir: 'C:/a1e/Tests/c1e/C2e/build/ogre/freetype-2.10.1/objs/CMakeFiles/CMakeScratch/TryCompile-sds3fe'
+        
+        Run Build Command(s): C:\\a1e\\Tests\\c1e\\C2e\\python\\Scripts\\ninja.exe -v cmTC_78e8a
+        [1/2] C:\\a1e\\Tests\\c1e\\C2e\\emsdk\\upstream\\emscripten\\em++.exe    -MD -MT CMakeFiles/cmTC_78e8a.dir/CheckIncludeFile.c.o -MF CMakeFiles\\cmTC_78e8a.dir\\CheckIncludeFile.c.o.d -o CMakeFiles/cmTC_78e8a.dir/CheckIncludeFile.c.o -c C:/a1e/Tests/c1e/C2e/build/ogre/freetype-2.10.1/objs/CMakeFiles/CMakeScratch/TryCompile-sds3fe/CheckIncludeFile.c
+        clang++: warning: treating 'c' input as 'c++' when in C++ mode, this behavior is deprecated [-Wdeprecated]
+        [2/2] C:\\Windows\\system32\\cmd.exe /C "cd . && C:\\a1e\\Tests\\c1e\\C2e\\emsdk\\upstream\\emscripten\\em++.exe   CMakeFiles/cmTC_78e8a.dir/CheckIncludeFile.c.o -o cmTC_78e8a.js   && cd ."
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-3.30/Modules/CheckIncludeFile.cmake:90 (try_compile)"
+      - "CMakeLists.txt:216 (check_include_file)"
+    checks:
+      - "Looking for stdint.h"
+    directories:
+      source: "C:/a1e/Tests/c1e/C2e/build/ogre/freetype-2.10.1/objs/CMakeFiles/CMakeScratch/TryCompile-242m5s"
+      binary: "C:/a1e/Tests/c1e/C2e/build/ogre/freetype-2.10.1/objs/CMakeFiles/CMakeScratch/TryCompile-242m5s"
+    cmakeVariables:
+      CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS: "C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/emscan-deps.exe"
+      CMAKE_C_FLAGS: ""
+      CMAKE_MODULE_PATH: "C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/cmake/Modules;C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/cmake/Modules;C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/cmake/Modules;C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/cmake/Modules;C:/a1e/Tests/c1e/C2e/build/ogre/freetype-2.10.1/builds/cmake"
+    buildResult:
+      variable: "HAVE_STDINT_H"
+      cached: true
+      stdout: |
+        Change Dir: 'C:/a1e/Tests/c1e/C2e/build/ogre/freetype-2.10.1/objs/CMakeFiles/CMakeScratch/TryCompile-242m5s'
+        
+        Run Build Command(s): C:\\a1e\\Tests\\c1e\\C2e\\python\\Scripts\\ninja.exe -v cmTC_b4e91
+        [1/2] C:\\a1e\\Tests\\c1e\\C2e\\emsdk\\upstream\\emscripten\\em++.exe    -MD -MT CMakeFiles/cmTC_b4e91.dir/CheckIncludeFile.c.o -MF CMakeFiles\\cmTC_b4e91.dir\\CheckIncludeFile.c.o.d -o CMakeFiles/cmTC_b4e91.dir/CheckIncludeFile.c.o -c C:/a1e/Tests/c1e/C2e/build/ogre/freetype-2.10.1/objs/CMakeFiles/CMakeScratch/TryCompile-242m5s/CheckIncludeFile.c
+        clang++: warning: treating 'c' input as 'c++' when in C++ mode, this behavior is deprecated [-Wdeprecated]
+        [2/2] C:\\Windows\\system32\\cmd.exe /C "cd . && C:\\a1e\\Tests\\c1e\\C2e\\emsdk\\upstream\\emscripten\\em++.exe   CMakeFiles/cmTC_b4e91.dir/CheckIncludeFile.c.o -o cmTC_b4e91.js   && cd ."
+        
+      exitCode: 0
+...

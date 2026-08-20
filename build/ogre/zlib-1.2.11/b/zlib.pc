@@ -1,0 +1,13 @@
+prefix=C:/a1e/Tests/c1e/C2e/build/deps
+exec_prefix=C:/a1e/Tests/c1e/C2e/build/deps
+libdir=C:/a1e/Tests/c1e/C2e/build/deps/lib
+sharedlibdir=C:/a1e/Tests/c1e/C2e/build/deps/lib
+includedir=C:/a1e/Tests/c1e/C2e/build/deps/include
+
+Name: zlib
+Description: zlib compression library
+Version: 1.2.11
+
+Requires:
+Libs: -L${libdir} -L${sharedlibdir} -lz
+Cflags: -I${includedir}

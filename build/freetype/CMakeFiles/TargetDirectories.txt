@@ -1,0 +1,9 @@
+C:/a1e/Tests/c1e/C2e/build/freetype/CMakeFiles/freetype.dir
+C:/a1e/Tests/c1e/C2e/build/freetype/CMakeFiles/package.dir
+C:/a1e/Tests/c1e/C2e/build/freetype/CMakeFiles/package_source.dir
+C:/a1e/Tests/c1e/C2e/build/freetype/CMakeFiles/edit_cache.dir
+C:/a1e/Tests/c1e/C2e/build/freetype/CMakeFiles/rebuild_cache.dir
+C:/a1e/Tests/c1e/C2e/build/freetype/CMakeFiles/list_install_components.dir
+C:/a1e/Tests/c1e/C2e/build/freetype/CMakeFiles/install.dir
+C:/a1e/Tests/c1e/C2e/build/freetype/CMakeFiles/install/local.dir
+C:/a1e/Tests/c1e/C2e/build/freetype/CMakeFiles/install/strip.dir

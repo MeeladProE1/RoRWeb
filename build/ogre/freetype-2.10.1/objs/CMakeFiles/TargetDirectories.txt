@@ -1,0 +1,9 @@
+C:/a1e/Tests/c1e/C2e/build/ogre/freetype-2.10.1/objs/CMakeFiles/freetype.dir
+C:/a1e/Tests/c1e/C2e/build/ogre/freetype-2.10.1/objs/CMakeFiles/package.dir
+C:/a1e/Tests/c1e/C2e/build/ogre/freetype-2.10.1/objs/CMakeFiles/package_source.dir
+C:/a1e/Tests/c1e/C2e/build/ogre/freetype-2.10.1/objs/CMakeFiles/edit_cache.dir
+C:/a1e/Tests/c1e/C2e/build/ogre/freetype-2.10.1/objs/CMakeFiles/rebuild_cache.dir
+C:/a1e/Tests/c1e/C2e/build/ogre/freetype-2.10.1/objs/CMakeFiles/list_install_components.dir
+C:/a1e/Tests/c1e/C2e/build/ogre/freetype-2.10.1/objs/CMakeFiles/install.dir
+C:/a1e/Tests/c1e/C2e/build/ogre/freetype-2.10.1/objs/CMakeFiles/install/local.dir
+C:/a1e/Tests/c1e/C2e/build/ogre/freetype-2.10.1/objs/CMakeFiles/install/strip.dir

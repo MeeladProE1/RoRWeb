@@ -1,0 +1,13 @@
+C:/a1e/Tests/c1e/C2e/build/deps/lib/libSocketW.a
+C:/a1e/Tests/c1e/C2e/build/deps/lib/cmake/SocketW/SocketWTargets.cmake
+C:/a1e/Tests/c1e/C2e/build/deps/lib/cmake/SocketW/SocketWTargets-release.cmake
+C:/a1e/Tests/c1e/C2e/build/deps/include/SocketW.h
+C:/a1e/Tests/c1e/C2e/build/deps/include/sw_base.h
+C:/a1e/Tests/c1e/C2e/build/deps/include/sw_config.h
+C:/a1e/Tests/c1e/C2e/build/deps/include/sw_inet.h
+C:/a1e/Tests/c1e/C2e/build/deps/include/sw_internal.h
+C:/a1e/Tests/c1e/C2e/build/deps/include/sw_ssl.h
+C:/a1e/Tests/c1e/C2e/build/deps/include/sw_unix.h
+C:/a1e/Tests/c1e/C2e/build/deps/lib/pkgconfig/SocketW.pc
+C:/a1e/Tests/c1e/C2e/build/deps/lib/cmake/SocketW/SocketWConfig.cmake
+C:/a1e/Tests/c1e/C2e/build/deps/lib/cmake/SocketW/SocketWConfigVersion.cmake

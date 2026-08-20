@@ -1,0 +1,54 @@
+Determining size of int passed with the following output:
+Change Dir: 'C:/a1e/Tests/c1e/C2e/build/ogre/zziplib-0.13.71/b/CMakeFiles/CMakeTmp'
+
+Run Build Command(s): C:/a1e/Tests/c1e/C2e/python/Scripts/ninja.exe -v cmTC_831ff
+[1/2] C:\a1e\Tests\c1e\C2e\emsdk\upstream\emscripten\emcc.exe    -MD -MT CMakeFiles/cmTC_831ff.dir/ZZIP_SIZEOF_INT.c.o -MF CMakeFiles\cmTC_831ff.dir\ZZIP_SIZEOF_INT.c.o.d -o CMakeFiles/cmTC_831ff.dir/ZZIP_SIZEOF_INT.c.o -c C:/a1e/Tests/c1e/C2e/build/ogre/zziplib-0.13.71/b/CMakeFiles/CheckTypeSize/ZZIP_SIZEOF_INT.c
+[2/2] C:\Windows\system32\cmd.exe /C "cd . && C:\a1e\Tests\c1e\C2e\emsdk\upstream\emscripten\emcc.exe   CMakeFiles/cmTC_831ff.dir/ZZIP_SIZEOF_INT.c.o -o cmTC_831ff.js  --oformat=wasm  -sWASM=1 && cd ."
+
+
+
+Determining size of long passed with the following output:
+Change Dir: 'C:/a1e/Tests/c1e/C2e/build/ogre/zziplib-0.13.71/b/CMakeFiles/CMakeTmp'
+
+Run Build Command(s): C:/a1e/Tests/c1e/C2e/python/Scripts/ninja.exe -v cmTC_3a9bb
+[1/2] C:\a1e\Tests\c1e\C2e\emsdk\upstream\emscripten\emcc.exe    -MD -MT CMakeFiles/cmTC_3a9bb.dir/ZZIP_SIZEOF_LONG.c.o -MF CMakeFiles\cmTC_3a9bb.dir\ZZIP_SIZEOF_LONG.c.o.d -o CMakeFiles/cmTC_3a9bb.dir/ZZIP_SIZEOF_LONG.c.o -c C:/a1e/Tests/c1e/C2e/build/ogre/zziplib-0.13.71/b/CMakeFiles/CheckTypeSize/ZZIP_SIZEOF_LONG.c
+[2/2] C:\Windows\system32\cmd.exe /C "cd . && C:\a1e\Tests\c1e\C2e\emsdk\upstream\emscripten\emcc.exe   CMakeFiles/cmTC_3a9bb.dir/ZZIP_SIZEOF_LONG.c.o -o cmTC_3a9bb.js  --oformat=wasm  -sWASM=1 && cd ."
+
+
+
+Determining size of short passed with the following output:
+Change Dir: 'C:/a1e/Tests/c1e/C2e/build/ogre/zziplib-0.13.71/b/CMakeFiles/CMakeTmp'
+
+Run Build Command(s): C:/a1e/Tests/c1e/C2e/python/Scripts/ninja.exe -v cmTC_f712b
+[1/2] C:\a1e\Tests\c1e\C2e\emsdk\upstream\emscripten\emcc.exe    -MD -MT CMakeFiles/cmTC_f712b.dir/ZZIP_SIZEOF_SHORT.c.o -MF CMakeFiles\cmTC_f712b.dir\ZZIP_SIZEOF_SHORT.c.o.d -o CMakeFiles/cmTC_f712b.dir/ZZIP_SIZEOF_SHORT.c.o -c C:/a1e/Tests/c1e/C2e/build/ogre/zziplib-0.13.71/b/CMakeFiles/CheckTypeSize/ZZIP_SIZEOF_SHORT.c
+[2/2] C:\Windows\system32\cmd.exe /C "cd . && C:\a1e\Tests\c1e\C2e\emsdk\upstream\emscripten\emcc.exe   CMakeFiles/cmTC_f712b.dir/ZZIP_SIZEOF_SHORT.c.o -o cmTC_f712b.js  --oformat=wasm  -sWASM=1 && cd ."
+
+
+
+Determining size of off_t_32 passed with the following output:
+Change Dir: 'C:/a1e/Tests/c1e/C2e/build/ogre/zziplib-0.13.71/b/CMakeFiles/CMakeTmp'
+
+Run Build Command(s): C:/a1e/Tests/c1e/C2e/python/Scripts/ninja.exe -v cmTC_5b5f8
+[1/2] C:\a1e\Tests\c1e\C2e\emsdk\upstream\emscripten\emcc.exe -D_LARGEFILE_SOURCE -Doff_t_32=off_t   -MD -MT CMakeFiles/cmTC_5b5f8.dir/ZZIP_SIZEOF_OFF_T_32.c.o -MF CMakeFiles\cmTC_5b5f8.dir\ZZIP_SIZEOF_OFF_T_32.c.o.d -o CMakeFiles/cmTC_5b5f8.dir/ZZIP_SIZEOF_OFF_T_32.c.o -c C:/a1e/Tests/c1e/C2e/build/ogre/zziplib-0.13.71/b/CMakeFiles/CheckTypeSize/ZZIP_SIZEOF_OFF_T_32.c
+[2/2] C:\Windows\system32\cmd.exe /C "cd . && C:\a1e\Tests\c1e\C2e\emsdk\upstream\emscripten\emcc.exe   CMakeFiles/cmTC_5b5f8.dir/ZZIP_SIZEOF_OFF_T_32.c.o -o cmTC_5b5f8.js  --oformat=wasm  -sWASM=1 && cd ."
+
+
+
+Determining size of off_t_64 passed with the following output:
+Change Dir: 'C:/a1e/Tests/c1e/C2e/build/ogre/zziplib-0.13.71/b/CMakeFiles/CMakeTmp'
+
+Run Build Command(s): C:/a1e/Tests/c1e/C2e/python/Scripts/ninja.exe -v cmTC_dbe4a
+[1/2] C:\a1e\Tests\c1e\C2e\emsdk\upstream\emscripten\emcc.exe -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_LARGE_FILES -Doff_t_64=off_t   -MD -MT CMakeFiles/cmTC_dbe4a.dir/ZZIP_SIZEOF_OFF_T_64.c.o -MF CMakeFiles\cmTC_dbe4a.dir\ZZIP_SIZEOF_OFF_T_64.c.o.d -o CMakeFiles/cmTC_dbe4a.dir/ZZIP_SIZEOF_OFF_T_64.c.o -c C:/a1e/Tests/c1e/C2e/build/ogre/zziplib-0.13.71/b/CMakeFiles/CheckTypeSize/ZZIP_SIZEOF_OFF_T_64.c
+[2/2] C:\Windows\system32\cmd.exe /C "cd . && C:\a1e\Tests\c1e\C2e\emsdk\upstream\emscripten\emcc.exe   CMakeFiles/cmTC_dbe4a.dir/ZZIP_SIZEOF_OFF_T_64.c.o -o cmTC_dbe4a.js  --oformat=wasm  -sWASM=1 && cd ."
+
+
+
+Determining size of off64_t passed with the following output:
+Change Dir: 'C:/a1e/Tests/c1e/C2e/build/ogre/zziplib-0.13.71/b/CMakeFiles/CMakeTmp'
+
+Run Build Command(s): C:/a1e/Tests/c1e/C2e/python/Scripts/ninja.exe -v cmTC_231a2
+[1/2] C:\a1e\Tests\c1e\C2e\emsdk\upstream\emscripten\emcc.exe -D_LARGEFILE64_SOURCE   -MD -MT CMakeFiles/cmTC_231a2.dir/ZZIP_SIZEOF_OFF64_T.c.o -MF CMakeFiles\cmTC_231a2.dir\ZZIP_SIZEOF_OFF64_T.c.o.d -o CMakeFiles/cmTC_231a2.dir/ZZIP_SIZEOF_OFF64_T.c.o -c C:/a1e/Tests/c1e/C2e/build/ogre/zziplib-0.13.71/b/CMakeFiles/CheckTypeSize/ZZIP_SIZEOF_OFF64_T.c
+[2/2] C:\Windows\system32\cmd.exe /C "cd . && C:\a1e\Tests\c1e\C2e\emsdk\upstream\emscripten\emcc.exe   CMakeFiles/cmTC_231a2.dir/ZZIP_SIZEOF_OFF64_T.c.o -o cmTC_231a2.js  --oformat=wasm  -sWASM=1 && cd ."
+
+
+

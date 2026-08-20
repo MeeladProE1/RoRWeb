@@ -1,0 +1,7 @@
+
+import * from "OneTexture.material"
+
+material Examples/Robot : OneTexture
+{
+	set $texture_unit "r2skin.jpg"
+}

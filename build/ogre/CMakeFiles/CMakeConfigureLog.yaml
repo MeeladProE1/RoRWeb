@@ -1,0 +1,205 @@
+
+---
+events:
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-3.30/Modules/CMakeDetermineSystem.cmake:200 (message)"
+      - "CMakeLists.txt:61 (project)"
+    message: |
+      The target system is: Emscripten - 1 - x86
+      The host system is: Windows - 10.0.19045 - AMD64
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-3.30/Modules/CheckTypeSize.cmake:147 (try_compile)"
+      - "C:/Program Files/CMake/share/cmake-3.30/Modules/CheckTypeSize.cmake:272 (__check_type_size_impl)"
+      - "CMakeLists.txt:103 (CHECK_TYPE_SIZE)"
+    checks:
+      - "Check size of void*"
+    directories:
+      source: "C:/a1e/Tests/c1e/C2e/build/ogre/CMakeFiles/CMakeScratch/TryCompile-3yjy5r"
+      binary: "C:/a1e/Tests/c1e/C2e/build/ogre/CMakeFiles/CMakeScratch/TryCompile-3yjy5r"
+    cmakeVariables:
+      CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS: "C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/emscan-deps.exe"
+      CMAKE_C_FLAGS: "-pthread"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "C:/a1e/Tests/c1e/C2e/source/ogre/CMake;C:/a1e/Tests/c1e/C2e/source/ogre/CMake/Utils;C:/a1e/Tests/c1e/C2e/source/ogre/CMake/Packages"
+    buildResult:
+      variable: "HAVE_OGRE_PTR_SIZE"
+      cached: true
+      stdout: |
+        Change Dir: 'C:/a1e/Tests/c1e/C2e/build/ogre/CMakeFiles/CMakeScratch/TryCompile-3yjy5r'
+        
+        Run Build Command(s): C:\\a1e\\Tests\\c1e\\C2e\\python\\Scripts\\ninja.exe -v cmTC_ea503
+        [1/2] C:\\a1e\\Tests\\c1e\\C2e\\emsdk\\upstream\\emscripten\\em++.exe   -pthread -MD -MT CMakeFiles/cmTC_ea503.dir/OGRE_PTR_SIZE.c.o -MF CMakeFiles\\cmTC_ea503.dir\\OGRE_PTR_SIZE.c.o.d -o CMakeFiles/cmTC_ea503.dir/OGRE_PTR_SIZE.c.o -c C:/a1e/Tests/c1e/C2e/build/ogre/CMakeFiles/CMakeScratch/TryCompile-3yjy5r/OGRE_PTR_SIZE.c
+        clang++: warning: treating 'c' input as 'c++' when in C++ mode, this behavior is deprecated [-Wdeprecated]
+        [2/2] C:\\Windows\\system32\\cmd.exe /C "cd . && C:\\a1e\\Tests\\c1e\\C2e\\emsdk\\upstream\\emscripten\\em++.exe -pthread  CMakeFiles/cmTC_ea503.dir/OGRE_PTR_SIZE.c.o -o cmTC_ea503.js   && cd ."
+        
+      exitCode: 0
+...
+
+---
+events:
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-3.30/Modules/CheckFunctionExists.cmake:86 (try_compile)"
+      - "CMake/ConfigureBuild.cmake:138 (CHECK_FUNCTION_EXISTS)"
+      - "CMakeLists.txt:434 (include)"
+    checks:
+      - "Looking for strtol_l"
+    directories:
+      source: "C:/a1e/Tests/c1e/C2e/build/ogre/CMakeFiles/CMakeScratch/TryCompile-x7s5dy"
+      binary: "C:/a1e/Tests/c1e/C2e/build/ogre/CMakeFiles/CMakeScratch/TryCompile-x7s5dy"
+    cmakeVariables:
+      CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS: "C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/emscan-deps.exe"
+      CMAKE_C_FLAGS: "-pthread"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "C:/a1e/Tests/c1e/C2e/source/ogre/CMake;C:/a1e/Tests/c1e/C2e/source/ogre/CMake/Utils;C:/a1e/Tests/c1e/C2e/source/ogre/CMake/Packages"
+    buildResult:
+      variable: "HAVE_STRTOL_L"
+      cached: true
+      stdout: |
+        Change Dir: 'C:/a1e/Tests/c1e/C2e/build/ogre/CMakeFiles/CMakeScratch/TryCompile-x7s5dy'
+        
+        Run Build Command(s): C:\\a1e\\Tests\\c1e\\C2e\\python\\Scripts\\ninja.exe -v cmTC_b6b89
+        [1/2] C:\\a1e\\Tests\\c1e\\C2e\\emsdk\\upstream\\emscripten\\em++.exe   -pthread -DCHECK_FUNCTION_EXISTS=strtol_l -MD -MT CMakeFiles/cmTC_b6b89.dir/CheckFunctionExists.c.o -MF CMakeFiles\\cmTC_b6b89.dir\\CheckFunctionExists.c.o.d -o CMakeFiles/cmTC_b6b89.dir/CheckFunctionExists.c.o -c C:/a1e/Tests/c1e/C2e/build/ogre/CMakeFiles/CMakeScratch/TryCompile-x7s5dy/CheckFunctionExists.c
+        clang++: warning: treating 'c' input as 'c++' when in C++ mode, this behavior is deprecated [-Wdeprecated]
+        [2/2] C:\\Windows\\system32\\cmd.exe /C "cd . && C:\\a1e\\Tests\\c1e\\C2e\\emsdk\\upstream\\emscripten\\em++.exe -pthread -DCHECK_FUNCTION_EXISTS=strtol_l  CMakeFiles/cmTC_b6b89.dir/CheckFunctionExists.c.o -o cmTC_b6b89.js   && cd ."
+        wasm-ld: warning: function signature mismatch: strtol_l
+        >>> defined as () -> i32 in CMakeFiles/cmTC_b6b89.dir/CheckFunctionExists.c.o
+        >>> defined as (i32, i32, i32, i32) -> i32 in C:\\a1e\\Tests\\c1e\\C2e\\emsdk\\upstream\\emscripten\\cache\\sysroot\\lib\\wasm32-emscripten\\libc-mt-debug.a(strtol_l.o)
+        
+      exitCode: 0
+
+---
+events:
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-3.30/Modules/CheckFunctionExists.cmake:86 (try_compile)"
+      - "CMake/ConfigureBuild.cmake:138 (CHECK_FUNCTION_EXISTS)"
+      - "CMakeLists.txt:434 (include)"
+    checks:
+      - "Looking for strtol_l"
+    directories:
+      source: "C:/a1e/Tests/c1e/C2e/build/ogre/CMakeFiles/CMakeScratch/TryCompile-w1a3gq"
+      binary: "C:/a1e/Tests/c1e/C2e/build/ogre/CMakeFiles/CMakeScratch/TryCompile-w1a3gq"
+    cmakeVariables:
+      CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS: "C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/emscan-deps.exe"
+      CMAKE_C_FLAGS: "-pthread"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "C:/a1e/Tests/c1e/C2e/source/ogre/CMake;C:/a1e/Tests/c1e/C2e/source/ogre/CMake/Utils;C:/a1e/Tests/c1e/C2e/source/ogre/CMake/Packages"
+    buildResult:
+      variable: "HAVE_STRTOL_L"
+      cached: true
+      stdout: |
+        Change Dir: 'C:/a1e/Tests/c1e/C2e/build/ogre/CMakeFiles/CMakeScratch/TryCompile-w1a3gq'
+        
+        Run Build Command(s): C:\\a1e\\Tests\\c1e\\C2e\\python\\Scripts\\ninja.exe -v cmTC_85bfe
+        [1/2] C:\\a1e\\Tests\\c1e\\C2e\\emsdk\\upstream\\emscripten\\emcc.exe   -pthread -DCHECK_FUNCTION_EXISTS=strtol_l -MD -MT CMakeFiles/cmTC_85bfe.dir/CheckFunctionExists.c.o -MF CMakeFiles\\cmTC_85bfe.dir\\CheckFunctionExists.c.o.d -o CMakeFiles/cmTC_85bfe.dir/CheckFunctionExists.c.o -c C:/a1e/Tests/c1e/C2e/build/ogre/CMakeFiles/CMakeScratch/TryCompile-w1a3gq/CheckFunctionExists.c
+        [2/2] C:\\Windows\\system32\\cmd.exe /C "cd . && C:\\a1e\\Tests\\c1e\\C2e\\emsdk\\upstream\\emscripten\\emcc.exe -pthread -DCHECK_FUNCTION_EXISTS=strtol_l  CMakeFiles/cmTC_85bfe.dir/CheckFunctionExists.c.o -o cmTC_85bfe.js   && cd ."
+        wasm-ld: warning: function signature mismatch: strtol_l
+        >>> defined as () -> i32 in CMakeFiles/cmTC_85bfe.dir/CheckFunctionExists.c.o
+        >>> defined as (i32, i32, i32, i32) -> i32 in C:\\a1e\\Tests\\c1e\\C2e\\emsdk\\upstream\\emscripten\\cache\\sysroot\\lib\\wasm32-emscripten\\libc-mt-debug.a(strtol_l.o)
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-3.30/Modules/Internal/CheckSourceCompiles.cmake:101 (try_compile)"
+      - "C:/Program Files/CMake/share/cmake-3.30/Modules/Internal/CheckCompilerFlag.cmake:18 (cmake_check_source_compiles)"
+      - "C:/Program Files/CMake/share/cmake-3.30/Modules/CheckCompilerFlag.cmake:52 (cmake_check_compiler_flag)"
+      - "C:/Program Files/CMake/share/cmake-3.30/Modules/GenerateExportHeader.cmake:238 (check_compiler_flag)"
+      - "C:/Program Files/CMake/share/cmake-3.30/Modules/GenerateExportHeader.cmake:419 (_test_compiler_hidden_visibility)"
+      - "OgreMain/CMakeLists.txt:198 (generate_export_header)"
+    checks:
+      - "Performing Test COMPILER_HAS_HIDDEN_VISIBILITY"
+    directories:
+      source: "C:/a1e/Tests/c1e/C2e/build/ogre/CMakeFiles/CMakeScratch/TryCompile-p69nhb"
+      binary: "C:/a1e/Tests/c1e/C2e/build/ogre/CMakeFiles/CMakeScratch/TryCompile-p69nhb"
+    cmakeVariables:
+      CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS: "C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/emscan-deps.exe"
+      CMAKE_CXX_FLAGS: "-Wall -Winit-self -Wcast-qual -Wwrite-strings -Wextra -Wundef -Wmissing-declarations -Wno-unused-parameter -Wshadow -Wno-missing-field-initializers -Wno-long-long -Wno-warn-absolute-paths -Wno-inconsistent-missing-override -Wno-missing-braces -pthread"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "C:/a1e/Tests/c1e/C2e/source/ogre/CMake;C:/a1e/Tests/c1e/C2e/source/ogre/CMake/Utils;C:/a1e/Tests/c1e/C2e/source/ogre/CMake/Packages"
+    buildResult:
+      variable: "COMPILER_HAS_HIDDEN_VISIBILITY"
+      cached: true
+      stdout: |
+        Change Dir: 'C:/a1e/Tests/c1e/C2e/build/ogre/CMakeFiles/CMakeScratch/TryCompile-p69nhb'
+        
+        Run Build Command(s): C:\\a1e\\Tests\\c1e\\C2e\\python\\Scripts\\ninja.exe -v cmTC_4608a
+        [1/2] C:\\a1e\\Tests\\c1e\\C2e\\emsdk\\upstream\\emscripten\\em++.exe -DCOMPILER_HAS_HIDDEN_VISIBILITY  -Wall -Winit-self -Wcast-qual -Wwrite-strings -Wextra -Wundef -Wmissing-declarations -Wno-unused-parameter -Wshadow -Wno-missing-field-initializers -Wno-long-long -Wno-warn-absolute-paths -Wno-inconsistent-missing-override -Wno-missing-braces -pthread    -fvisibility=hidden -MD -MT CMakeFiles/cmTC_4608a.dir/src.cxx.o -MF CMakeFiles\\cmTC_4608a.dir\\src.cxx.o.d -o CMakeFiles/cmTC_4608a.dir/src.cxx.o -c C:/a1e/Tests/c1e/C2e/build/ogre/CMakeFiles/CMakeScratch/TryCompile-p69nhb/src.cxx
+        [2/2] C:\\Windows\\system32\\cmd.exe /C "cd . && C:\\a1e\\Tests\\c1e\\C2e\\emsdk\\upstream\\emscripten\\em++.exe -Wall -Winit-self -Wcast-qual -Wwrite-strings -Wextra -Wundef -Wmissing-declarations -Wno-unused-parameter -Wshadow -Wno-missing-field-initializers -Wno-long-long -Wno-warn-absolute-paths -Wno-inconsistent-missing-override -Wno-missing-braces -pthread  CMakeFiles/cmTC_4608a.dir/src.cxx.o -o cmTC_4608a.js   && cd ."
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-3.30/Modules/Internal/CheckSourceCompiles.cmake:101 (try_compile)"
+      - "C:/Program Files/CMake/share/cmake-3.30/Modules/Internal/CheckCompilerFlag.cmake:18 (cmake_check_source_compiles)"
+      - "C:/Program Files/CMake/share/cmake-3.30/Modules/CheckCompilerFlag.cmake:52 (cmake_check_compiler_flag)"
+      - "C:/Program Files/CMake/share/cmake-3.30/Modules/GenerateExportHeader.cmake:239 (check_compiler_flag)"
+      - "C:/Program Files/CMake/share/cmake-3.30/Modules/GenerateExportHeader.cmake:419 (_test_compiler_hidden_visibility)"
+      - "OgreMain/CMakeLists.txt:198 (generate_export_header)"
+    checks:
+      - "Performing Test COMPILER_HAS_HIDDEN_INLINE_VISIBILITY"
+    directories:
+      source: "C:/a1e/Tests/c1e/C2e/build/ogre/CMakeFiles/CMakeScratch/TryCompile-iqrg3q"
+      binary: "C:/a1e/Tests/c1e/C2e/build/ogre/CMakeFiles/CMakeScratch/TryCompile-iqrg3q"
+    cmakeVariables:
+      CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS: "C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/emscan-deps.exe"
+      CMAKE_CXX_FLAGS: "-Wall -Winit-self -Wcast-qual -Wwrite-strings -Wextra -Wundef -Wmissing-declarations -Wno-unused-parameter -Wshadow -Wno-missing-field-initializers -Wno-long-long -Wno-warn-absolute-paths -Wno-inconsistent-missing-override -Wno-missing-braces -pthread"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "C:/a1e/Tests/c1e/C2e/source/ogre/CMake;C:/a1e/Tests/c1e/C2e/source/ogre/CMake/Utils;C:/a1e/Tests/c1e/C2e/source/ogre/CMake/Packages"
+    buildResult:
+      variable: "COMPILER_HAS_HIDDEN_INLINE_VISIBILITY"
+      cached: true
+      stdout: |
+        Change Dir: 'C:/a1e/Tests/c1e/C2e/build/ogre/CMakeFiles/CMakeScratch/TryCompile-iqrg3q'
+        
+        Run Build Command(s): C:\\a1e\\Tests\\c1e\\C2e\\python\\Scripts\\ninja.exe -v cmTC_87365
+        [1/2] C:\\a1e\\Tests\\c1e\\C2e\\emsdk\\upstream\\emscripten\\em++.exe -DCOMPILER_HAS_HIDDEN_INLINE_VISIBILITY  -Wall -Winit-self -Wcast-qual -Wwrite-strings -Wextra -Wundef -Wmissing-declarations -Wno-unused-parameter -Wshadow -Wno-missing-field-initializers -Wno-long-long -Wno-warn-absolute-paths -Wno-inconsistent-missing-override -Wno-missing-braces -pthread    -fvisibility-inlines-hidden -MD -MT CMakeFiles/cmTC_87365.dir/src.cxx.o -MF CMakeFiles\\cmTC_87365.dir\\src.cxx.o.d -o CMakeFiles/cmTC_87365.dir/src.cxx.o -c C:/a1e/Tests/c1e/C2e/build/ogre/CMakeFiles/CMakeScratch/TryCompile-iqrg3q/src.cxx
+        [2/2] C:\\Windows\\system32\\cmd.exe /C "cd . && C:\\a1e\\Tests\\c1e\\C2e\\emsdk\\upstream\\emscripten\\em++.exe -Wall -Winit-self -Wcast-qual -Wwrite-strings -Wextra -Wundef -Wmissing-declarations -Wno-unused-parameter -Wshadow -Wno-missing-field-initializers -Wno-long-long -Wno-warn-absolute-paths -Wno-inconsistent-missing-override -Wno-missing-braces -pthread  CMakeFiles/cmTC_87365.dir/src.cxx.o -o cmTC_87365.js   && cd ."
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-3.30/Modules/Internal/CheckSourceCompiles.cmake:101 (try_compile)"
+      - "C:/Program Files/CMake/share/cmake-3.30/Modules/CheckSourceCompiles.cmake:77 (cmake_check_source_compiles)"
+      - "C:/Program Files/CMake/share/cmake-3.30/Modules/GenerateExportHeader.cmake:206 (check_source_compiles)"
+      - "C:/Program Files/CMake/share/cmake-3.30/Modules/GenerateExportHeader.cmake:263 (_check_cxx_compiler_attribute)"
+      - "C:/Program Files/CMake/share/cmake-3.30/Modules/GenerateExportHeader.cmake:420 (_test_compiler_has_deprecated)"
+      - "OgreMain/CMakeLists.txt:198 (generate_export_header)"
+    checks:
+      - "Performing Test COMPILER_HAS_DEPRECATED_ATTR"
+    directories:
+      source: "C:/a1e/Tests/c1e/C2e/build/ogre/CMakeFiles/CMakeScratch/TryCompile-w0iwgq"
+      binary: "C:/a1e/Tests/c1e/C2e/build/ogre/CMakeFiles/CMakeScratch/TryCompile-w0iwgq"
+    cmakeVariables:
+      CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS: "C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/emscan-deps.exe"
+      CMAKE_CXX_FLAGS: "-Wall -Winit-self -Wcast-qual -Wwrite-strings -Wextra -Wundef -Wmissing-declarations -Wno-unused-parameter -Wshadow -Wno-missing-field-initializers -Wno-long-long -Wno-warn-absolute-paths -Wno-inconsistent-missing-override -Wno-missing-braces -pthread"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "C:/a1e/Tests/c1e/C2e/source/ogre/CMake;C:/a1e/Tests/c1e/C2e/source/ogre/CMake/Utils;C:/a1e/Tests/c1e/C2e/source/ogre/CMake/Packages"
+    buildResult:
+      variable: "COMPILER_HAS_DEPRECATED_ATTR"
+      cached: true
+      stdout: |
+        Change Dir: 'C:/a1e/Tests/c1e/C2e/build/ogre/CMakeFiles/CMakeScratch/TryCompile-w0iwgq'
+        
+        Run Build Command(s): C:\\a1e\\Tests\\c1e\\C2e\\python\\Scripts\\ninja.exe -v cmTC_c52d0
+        [1/2] C:\\a1e\\Tests\\c1e\\C2e\\emsdk\\upstream\\emscripten\\em++.exe -DCOMPILER_HAS_DEPRECATED_ATTR  -Wall -Winit-self -Wcast-qual -Wwrite-strings -Wextra -Wundef -Wmissing-declarations -Wno-unused-parameter -Wshadow -Wno-missing-field-initializers -Wno-long-long -Wno-warn-absolute-paths -Wno-inconsistent-missing-override -Wno-missing-braces -pthread -MD -MT CMakeFiles/cmTC_c52d0.dir/src.cxx.o -MF CMakeFiles\\cmTC_c52d0.dir\\src.cxx.o.d -o CMakeFiles/cmTC_c52d0.dir/src.cxx.o -c C:/a1e/Tests/c1e/C2e/build/ogre/CMakeFiles/CMakeScratch/TryCompile-w0iwgq/src.cxx
+        C:/a1e/Tests/c1e/C2e/build/ogre/CMakeFiles/CMakeScratch/TryCompile-w0iwgq/src.cxx:2:25: warning: 'somefunc' is deprecated [-Wdeprecated-declarations]
+            2 |     int main() { return somefunc();}
+              |                         ^
+        C:/a1e/Tests/c1e/C2e/build/ogre/CMakeFiles/CMakeScratch/TryCompile-w0iwgq/src.cxx:1:16: note: 'somefunc' has been explicitly marked deprecated here
+            1 | __attribute__((__deprecated__)) int somefunc() { return 0; }
+              |                ^
+        1 warning generated.
+        [2/2] C:\\Windows\\system32\\cmd.exe /C "cd . && C:\\a1e\\Tests\\c1e\\C2e\\emsdk\\upstream\\emscripten\\em++.exe -Wall -Winit-self -Wcast-qual -Wwrite-strings -Wextra -Wundef -Wmissing-declarations -Wno-unused-parameter -Wshadow -Wno-missing-field-initializers -Wno-long-long -Wno-warn-absolute-paths -Wno-inconsistent-missing-override -Wno-missing-braces -pthread  CMakeFiles/cmTC_c52d0.dir/src.cxx.o -o cmTC_c52d0.js   && cd ."
+        
+      exitCode: 0
+...
