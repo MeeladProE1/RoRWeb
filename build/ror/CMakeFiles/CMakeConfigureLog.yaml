@@ -1,0 +1,43 @@
+
+---
+events:
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-3.30/Modules/CMakeDetermineSystem.cmake:200 (message)"
+      - "CMakeLists.txt:22 (project)"
+    message: |
+      The target system is: Emscripten - 1 - x86
+      The host system is: Windows - 10.0.19045 - AMD64
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-3.30/Modules/Internal/CheckSourceCompiles.cmake:101 (try_compile)"
+      - "C:/Program Files/CMake/share/cmake-3.30/Modules/CheckCSourceCompiles.cmake:52 (cmake_check_source_compiles)"
+      - "C:/Program Files/CMake/share/cmake-3.30/Modules/FindThreads.cmake:97 (CHECK_C_SOURCE_COMPILES)"
+      - "C:/Program Files/CMake/share/cmake-3.30/Modules/FindThreads.cmake:163 (_threads_check_libc)"
+      - "cmake/DependenciesConfig.cmake:3 (find_package)"
+      - "CMakeLists.txt:127 (include)"
+    checks:
+      - "Performing Test CMAKE_HAVE_LIBC_PTHREAD"
+    directories:
+      source: "C:/a1e/Tests/c1e/C2e/build/ror/CMakeFiles/CMakeScratch/TryCompile-55elbl"
+      binary: "C:/a1e/Tests/c1e/C2e/build/ror/CMakeFiles/CMakeScratch/TryCompile-55elbl"
+    cmakeVariables:
+      CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS: "C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/emscan-deps.exe"
+      CMAKE_C_FLAGS: "-pthread"
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "C:/a1e/Tests/c1e/C2e/source/ror/cmake;C:/a1e/Tests/c1e/C2e/source/ror/cmake/find-modules;C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/cmake/Modules;C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/cmake/Modules;C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/cmake/Modules;C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/cmake/Modules;C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/cmake/Modules"
+    buildResult:
+      variable: "CMAKE_HAVE_LIBC_PTHREAD"
+      cached: true
+      stdout: |
+        Change Dir: 'C:/a1e/Tests/c1e/C2e/build/ror/CMakeFiles/CMakeScratch/TryCompile-55elbl'
+        
+        Run Build Command(s): C:/a1e/Tests/c1e/C2e/python/Scripts/ninja.exe -v cmTC_f3711
+        [1/2] C:\\a1e\\Tests\\c1e\\C2e\\emsdk\\upstream\\emscripten\\emcc.exe -DCMAKE_HAVE_LIBC_PTHREAD  -pthread -MD -MT CMakeFiles/cmTC_f3711.dir/src.c.o -MF CMakeFiles\\cmTC_f3711.dir\\src.c.o.d -o CMakeFiles/cmTC_f3711.dir/src.c.o -c C:/a1e/Tests/c1e/C2e/build/ror/CMakeFiles/CMakeScratch/TryCompile-55elbl/src.c
+        [2/2] C:\\Windows\\system32\\cmd.exe /C "cd . && C:\\a1e\\Tests\\c1e\\C2e\\emsdk\\upstream\\emscripten\\emcc.exe -pthread  CMakeFiles/cmTC_f3711.dir/src.c.o -o cmTC_f3711.js   && cd ."
+        
+      exitCode: 0
+...

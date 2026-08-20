@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Rigs of Rods — Web</title>
+<!-- Cross-Origin-Isolation service worker: injects COOP/COEP so the threaded
+     build gets SharedArrayBuffer on hosts that can't send headers (GitHub Pages).
+     The same file is used as a page script (registers itself) and as the worker. -->
+<script src="coi-sw.js"></script>
+<style>
+  html, body { margin:0; padding:0; height:100%; background:#000; overflow:hidden; }
+  #stage { position:fixed; inset:0; display:flex; align-items:center; justify-content:center; }
+  #frame { position:relative; width:100vw; height:100vh; }
+  #canvas { display:block; width:100%; height:100%; background:#000; }
+  #hud { position:fixed; top:8px; left:8px; z-index:10; color:#fff;
+          font:13px/1.4 ui-monospace, Consolas, monospace;
+          background:rgba(0,0,0,.55); padding:6px 10px; border-radius:5px; max-width:70vw; }
+  #links { position:fixed; top:8px; right:8px; z-index:10; display:flex; gap:8px; }
+  #links a, #links button { color:#fff; background:rgba(0,0,0,.55); text-decoration:none;
+             font:13px/1.4 system-ui, sans-serif; padding:6px 12px; border-radius:5px;
+             border:none; cursor:pointer; }
+  #links a:hover, #links button:hover { background:rgba(255,255,255,.25); }
+  /* Resize handles — all INSIDE the frame so they are always grabbable.
+     Corner: both axes. Right edge: width. Bottom edge: height. */
+  #resizer { position:absolute; right:0; bottom:0; z-index:30; width:26px; height:26px;
+             cursor:se-resize; touch-action:none; }
+  #resizer::after { content:""; position:absolute; right:5px; bottom:5px; width:12px; height:12px;
+             border-right:3px solid rgba(255,255,255,.65); border-bottom:3px solid rgba(255,255,255,.65);
+             border-radius:0 0 4px 0; }
+  #resizer:hover::after { border-color:#fff; }
+  #resizer-e { position:absolute; right:0; top:0; bottom:26px; z-index:20; width:14px;
+             cursor:ew-resize; touch-action:none; border-radius:3px; }
+  #resizer-e:hover { background:rgba(255,255,255,.18); }
+  #resizer-s { position:absolute; bottom:0; left:0; right:26px; z-index:20; height:14px;
+             cursor:ns-resize; touch-action:none; border-radius:3px; }
+  #resizer-s:hover { background:rgba(255,255,255,.18); }
+  #buildTag { position:fixed; bottom:6px; right:8px; z-index:10; color:rgba(255,255,255,.45);
+             font:11px/1.3 ui-monospace, Consolas, monospace; }
+  /* On-screen error box: shows the crash reason directly in the page, so errors
+     are readable without opening the console or pasting huge logs. */
+  #errbox { display:none; position:fixed; top:0; left:0; right:0; z-index:100;
+            background:#7a0e0e; color:#fff; font:13px/1.5 ui-monospace, Consolas, monospace;
+            padding:10px 14px; max-height:45vh; overflow:auto; box-shadow:0 4px 14px rgba(0,0,0,.6); }
+  #errbox .err-title { font-weight:bold; margin-bottom:6px; }
+  #errbox .err-msg { white-space:pre-wrap; word-break:break-word; }
+  #errbox .err-actions { margin-top:8px; }
+  #errbox button { background:#fff; color:#7a0e0e; border:none; border-radius:4px;
+            font:12px/1.3 system-ui, sans-serif; font-weight:bold; padding:5px 10px;
+            margin-right:8px; cursor:pointer; }
+</style>
+</head>
+<body>
+  <div id="stage">
+    <div id="frame">
+      <canvas id="canvas" tabindex="0"></canvas>
+      <div id="resizer-e" title="Drag to resize the width"></div>
+      <div id="resizer-s" title="Drag to resize the height"></div>
+      <div id="resizer" title="Drag to resize width and height. Double-click the game to toggle fullscreen."></div>
+    </div>
+  </div>
+  <div id="hud">Loading…</div>
+  <div id="links">
+    <a href="repo.html" target="_blank">📦 Mod Repository</a>
+    <button id="fitBtn" type="button">⤡ Fit window</button>
+    <a href="controls.html" target="_blank">Controls</a>
+  </div>
+  <div id="buildTag">build 18</div>
+
+  <!-- On-screen error reporting: the last error is shown here so you can read it
+       directly or copy it (the full log can be huge and freeze chat windows). -->
+  <div id="errbox">
+    <div class="err-title">⚠ The game hit a problem</div>
+    <div class="err-msg" id="errmsg"></div>
+    <div class="err-actions">
+      <button id="errCopy" type="button">📋 Copy error</button>
+      <button id="errCopyLog" type="button">📋 Copy full log</button>
+      <button id="errReload" type="button">↻ Reload</button>
+    </div>
+  </div>
+
+<script>
+  // Resizable game screen.
+  // The game renders to a fixed 800x600 internal buffer; resizing here scales that
+  // buffer with CSS, so the game's GL state is never touched. Width and height are
+  // resized independently: drag the corner (both), right edge (width) or bottom
+  // edge (height).
+  (function () {
+    "use strict";
+    var frame   = document.getElementById('frame');
+    var canvas  = document.getElementById('canvas');
+    var fitBtn  = document.getElementById('fitBtn');
+    var handles = {
+      corner: document.getElementById('resizer'),
+      east:   document.getElementById('resizer-e'),
+      south:  document.getElementById('resizer-s')
+    };
+
+    var MIN_W = 320, MIN_H = 240;   // minimum sensible window size
+    var mode = 'fit';               // 'fit' = fill the browser window, 'custom' = user size
+    var customW = 960, customH = 600;
+
+    function applySize() {
+      if (mode === 'fit') {
+        frame.style.width  = '100vw';
+        frame.style.height = '100vh';
+      } else {
+        frame.style.width  = customW + 'px';
+        frame.style.height = customH + 'px';
+      }
+    }
+
+    function currentSize() {
+      // The real on-screen size right now (works in both fit and custom mode).
+      var w = (mode === 'custom') ? customW : (canvas.clientWidth  || window.innerWidth);
+      var h = (mode === 'custom') ? customH : (canvas.clientHeight || window.innerHeight);
+      return [w, h];
+    }
+
+    function setFit() { mode = 'fit'; applySize(); }
+
+    // Double-click the game to toggle between fullscreen and your custom size.
+    canvas.addEventListener('dblclick', function () {
+      mode = (mode === 'fit') ? 'custom' : 'fit';
+      applySize();
+    });
+    if (fitBtn) fitBtn.addEventListener('click', setFit);
+
+    // Keep the custom size within the window when the browser itself is resized.
+    window.addEventListener('resize', function () {
+      if (mode === 'custom') {
+        customW = Math.min(customW, window.innerWidth  - 20);
+        customH = Math.min(customH, window.innerHeight - 20);
+        applySize();
+      }
+    });
+
+    function clamp(w, h) {
+      w = Math.max(MIN_W, Math.min(w, window.innerWidth  - 20));
+      h = Math.max(MIN_H, Math.min(h, window.innerHeight - 20));
+      return [w, h];
+    }
+
+    // axes: 'w' = width only, 'h' = height only, 'wh' = both.
+    function startDrag(ev, axes) {
+      ev.preventDefault();
+      ev.stopPropagation();          // don't feed the click to the game
+      if (mode === 'fit') {
+        var cur = currentSize();
+        customW = cur[0];
+        customH = cur[1];
+        mode = 'custom';
+      }
+      var startX = ev.clientX, startY = ev.clientY;
+      var startW = customW, startH = customH;
+
+      function onMove(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var w = startW, h = startH;
+        if (axes.indexOf('w') >= 0) w = startW + (e.clientX - startX);
+        if (axes.indexOf('h') >= 0) h = startH + (e.clientY - startY);
+        var c = clamp(w, h);
+        customW = c[0]; customH = c[1];
+        applySize();
+      }
+      function onUp() {
+        window.removeEventListener('mousemove', onMove);
+        window.removeEventListener('mouseup', onUp);
+      }
+      window.addEventListener('mousemove', onMove);
+      window.addEventListener('mouseup', onUp);
+    }
+
+    handles.corner.addEventListener('mousedown', function (ev) { startDrag(ev, 'wh'); });
+    handles.east.addEventListener('mousedown',   function (ev) { startDrag(ev, 'w'); });
+    handles.south.addEventListener('mousedown',  function (ev) { startDrag(ev, 'h'); });
+
+    // Keep handle interactions out of the game's input bridge.
+    ['mousemove', 'mouseup', 'click'].forEach(function (evt) {
+      Object.keys(handles).forEach(function (key) {
+        handles[key].addEventListener(evt, function (ev) { ev.stopPropagation(); });
+      });
+    });
+  })();
+</script>
+
+<script>
+  // ---- On-screen error capture -------------------------------------------
+  (function () {
+    "use strict";
+    var box     = document.getElementById('errbox');
+    var msgEl   = document.getElementById('errmsg');
+    var fullLog = [];
+    var shown   = false;
+
+    function showError(text) {
+      if (shown) return;              // keep the FIRST crash reason
+      shown = true;
+      msgEl.textContent = text;
+      box.style.display = 'block';
+    }
+
+    // Readable version of an error/exception: prefer the stack trace (wasm
+    // exceptions carry the wasm stack there), then the message, else a string.
+    function describe(reason) {
+      if (reason == null) return 'Unknown error';
+      if (typeof reason === 'object') {
+        if (reason.stack) return String(reason.stack);
+        if (reason.message) return String(reason.message);
+      }
+      return String(reason);
+    }
+
+    function isCritical(line) {
+      return /(exception has occured|exception has occurred|InvalidStateException|RenderingAPIException|InternalErrorException|aborted|failed to preprocess|Failed to preprocess|WebAssembly|out of memory|SharedArrayBuffer|ReferenceError|TypeError|RangeError|RuntimeError|assertion failed)/i.test(line)
+             && !/preparing texture/.test(line);
+    }
+
+    // Full-log buffer (bounded) for the "copy full log" button.
+    window.__rorLog = fullLog;
+    function pushLog(line) {
+      if (typeof line !== 'string') line = String(line);
+      fullLog.push(line);
+      if (fullLog.length > 2000) fullLog.splice(0, fullLog.length - 2000);
+    }
+
+    document.getElementById('errCopy').addEventListener('click', function () {
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(msgEl.textContent);
+      }
+    });
+    document.getElementById('errCopyLog').addEventListener('click', function () {
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(fullLog.join('\n'));
+      }
+    });
+    document.getElementById('errReload').addEventListener('click', function () { location.reload(); });
+
+    window.addEventListener('error', function (e) {
+      var text = e.message || 'Unknown page error';
+      pushLog(text);
+      if (isCritical(text)) showError(text);
+    });
+    window.addEventListener('unhandledrejection', function (e) {
+      var text = 'Unhandled promise rejection: ' + describe(e.reason);
+      pushLog(text);
+      if (isCritical(String(text))) showError(text);
+    });
+
+    // Exposed so the boot gate (which waits for cross-origin isolation) can
+    // surface a readable failure through the same error box.
+    window.__rorShowError = showError;
+
+    // Hook into the Emscripten Module so we see the game's stderr directly.
+    var realModulePrintErr = null;
+    Object.defineProperty(window, 'Module', {
+      configurable: true,
+      get: function () { return window.__module; },
+      set: function (m) {
+        window.__module = m;
+        if (m) {
+          var origPrintErr = m.printErr;
+          m.printErr = function (line) {
+            pushLog(line);
+            if (isCritical(String(line))) showError(line);
+            if (origPrintErr) origPrintErr.apply(m, arguments);
+            else if (console && console.error) console.error(line);
+          };
+          var origAbort = m.onAbort;
+          m.onAbort = function (what) {
+            var text = 'Aborted: ' + what;
+            pushLog(text);
+            showError(text);
+            if (origAbort) origAbort.apply(m, arguments);
+          };
+        }
+      }
+    });
+  })();
+</script>
+
+<script>
+  var BUILD = 18;   // bump this with every game rebuild so the browser fetches fresh wasm/data
+  var Module = {
+    canvas:   document.getElementById('canvas'),
+    print:    function (t) { console.log(t); },
+    printErr: function (t) { console.error(t); },
+    setStatus: function (t) {
+      var el = document.getElementById('hud');
+      if (el) el.textContent = (t || 'Running');
+    },
+    onRuntimeInitialized: function () {
+      var el = document.getElementById('hud');
+      var n = (window.__installedModFiles || []).length;
+      if (el) {
+        el.textContent = 'Running — click the canvas once, then play.' +
+          (n ? ' ' + n + ' installed mod(s) loaded into /content/.' : ' Drag an edge or corner to resize.');
+        setTimeout(function(){ el.style.display = 'none'; }, 6000);
+      }
+    },
+    // Runs after the game's data package is written into the virtual FS and
+    // before main() scans /content/ — so installed mods from IndexedDB appear
+    // in the game pickers exactly like the built-in agora.zip / dafsemi.zip.
+    // Lazy lookup: injectInstalledMods is defined in a later script block, so
+    // referencing it here directly would throw at parse time.
+    preRun: [function () {
+      if (typeof window.injectInstalledMods === 'function') {
+        window.injectInstalledMods();
+      } else {
+        console.warn('[RoRMods] injector not loaded — game boots without installed mods');
+      }
+    }],
+    // Cache-busting: the game server sends no cache headers, so without this the
+    // browser keeps the old 9 MB wasm + 112 MB data from the previous deploy.
+    locateFile: function (path) {
+      if (path.indexOf('.wasm') >= 0 || path.indexOf('.data') >= 0) {
+        return path + '?v=' + BUILD;
+      }
+      return path;
+    }
+  };
+  // ?map=<name> auto-loads a terrain at boot (skips the menu) — used for testing.
+  // ?truck=<name> spawns that vehicle right after the terrain loads.
+  (function () {
+    var m = new URLSearchParams(location.search).get('map');
+    var t = new URLSearchParams(location.search).get('truck');
+    if (m || t) {
+      Module.arguments = [];
+      if (m) { Module.arguments.push('-map', m); }
+      if (t) { Module.arguments.push('-truck', t); }
+    }
+  })();
+</script>
+
+<script>
+  // ===== Installed-mod injection (IndexedDB -> game /content/) =====
+  // The Mod Repository page (repo.html) stores downloaded mods as blobs in the
+  // "RoRMods" IndexedDB database. Here we read them while the game's data file
+  // downloads, then injectInstalledMods() (called from Module.preRun) writes
+  // them into the game's virtual /content/ folder before it scans for mods.
+  // No installed mods -> the game boots exactly as before.
+  (function () {
+    window.__installedModFiles = [];
+    var resolveReady;
+    // The game bootstrap waits for this promise. Without the gate, the game can
+    // reach Module.preRun while IndexedDB is still reading, see an empty array,
+    // and permanently miss the installed map/vehicle.
+    window.__installedModsReady = new Promise(function (resolve) {
+      resolveReady = resolve;
+    });
+
+    function finish() {
+      console.log('[RoRMods] ' + window.__installedModFiles.length + ' installed mod(s) ready');
+      resolveReady();
+    }
+    function readBinary(data) {
+      if (data && typeof data.arrayBuffer === 'function') return data.arrayBuffer();
+      if (data instanceof ArrayBuffer) return Promise.resolve(data);
+      if (ArrayBuffer.isView(data)) return Promise.resolve(data.buffer);
+      return Promise.reject(new Error('stored file is not binary data'));
+    }
+
+    try {
+      var req = indexedDB.open('RoRMods', 1);
+      req.onupgradeneeded = function () {
+        var db = req.result;
+        if (!db.objectStoreNames.contains('mods')) {
+          db.createObjectStore('mods', { keyPath: 'filename' });
+        }
+      };
+      req.onsuccess = function () {
+        var db = req.result;
+        try {
+          var tx = db.transaction('mods', 'readonly');
+          var all = tx.objectStore('mods').getAll();
+          all.onsuccess = function () {
+            var recs = all.result || [];
+            var pending = [];
+            recs.forEach(function (rec) {
+              if (!rec || !rec.filename || !rec.data) return;
+              pending.push(readBinary(rec.data).then(function (buf) {
+                var bytes = new Uint8Array(buf);
+                // Only accept real zip archives (PK magic) so a bad download
+                // can never break the game's content scanner.
+                var ok = bytes.length > 4 && bytes[0] === 0x50 && bytes[1] === 0x4B &&
+                         (bytes[2] === 0x03 || bytes[2] === 0x05 || bytes[2] === 0x07);
+                if (ok) {
+                  window.__installedModFiles.push({ name: rec.filename, data: bytes });
+                } else {
+                  console.warn('[RoRMods] skipped ' + rec.filename + ': not a zip archive');
+                }
+              }).catch(function (err) {
+                console.warn('[RoRMods] skipped ' + rec.filename + ': ' + err);
+              }));
+            });
+            Promise.all(pending).then(finish, finish);
+          };
+          all.onerror = finish;
+        } catch (e) {
+          console.warn('[RoRMods] read failed: ' + e);
+          finish();
+        }
+      };
+      req.onerror = function () {
+        console.warn('[RoRMods] IndexedDB unavailable; game boots without installed mods');
+        finish();
+      };
+    } catch (e) {
+      console.warn('[RoRMods] IndexedDB unavailable; game boots without installed mods');
+      finish();
+    }
+  })();
+
+  function injectInstalledMods() {
+    var mods = window.__installedModFiles || [];
+    if (!mods.length) return;
+    if (!Module.FS_createDataFile) {
+      console.warn('[RoRMods] FS not available; skipping injection');
+      return;
+    }
+    // The game's data package creates /content/ itself later in preRun; make
+    // sure it exists before we write mods into it (FS does not auto-create
+    // parent directories).
+    try {
+      if (Module.FS_createPath) Module.FS_createPath('/', 'content', true, true);
+    } catch (e) { /* already exists */ }
+    var injected = 0;
+    mods.forEach(function (m) {
+      try {
+        Module.FS_createDataFile('/content', m.name, m.data, true, true, true);
+        injected++;
+      } catch (e) {
+        console.warn('[RoRMods] could not inject ' + m.name + ': ' + e);
+      }
+    });
+    console.log('[RoRMods] injected ' + injected + ' installed mod(s) into /content/ — look for them in the game pickers');
+  }
+</script>
+<script>
+  // ---- Game bootstrap: wait for cross-origin isolation (SharedArrayBuffer) ----
+  // The threaded build hard-requires an isolated context. coi-sw.js (loaded in
+  // <head>) exposes window.__coi, which resolves only once the page is isolated
+  // — reloading the page as needed so the service worker's COOP/COEP headers
+  // apply. The game scripts load ONLY after that, so the game can never boot
+  // into a broken (non-isolated) state, which is what caused the wasm crash on
+  // GitHub Pages (where headers come from the service worker).
+  (function () {
+    "use strict";
+    var hud = document.getElementById('hud');
+
+    function loadGameScripts() {
+      var modsReady = window.__installedModsReady || Promise.resolve();
+      // Do not even evaluate RoR.js until the IndexedDB records have been read.
+      // RoR.js starts its data-package/runtime setup immediately, so waiting
+      // here is the reliable way to make the later preRun injection deterministic.
+      var timeout = new Promise(function (resolve) { setTimeout(resolve, 5000); });
+      Promise.race([modsReady, timeout]).then(function () {
+        var input = document.createElement('script');
+        input.src = 'js/input.js?v=' + BUILD;
+        document.body.appendChild(input);
+
+        var game = document.createElement('script');
+        game.src = 'RoR.js?v=' + BUILD;
+        document.body.appendChild(game);
+      });
+    }
+
+    function bootFailure(err) {
+      var msg = (err && err.message) ? err.message : String(err);
+      if (hud) hud.textContent = 'Game could not start: ' + msg;
+      if (window.__rorShowError) window.__rorShowError('Game could not start: ' + msg);
+      console.error('[boot] ' + msg);
+    }
+
+    if (window.__coi && typeof window.__coi.then === 'function') {
+      if (hud) hud.textContent = 'Preparing environment…';
+      window.__coi.then(loadGameScripts, bootFailure);
+    } else {
+      // coi-sw.js missing/unexpected — boot anyway; the game surfaces its own errors.
+      loadGameScripts();
+    }
+  })();
+</script>
+</body>
+</html>

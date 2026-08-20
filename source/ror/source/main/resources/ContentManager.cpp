@@ -1,0 +1,643 @@
+/*
+    This source file is part of Rigs of Rods
+    Copyright 2005-2012 Pierre-Michel Ricordel
+    Copyright 2007-2012 Thomas Fischer
+    Copyright 2013-2018 Petr Ohlidal
+
+    For more information, see http://www.rigsofrods.org/
+
+    Rigs of Rods is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License version 3, as
+    published by the Free Software Foundation.
+
+    Rigs of Rods is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Rigs of Rods. If not, see <http://www.gnu.org/licenses/>.
+*/
+
+#include "ContentManager.h"
+
+
+#include <Overlay/OgreOverlayManager.h>
+#include <Overlay/OgreOverlay.h>
+#include <Plugins/ParticleFX/OgreBoxEmitterFactory.h>
+
+
+#include "Application.h"
+#include "ColoredTextAreaOverlayElementFactory.h"
+#include "ErrorUtils.h"
+#include "SoundScriptManager.h"
+#include "SkinFileFormat.h"
+#include "Language.h"
+#include "PlatformUtils.h"
+
+#include "CacheSystem.h"
+
+#include "OgreShaderParticleRenderer.h"
+
+// Removed by Skybon as part of OGRE 1.9 port 
+// Disabling temporarily for 1.8.1 as well. ~ only_a_ptr, 2015-11
+// TODO: Study the system, then re-enable or remove entirely.
+//#include "OgreBoxEmitterFactory.h"
+
+#ifdef USE_ANGELSCRIPT
+#include "FireExtinguisherAffectorFactory.h"
+#include "ExtinguishableFireAffectorFactory.h"
+#endif // USE_ANGELSCRIPT
+
+#include "Utils.h"
+
+#include <OgreFileSystem.h>
+#include <regex>
+#include <rapidjson/stringbuffer.h>
+#include <rapidjson/writer.h>
+#include <sstream>
+#include <OgreMeshLodGenerator.h>
+#include <OgreMaterial.h>
+#include <OgrePass.h>
+#include <OgreTechnique.h>
+#include <OgreGpuProgramParams.h>
+#include <OgreHighLevelGpuProgramManager.h>
+
+using namespace Ogre;
+using namespace RoR;
+
+// ================================================================================
+// Static variables
+// ================================================================================
+
+#define DECLARE_RESOURCE_PACK(_FIELD_, _NAME_, _RESOURCE_GROUP_) \
+    const ContentManager::ResourcePack ContentManager::ResourcePack::_FIELD_(_NAME_, _RESOURCE_GROUP_);
+
+DECLARE_RESOURCE_PACK( OGRE_CORE,             "OgreCore",             "OgreCoreRG");
+DECLARE_RESOURCE_PACK( WALLPAPERS,            "wallpapers",           "Wallpapers");
+DECLARE_RESOURCE_PACK( AIRFOILS,              "airfoils",             "AirfoilsRG");
+DECLARE_RESOURCE_PACK( CAELUM,                "caelum",               "CaelumRG");
+DECLARE_RESOURCE_PACK( CUBEMAPS,              "cubemaps",             "CubemapsRG");
+DECLARE_RESOURCE_PACK( DASHBOARDS,            "dashboards",           "DashboardsRG");
+DECLARE_RESOURCE_PACK( FAMICONS,              "famicons",             "FamiconsRG");
+DECLARE_RESOURCE_PACK( FLAGS,                 "flags",                "FlagsRG");
+DECLARE_RESOURCE_PACK( FONTS,                 "fonts",                "FontsRG");
+DECLARE_RESOURCE_PACK( HYDRAX,                "hydrax",               "HydraxRG");
+DECLARE_RESOURCE_PACK( ICONS,                 "icons",                "IconsRG");
+DECLARE_RESOURCE_PACK( MATERIALS,             "materials",            "MaterialsRG");
+DECLARE_RESOURCE_PACK( MESHES,                "meshes",               "MeshesRG");
+DECLARE_RESOURCE_PACK( MYGUI,                 "mygui",                "MyGuiRG");
+DECLARE_RESOURCE_PACK( OVERLAYS,              "overlays",             "OverlaysRG");
+DECLARE_RESOURCE_PACK( PAGED,                 "paged",                "PagedRG");
+DECLARE_RESOURCE_PACK( PARTICLES,             "particles",            "ParticlesRG");
+DECLARE_RESOURCE_PACK( PSSM,                  "pssm",                 "PssmRG");
+DECLARE_RESOURCE_PACK( RTSHADER,              "rtshader",             "RtShaderRG");
+DECLARE_RESOURCE_PACK( SCRIPTS,               "scripts",              "ScriptsRG");
+DECLARE_RESOURCE_PACK( SOUNDS,                "sounds",               "SoundsRG");
+DECLARE_RESOURCE_PACK( TEXTURES,              "textures",             "TexturesRG");
+DECLARE_RESOURCE_PACK( SKYX,                  "SkyX",                 "SkyXRG");
+
+// ================================================================================
+// Functions
+// ================================================================================
+
+void ContentManager::AddResourcePack(ResourcePack const& resource_pack, std::string const& override_rgn)
+{
+    Ogre::ResourceGroupManager& rgm = Ogre::ResourceGroupManager::getSingleton();
+
+    Ogre::String rg_name;
+    if (!override_rgn.empty()) // Custom RG defined?
+    {
+        rg_name = override_rgn;
+    }
+    else // Use default RG
+    {
+        if (rgm.resourceGroupExists(resource_pack.resource_group_name)) // Already loaded?
+        {
+            return; // Nothing to do, nothing to report
+        }
+        rg_name = resource_pack.resource_group_name;
+    }
+
+    std::stringstream log_msg;
+    log_msg << "[RoR|ContentManager] Loading resource pack \"" << resource_pack.name << "\" to group \"" << rg_name << "\"";
+    std::string dir_path = PathCombine(App::sys_resources_dir->getStr(), resource_pack.name);
+    std::string zip_path = dir_path + ".zip";
+    if (FileExists(zip_path))
+    {
+        log_msg << " (ZIP archive)";
+        LOG(log_msg.str());
+        rgm.addResourceLocation(zip_path, "Zip", rg_name);
+
+#ifdef __EMSCRIPTEN__
+        // Web build: the "textures" pack is a shared texture library referenced
+        // by scripts in other packs (skybox cubemap from materials.zip, overlay
+        // textures from overlays.zip, particle sprites from particles.zip).
+        // Ogre resolves a texture reference only against the referencing
+        // script's own resource group, so without this those textures render
+        // blank (black). The textures pack is always loaded first, so when a
+        // script pack loads, also register the textures pack into its group.
+        if (strcmp(resource_pack.name, "materials") == 0 ||
+            strcmp(resource_pack.name, "overlays") == 0 ||
+            strcmp(resource_pack.name, "particles") == 0)
+        {
+            std::string textures_zip = PathCombine(App::sys_resources_dir->getStr(), "textures") + ".zip";
+            if (FileExists(textures_zip) && rg_name != "TexturesRG")
+            {
+                rgm.addResourceLocation(textures_zip, "Zip", rg_name);
+            }
+        }
+#endif // __EMSCRIPTEN__
+    }
+    else
+    {
+        if (FolderExists(dir_path))
+        {
+            log_msg << " (directory)";
+            LOG(log_msg.str());
+            rgm.addResourceLocation(dir_path, "FileSystem", rg_name);
+        }
+        else
+        {
+            log_msg << " failed, data not found.";
+            throw std::runtime_error(log_msg.str());
+        }
+    }
+
+    if (override_rgn.empty()) // Only init the default RG
+    {
+        rgm.initialiseResourceGroup(rg_name);
+    }
+}
+
+namespace
+{
+    // WebGL has no fixed-function pipeline. Ogre's built-in "BaseWhite" and
+    // "BaseWhiteNoLighting" materials (used by ManualObjects, the reference
+    // grid, collision wireframes, Hydrax water, ...) are plain fixed-function
+    // materials; give them GLSL shaders so they render in the browser.
+    void EnsureBaseWhiteShaders()
+    {
+        using namespace Ogre;
+
+        HighLevelGpuProgramManager& mgr = HighLevelGpuProgramManager::getSingleton();
+        String lang;
+        if (mgr.isLanguageSupported("glsl"))
+            lang = "glsl";
+        else if (mgr.isLanguageSupported("glsles"))
+            lang = "glsles";
+        else
+            return; // fixed-function pipeline available, nothing to do
+
+        const String vp_name = "rigsofrods/BaseWhiteVP";
+        const String fp_name = "rigsofrods/BaseWhiteFP";
+
+        HighLevelGpuProgramPtr vp = mgr.getByName(vp_name, RGN_INTERNAL);
+        if (!vp)
+        {
+            vp = mgr.createProgram(vp_name, RGN_INTERNAL, lang, GPT_VERTEX_PROGRAM);
+            vp->setSource(
+                "attribute vec4 vertex;\n"
+                "attribute vec4 colour;\n"
+                "uniform mat4 worldviewproj_matrix;\n"
+                "varying vec4 vColor;\n"
+                "void main()\n"
+                "{\n"
+                "    gl_Position = worldviewproj_matrix * vertex;\n"
+                "    vColor = colour;\n"
+                "}\n");
+            vp->load();
+        }
+
+        HighLevelGpuProgramPtr fp = mgr.getByName(fp_name, RGN_INTERNAL);
+        if (!fp)
+        {
+            fp = mgr.createProgram(fp_name, RGN_INTERNAL, lang, GPT_FRAGMENT_PROGRAM);
+            fp->setSource(
+                "#ifdef GL_ES\n"
+                "precision mediump float;\n"
+                "#endif\n"
+                "varying vec4 vColor;\n"
+                "void main()\n"
+                "{\n"
+                "    gl_FragColor = vColor;\n"
+                "}\n");
+            fp->load();
+        }
+
+        const String names[] = {"BaseWhite", "BaseWhiteNoLighting"};
+        for (const String& name : names)
+        {
+            MaterialPtr mat = MaterialManager::getSingleton().getByName(
+                name, ResourceGroupManager::INTERNAL_RESOURCE_GROUP_NAME);
+            if (!mat || !mat->getTechnique(0) || !mat->getTechnique(0)->getPass(0))
+                continue;
+
+            Pass* pass = mat->getTechnique(0)->getPass(0);
+            pass->setVertexProgram(vp_name);
+            pass->setFragmentProgram(fp_name);
+            pass->setLightingEnabled(false);
+
+            GpuProgramParametersSharedPtr vpParams = pass->getVertexProgramParameters();
+            vpParams->setIgnoreMissingParams(true);
+            vpParams->setNamedAutoConstant(
+                "worldviewproj_matrix", GpuProgramParameters::ACT_WORLDVIEWPROJ_MATRIX);
+        }
+    }
+}
+
+void ContentManager::InitContentManager()
+{
+    // Patch Ogre's built-in fixed-function materials for render systems that
+    // have no FFP (WebGL). Must run before anything renders.
+    EnsureBaseWhiteShaders();
+
+    ResourceGroupManager::getSingleton().addResourceLocation(
+        App::sys_config_dir->getStr(), "FileSystem", RGN_CONFIG, /*recursive=*/false, /*readOnly=*/false);
+    ResourceGroupManager::getSingleton().addResourceLocation(
+        App::sys_savegames_dir->getStr(), "FileSystem", RGN_SAVEGAMES, /*recursive=*/false, /*readOnly=*/false);
+    ResourceGroupManager::getSingleton().addResourceLocation(
+        App::sys_scripts_dir->getStr(), "FileSystem", RGN_SCRIPTS, /*recursive:*/false, /*readonly:*/false);
+    ResourceGroupManager::getSingleton().addResourceLocation(
+        App::sys_logs_dir->getStr(), "FileSystem", RGN_LOGS, /*recursive:*/false, /*readonly:*/false);
+
+    Ogre::ScriptCompilerManager::getSingleton().setListener(this);
+
+    // Initialize "managed materials" first
+    //   These are base materials referenced by user content
+    //   They must be initialized before any content is loaded,
+    //   otherwise material links are unresolved and loading ends with an exception
+    this->InitManagedMaterials(RGN_MANAGED_MATS);
+
+    // set listener if none has already been set
+    if (!Ogre::ResourceGroupManager::getSingleton().getLoadingListener())
+        Ogre::ResourceGroupManager::getSingleton().setLoadingListener(this);
+
+    // by default, display everything in the depth map
+    Ogre::MovableObject::setDefaultVisibilityFlags(DEPTHMAP_ENABLED);
+
+
+    this->AddResourcePack(ResourcePack::MYGUI);
+    this->AddResourcePack(ResourcePack::DASHBOARDS);
+
+
+#ifdef _WIN32
+    // TODO: FIX UNDER LINUX!
+    // register particle classes
+    LOG("RoR|ContentManager: Registering Particle Box Emitter");
+    ParticleSystemRendererFactory* mParticleSystemRendererFact = OGRE_NEW ShaderParticleRendererFactory();
+    ParticleSystemManager::getSingleton().addRendererFactory(mParticleSystemRendererFact);
+
+    // Removed by Skybon as part of OGRE 1.9 port 
+    // Disabling temporarily for 1.8.1 as well.  ~ only_a_ptr, 2015-11
+    //ParticleEmitterFactory *mParticleEmitterFact = OGRE_NEW BoxEmitterFactory();
+    //ParticleSystemManager::getSingleton().addEmitterFactory(mParticleEmitterFact);
+
+#endif // _WIN32
+
+#ifdef USE_ANGELSCRIPT
+    // FireExtinguisherAffector
+    ParticleAffectorFactory* pAffFact = OGRE_NEW FireExtinguisherAffectorFactory();
+    ParticleSystemManager::getSingleton().addAffectorFactory(pAffFact);
+
+    // ExtinguishableFireAffector
+    pAffFact = OGRE_NEW ExtinguishableFireAffectorFactory();
+    ParticleSystemManager::getSingleton().addAffectorFactory(pAffFact);
+#endif // USE_ANGELSCRIPT
+
+    // sound is a bit special as we mark the base sounds so we don't clear them accidentally later on
+#ifdef USE_OPENAL
+    LOG("RoR|ContentManager: Creating Sound Manager");
+    App::CreateSoundScriptManager();
+    App::GetSoundScriptManager()->setLoadingBaseSounds(true);
+#endif // USE_OPENAL
+
+    AddResourcePack(ResourcePack::SOUNDS);
+
+    // streams path, to be processed later by the cache system
+    LOG("RoR|ContentManager: Loading filesystems");
+
+    LOG("RoR|ContentManager: Registering colored text overlay factory");
+    ColoredTextAreaOverlayElementFactory* pCT = new ColoredTextAreaOverlayElementFactory();
+    OverlayManager::getSingleton().addOverlayElementFactory(pCT);
+
+    // set default mipmap level (NB some APIs ignore this)
+    if (TextureManager::getSingletonPtr())
+        TextureManager::getSingleton().setDefaultNumMipmaps(5);
+
+    TextureFilterOptions tfo = TFO_NONE;
+    switch (App::gfx_texture_filter->getEnum<GfxTexFilter>())
+    {
+    case GfxTexFilter::ANISOTROPIC: tfo = TFO_ANISOTROPIC;        break;
+    case GfxTexFilter::TRILINEAR:   tfo = TFO_TRILINEAR;          break;
+    case GfxTexFilter::BILINEAR:    tfo = TFO_BILINEAR;           break;
+    case GfxTexFilter::NONE:        tfo = TFO_NONE;               break;
+    }
+    MaterialManager::getSingleton().setDefaultAnisotropy(Math::Clamp(App::gfx_anisotropy->getInt(), 1, 16));
+    MaterialManager::getSingleton().setDefaultTextureFiltering(tfo);
+
+    // load all resources now, so the zip files are also initiated
+    LOG("RoR|ContentManager: Calling initialiseAllResourceGroups()");
+    try
+    {
+        ResourceGroupManager::getSingleton().initialiseAllResourceGroups();
+    }
+    catch (Ogre::Exception& e)
+    {
+        LOG("RoR|ContentManager: catched error while initializing Resource groups: " + e.getFullDescription());
+    }
+#ifdef USE_OPENAL
+    App::GetSoundScriptManager()->setLoadingBaseSounds(false);
+#endif // USE_OPENAL
+
+    new Ogre::MeshLodGenerator();
+}
+
+void ContentManager::InitModCache(CacheValidity validity)
+{
+    // Sets up RGN_CONTENT which encompasses all mods, scans it for changes and deletes it again.
+    // IMPORTANT NOTE ON 'readOnly' FLAG:
+    //   We need mods in subdirs to be writable for the Tuning menu to work.
+    //   Apart from `Resources` and resource groups, OGRE also keeps `Archives` in `ArchiveManager`
+    //   These aren't unloaded on destroying resource groups, and keep a 'readOnly' flag (defaults to true).
+    //   Upon loading/creating new resource groups, OGRE complains (=assert on Debug, exception on Release) if the submitted flag doesn't match.
+    //   It's possible to manually unload archives to reset the flag, but for simplicity we just always load subdirs as 'writable', even during modcache update.
+    // ------------------------------------------------------------------------------------------
+
+    ResourceGroupManager::getSingleton().addResourceLocation(
+        App::sys_cache_dir->getStr(), "FileSystem", RGN_CACHE, /*recursive=*/false, /*readOnly=*/false);
+    ResourceGroupManager::getSingleton().addResourceLocation(
+        App::sys_thumbnails_dir->getStr(), "FileSystem", RGN_THUMBNAILS, /*recursive=*/false, /*readOnly=*/false);
+    ResourceGroupManager::getSingleton().addResourceLocation(
+        App::sys_repo_attachments_dir->getStr(), "FileSystem", RGN_REPO_ATTACHMENTS, /*recursive=*/false, /*readOnly=*/false);
+
+    // Add top-level ZIPs/directories to RGN_CONTENT (non-recursive)
+
+    if (!App::app_extra_mod_path->getStr().empty())
+    {
+        std::string extra_mod_path = App::app_extra_mod_path->getStr();
+        ResourceGroupManager::getSingleton().addResourceLocation(extra_mod_path           , "FileSystem", RGN_CONTENT);
+    }
+    for (const std::string& dirname : App::GetCacheSystem()->GetContentDirs())
+    {
+        ResourceGroupManager::getSingleton().addResourceLocation(PathCombine(App::sys_user_dir->getStr(), dirname), "FileSystem", RGN_CONTENT);
+    }
+    ResourceGroupManager::getSingleton().addResourceLocation(PathCombine(App::sys_process_dir->getStr(), "content") , "FileSystem", RGN_CONTENT);
+    std::string objects = PathCombine("resources", "beamobjects.zip");
+    ResourceGroupManager::getSingleton().addResourceLocation(PathCombine(App::sys_process_dir->getStr(), objects)   , "Zip"       , RGN_CONTENT);
+    std::string dashboards = PathCombine("resources", "dashboards.zip");
+    ResourceGroupManager::getSingleton().addResourceLocation(PathCombine(App::sys_process_dir->getStr(), dashboards), "Zip", RGN_CONTENT);
+    std::string gadgets = PathCombine("resources", "gadgets.zip");
+    ResourceGroupManager::getSingleton().addResourceLocation(PathCombine(App::sys_process_dir->getStr(), gadgets), "Zip", RGN_CONTENT);
+    
+    // Create RGN_TEMP in recursive mode to find all subdirectories.
+
+    ResourceGroupManager::getSingleton().createResourceGroup(RGN_TEMP, false);
+    if (!App::app_extra_mod_path->getStr().empty())
+    {
+        std::string extra_mod_path = App::app_extra_mod_path->getStr();
+        ResourceGroupManager::getSingleton().addResourceLocation(extra_mod_path           , "FileSystem", RGN_TEMP, true);
+    }
+    for (const std::string& dirname : App::GetCacheSystem()->GetContentDirs())
+    {
+        ResourceGroupManager::getSingleton().addResourceLocation(PathCombine(App::sys_user_dir->getStr(), dirname), "FileSystem", RGN_TEMP, true);
+    }
+    ResourceGroupManager::getSingleton().addResourceLocation(PathCombine(App::sys_process_dir->getStr(), "content") , "FileSystem", RGN_TEMP, true);
+
+    // Traverse RGN_TEMP and add all subdirectories to RGN_CONTENT.
+    // (TBD: why not just make RGN_CONTENT itself recursive? -- ohlidalp, 10/2023)
+
+    FileInfoListPtr dirs = ResourceGroupManager::getSingleton().findResourceFileInfo(RGN_TEMP, "*", /*dirs:*/true);
+    for (const auto& dir_fileinfo : *dirs)
+    {
+        if (!dir_fileinfo.archive)
+            continue;
+        String fullpath = PathCombine(dir_fileinfo.archive->getName(), dir_fileinfo.filename);
+        ResourceGroupManager::getSingleton().addResourceLocation(fullpath, "FileSystem", RGN_CONTENT, /*recursive:*/false, /*readonly:*/false);
+    }
+    ResourceGroupManager::getSingleton().destroyResourceGroup(RGN_TEMP);
+
+    // Traverse RGN_CONTENT and detect updates
+
+    if (validity == CacheValidity::UNKNOWN)
+    {
+        validity = App::GetCacheSystem()->EvaluateCacheValidity(); // Must be called while RGN_CONTENT is alive.
+    }
+    App::GetCacheSystem()->LoadModCache(validity);
+
+    ResourceGroupManager::getSingleton().destroyResourceGroup(RGN_CONTENT);
+    
+}
+
+Ogre::DataStreamPtr ContentManager::resourceLoading(const Ogre::String& name, const Ogre::String& group, Ogre::Resource* resource)
+{
+    return Ogre::DataStreamPtr();
+}
+
+void ContentManager::resourceStreamOpened(const Ogre::String& name, const Ogre::String& group, Ogre::Resource* resource, Ogre::DataStreamPtr& dataStream)
+{
+}
+
+bool ContentManager::resourceCollision(Ogre::Resource* resource, Ogre::ResourceManager* resourceManager)
+{
+    // RoR loads each resource bundle (see CacheSystem.h for info)
+    // into dedicated resource group outside the global pool [see CacheSystem::LoadResource()]
+    // This means resource collision is pretty much content creator's fault, with 2 exceptions:
+    // * asset packs (introduced 2024) are mixed into the requesting mod's resource group.
+    // * bundled resources (e.g. beamobjects.zip) are also mixed into the mod's resource group.
+    RoR::LogFormat("[RoR|ContentManager] Skipping resource with duplicate name: '%s' (origin: '%s')",
+        resource->getName().c_str(), resource->getOrigin().c_str());
+    return false; // Instruct OGRE to drop the new resource and keep the original.
+}
+
+bool ContentManager::handleEvent(ScriptCompiler *compiler, ScriptCompilerEvent *evt, void *retval)
+{
+    if (evt->mType == CreateMaterialScriptCompilerEvent::eventType)
+    {
+        // Workaround for OGRE script compiler not properly checking that material name is not empty.
+        // See https://github.com/RigsOfRods/rigs-of-rods/issues/2349
+        auto* matEvent = static_cast<CreateMaterialScriptCompilerEvent*>(evt);
+        if (matEvent->mName.empty())
+        {
+            RoR::LogFormat("[RoR] Got malformed material (empty name) from file: '%s' - forcing OGRE to fail loading.",
+                matEvent->mFile.c_str());
+            // Report "handled" but create nothing -> OGRE will interrupt the loading
+            //   with message "failed to find or create material" [in MaterialTranslator::translate()]
+            return true;
+        }
+    }
+    else if (evt->mType == CreateParticleSystemScriptCompilerEvent::eventType)
+    {
+        // Workaround for OGRE ignoring resource groups when registering particle templates
+        // See https://github.com/RigsOfRods/rigs-of-rods/pull/2398
+        auto* particleEvent = static_cast<CreateParticleSystemScriptCompilerEvent*>(evt);
+        if (Ogre::ParticleSystemManager::getSingleton().getTemplate(particleEvent->mName) != nullptr)
+        {
+            // Duplicate name -> OGRE would throw exception and fail initializing whole resource group
+            RoR::LogFormat("[RoR] Duplicate particle system name '%s' in file: '%s' - forcing OGRE to fail loading.",
+                particleEvent->mName.c_str(), particleEvent->mFile.c_str());
+            return true; // Instruct OGRE to skip the particle system
+        }
+    }
+
+    return false; // Report "not handled"
+}
+
+void ContentManager::InitManagedMaterials(std::string const & rg_name)
+{
+    Ogre::String managed_materials_dir = PathCombine(App::sys_resources_dir->getStr(), "managed_materials");
+
+    //Dirty, needs to be improved
+    if (App::gfx_shadow_type->getEnum<GfxShadowType>() == GfxShadowType::PSSM)
+    {
+        if (rg_name == RGN_MANAGED_MATS) // Only load shared resources on startup
+        {
+            ResourceGroupManager::getSingleton().addResourceLocation(PathCombine(managed_materials_dir, "shadows/pssm/on/shared"), "FileSystem", rg_name);
+        }
+        ResourceGroupManager::getSingleton().addResourceLocation(PathCombine(managed_materials_dir, "shadows/pssm/on"), "FileSystem", rg_name);
+    }
+    else
+    {
+        ResourceGroupManager::getSingleton().addResourceLocation(PathCombine(managed_materials_dir,"shadows/pssm/off"), "FileSystem", rg_name);
+    }
+
+    ResourceGroupManager::getSingleton().addResourceLocation(PathCombine(managed_materials_dir, "texture"), "FileSystem", rg_name);
+
+    // Last
+    ResourceGroupManager::getSingleton().addResourceLocation(managed_materials_dir, "FileSystem", rg_name);
+
+    if (rg_name == RGN_MANAGED_MATS) // Only initialize the global resource group
+        ResourceGroupManager::getSingleton().initialiseResourceGroup(rg_name);
+}
+
+void ContentManager::LoadGameplayResources()
+{
+    if (!m_base_resource_loaded)
+    {
+        this->AddResourcePack(ContentManager::ResourcePack::AIRFOILS);
+        this->AddResourcePack(ContentManager::ResourcePack::TEXTURES);
+        this->AddResourcePack(ContentManager::ResourcePack::FAMICONS);
+        this->AddResourcePack(ContentManager::ResourcePack::MATERIALS);
+        this->AddResourcePack(ContentManager::ResourcePack::MESHES);
+        this->AddResourcePack(ContentManager::ResourcePack::OVERLAYS);
+        this->AddResourcePack(ContentManager::ResourcePack::PARTICLES);
+
+        m_base_resource_loaded = true;
+    }
+
+    if (App::gfx_water_mode->getEnum<GfxWaterMode>() == GfxWaterMode::HYDRAX)
+        this->AddResourcePack(ContentManager::ResourcePack::HYDRAX);
+
+    if (App::gfx_sky_mode->getEnum<GfxSkyMode>() == GfxSkyMode::CAELUM)
+        this->AddResourcePack(ContentManager::ResourcePack::CAELUM);
+
+    if (App::gfx_sky_mode->getEnum<GfxSkyMode>() == GfxSkyMode::SKYX)
+        this->AddResourcePack(ContentManager::ResourcePack::SKYX);
+
+    if (App::gfx_vegetation_mode->getEnum<GfxVegetation>() != RoR::GfxVegetation::NONE)
+        this->AddResourcePack(ContentManager::ResourcePack::PAGED);
+}
+
+std::string ContentManager::ListAllUserContent()
+{
+    std::stringstream buf;
+
+    auto dir_list = Ogre::ResourceGroupManager::getSingleton().listResourceFileInfo(RGN_CONTENT, true);
+    for (auto dir: *dir_list)
+    {
+        buf << dir.filename << std::endl;
+    }
+
+    // Any filename + listed extensions, ignore case
+    std::regex file_whitelist("^.\\.(airplane|boat|car|fixed|load|machine|skin|terrn2|train|truck)$", std::regex::icase);
+
+    auto file_list = Ogre::ResourceGroupManager::getSingleton().listResourceFileInfo(RGN_CONTENT, false);
+    for (auto file: *file_list)
+    {
+        if ((file.archive != nullptr) || std::regex_match(file.filename, file_whitelist))
+        {
+            buf << file.filename << std::endl;
+        }
+    }
+
+    return buf.str();
+}
+
+bool ContentManager::LoadAndParseJson(std::string const& filename, std::string const& rg_name, rapidjson::Document& j_doc)
+{
+    try
+    {
+        Ogre::DataStreamPtr stream = Ogre::ResourceGroupManager::getSingleton().openResource(filename, rg_name);
+        Ogre::String json_str = stream->getAsString();
+        rapidjson::MemoryStream j_stream(json_str.data(), json_str.length());
+        j_doc.ParseStream<rapidjson::kParseNanAndInfFlag>(j_stream);
+    }
+    catch (Ogre::FileNotFoundException)
+    {
+        return false; // Error already logged by OGRE
+    }
+    catch (std::exception& e)
+    {
+        RoR::LogFormat("[RoR] Failed to open or read json file '%s' (resource group '%s'), message: '%s'",
+                       filename.c_str(), rg_name.c_str(), e.what());
+        return false;
+    }
+
+    if (j_doc.HasParseError())
+    {
+        RoR::LogFormat("[RoR] Error parsing JSON file '%s' (resource group '%s')",
+                       filename.c_str(), rg_name.c_str());
+        return false;
+    }
+
+    return true;
+}
+
+bool ContentManager::SerializeAndWriteJson(std::string const& filename, std::string const& rg_name, rapidjson::Document& j_doc)
+{
+    // Serialize JSON to string
+    rapidjson::StringBuffer buffer;
+    rapidjson::Writer<rapidjson::StringBuffer, rapidjson::UTF8<>, rapidjson::UTF8<>,
+                      rapidjson::CrtAllocator, rapidjson::kWriteNanAndInfFlag>
+                      writer(buffer);
+    j_doc.Accept(writer);
+
+    // Write JSON to file
+    try
+    {
+        Ogre::DataStreamPtr stream
+            = Ogre::ResourceGroupManager::getSingleton().createResource(
+                filename, rg_name, /*overwrite=*/true);
+        size_t written = stream->write(buffer.GetString(), buffer.GetSize());
+        if (written < buffer.GetSize())
+        {
+            RoR::LogFormat("[RoR] Error writing JSON file '%s' (resource group '%s'), ",
+                           "only written %u out of %u bytes!",
+                           filename.c_str(), rg_name.c_str(), written, buffer.GetSize());
+            return false;
+        }
+        return true;
+    }
+    catch (std::exception& e)
+    {
+        RoR::LogFormat("[RoR] Error writing JSON file '%s' (resource group '%s'), message: '%s'",
+                       filename.c_str(), rg_name.c_str(), e.what());
+        return false;
+    }
+}
+
+bool ContentManager::DeleteDiskFile(std::string const& filename, std::string const& rg_name)
+{
+    try
+    {
+        Ogre::ResourceGroupManager::getSingleton().deleteResource(filename, rg_name);
+        return true;
+    }
+    catch (std::exception& e)
+    {
+        RoR::LogFormat("[RoR|ModCache] Error deleting file '%s' (resource group '%s'), message: '%s'",
+                        filename.c_str(), rg_name.c_str(), e.what());
+        return false;
+    }
+}
+

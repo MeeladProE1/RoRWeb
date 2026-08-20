@@ -1,0 +1,12 @@
+prefix=C:/a1e/Tests/c1e/C2e/build/deps
+libdir=${prefix}/lib
+includedir=${prefix}/include
+package=zzipfseeko
+suffix=.js
+
+Name: zzipfseeko
+Description: ZZipLib - libZ-based ZIP-access Library with an Easy-to-Use API
+Version: 0.13.71
+Requires: zlib
+Libs: -L${libdir} -lzzipfseeko
+Cflags: -I${includedir}

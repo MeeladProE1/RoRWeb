@@ -1,0 +1,3 @@
+C:/a1e/Tests/c1e/C2e/build/deps/lib/libangelscript.a
+C:/a1e/Tests/c1e/C2e/build/deps/include/angelscript.h
+C:/a1e/Tests/c1e/C2e/build/deps/lib/cmake/Angelscript/AngelscriptConfig.cmake

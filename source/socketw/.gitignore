@@ -1,0 +1,6 @@
+_build/
+build/
+lib/
+\.idea/
+cmake-build-*/
+src/sw_config.h

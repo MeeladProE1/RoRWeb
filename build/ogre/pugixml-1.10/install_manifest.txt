@@ -1,0 +1,6 @@
+C:/a1e/Tests/c1e/C2e/build/deps/lib/libpugixml.a
+C:/a1e/Tests/c1e/C2e/build/deps/include/pugixml.hpp
+C:/a1e/Tests/c1e/C2e/build/deps/include/pugiconfig.hpp
+C:/a1e/Tests/c1e/C2e/build/deps/lib/cmake/pugixml/pugixml-config.cmake
+C:/a1e/Tests/c1e/C2e/build/deps/lib/cmake/pugixml/pugixml-config-release.cmake
+C:/a1e/Tests/c1e/C2e/build/deps/lib/pkgconfig/pugixml.pc

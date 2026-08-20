@@ -1,0 +1,9 @@
+overlay tracks/DirectionArrow
+{
+	zorder 600
+	overlay_element tracks/DirectionArrow/MainPanel Panel
+	{
+		transparent true
+		material tracks/pointingArrowBackground
+	}
+}

@@ -1,0 +1,103 @@
+
+---
+events:
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-3.30/Modules/CMakeDetermineSystem.cmake:200 (message)"
+      - "CMakeLists.txt:66 (project)"
+    message: |
+      The target system is: Emscripten - 1 - x86
+      The host system is: Windows - 10.0.19045 - AMD64
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-3.30/Modules/Internal/CheckSourceCompiles.cmake:101 (try_compile)"
+      - "C:/Program Files/CMake/share/cmake-3.30/Modules/Internal/CheckCompilerFlag.cmake:18 (cmake_check_source_compiles)"
+      - "C:/Program Files/CMake/share/cmake-3.30/Modules/CheckCXXCompilerFlag.cmake:34 (cmake_check_compiler_flag)"
+      - "support/cmake/cxx14.cmake:6 (check_cxx_compiler_flag)"
+      - "support/cmake/cxx14.cmake:46 (fmt_check_cxx_compiler_flag)"
+      - "CMakeLists.txt:127 (include)"
+    checks:
+      - "Performing Test has_std_11_flag"
+    directories:
+      source: "C:/a1e/Tests/c1e/C2e/build/fmt/CMakeFiles/CMakeScratch/TryCompile-wt6037"
+      binary: "C:/a1e/Tests/c1e/C2e/build/fmt/CMakeFiles/CMakeScratch/TryCompile-wt6037"
+    cmakeVariables:
+      CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS: "C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/emscan-deps.exe"
+      CMAKE_CXX_FLAGS: ""
+      CMAKE_CXX_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/cmake/Modules;C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/cmake/Modules;C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/cmake/Modules;C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/cmake/Modules;C:/a1e/Tests/c1e/C2e/source/fmt/support/cmake"
+    buildResult:
+      variable: "has_std_11_flag"
+      cached: true
+      stdout: |
+        Change Dir: 'C:/a1e/Tests/c1e/C2e/build/fmt/CMakeFiles/CMakeScratch/TryCompile-wt6037'
+        
+        Run Build Command(s): C:/a1e/Tests/c1e/C2e/python/Scripts/ninja.exe -v cmTC_b510a
+        [1/2] C:\\a1e\\Tests\\c1e\\C2e\\emsdk\\upstream\\emscripten\\em++.exe -Dhas_std_11_flag  -std=gnu++11   -std=c++11 -MD -MT CMakeFiles/cmTC_b510a.dir/src.cxx.o -MF CMakeFiles\\cmTC_b510a.dir\\src.cxx.o.d -o CMakeFiles/cmTC_b510a.dir/src.cxx.o -c C:/a1e/Tests/c1e/C2e/build/fmt/CMakeFiles/CMakeScratch/TryCompile-wt6037/src.cxx
+        [2/2] C:\\Windows\\system32\\cmd.exe /C "cd . && C:\\a1e\\Tests\\c1e\\C2e\\emsdk\\upstream\\emscripten\\em++.exe   CMakeFiles/cmTC_b510a.dir/src.cxx.o -o cmTC_b510a.js   && cd ."
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-3.30/Modules/Internal/CheckSourceCompiles.cmake:101 (try_compile)"
+      - "C:/Program Files/CMake/share/cmake-3.30/Modules/Internal/CheckCompilerFlag.cmake:18 (cmake_check_source_compiles)"
+      - "C:/Program Files/CMake/share/cmake-3.30/Modules/CheckCXXCompilerFlag.cmake:34 (cmake_check_compiler_flag)"
+      - "support/cmake/cxx14.cmake:6 (check_cxx_compiler_flag)"
+      - "support/cmake/cxx14.cmake:47 (fmt_check_cxx_compiler_flag)"
+      - "CMakeLists.txt:127 (include)"
+    checks:
+      - "Performing Test has_std_0x_flag"
+    directories:
+      source: "C:/a1e/Tests/c1e/C2e/build/fmt/CMakeFiles/CMakeScratch/TryCompile-pkw81x"
+      binary: "C:/a1e/Tests/c1e/C2e/build/fmt/CMakeFiles/CMakeScratch/TryCompile-pkw81x"
+    cmakeVariables:
+      CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS: "C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/emscan-deps.exe"
+      CMAKE_CXX_FLAGS: ""
+      CMAKE_CXX_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/cmake/Modules;C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/cmake/Modules;C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/cmake/Modules;C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/cmake/Modules;C:/a1e/Tests/c1e/C2e/source/fmt/support/cmake"
+    buildResult:
+      variable: "has_std_0x_flag"
+      cached: true
+      stdout: |
+        Change Dir: 'C:/a1e/Tests/c1e/C2e/build/fmt/CMakeFiles/CMakeScratch/TryCompile-pkw81x'
+        
+        Run Build Command(s): C:/a1e/Tests/c1e/C2e/python/Scripts/ninja.exe -v cmTC_16e15
+        [1/2] C:\\a1e\\Tests\\c1e\\C2e\\emsdk\\upstream\\emscripten\\em++.exe -Dhas_std_0x_flag  -std=gnu++11   -std=c++0x -MD -MT CMakeFiles/cmTC_16e15.dir/src.cxx.o -MF CMakeFiles\\cmTC_16e15.dir\\src.cxx.o.d -o CMakeFiles/cmTC_16e15.dir/src.cxx.o -c C:/a1e/Tests/c1e/C2e/build/fmt/CMakeFiles/CMakeScratch/TryCompile-pkw81x/src.cxx
+        [2/2] C:\\Windows\\system32\\cmd.exe /C "cd . && C:\\a1e\\Tests\\c1e\\C2e\\emsdk\\upstream\\emscripten\\em++.exe   CMakeFiles/cmTC_16e15.dir/src.cxx.o -o cmTC_16e15.js   && cd ."
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-3.30/Modules/Internal/CheckSourceCompiles.cmake:101 (try_compile)"
+      - "C:/Program Files/CMake/share/cmake-3.30/Modules/Internal/CheckCompilerFlag.cmake:18 (cmake_check_source_compiles)"
+      - "C:/Program Files/CMake/share/cmake-3.30/Modules/CheckCXXCompilerFlag.cmake:34 (cmake_check_compiler_flag)"
+      - "CMakeLists.txt:180 (check_cxx_compiler_flag)"
+    checks:
+      - "Performing Test HAS_NULLPTR_WARNING"
+    directories:
+      source: "C:/a1e/Tests/c1e/C2e/build/fmt/CMakeFiles/CMakeScratch/TryCompile-0io8v2"
+      binary: "C:/a1e/Tests/c1e/C2e/build/fmt/CMakeFiles/CMakeScratch/TryCompile-0io8v2"
+    cmakeVariables:
+      CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS: "C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/emscan-deps.exe"
+      CMAKE_CXX_FLAGS: ""
+      CMAKE_CXX_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/cmake/Modules;C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/cmake/Modules;C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/cmake/Modules;C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/cmake/Modules;C:/a1e/Tests/c1e/C2e/source/fmt/support/cmake"
+    buildResult:
+      variable: "HAS_NULLPTR_WARNING"
+      cached: true
+      stdout: |
+        Change Dir: 'C:/a1e/Tests/c1e/C2e/build/fmt/CMakeFiles/CMakeScratch/TryCompile-0io8v2'
+        
+        Run Build Command(s): C:/a1e/Tests/c1e/C2e/python/Scripts/ninja.exe -v cmTC_1e134
+        [1/2] C:\\a1e\\Tests\\c1e\\C2e\\emsdk\\upstream\\emscripten\\em++.exe -DHAS_NULLPTR_WARNING  -std=gnu++11   -Wzero-as-null-pointer-constant -MD -MT CMakeFiles/cmTC_1e134.dir/src.cxx.o -MF CMakeFiles\\cmTC_1e134.dir\\src.cxx.o.d -o CMakeFiles/cmTC_1e134.dir/src.cxx.o -c C:/a1e/Tests/c1e/C2e/build/fmt/CMakeFiles/CMakeScratch/TryCompile-0io8v2/src.cxx
+        [2/2] C:\\Windows\\system32\\cmd.exe /C "cd . && C:\\a1e\\Tests\\c1e\\C2e\\emsdk\\upstream\\emscripten\\em++.exe   CMakeFiles/cmTC_1e134.dir/src.cxx.o -o cmTC_1e134.js   && cd ."
+        
+      exitCode: 0
+...

@@ -1,0 +1,9 @@
+Determining size of off64_t passed with the following output:
+Change Dir: 'C:/a1e/Tests/c1e/C2e/build/ogre/zlib-1.2.11/b/CMakeFiles/CMakeTmp'
+
+Run Build Command(s): C:/a1e/Tests/c1e/C2e/python/Scripts/ninja.exe -v cmTC_0b978
+[1/2] C:\a1e\Tests\c1e\C2e\emsdk\upstream\emscripten\emcc.exe -DHAVE_STDDEF_H -DHAVE_STDINT_H -DHAVE_SYS_TYPES_H -D_LARGEFILE64_SOURCE=1   -MD -MT CMakeFiles/cmTC_0b978.dir/OFF64_T.c.o -MF CMakeFiles\cmTC_0b978.dir\OFF64_T.c.o.d -o CMakeFiles/cmTC_0b978.dir/OFF64_T.c.o -c C:/a1e/Tests/c1e/C2e/build/ogre/zlib-1.2.11/b/CMakeFiles/CheckTypeSize/OFF64_T.c
+[2/2] C:\Windows\system32\cmd.exe /C "cd . && C:\a1e\Tests\c1e\C2e\emsdk\upstream\emscripten\emcc.exe   CMakeFiles/cmTC_0b978.dir/OFF64_T.c.o -o cmTC_0b978.js  --oformat=wasm  -sWASM=1 && cd ."
+
+
+

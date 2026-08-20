@@ -1,0 +1,7 @@
+C:/a1e/Tests/c1e/C2e/build/rapidjson/CMakeFiles/travis_doc.dir
+C:/a1e/Tests/c1e/C2e/build/rapidjson/CMakeFiles/edit_cache.dir
+C:/a1e/Tests/c1e/C2e/build/rapidjson/CMakeFiles/rebuild_cache.dir
+C:/a1e/Tests/c1e/C2e/build/rapidjson/CMakeFiles/list_install_components.dir
+C:/a1e/Tests/c1e/C2e/build/rapidjson/CMakeFiles/install.dir
+C:/a1e/Tests/c1e/C2e/build/rapidjson/CMakeFiles/install/local.dir
+C:/a1e/Tests/c1e/C2e/build/rapidjson/CMakeFiles/install/strip.dir

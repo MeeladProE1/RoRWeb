@@ -1,0 +1,12 @@
+
+import * from "OneTexture.material"
+
+material Hair : OneTexture
+{
+	set $texture_unit "Mikki_Texture2.png"
+}
+
+material Body : OneTexture
+{
+	set $texture_unit "Mikki_Texture3.png"
+}

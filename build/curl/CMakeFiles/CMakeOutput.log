@@ -1,0 +1,613 @@
+Determining size of size_t passed with the following output:
+Change Dir: 'C:/a1e/Tests/c1e/C2e/build/curl/CMakeFiles/CMakeTmp'
+
+Run Build Command(s): "C:/Program Files/CMake/bin/cmake.exe" -E env VERBOSE=1 C:/MinGW/bin/mingw32-make.exe -f Makefile cmTC_19592/fast
+C:/MinGW/bin/mingw32-make.exe  -f CMakeFiles\cmTC_19592.dir\build.make CMakeFiles/cmTC_19592.dir/build
+mingw32-make.exe[1]: Entering directory 'C:/a1e/Tests/c1e/C2e/build/curl/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_19592.dir/SIZEOF_SIZE_T.c.o
+C:\a1e\Tests\c1e\C2e\emsdk\upstream\emscripten\emcc.exe   -pthread  -Wextra -Wall -pedantic -Wbad-function-cast -Wconversion -Winline -Wmissing-declarations -Wmissing-prototypes -Wnested-externs -Wno-long-long -Wno-multichar -Wpointer-arith -Wshadow -Wsign-compare -Wundef -Wunused -Wwrite-strings -Wcast-align -Wdeclaration-after-statement -Wempty-body -Wendif-labels -Wfloat-equal -Wignored-qualifiers -Wno-format-nonliteral -Wno-sign-conversion -Wno-system-headers -Wstrict-prototypes -Wtype-limits -Wvla -Wshift-sign-overflow -Wshorten-64-to-32 -Wdouble-promotion -Wenum-conversion -Wunused-const-variable -Wcomma -Wmissing-variable-declarations -Wassign-enum -Wextra-semi-stmt  -MD -MT CMakeFiles/cmTC_19592.dir/SIZEOF_SIZE_T.c.o -MF CMakeFiles\cmTC_19592.dir\SIZEOF_SIZE_T.c.o.d -o CMakeFiles\cmTC_19592.dir\SIZEOF_SIZE_T.c.o -c C:\a1e\Tests\c1e\C2e\build\curl\CMakeFiles\CheckTypeSize\SIZEOF_SIZE_T.c
+C:\a1e\Tests\c1e\C2e\build\curl\CMakeFiles\CheckTypeSize\SIZEOF_SIZE_T.c:24:6: warning: no previous extern declaration for non-static variable 'info_size' [-Wmissing-variable-declarations]
+   24 | char info_size[] =  {'I', 'N', 'F', 'O', ':', 's','i','z','e','[',
+      |      ^
+C:\a1e\Tests\c1e\C2e\build\curl\CMakeFiles\CheckTypeSize\SIZEOF_SIZE_T.c:24:1: note: declare 'static' if the variable is not intended to be used outside of this translation unit
+   24 | char info_size[] =  {'I', 'N', 'F', 'O', ':', 's','i','z','e','[',
+      | ^
+1 warning generated.
+Linking C executable cmTC_19592.js
+"C:\Program Files\CMake\bin\cmake.exe" -E cmake_link_script CMakeFiles\cmTC_19592.dir\link.txt --verbose=1
+C:\a1e\Tests\c1e\C2e\emsdk\upstream\emscripten\emcc.exe -pthread  -Wextra -Wall -pedantic -Wbad-function-cast -Wconversion -Winline -Wmissing-declarations -Wmissing-prototypes -Wnested-externs -Wno-long-long -Wno-multichar -Wpointer-arith -Wshadow -Wsign-compare -Wundef -Wunused -Wwrite-strings -Wcast-align -Wdeclaration-after-statement -Wempty-body -Wendif-labels -Wfloat-equal -Wignored-qualifiers -Wno-format-nonliteral -Wno-sign-conversion -Wno-system-headers -Wstrict-prototypes -Wtype-limits -Wvla -Wshift-sign-overflow -Wshorten-64-to-32 -Wdouble-promotion -Wenum-conversion -Wunused-const-variable -Wcomma -Wmissing-variable-declarations -Wassign-enum -Wextra-semi-stmt  @CMakeFiles\cmTC_19592.dir\objects1.rsp -o cmTC_19592.js @CMakeFiles\cmTC_19592.dir\linkLibs.rsp
+mingw32-make.exe[1]: Leaving directory 'C:/a1e/Tests/c1e/C2e/build/curl/CMakeFiles/CMakeTmp'
+
+
+
+Determining size of ssize_t passed with the following output:
+Change Dir: 'C:/a1e/Tests/c1e/C2e/build/curl/CMakeFiles/CMakeTmp'
+
+Run Build Command(s): "C:/Program Files/CMake/bin/cmake.exe" -E env VERBOSE=1 C:/MinGW/bin/mingw32-make.exe -f Makefile cmTC_f2656/fast
+C:/MinGW/bin/mingw32-make.exe  -f CMakeFiles\cmTC_f2656.dir\build.make CMakeFiles/cmTC_f2656.dir/build
+mingw32-make.exe[1]: Entering directory 'C:/a1e/Tests/c1e/C2e/build/curl/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_f2656.dir/SIZEOF_SSIZE_T.c.o
+C:\a1e\Tests\c1e\C2e\emsdk\upstream\emscripten\emcc.exe   -pthread  -Wextra -Wall -pedantic -Wbad-function-cast -Wconversion -Winline -Wmissing-declarations -Wmissing-prototypes -Wnested-externs -Wno-long-long -Wno-multichar -Wpointer-arith -Wshadow -Wsign-compare -Wundef -Wunused -Wwrite-strings -Wcast-align -Wdeclaration-after-statement -Wempty-body -Wendif-labels -Wfloat-equal -Wignored-qualifiers -Wno-format-nonliteral -Wno-sign-conversion -Wno-system-headers -Wstrict-prototypes -Wtype-limits -Wvla -Wshift-sign-overflow -Wshorten-64-to-32 -Wdouble-promotion -Wenum-conversion -Wunused-const-variable -Wcomma -Wmissing-variable-declarations -Wassign-enum -Wextra-semi-stmt  -MD -MT CMakeFiles/cmTC_f2656.dir/SIZEOF_SSIZE_T.c.o -MF CMakeFiles\cmTC_f2656.dir\SIZEOF_SSIZE_T.c.o.d -o CMakeFiles\cmTC_f2656.dir\SIZEOF_SSIZE_T.c.o -c C:\a1e\Tests\c1e\C2e\build\curl\CMakeFiles\CheckTypeSize\SIZEOF_SSIZE_T.c
+C:\a1e\Tests\c1e\C2e\build\curl\CMakeFiles\CheckTypeSize\SIZEOF_SSIZE_T.c:24:6: warning: no previous extern declaration for non-static variable 'info_size' [-Wmissing-variable-declarations]
+   24 | char info_size[] =  {'I', 'N', 'F', 'O', ':', 's','i','z','e','[',
+      |      ^
+C:\a1e\Tests\c1e\C2e\build\curl\CMakeFiles\CheckTypeSize\SIZEOF_SSIZE_T.c:24:1: note: declare 'static' if the variable is not intended to be used outside of this translation unit
+   24 | char info_size[] =  {'I', 'N', 'F', 'O', ':', 's','i','z','e','[',
+      | ^
+1 warning generated.
+Linking C executable cmTC_f2656.js
+"C:\Program Files\CMake\bin\cmake.exe" -E cmake_link_script CMakeFiles\cmTC_f2656.dir\link.txt --verbose=1
+C:\a1e\Tests\c1e\C2e\emsdk\upstream\emscripten\emcc.exe -pthread  -Wextra -Wall -pedantic -Wbad-function-cast -Wconversion -Winline -Wmissing-declarations -Wmissing-prototypes -Wnested-externs -Wno-long-long -Wno-multichar -Wpointer-arith -Wshadow -Wsign-compare -Wundef -Wunused -Wwrite-strings -Wcast-align -Wdeclaration-after-statement -Wempty-body -Wendif-labels -Wfloat-equal -Wignored-qualifiers -Wno-format-nonliteral -Wno-sign-conversion -Wno-system-headers -Wstrict-prototypes -Wtype-limits -Wvla -Wshift-sign-overflow -Wshorten-64-to-32 -Wdouble-promotion -Wenum-conversion -Wunused-const-variable -Wcomma -Wmissing-variable-declarations -Wassign-enum -Wextra-semi-stmt  @CMakeFiles\cmTC_f2656.dir\objects1.rsp -o cmTC_f2656.js @CMakeFiles\cmTC_f2656.dir\linkLibs.rsp
+mingw32-make.exe[1]: Leaving directory 'C:/a1e/Tests/c1e/C2e/build/curl/CMakeFiles/CMakeTmp'
+
+
+
+Determining size of long long passed with the following output:
+Change Dir: 'C:/a1e/Tests/c1e/C2e/build/curl/CMakeFiles/CMakeTmp'
+
+Run Build Command(s): "C:/Program Files/CMake/bin/cmake.exe" -E env VERBOSE=1 C:/MinGW/bin/mingw32-make.exe -f Makefile cmTC_0982c/fast
+C:/MinGW/bin/mingw32-make.exe  -f CMakeFiles\cmTC_0982c.dir\build.make CMakeFiles/cmTC_0982c.dir/build
+mingw32-make.exe[1]: Entering directory 'C:/a1e/Tests/c1e/C2e/build/curl/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_0982c.dir/SIZEOF_LONG_LONG.c.o
+C:\a1e\Tests\c1e\C2e\emsdk\upstream\emscripten\emcc.exe   -pthread  -Wextra -Wall -pedantic -Wbad-function-cast -Wconversion -Winline -Wmissing-declarations -Wmissing-prototypes -Wnested-externs -Wno-long-long -Wno-multichar -Wpointer-arith -Wshadow -Wsign-compare -Wundef -Wunused -Wwrite-strings -Wcast-align -Wdeclaration-after-statement -Wempty-body -Wendif-labels -Wfloat-equal -Wignored-qualifiers -Wno-format-nonliteral -Wno-sign-conversion -Wno-system-headers -Wstrict-prototypes -Wtype-limits -Wvla -Wshift-sign-overflow -Wshorten-64-to-32 -Wdouble-promotion -Wenum-conversion -Wunused-const-variable -Wcomma -Wmissing-variable-declarations -Wassign-enum -Wextra-semi-stmt  -MD -MT CMakeFiles/cmTC_0982c.dir/SIZEOF_LONG_LONG.c.o -MF CMakeFiles\cmTC_0982c.dir\SIZEOF_LONG_LONG.c.o.d -o CMakeFiles\cmTC_0982c.dir\SIZEOF_LONG_LONG.c.o -c C:\a1e\Tests\c1e\C2e\build\curl\CMakeFiles\CheckTypeSize\SIZEOF_LONG_LONG.c
+C:\a1e\Tests\c1e\C2e\build\curl\CMakeFiles\CheckTypeSize\SIZEOF_LONG_LONG.c:24:6: warning: no previous extern declaration for non-static variable 'info_size' [-Wmissing-variable-declarations]
+   24 | char info_size[] =  {'I', 'N', 'F', 'O', ':', 's','i','z','e','[',
+      |      ^
+C:\a1e\Tests\c1e\C2e\build\curl\CMakeFiles\CheckTypeSize\SIZEOF_LONG_LONG.c:24:1: note: declare 'static' if the variable is not intended to be used outside of this translation unit
+   24 | char info_size[] =  {'I', 'N', 'F', 'O', ':', 's','i','z','e','[',
+      | ^
+1 warning generated.
+Linking C executable cmTC_0982c.js
+"C:\Program Files\CMake\bin\cmake.exe" -E cmake_link_script CMakeFiles\cmTC_0982c.dir\link.txt --verbose=1
+C:\a1e\Tests\c1e\C2e\emsdk\upstream\emscripten\emcc.exe -pthread  -Wextra -Wall -pedantic -Wbad-function-cast -Wconversion -Winline -Wmissing-declarations -Wmissing-prototypes -Wnested-externs -Wno-long-long -Wno-multichar -Wpointer-arith -Wshadow -Wsign-compare -Wundef -Wunused -Wwrite-strings -Wcast-align -Wdeclaration-after-statement -Wempty-body -Wendif-labels -Wfloat-equal -Wignored-qualifiers -Wno-format-nonliteral -Wno-sign-conversion -Wno-system-headers -Wstrict-prototypes -Wtype-limits -Wvla -Wshift-sign-overflow -Wshorten-64-to-32 -Wdouble-promotion -Wenum-conversion -Wunused-const-variable -Wcomma -Wmissing-variable-declarations -Wassign-enum -Wextra-semi-stmt  @CMakeFiles\cmTC_0982c.dir\objects1.rsp -o cmTC_0982c.js @CMakeFiles\cmTC_0982c.dir\linkLibs.rsp
+mingw32-make.exe[1]: Leaving directory 'C:/a1e/Tests/c1e/C2e/build/curl/CMakeFiles/CMakeTmp'
+
+
+
+Determining size of long passed with the following output:
+Change Dir: 'C:/a1e/Tests/c1e/C2e/build/curl/CMakeFiles/CMakeTmp'
+
+Run Build Command(s): "C:/Program Files/CMake/bin/cmake.exe" -E env VERBOSE=1 C:/MinGW/bin/mingw32-make.exe -f Makefile cmTC_7d1b0/fast
+C:/MinGW/bin/mingw32-make.exe  -f CMakeFiles\cmTC_7d1b0.dir\build.make CMakeFiles/cmTC_7d1b0.dir/build
+mingw32-make.exe[1]: Entering directory 'C:/a1e/Tests/c1e/C2e/build/curl/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_7d1b0.dir/SIZEOF_LONG.c.o
+C:\a1e\Tests\c1e\C2e\emsdk\upstream\emscripten\emcc.exe   -pthread  -Wextra -Wall -pedantic -Wbad-function-cast -Wconversion -Winline -Wmissing-declarations -Wmissing-prototypes -Wnested-externs -Wno-long-long -Wno-multichar -Wpointer-arith -Wshadow -Wsign-compare -Wundef -Wunused -Wwrite-strings -Wcast-align -Wdeclaration-after-statement -Wempty-body -Wendif-labels -Wfloat-equal -Wignored-qualifiers -Wno-format-nonliteral -Wno-sign-conversion -Wno-system-headers -Wstrict-prototypes -Wtype-limits -Wvla -Wshift-sign-overflow -Wshorten-64-to-32 -Wdouble-promotion -Wenum-conversion -Wunused-const-variable -Wcomma -Wmissing-variable-declarations -Wassign-enum -Wextra-semi-stmt  -MD -MT CMakeFiles/cmTC_7d1b0.dir/SIZEOF_LONG.c.o -MF CMakeFiles\cmTC_7d1b0.dir\SIZEOF_LONG.c.o.d -o CMakeFiles\cmTC_7d1b0.dir\SIZEOF_LONG.c.o -c C:\a1e\Tests\c1e\C2e\build\curl\CMakeFiles\CheckTypeSize\SIZEOF_LONG.c
+C:\a1e\Tests\c1e\C2e\build\curl\CMakeFiles\CheckTypeSize\SIZEOF_LONG.c:24:6: warning: no previous extern declaration for non-static variable 'info_size' [-Wmissing-variable-declarations]
+   24 | char info_size[] =  {'I', 'N', 'F', 'O', ':', 's','i','z','e','[',
+      |      ^
+C:\a1e\Tests\c1e\C2e\build\curl\CMakeFiles\CheckTypeSize\SIZEOF_LONG.c:24:1: note: declare 'static' if the variable is not intended to be used outside of this translation unit
+   24 | char info_size[] =  {'I', 'N', 'F', 'O', ':', 's','i','z','e','[',
+      | ^
+1 warning generated.
+Linking C executable cmTC_7d1b0.js
+"C:\Program Files\CMake\bin\cmake.exe" -E cmake_link_script CMakeFiles\cmTC_7d1b0.dir\link.txt --verbose=1
+C:\a1e\Tests\c1e\C2e\emsdk\upstream\emscripten\emcc.exe -pthread  -Wextra -Wall -pedantic -Wbad-function-cast -Wconversion -Winline -Wmissing-declarations -Wmissing-prototypes -Wnested-externs -Wno-long-long -Wno-multichar -Wpointer-arith -Wshadow -Wsign-compare -Wundef -Wunused -Wwrite-strings -Wcast-align -Wdeclaration-after-statement -Wempty-body -Wendif-labels -Wfloat-equal -Wignored-qualifiers -Wno-format-nonliteral -Wno-sign-conversion -Wno-system-headers -Wstrict-prototypes -Wtype-limits -Wvla -Wshift-sign-overflow -Wshorten-64-to-32 -Wdouble-promotion -Wenum-conversion -Wunused-const-variable -Wcomma -Wmissing-variable-declarations -Wassign-enum -Wextra-semi-stmt  @CMakeFiles\cmTC_7d1b0.dir\objects1.rsp -o cmTC_7d1b0.js @CMakeFiles\cmTC_7d1b0.dir\linkLibs.rsp
+mingw32-make.exe[1]: Leaving directory 'C:/a1e/Tests/c1e/C2e/build/curl/CMakeFiles/CMakeTmp'
+
+
+
+Determining size of int passed with the following output:
+Change Dir: 'C:/a1e/Tests/c1e/C2e/build/curl/CMakeFiles/CMakeTmp'
+
+Run Build Command(s): "C:/Program Files/CMake/bin/cmake.exe" -E env VERBOSE=1 C:/MinGW/bin/mingw32-make.exe -f Makefile cmTC_ac01d/fast
+C:/MinGW/bin/mingw32-make.exe  -f CMakeFiles\cmTC_ac01d.dir\build.make CMakeFiles/cmTC_ac01d.dir/build
+mingw32-make.exe[1]: Entering directory 'C:/a1e/Tests/c1e/C2e/build/curl/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_ac01d.dir/SIZEOF_INT.c.o
+C:\a1e\Tests\c1e\C2e\emsdk\upstream\emscripten\emcc.exe   -pthread  -Wextra -Wall -pedantic -Wbad-function-cast -Wconversion -Winline -Wmissing-declarations -Wmissing-prototypes -Wnested-externs -Wno-long-long -Wno-multichar -Wpointer-arith -Wshadow -Wsign-compare -Wundef -Wunused -Wwrite-strings -Wcast-align -Wdeclaration-after-statement -Wempty-body -Wendif-labels -Wfloat-equal -Wignored-qualifiers -Wno-format-nonliteral -Wno-sign-conversion -Wno-system-headers -Wstrict-prototypes -Wtype-limits -Wvla -Wshift-sign-overflow -Wshorten-64-to-32 -Wdouble-promotion -Wenum-conversion -Wunused-const-variable -Wcomma -Wmissing-variable-declarations -Wassign-enum -Wextra-semi-stmt  -MD -MT CMakeFiles/cmTC_ac01d.dir/SIZEOF_INT.c.o -MF CMakeFiles\cmTC_ac01d.dir\SIZEOF_INT.c.o.d -o CMakeFiles\cmTC_ac01d.dir\SIZEOF_INT.c.o -c C:\a1e\Tests\c1e\C2e\build\curl\CMakeFiles\CheckTypeSize\SIZEOF_INT.c
+C:\a1e\Tests\c1e\C2e\build\curl\CMakeFiles\CheckTypeSize\SIZEOF_INT.c:24:6: warning: no previous extern declaration for non-static variable 'info_size' [-Wmissing-variable-declarations]
+   24 | char info_size[] =  {'I', 'N', 'F', 'O', ':', 's','i','z','e','[',
+      |      ^
+C:\a1e\Tests\c1e\C2e\build\curl\CMakeFiles\CheckTypeSize\SIZEOF_INT.c:24:1: note: declare 'static' if the variable is not intended to be used outside of this translation unit
+   24 | char info_size[] =  {'I', 'N', 'F', 'O', ':', 's','i','z','e','[',
+      | ^
+1 warning generated.
+Linking C executable cmTC_ac01d.js
+"C:\Program Files\CMake\bin\cmake.exe" -E cmake_link_script CMakeFiles\cmTC_ac01d.dir\link.txt --verbose=1
+C:\a1e\Tests\c1e\C2e\emsdk\upstream\emscripten\emcc.exe -pthread  -Wextra -Wall -pedantic -Wbad-function-cast -Wconversion -Winline -Wmissing-declarations -Wmissing-prototypes -Wnested-externs -Wno-long-long -Wno-multichar -Wpointer-arith -Wshadow -Wsign-compare -Wundef -Wunused -Wwrite-strings -Wcast-align -Wdeclaration-after-statement -Wempty-body -Wendif-labels -Wfloat-equal -Wignored-qualifiers -Wno-format-nonliteral -Wno-sign-conversion -Wno-system-headers -Wstrict-prototypes -Wtype-limits -Wvla -Wshift-sign-overflow -Wshorten-64-to-32 -Wdouble-promotion -Wenum-conversion -Wunused-const-variable -Wcomma -Wmissing-variable-declarations -Wassign-enum -Wextra-semi-stmt  @CMakeFiles\cmTC_ac01d.dir\objects1.rsp -o cmTC_ac01d.js @CMakeFiles\cmTC_ac01d.dir\linkLibs.rsp
+mingw32-make.exe[1]: Leaving directory 'C:/a1e/Tests/c1e/C2e/build/curl/CMakeFiles/CMakeTmp'
+
+
+
+Determining size of time_t passed with the following output:
+Change Dir: 'C:/a1e/Tests/c1e/C2e/build/curl/CMakeFiles/CMakeTmp'
+
+Run Build Command(s): "C:/Program Files/CMake/bin/cmake.exe" -E env VERBOSE=1 C:/MinGW/bin/mingw32-make.exe -f Makefile cmTC_661f3/fast
+C:/MinGW/bin/mingw32-make.exe  -f CMakeFiles\cmTC_661f3.dir\build.make CMakeFiles/cmTC_661f3.dir/build
+mingw32-make.exe[1]: Entering directory 'C:/a1e/Tests/c1e/C2e/build/curl/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_661f3.dir/SIZEOF_TIME_T.c.o
+C:\a1e\Tests\c1e\C2e\emsdk\upstream\emscripten\emcc.exe   -pthread  -Wextra -Wall -pedantic -Wbad-function-cast -Wconversion -Winline -Wmissing-declarations -Wmissing-prototypes -Wnested-externs -Wno-long-long -Wno-multichar -Wpointer-arith -Wshadow -Wsign-compare -Wundef -Wunused -Wwrite-strings -Wcast-align -Wdeclaration-after-statement -Wempty-body -Wendif-labels -Wfloat-equal -Wignored-qualifiers -Wno-format-nonliteral -Wno-sign-conversion -Wno-system-headers -Wstrict-prototypes -Wtype-limits -Wvla -Wshift-sign-overflow -Wshorten-64-to-32 -Wdouble-promotion -Wenum-conversion -Wunused-const-variable -Wcomma -Wmissing-variable-declarations -Wassign-enum -Wextra-semi-stmt  -MD -MT CMakeFiles/cmTC_661f3.dir/SIZEOF_TIME_T.c.o -MF CMakeFiles\cmTC_661f3.dir\SIZEOF_TIME_T.c.o.d -o CMakeFiles\cmTC_661f3.dir\SIZEOF_TIME_T.c.o -c C:\a1e\Tests\c1e\C2e\build\curl\CMakeFiles\CheckTypeSize\SIZEOF_TIME_T.c
+C:\a1e\Tests\c1e\C2e\build\curl\CMakeFiles\CheckTypeSize\SIZEOF_TIME_T.c:24:6: warning: no previous extern declaration for non-static variable 'info_size' [-Wmissing-variable-declarations]
+   24 | char info_size[] =  {'I', 'N', 'F', 'O', ':', 's','i','z','e','[',
+      |      ^
+C:\a1e\Tests\c1e\C2e\build\curl\CMakeFiles\CheckTypeSize\SIZEOF_TIME_T.c:24:1: note: declare 'static' if the variable is not intended to be used outside of this translation unit
+   24 | char info_size[] =  {'I', 'N', 'F', 'O', ':', 's','i','z','e','[',
+      | ^
+1 warning generated.
+Linking C executable cmTC_661f3.js
+"C:\Program Files\CMake\bin\cmake.exe" -E cmake_link_script CMakeFiles\cmTC_661f3.dir\link.txt --verbose=1
+C:\a1e\Tests\c1e\C2e\emsdk\upstream\emscripten\emcc.exe -pthread  -Wextra -Wall -pedantic -Wbad-function-cast -Wconversion -Winline -Wmissing-declarations -Wmissing-prototypes -Wnested-externs -Wno-long-long -Wno-multichar -Wpointer-arith -Wshadow -Wsign-compare -Wundef -Wunused -Wwrite-strings -Wcast-align -Wdeclaration-after-statement -Wempty-body -Wendif-labels -Wfloat-equal -Wignored-qualifiers -Wno-format-nonliteral -Wno-sign-conversion -Wno-system-headers -Wstrict-prototypes -Wtype-limits -Wvla -Wshift-sign-overflow -Wshorten-64-to-32 -Wdouble-promotion -Wenum-conversion -Wunused-const-variable -Wcomma -Wmissing-variable-declarations -Wassign-enum -Wextra-semi-stmt  @CMakeFiles\cmTC_661f3.dir\objects1.rsp -o cmTC_661f3.js @CMakeFiles\cmTC_661f3.dir\linkLibs.rsp
+mingw32-make.exe[1]: Leaving directory 'C:/a1e/Tests/c1e/C2e/build/curl/CMakeFiles/CMakeTmp'
+
+
+
+Determining size of sa_family_t passed with the following output:
+Change Dir: 'C:/a1e/Tests/c1e/C2e/build/curl/CMakeFiles/CMakeTmp'
+
+Run Build Command(s): "C:/Program Files/CMake/bin/cmake.exe" -E env VERBOSE=1 C:/MinGW/bin/mingw32-make.exe -f Makefile cmTC_c3130/fast
+C:/MinGW/bin/mingw32-make.exe  -f CMakeFiles\cmTC_c3130.dir\build.make CMakeFiles/cmTC_c3130.dir/build
+mingw32-make.exe[1]: Entering directory 'C:/a1e/Tests/c1e/C2e/build/curl/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_c3130.dir/SIZEOF_SA_FAMILY_T.c.o
+C:\a1e\Tests\c1e\C2e\emsdk\upstream\emscripten\emcc.exe   -pthread  -Wextra -Wall -pedantic -Wbad-function-cast -Wconversion -Winline -Wmissing-declarations -Wmissing-prototypes -Wnested-externs -Wno-long-long -Wno-multichar -Wpointer-arith -Wshadow -Wsign-compare -Wundef -Wunused -Wwrite-strings -Wcast-align -Wdeclaration-after-statement -Wempty-body -Wendif-labels -Wfloat-equal -Wignored-qualifiers -Wno-format-nonliteral -Wno-sign-conversion -Wno-system-headers -Wstrict-prototypes -Wtype-limits -Wvla -Wshift-sign-overflow -Wshorten-64-to-32 -Wdouble-promotion -Wenum-conversion -Wunused-const-variable -Wcomma -Wmissing-variable-declarations -Wassign-enum -Wextra-semi-stmt  -MD -MT CMakeFiles/cmTC_c3130.dir/SIZEOF_SA_FAMILY_T.c.o -MF CMakeFiles\cmTC_c3130.dir\SIZEOF_SA_FAMILY_T.c.o.d -o CMakeFiles\cmTC_c3130.dir\SIZEOF_SA_FAMILY_T.c.o -c C:\a1e\Tests\c1e\C2e\build\curl\CMakeFiles\CheckTypeSize\SIZEOF_SA_FAMILY_T.c
+C:\a1e\Tests\c1e\C2e\build\curl\CMakeFiles\CheckTypeSize\SIZEOF_SA_FAMILY_T.c:25:6: warning: no previous extern declaration for non-static variable 'info_size' [-Wmissing-variable-declarations]
+   25 | char info_size[] =  {'I', 'N', 'F', 'O', ':', 's','i','z','e','[',
+      |      ^
+C:\a1e\Tests\c1e\C2e\build\curl\CMakeFiles\CheckTypeSize\SIZEOF_SA_FAMILY_T.c:25:1: note: declare 'static' if the variable is not intended to be used outside of this translation unit
+   25 | char info_size[] =  {'I', 'N', 'F', 'O', ':', 's','i','z','e','[',
+      | ^
+1 warning generated.
+Linking C executable cmTC_c3130.js
+"C:\Program Files\CMake\bin\cmake.exe" -E cmake_link_script CMakeFiles\cmTC_c3130.dir\link.txt --verbose=1
+C:\a1e\Tests\c1e\C2e\emsdk\upstream\emscripten\emcc.exe -pthread  -Wextra -Wall -pedantic -Wbad-function-cast -Wconversion -Winline -Wmissing-declarations -Wmissing-prototypes -Wnested-externs -Wno-long-long -Wno-multichar -Wpointer-arith -Wshadow -Wsign-compare -Wundef -Wunused -Wwrite-strings -Wcast-align -Wdeclaration-after-statement -Wempty-body -Wendif-labels -Wfloat-equal -Wignored-qualifiers -Wno-format-nonliteral -Wno-sign-conversion -Wno-system-headers -Wstrict-prototypes -Wtype-limits -Wvla -Wshift-sign-overflow -Wshorten-64-to-32 -Wdouble-promotion -Wenum-conversion -Wunused-const-variable -Wcomma -Wmissing-variable-declarations -Wassign-enum -Wextra-semi-stmt  @CMakeFiles\cmTC_c3130.dir\objects1.rsp -o cmTC_c3130.js @CMakeFiles\cmTC_c3130.dir\linkLibs.rsp
+mingw32-make.exe[1]: Leaving directory 'C:/a1e/Tests/c1e/C2e/build/curl/CMakeFiles/CMakeTmp'
+
+
+
+Performing Curl Test HAVE_FCNTL_O_NONBLOCK passed with the following output:
+Change Dir: 'C:/a1e/Tests/c1e/C2e/build/curl/CMakeFiles/CMakeTmp'
+
+Run Build Command(s): "C:/Program Files/CMake/bin/cmake.exe" -E env VERBOSE=1 C:/MinGW/bin/mingw32-make.exe -f Makefile cmTC_24829/fast
+C:/MinGW/bin/mingw32-make.exe  -f CMakeFiles\cmTC_24829.dir\build.make CMakeFiles/cmTC_24829.dir/build
+mingw32-make.exe[1]: Entering directory 'C:/a1e/Tests/c1e/C2e/build/curl/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_24829.dir/CurlTests.c.o
+C:\a1e\Tests\c1e\C2e\emsdk\upstream\emscripten\emcc.exe   -pthread  -Wextra -Wall -pedantic -Wbad-function-cast -Wconversion -Winline -Wmissing-declarations -Wmissing-prototypes -Wnested-externs -Wno-long-long -Wno-multichar -Wpointer-arith -Wshadow -Wsign-compare -Wundef -Wunused -Wwrite-strings -Wcast-align -Wdeclaration-after-statement -Wempty-body -Wendif-labels -Wfloat-equal -Wignored-qualifiers -Wno-format-nonliteral -Wno-sign-conversion -Wno-system-headers -Wstrict-prototypes -Wtype-limits -Wvla -Wshift-sign-overflow -Wshorten-64-to-32 -Wdouble-promotion -Wenum-conversion -Wunused-const-variable -Wcomma -Wmissing-variable-declarations -Wassign-enum -Wextra-semi-stmt -DHAVE_FCNTL_O_NONBLOCK  -DHAVE_INTTYPES_H -DHAVE_SYS_IOCTL_H -DHAVE_SYS_PARAM_H -DHAVE_SYS_POLL_H -DHAVE_SYS_RESOURCE_H -DHAVE_SYS_SELECT_H -DHAVE_SYS_SOCKET_H -DHAVE_SYS_STAT_H -DHAVE_SYS_TIME_H -DHAVE_SYS_TYPES_H -DHAVE_SYS_UN_H -DHAVE_SYS_XATTR_H -DHAVE_ARPA_INET_H -DHAVE_ARPA_TFTP_H -DHAVE_FCNTL_H -DHAVE_IFADDRS_H -DHAVE_LIBGEN_H -DHAVE_LOCALE_H -DHAVE_NET_IF_H -DHAVE_NETDB_H -DHAVE_NETINET_IN_H -DHAVE_NETINET_TCP_H -DHAVE_POLL_H -DHAVE_PWD_H -DHAVE_SETJMP_H -DHAVE_SIGNAL_H -DHAVE_STDATOMIC_H -DHAVE_STDBOOL_H -DHAVE_STDINT_H -DHAVE_STDLIB_H -DHAVE_STRING_H -DHAVE_STRINGS_H -DHAVE_STROPTS_H -DHAVE_TERMIOS_H -DHAVE_TIME_H -DHAVE_UNISTD_H -DHAVE_UTIME_H -DHAVE_STDDEF_H -DHAVE_SYS_UTSNAME_H -MD -MT CMakeFiles/cmTC_24829.dir/CurlTests.c.o -MF CMakeFiles\cmTC_24829.dir\CurlTests.c.o.d -o CMakeFiles\cmTC_24829.dir\CurlTests.c.o -c C:\a1e\Tests\c1e\C2e\source\curl\CMake\CurlTests.c
+C:\a1e\Tests\c1e\C2e\source\curl\CMake\CurlTests.c:66:6: warning: a function declaration without a prototype is deprecated in all versions of C [-Wstrict-prototypes]
+   66 | main ()
+      |      ^
+      |       void
+1 warning generated.
+Linking C executable cmTC_24829.js
+"C:\Program Files\CMake\bin\cmake.exe" -E cmake_link_script CMakeFiles\cmTC_24829.dir\link.txt --verbose=1
+C:\a1e\Tests\c1e\C2e\emsdk\upstream\emscripten\emcc.exe -pthread  -Wextra -Wall -pedantic -Wbad-function-cast -Wconversion -Winline -Wmissing-declarations -Wmissing-prototypes -Wnested-externs -Wno-long-long -Wno-multichar -Wpointer-arith -Wshadow -Wsign-compare -Wundef -Wunused -Wwrite-strings -Wcast-align -Wdeclaration-after-statement -Wempty-body -Wendif-labels -Wfloat-equal -Wignored-qualifiers -Wno-format-nonliteral -Wno-sign-conversion -Wno-system-headers -Wstrict-prototypes -Wtype-limits -Wvla -Wshift-sign-overflow -Wshorten-64-to-32 -Wdouble-promotion -Wenum-conversion -Wunused-const-variable -Wcomma -Wmissing-variable-declarations -Wassign-enum -Wextra-semi-stmt -DHAVE_FCNTL_O_NONBLOCK  -DHAVE_INTTYPES_H -DHAVE_SYS_IOCTL_H -DHAVE_SYS_PARAM_H -DHAVE_SYS_POLL_H -DHAVE_SYS_RESOURCE_H -DHAVE_SYS_SELECT_H -DHAVE_SYS_SOCKET_H -DHAVE_SYS_STAT_H -DHAVE_SYS_TIME_H -DHAVE_SYS_TYPES_H -DHAVE_SYS_UN_H -DHAVE_SYS_XATTR_H -DHAVE_ARPA_INET_H -DHAVE_ARPA_TFTP_H -DHAVE_FCNTL_H -DHAVE_IFADDRS_H -DHAVE_LIBGEN_H -DHAVE_LOCALE_H -DHAVE_NET_IF_H -DHAVE_NETDB_H -DHAVE_NETINET_IN_H -DHAVE_NETINET_TCP_H -DHAVE_POLL_H -DHAVE_PWD_H -DHAVE_SETJMP_H -DHAVE_SIGNAL_H -DHAVE_STDATOMIC_H -DHAVE_STDBOOL_H -DHAVE_STDINT_H -DHAVE_STDLIB_H -DHAVE_STRING_H -DHAVE_STRINGS_H -DHAVE_STROPTS_H -DHAVE_TERMIOS_H -DHAVE_TIME_H -DHAVE_UNISTD_H -DHAVE_UTIME_H -DHAVE_STDDEF_H -DHAVE_SYS_UTSNAME_H @CMakeFiles\cmTC_24829.dir\objects1.rsp -o cmTC_24829.js
+mingw32-make.exe[1]: Leaving directory 'C:/a1e/Tests/c1e/C2e/build/curl/CMakeFiles/CMakeTmp'
+
+
+Performing Curl Test HAVE_IOCTL_FIONBIO passed with the following output:
+Change Dir: 'C:/a1e/Tests/c1e/C2e/build/curl/CMakeFiles/CMakeTmp'
+
+Run Build Command(s): "C:/Program Files/CMake/bin/cmake.exe" -E env VERBOSE=1 C:/MinGW/bin/mingw32-make.exe -f Makefile cmTC_cc151/fast
+C:/MinGW/bin/mingw32-make.exe  -f CMakeFiles\cmTC_cc151.dir\build.make CMakeFiles/cmTC_cc151.dir/build
+mingw32-make.exe[1]: Entering directory 'C:/a1e/Tests/c1e/C2e/build/curl/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_cc151.dir/CurlTests.c.o
+C:\a1e\Tests\c1e\C2e\emsdk\upstream\emscripten\emcc.exe   -pthread  -Wextra -Wall -pedantic -Wbad-function-cast -Wconversion -Winline -Wmissing-declarations -Wmissing-prototypes -Wnested-externs -Wno-long-long -Wno-multichar -Wpointer-arith -Wshadow -Wsign-compare -Wundef -Wunused -Wwrite-strings -Wcast-align -Wdeclaration-after-statement -Wempty-body -Wendif-labels -Wfloat-equal -Wignored-qualifiers -Wno-format-nonliteral -Wno-sign-conversion -Wno-system-headers -Wstrict-prototypes -Wtype-limits -Wvla -Wshift-sign-overflow -Wshorten-64-to-32 -Wdouble-promotion -Wenum-conversion -Wunused-const-variable -Wcomma -Wmissing-variable-declarations -Wassign-enum -Wextra-semi-stmt -DHAVE_IOCTL_FIONBIO  -DHAVE_INTTYPES_H -DHAVE_SYS_IOCTL_H -DHAVE_SYS_PARAM_H -DHAVE_SYS_POLL_H -DHAVE_SYS_RESOURCE_H -DHAVE_SYS_SELECT_H -DHAVE_SYS_SOCKET_H -DHAVE_SYS_STAT_H -DHAVE_SYS_TIME_H -DHAVE_SYS_TYPES_H -DHAVE_SYS_UN_H -DHAVE_SYS_XATTR_H -DHAVE_ARPA_INET_H -DHAVE_ARPA_TFTP_H -DHAVE_FCNTL_H -DHAVE_IFADDRS_H -DHAVE_LIBGEN_H -DHAVE_LOCALE_H -DHAVE_NET_IF_H -DHAVE_NETDB_H -DHAVE_NETINET_IN_H -DHAVE_NETINET_TCP_H -DHAVE_POLL_H -DHAVE_PWD_H -DHAVE_SETJMP_H -DHAVE_SIGNAL_H -DHAVE_STDATOMIC_H -DHAVE_STDBOOL_H -DHAVE_STDINT_H -DHAVE_STDLIB_H -DHAVE_STRING_H -DHAVE_STRINGS_H -DHAVE_STROPTS_H -DHAVE_TERMIOS_H -DHAVE_TIME_H -DHAVE_UNISTD_H -DHAVE_UTIME_H -DHAVE_STDDEF_H -DHAVE_SYS_UTSNAME_H -MD -MT CMakeFiles/cmTC_cc151.dir/CurlTests.c.o -MF CMakeFiles\cmTC_cc151.dir\CurlTests.c.o.d -o CMakeFiles\cmTC_cc151.dir\CurlTests.c.o -c C:\a1e\Tests\c1e\C2e\source\curl\CMake\CurlTests.c
+C:\a1e\Tests\c1e\C2e\source\curl\CMake\CurlTests.c:319:6: warning: a function declaration without a prototype is deprecated in all versions of C [-Wstrict-prototypes]
+  319 | main ()
+      |      ^
+      |       void
+C:\a1e\Tests\c1e\C2e\source\curl\CMake\CurlTests.c:326:3: warning: empty expression statement has no effect; remove unnecessary ';' to silence this warning [-Wextra-semi-stmt]
+  326 |   ;
+      |   ^
+2 warnings generated.
+Linking C executable cmTC_cc151.js
+"C:\Program Files\CMake\bin\cmake.exe" -E cmake_link_script CMakeFiles\cmTC_cc151.dir\link.txt --verbose=1
+C:\a1e\Tests\c1e\C2e\emsdk\upstream\emscripten\emcc.exe -pthread  -Wextra -Wall -pedantic -Wbad-function-cast -Wconversion -Winline -Wmissing-declarations -Wmissing-prototypes -Wnested-externs -Wno-long-long -Wno-multichar -Wpointer-arith -Wshadow -Wsign-compare -Wundef -Wunused -Wwrite-strings -Wcast-align -Wdeclaration-after-statement -Wempty-body -Wendif-labels -Wfloat-equal -Wignored-qualifiers -Wno-format-nonliteral -Wno-sign-conversion -Wno-system-headers -Wstrict-prototypes -Wtype-limits -Wvla -Wshift-sign-overflow -Wshorten-64-to-32 -Wdouble-promotion -Wenum-conversion -Wunused-const-variable -Wcomma -Wmissing-variable-declarations -Wassign-enum -Wextra-semi-stmt -DHAVE_IOCTL_FIONBIO  -DHAVE_INTTYPES_H -DHAVE_SYS_IOCTL_H -DHAVE_SYS_PARAM_H -DHAVE_SYS_POLL_H -DHAVE_SYS_RESOURCE_H -DHAVE_SYS_SELECT_H -DHAVE_SYS_SOCKET_H -DHAVE_SYS_STAT_H -DHAVE_SYS_TIME_H -DHAVE_SYS_TYPES_H -DHAVE_SYS_UN_H -DHAVE_SYS_XATTR_H -DHAVE_ARPA_INET_H -DHAVE_ARPA_TFTP_H -DHAVE_FCNTL_H -DHAVE_IFADDRS_H -DHAVE_LIBGEN_H -DHAVE_LOCALE_H -DHAVE_NET_IF_H -DHAVE_NETDB_H -DHAVE_NETINET_IN_H -DHAVE_NETINET_TCP_H -DHAVE_POLL_H -DHAVE_PWD_H -DHAVE_SETJMP_H -DHAVE_SIGNAL_H -DHAVE_STDATOMIC_H -DHAVE_STDBOOL_H -DHAVE_STDINT_H -DHAVE_STDLIB_H -DHAVE_STRING_H -DHAVE_STRINGS_H -DHAVE_STROPTS_H -DHAVE_TERMIOS_H -DHAVE_TIME_H -DHAVE_UNISTD_H -DHAVE_UTIME_H -DHAVE_STDDEF_H -DHAVE_SYS_UTSNAME_H @CMakeFiles\cmTC_cc151.dir\objects1.rsp -o cmTC_cc151.js
+mingw32-make.exe[1]: Leaving directory 'C:/a1e/Tests/c1e/C2e/build/curl/CMakeFiles/CMakeTmp'
+
+
+Performing Curl Test HAVE_IOCTL_SIOCGIFADDR passed with the following output:
+Change Dir: 'C:/a1e/Tests/c1e/C2e/build/curl/CMakeFiles/CMakeTmp'
+
+Run Build Command(s): "C:/Program Files/CMake/bin/cmake.exe" -E env VERBOSE=1 C:/MinGW/bin/mingw32-make.exe -f Makefile cmTC_e3ea5/fast
+C:/MinGW/bin/mingw32-make.exe  -f CMakeFiles\cmTC_e3ea5.dir\build.make CMakeFiles/cmTC_e3ea5.dir/build
+mingw32-make.exe[1]: Entering directory 'C:/a1e/Tests/c1e/C2e/build/curl/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_e3ea5.dir/CurlTests.c.o
+C:\a1e\Tests\c1e\C2e\emsdk\upstream\emscripten\emcc.exe   -pthread  -Wextra -Wall -pedantic -Wbad-function-cast -Wconversion -Winline -Wmissing-declarations -Wmissing-prototypes -Wnested-externs -Wno-long-long -Wno-multichar -Wpointer-arith -Wshadow -Wsign-compare -Wundef -Wunused -Wwrite-strings -Wcast-align -Wdeclaration-after-statement -Wempty-body -Wendif-labels -Wfloat-equal -Wignored-qualifiers -Wno-format-nonliteral -Wno-sign-conversion -Wno-system-headers -Wstrict-prototypes -Wtype-limits -Wvla -Wshift-sign-overflow -Wshorten-64-to-32 -Wdouble-promotion -Wenum-conversion -Wunused-const-variable -Wcomma -Wmissing-variable-declarations -Wassign-enum -Wextra-semi-stmt -DHAVE_IOCTL_SIOCGIFADDR  -DHAVE_INTTYPES_H -DHAVE_SYS_IOCTL_H -DHAVE_SYS_PARAM_H -DHAVE_SYS_POLL_H -DHAVE_SYS_RESOURCE_H -DHAVE_SYS_SELECT_H -DHAVE_SYS_SOCKET_H -DHAVE_SYS_STAT_H -DHAVE_SYS_TIME_H -DHAVE_SYS_TYPES_H -DHAVE_SYS_UN_H -DHAVE_SYS_XATTR_H -DHAVE_ARPA_INET_H -DHAVE_ARPA_TFTP_H -DHAVE_FCNTL_H -DHAVE_IFADDRS_H -DHAVE_LIBGEN_H -DHAVE_LOCALE_H -DHAVE_NET_IF_H -DHAVE_NETDB_H -DHAVE_NETINET_IN_H -DHAVE_NETINET_TCP_H -DHAVE_POLL_H -DHAVE_PWD_H -DHAVE_SETJMP_H -DHAVE_SIGNAL_H -DHAVE_STDATOMIC_H -DHAVE_STDBOOL_H -DHAVE_STDINT_H -DHAVE_STDLIB_H -DHAVE_STRING_H -DHAVE_STRINGS_H -DHAVE_STROPTS_H -DHAVE_TERMIOS_H -DHAVE_TIME_H -DHAVE_UNISTD_H -DHAVE_UTIME_H -DHAVE_STDDEF_H -DHAVE_SYS_UTSNAME_H -MD -MT CMakeFiles/cmTC_e3ea5.dir/CurlTests.c.o -MF CMakeFiles\cmTC_e3ea5.dir\CurlTests.c.o.d -o CMakeFiles\cmTC_e3ea5.dir\CurlTests.c.o -c C:\a1e\Tests\c1e\C2e\source\curl\CMake\CurlTests.c
+C:\a1e\Tests\c1e\C2e\source\curl\CMake\CurlTests.c:351:6: warning: a function declaration without a prototype is deprecated in all versions of C [-Wstrict-prototypes]
+  351 | main ()
+      |      ^
+      |       void
+C:\a1e\Tests\c1e\C2e\source\curl\CMake\CurlTests.c:357:3: warning: empty expression statement has no effect; remove unnecessary ';' to silence this warning [-Wextra-semi-stmt]
+  357 |   ;
+      |   ^
+2 warnings generated.
+Linking C executable cmTC_e3ea5.js
+"C:\Program Files\CMake\bin\cmake.exe" -E cmake_link_script CMakeFiles\cmTC_e3ea5.dir\link.txt --verbose=1
+C:\a1e\Tests\c1e\C2e\emsdk\upstream\emscripten\emcc.exe -pthread  -Wextra -Wall -pedantic -Wbad-function-cast -Wconversion -Winline -Wmissing-declarations -Wmissing-prototypes -Wnested-externs -Wno-long-long -Wno-multichar -Wpointer-arith -Wshadow -Wsign-compare -Wundef -Wunused -Wwrite-strings -Wcast-align -Wdeclaration-after-statement -Wempty-body -Wendif-labels -Wfloat-equal -Wignored-qualifiers -Wno-format-nonliteral -Wno-sign-conversion -Wno-system-headers -Wstrict-prototypes -Wtype-limits -Wvla -Wshift-sign-overflow -Wshorten-64-to-32 -Wdouble-promotion -Wenum-conversion -Wunused-const-variable -Wcomma -Wmissing-variable-declarations -Wassign-enum -Wextra-semi-stmt -DHAVE_IOCTL_SIOCGIFADDR  -DHAVE_INTTYPES_H -DHAVE_SYS_IOCTL_H -DHAVE_SYS_PARAM_H -DHAVE_SYS_POLL_H -DHAVE_SYS_RESOURCE_H -DHAVE_SYS_SELECT_H -DHAVE_SYS_SOCKET_H -DHAVE_SYS_STAT_H -DHAVE_SYS_TIME_H -DHAVE_SYS_TYPES_H -DHAVE_SYS_UN_H -DHAVE_SYS_XATTR_H -DHAVE_ARPA_INET_H -DHAVE_ARPA_TFTP_H -DHAVE_FCNTL_H -DHAVE_IFADDRS_H -DHAVE_LIBGEN_H -DHAVE_LOCALE_H -DHAVE_NET_IF_H -DHAVE_NETDB_H -DHAVE_NETINET_IN_H -DHAVE_NETINET_TCP_H -DHAVE_POLL_H -DHAVE_PWD_H -DHAVE_SETJMP_H -DHAVE_SIGNAL_H -DHAVE_STDATOMIC_H -DHAVE_STDBOOL_H -DHAVE_STDINT_H -DHAVE_STDLIB_H -DHAVE_STRING_H -DHAVE_STRINGS_H -DHAVE_STROPTS_H -DHAVE_TERMIOS_H -DHAVE_TIME_H -DHAVE_UNISTD_H -DHAVE_UTIME_H -DHAVE_STDDEF_H -DHAVE_SYS_UTSNAME_H @CMakeFiles\cmTC_e3ea5.dir\objects1.rsp -o cmTC_e3ea5.js
+mingw32-make.exe[1]: Leaving directory 'C:/a1e/Tests/c1e/C2e/build/curl/CMakeFiles/CMakeTmp'
+
+
+Performing Curl Test TIME_WITH_SYS_TIME passed with the following output:
+Change Dir: 'C:/a1e/Tests/c1e/C2e/build/curl/CMakeFiles/CMakeTmp'
+
+Run Build Command(s): "C:/Program Files/CMake/bin/cmake.exe" -E env VERBOSE=1 C:/MinGW/bin/mingw32-make.exe -f Makefile cmTC_26a81/fast
+C:/MinGW/bin/mingw32-make.exe  -f CMakeFiles\cmTC_26a81.dir\build.make CMakeFiles/cmTC_26a81.dir/build
+mingw32-make.exe[1]: Entering directory 'C:/a1e/Tests/c1e/C2e/build/curl/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_26a81.dir/CurlTests.c.o
+C:\a1e\Tests\c1e\C2e\emsdk\upstream\emscripten\emcc.exe   -pthread  -Wextra -Wall -pedantic -Wbad-function-cast -Wconversion -Winline -Wmissing-declarations -Wmissing-prototypes -Wnested-externs -Wno-long-long -Wno-multichar -Wpointer-arith -Wshadow -Wsign-compare -Wundef -Wunused -Wwrite-strings -Wcast-align -Wdeclaration-after-statement -Wempty-body -Wendif-labels -Wfloat-equal -Wignored-qualifiers -Wno-format-nonliteral -Wno-sign-conversion -Wno-system-headers -Wstrict-prototypes -Wtype-limits -Wvla -Wshift-sign-overflow -Wshorten-64-to-32 -Wdouble-promotion -Wenum-conversion -Wunused-const-variable -Wcomma -Wmissing-variable-declarations -Wassign-enum -Wextra-semi-stmt -DTIME_WITH_SYS_TIME  -DHAVE_INTTYPES_H -DHAVE_SYS_IOCTL_H -DHAVE_SYS_PARAM_H -DHAVE_SYS_POLL_H -DHAVE_SYS_RESOURCE_H -DHAVE_SYS_SELECT_H -DHAVE_SYS_SOCKET_H -DHAVE_SYS_STAT_H -DHAVE_SYS_TIME_H -DHAVE_SYS_TYPES_H -DHAVE_SYS_UN_H -DHAVE_SYS_XATTR_H -DHAVE_ARPA_INET_H -DHAVE_ARPA_TFTP_H -DHAVE_FCNTL_H -DHAVE_IFADDRS_H -DHAVE_LIBGEN_H -DHAVE_LOCALE_H -DHAVE_NET_IF_H -DHAVE_NETDB_H -DHAVE_NETINET_IN_H -DHAVE_NETINET_TCP_H -DHAVE_POLL_H -DHAVE_PWD_H -DHAVE_SETJMP_H -DHAVE_SIGNAL_H -DHAVE_STDATOMIC_H -DHAVE_STDBOOL_H -DHAVE_STDINT_H -DHAVE_STDLIB_H -DHAVE_STRING_H -DHAVE_STRINGS_H -DHAVE_STROPTS_H -DHAVE_TERMIOS_H -DHAVE_TIME_H -DHAVE_UNISTD_H -DHAVE_UTIME_H -DHAVE_STDDEF_H -DHAVE_SYS_UTSNAME_H -MD -MT CMakeFiles/cmTC_26a81.dir/CurlTests.c.o -MF CMakeFiles\cmTC_26a81.dir\CurlTests.c.o.d -o CMakeFiles\cmTC_26a81.dir\CurlTests.c.o -c C:\a1e\Tests\c1e\C2e\source\curl\CMake\CurlTests.c
+C:\a1e\Tests\c1e\C2e\source\curl\CMake\CurlTests.c:32:6: warning: a function declaration without a prototype is deprecated in all versions of C [-Wstrict-prototypes]
+   32 | main ()
+      |      ^
+      |       void
+C:\a1e\Tests\c1e\C2e\source\curl\CMake\CurlTests.c:36:3: warning: empty expression statement has no effect; remove unnecessary ';' to silence this warning [-Wextra-semi-stmt]
+   36 |   ;
+      |   ^
+2 warnings generated.
+Linking C executable cmTC_26a81.js
+"C:\Program Files\CMake\bin\cmake.exe" -E cmake_link_script CMakeFiles\cmTC_26a81.dir\link.txt --verbose=1
+C:\a1e\Tests\c1e\C2e\emsdk\upstream\emscripten\emcc.exe -pthread  -Wextra -Wall -pedantic -Wbad-function-cast -Wconversion -Winline -Wmissing-declarations -Wmissing-prototypes -Wnested-externs -Wno-long-long -Wno-multichar -Wpointer-arith -Wshadow -Wsign-compare -Wundef -Wunused -Wwrite-strings -Wcast-align -Wdeclaration-after-statement -Wempty-body -Wendif-labels -Wfloat-equal -Wignored-qualifiers -Wno-format-nonliteral -Wno-sign-conversion -Wno-system-headers -Wstrict-prototypes -Wtype-limits -Wvla -Wshift-sign-overflow -Wshorten-64-to-32 -Wdouble-promotion -Wenum-conversion -Wunused-const-variable -Wcomma -Wmissing-variable-declarations -Wassign-enum -Wextra-semi-stmt -DTIME_WITH_SYS_TIME  -DHAVE_INTTYPES_H -DHAVE_SYS_IOCTL_H -DHAVE_SYS_PARAM_H -DHAVE_SYS_POLL_H -DHAVE_SYS_RESOURCE_H -DHAVE_SYS_SELECT_H -DHAVE_SYS_SOCKET_H -DHAVE_SYS_STAT_H -DHAVE_SYS_TIME_H -DHAVE_SYS_TYPES_H -DHAVE_SYS_UN_H -DHAVE_SYS_XATTR_H -DHAVE_ARPA_INET_H -DHAVE_ARPA_TFTP_H -DHAVE_FCNTL_H -DHAVE_IFADDRS_H -DHAVE_LIBGEN_H -DHAVE_LOCALE_H -DHAVE_NET_IF_H -DHAVE_NETDB_H -DHAVE_NETINET_IN_H -DHAVE_NETINET_TCP_H -DHAVE_POLL_H -DHAVE_PWD_H -DHAVE_SETJMP_H -DHAVE_SIGNAL_H -DHAVE_STDATOMIC_H -DHAVE_STDBOOL_H -DHAVE_STDINT_H -DHAVE_STDLIB_H -DHAVE_STRING_H -DHAVE_STRINGS_H -DHAVE_STROPTS_H -DHAVE_TERMIOS_H -DHAVE_TIME_H -DHAVE_UNISTD_H -DHAVE_UTIME_H -DHAVE_STDDEF_H -DHAVE_SYS_UTSNAME_H @CMakeFiles\cmTC_26a81.dir\objects1.rsp -o cmTC_26a81.js
+mingw32-make.exe[1]: Leaving directory 'C:/a1e/Tests/c1e/C2e/build/curl/CMakeFiles/CMakeTmp'
+
+
+Performing Curl Test HAVE_O_NONBLOCK passed with the following output:
+Change Dir: 'C:/a1e/Tests/c1e/C2e/build/curl/CMakeFiles/CMakeTmp'
+
+Run Build Command(s): "C:/Program Files/CMake/bin/cmake.exe" -E env VERBOSE=1 C:/MinGW/bin/mingw32-make.exe -f Makefile cmTC_5ab57/fast
+C:/MinGW/bin/mingw32-make.exe  -f CMakeFiles\cmTC_5ab57.dir\build.make CMakeFiles/cmTC_5ab57.dir/build
+mingw32-make.exe[1]: Entering directory 'C:/a1e/Tests/c1e/C2e/build/curl/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_5ab57.dir/CurlTests.c.o
+C:\a1e\Tests\c1e\C2e\emsdk\upstream\emscripten\emcc.exe   -pthread  -Wextra -Wall -pedantic -Wbad-function-cast -Wconversion -Winline -Wmissing-declarations -Wmissing-prototypes -Wnested-externs -Wno-long-long -Wno-multichar -Wpointer-arith -Wshadow -Wsign-compare -Wundef -Wunused -Wwrite-strings -Wcast-align -Wdeclaration-after-statement -Wempty-body -Wendif-labels -Wfloat-equal -Wignored-qualifiers -Wno-format-nonliteral -Wno-sign-conversion -Wno-system-headers -Wstrict-prototypes -Wtype-limits -Wvla -Wshift-sign-overflow -Wshorten-64-to-32 -Wdouble-promotion -Wenum-conversion -Wunused-const-variable -Wcomma -Wmissing-variable-declarations -Wassign-enum -Wextra-semi-stmt -DHAVE_O_NONBLOCK  -DHAVE_INTTYPES_H -DHAVE_SYS_IOCTL_H -DHAVE_SYS_PARAM_H -DHAVE_SYS_POLL_H -DHAVE_SYS_RESOURCE_H -DHAVE_SYS_SELECT_H -DHAVE_SYS_SOCKET_H -DHAVE_SYS_STAT_H -DHAVE_SYS_TIME_H -DHAVE_SYS_TYPES_H -DHAVE_SYS_UN_H -DHAVE_SYS_XATTR_H -DHAVE_ARPA_INET_H -DHAVE_ARPA_TFTP_H -DHAVE_FCNTL_H -DHAVE_IFADDRS_H -DHAVE_LIBGEN_H -DHAVE_LOCALE_H -DHAVE_NET_IF_H -DHAVE_NETDB_H -DHAVE_NETINET_IN_H -DHAVE_NETINET_TCP_H -DHAVE_POLL_H -DHAVE_PWD_H -DHAVE_SETJMP_H -DHAVE_SIGNAL_H -DHAVE_STDATOMIC_H -DHAVE_STDBOOL_H -DHAVE_STDINT_H -DHAVE_STDLIB_H -DHAVE_STRING_H -DHAVE_STRINGS_H -DHAVE_STROPTS_H -DHAVE_TERMIOS_H -DHAVE_TIME_H -DHAVE_UNISTD_H -DHAVE_UTIME_H -DHAVE_STDDEF_H -DHAVE_SYS_UTSNAME_H -MD -MT CMakeFiles/cmTC_5ab57.dir/CurlTests.c.o -MF CMakeFiles\cmTC_5ab57.dir\CurlTests.c.o.d -o CMakeFiles\cmTC_5ab57.dir\CurlTests.c.o -c C:\a1e\Tests\c1e\C2e\source\curl\CMake\CurlTests.c
+C:\a1e\Tests\c1e\C2e\source\curl\CMake\CurlTests.c:532:7: warning: ISO C requires a translation unit to contain at least one declaration [-Wempty-translation-unit]
+  532 | #endif
+      |       ^
+1 warning generated.
+Linking C executable cmTC_5ab57.js
+"C:\Program Files\CMake\bin\cmake.exe" -E cmake_link_script CMakeFiles\cmTC_5ab57.dir\link.txt --verbose=1
+C:\a1e\Tests\c1e\C2e\emsdk\upstream\emscripten\emcc.exe -pthread  -Wextra -Wall -pedantic -Wbad-function-cast -Wconversion -Winline -Wmissing-declarations -Wmissing-prototypes -Wnested-externs -Wno-long-long -Wno-multichar -Wpointer-arith -Wshadow -Wsign-compare -Wundef -Wunused -Wwrite-strings -Wcast-align -Wdeclaration-after-statement -Wempty-body -Wendif-labels -Wfloat-equal -Wignored-qualifiers -Wno-format-nonliteral -Wno-sign-conversion -Wno-system-headers -Wstrict-prototypes -Wtype-limits -Wvla -Wshift-sign-overflow -Wshorten-64-to-32 -Wdouble-promotion -Wenum-conversion -Wunused-const-variable -Wcomma -Wmissing-variable-declarations -Wassign-enum -Wextra-semi-stmt -DHAVE_O_NONBLOCK  -DHAVE_INTTYPES_H -DHAVE_SYS_IOCTL_H -DHAVE_SYS_PARAM_H -DHAVE_SYS_POLL_H -DHAVE_SYS_RESOURCE_H -DHAVE_SYS_SELECT_H -DHAVE_SYS_SOCKET_H -DHAVE_SYS_STAT_H -DHAVE_SYS_TIME_H -DHAVE_SYS_TYPES_H -DHAVE_SYS_UN_H -DHAVE_SYS_XATTR_H -DHAVE_ARPA_INET_H -DHAVE_ARPA_TFTP_H -DHAVE_FCNTL_H -DHAVE_IFADDRS_H -DHAVE_LIBGEN_H -DHAVE_LOCALE_H -DHAVE_NET_IF_H -DHAVE_NETDB_H -DHAVE_NETINET_IN_H -DHAVE_NETINET_TCP_H -DHAVE_POLL_H -DHAVE_PWD_H -DHAVE_SETJMP_H -DHAVE_SIGNAL_H -DHAVE_STDATOMIC_H -DHAVE_STDBOOL_H -DHAVE_STDINT_H -DHAVE_STDLIB_H -DHAVE_STRING_H -DHAVE_STRINGS_H -DHAVE_STROPTS_H -DHAVE_TERMIOS_H -DHAVE_TIME_H -DHAVE_UNISTD_H -DHAVE_UTIME_H -DHAVE_STDDEF_H -DHAVE_SYS_UTSNAME_H @CMakeFiles\cmTC_5ab57.dir\objects1.rsp -o cmTC_5ab57.js
+mingw32-make.exe[1]: Leaving directory 'C:/a1e/Tests/c1e/C2e/build/curl/CMakeFiles/CMakeTmp'
+
+
+Performing Curl Test HAVE_GETHOSTBYNAME_R_6 passed with the following output:
+Change Dir: 'C:/a1e/Tests/c1e/C2e/build/curl/CMakeFiles/CMakeTmp'
+
+Run Build Command(s): "C:/Program Files/CMake/bin/cmake.exe" -E env VERBOSE=1 C:/MinGW/bin/mingw32-make.exe -f Makefile cmTC_2c41d/fast
+C:/MinGW/bin/mingw32-make.exe  -f CMakeFiles\cmTC_2c41d.dir\build.make CMakeFiles/cmTC_2c41d.dir/build
+mingw32-make.exe[1]: Entering directory 'C:/a1e/Tests/c1e/C2e/build/curl/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_2c41d.dir/CurlTests.c.o
+C:\a1e\Tests\c1e\C2e\emsdk\upstream\emscripten\emcc.exe   -pthread  -Wextra -Wall -pedantic -Wbad-function-cast -Wconversion -Winline -Wmissing-declarations -Wmissing-prototypes -Wnested-externs -Wno-long-long -Wno-multichar -Wpointer-arith -Wshadow -Wsign-compare -Wundef -Wunused -Wwrite-strings -Wcast-align -Wdeclaration-after-statement -Wempty-body -Wendif-labels -Wfloat-equal -Wignored-qualifiers -Wno-format-nonliteral -Wno-sign-conversion -Wno-system-headers -Wstrict-prototypes -Wtype-limits -Wvla -Wshift-sign-overflow -Wshorten-64-to-32 -Wdouble-promotion -Wenum-conversion -Wunused-const-variable -Wcomma -Wmissing-variable-declarations -Wassign-enum -Wextra-semi-stmt -DHAVE_GETHOSTBYNAME_R_6  -DHAVE_INTTYPES_H -DHAVE_SYS_IOCTL_H -DHAVE_SYS_PARAM_H -DHAVE_SYS_POLL_H -DHAVE_SYS_RESOURCE_H -DHAVE_SYS_SELECT_H -DHAVE_SYS_SOCKET_H -DHAVE_SYS_STAT_H -DHAVE_SYS_TIME_H -DHAVE_SYS_TYPES_H -DHAVE_SYS_UN_H -DHAVE_SYS_XATTR_H -DHAVE_ARPA_INET_H -DHAVE_ARPA_TFTP_H -DHAVE_FCNTL_H -DHAVE_IFADDRS_H -DHAVE_LIBGEN_H -DHAVE_LOCALE_H -DHAVE_NET_IF_H -DHAVE_NETDB_H -DHAVE_NETINET_IN_H -DHAVE_NETINET_TCP_H -DHAVE_POLL_H -DHAVE_PWD_H -DHAVE_SETJMP_H -DHAVE_SIGNAL_H -DHAVE_STDATOMIC_H -DHAVE_STDBOOL_H -DHAVE_STDINT_H -DHAVE_STDLIB_H -DHAVE_STRING_H -DHAVE_STRINGS_H -DHAVE_STROPTS_H -DHAVE_TERMIOS_H -DHAVE_TIME_H -DHAVE_UNISTD_H -DHAVE_UTIME_H -DHAVE_STDDEF_H -DHAVE_SYS_UTSNAME_H -MD -MT CMakeFiles/cmTC_2c41d.dir/CurlTests.c.o -MF CMakeFiles\cmTC_2c41d.dir\CurlTests.c.o.d -o CMakeFiles\cmTC_2c41d.dir\CurlTests.c.o -c C:\a1e\Tests\c1e\C2e\source\curl\CMake\CurlTests.c
+C:\a1e\Tests\c1e\C2e\source\curl\CMake\CurlTests.c:92:9: warning: initializing 'char *' with an expression of type 'const char[12]' discards qualifiers [-Wincompatible-pointer-types-discards-qualifiers]
+   92 |   char *address = "example.com";
+      |         ^         ~~~~~~~~~~~~~
+1 warning generated.
+Linking C executable cmTC_2c41d.js
+"C:\Program Files\CMake\bin\cmake.exe" -E cmake_link_script CMakeFiles\cmTC_2c41d.dir\link.txt --verbose=1
+C:\a1e\Tests\c1e\C2e\emsdk\upstream\emscripten\emcc.exe -pthread  -Wextra -Wall -pedantic -Wbad-function-cast -Wconversion -Winline -Wmissing-declarations -Wmissing-prototypes -Wnested-externs -Wno-long-long -Wno-multichar -Wpointer-arith -Wshadow -Wsign-compare -Wundef -Wunused -Wwrite-strings -Wcast-align -Wdeclaration-after-statement -Wempty-body -Wendif-labels -Wfloat-equal -Wignored-qualifiers -Wno-format-nonliteral -Wno-sign-conversion -Wno-system-headers -Wstrict-prototypes -Wtype-limits -Wvla -Wshift-sign-overflow -Wshorten-64-to-32 -Wdouble-promotion -Wenum-conversion -Wunused-const-variable -Wcomma -Wmissing-variable-declarations -Wassign-enum -Wextra-semi-stmt -DHAVE_GETHOSTBYNAME_R_6  -DHAVE_INTTYPES_H -DHAVE_SYS_IOCTL_H -DHAVE_SYS_PARAM_H -DHAVE_SYS_POLL_H -DHAVE_SYS_RESOURCE_H -DHAVE_SYS_SELECT_H -DHAVE_SYS_SOCKET_H -DHAVE_SYS_STAT_H -DHAVE_SYS_TIME_H -DHAVE_SYS_TYPES_H -DHAVE_SYS_UN_H -DHAVE_SYS_XATTR_H -DHAVE_ARPA_INET_H -DHAVE_ARPA_TFTP_H -DHAVE_FCNTL_H -DHAVE_IFADDRS_H -DHAVE_LIBGEN_H -DHAVE_LOCALE_H -DHAVE_NET_IF_H -DHAVE_NETDB_H -DHAVE_NETINET_IN_H -DHAVE_NETINET_TCP_H -DHAVE_POLL_H -DHAVE_PWD_H -DHAVE_SETJMP_H -DHAVE_SIGNAL_H -DHAVE_STDATOMIC_H -DHAVE_STDBOOL_H -DHAVE_STDINT_H -DHAVE_STDLIB_H -DHAVE_STRING_H -DHAVE_STRINGS_H -DHAVE_STROPTS_H -DHAVE_TERMIOS_H -DHAVE_TIME_H -DHAVE_UNISTD_H -DHAVE_UTIME_H -DHAVE_STDDEF_H -DHAVE_SYS_UTSNAME_H @CMakeFiles\cmTC_2c41d.dir\objects1.rsp -o cmTC_2c41d.js
+mingw32-make.exe[1]: Leaving directory 'C:/a1e/Tests/c1e/C2e/build/curl/CMakeFiles/CMakeTmp'
+
+
+Performing Curl Test HAVE_GETHOSTBYNAME_R_6_REENTRANT passed with the following output:
+Change Dir: 'C:/a1e/Tests/c1e/C2e/build/curl/CMakeFiles/CMakeTmp'
+
+Run Build Command(s): "C:/Program Files/CMake/bin/cmake.exe" -E env VERBOSE=1 C:/MinGW/bin/mingw32-make.exe -f Makefile cmTC_00b91/fast
+C:/MinGW/bin/mingw32-make.exe  -f CMakeFiles\cmTC_00b91.dir\build.make CMakeFiles/cmTC_00b91.dir/build
+mingw32-make.exe[1]: Entering directory 'C:/a1e/Tests/c1e/C2e/build/curl/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_00b91.dir/CurlTests.c.o
+C:\a1e\Tests\c1e\C2e\emsdk\upstream\emscripten\emcc.exe   -pthread  -Wextra -Wall -pedantic -Wbad-function-cast -Wconversion -Winline -Wmissing-declarations -Wmissing-prototypes -Wnested-externs -Wno-long-long -Wno-multichar -Wpointer-arith -Wshadow -Wsign-compare -Wundef -Wunused -Wwrite-strings -Wcast-align -Wdeclaration-after-statement -Wempty-body -Wendif-labels -Wfloat-equal -Wignored-qualifiers -Wno-format-nonliteral -Wno-sign-conversion -Wno-system-headers -Wstrict-prototypes -Wtype-limits -Wvla -Wshift-sign-overflow -Wshorten-64-to-32 -Wdouble-promotion -Wenum-conversion -Wunused-const-variable -Wcomma -Wmissing-variable-declarations -Wassign-enum -Wextra-semi-stmt -DHAVE_GETHOSTBYNAME_R_6_REENTRANT  -DHAVE_INTTYPES_H -DHAVE_SYS_IOCTL_H -DHAVE_SYS_PARAM_H -DHAVE_SYS_POLL_H -DHAVE_SYS_RESOURCE_H -DHAVE_SYS_SELECT_H -DHAVE_SYS_SOCKET_H -DHAVE_SYS_STAT_H -DHAVE_SYS_TIME_H -DHAVE_SYS_TYPES_H -DHAVE_SYS_UN_H -DHAVE_SYS_XATTR_H -DHAVE_ARPA_INET_H -DHAVE_ARPA_TFTP_H -DHAVE_FCNTL_H -DHAVE_IFADDRS_H -DHAVE_LIBGEN_H -DHAVE_LOCALE_H -DHAVE_NET_IF_H -DHAVE_NETDB_H -DHAVE_NETINET_IN_H -DHAVE_NETINET_TCP_H -DHAVE_POLL_H -DHAVE_PWD_H -DHAVE_SETJMP_H -DHAVE_SIGNAL_H -DHAVE_STDATOMIC_H -DHAVE_STDBOOL_H -DHAVE_STDINT_H -DHAVE_STDLIB_H -DHAVE_STRING_H -DHAVE_STRINGS_H -DHAVE_STROPTS_H -DHAVE_TERMIOS_H -DHAVE_TIME_H -DHAVE_UNISTD_H -DHAVE_UTIME_H -DHAVE_STDDEF_H -DHAVE_SYS_UTSNAME_H -MD -MT CMakeFiles/cmTC_00b91.dir/CurlTests.c.o -MF CMakeFiles\cmTC_00b91.dir\CurlTests.c.o.d -o CMakeFiles\cmTC_00b91.dir\CurlTests.c.o -c C:\a1e\Tests\c1e\C2e\source\curl\CMake\CurlTests.c
+C:\a1e\Tests\c1e\C2e\source\curl\CMake\CurlTests.c:80:12: warning: '_REENTRANT' macro redefined [-Wmacro-redefined]
+   80 | #   define _REENTRANT
+      |            ^
+<built-in>:369:9: note: previous definition is here
+  369 | #define _REENTRANT 1
+      |         ^
+C:\a1e\Tests\c1e\C2e\source\curl\CMake\CurlTests.c:92:9: warning: initializing 'char *' with an expression of type 'const char[12]' discards qualifiers [-Wincompatible-pointer-types-discards-qualifiers]
+   92 |   char *address = "example.com";
+      |         ^         ~~~~~~~~~~~~~
+2 warnings generated.
+Linking C executable cmTC_00b91.js
+"C:\Program Files\CMake\bin\cmake.exe" -E cmake_link_script CMakeFiles\cmTC_00b91.dir\link.txt --verbose=1
+C:\a1e\Tests\c1e\C2e\emsdk\upstream\emscripten\emcc.exe -pthread  -Wextra -Wall -pedantic -Wbad-function-cast -Wconversion -Winline -Wmissing-declarations -Wmissing-prototypes -Wnested-externs -Wno-long-long -Wno-multichar -Wpointer-arith -Wshadow -Wsign-compare -Wundef -Wunused -Wwrite-strings -Wcast-align -Wdeclaration-after-statement -Wempty-body -Wendif-labels -Wfloat-equal -Wignored-qualifiers -Wno-format-nonliteral -Wno-sign-conversion -Wno-system-headers -Wstrict-prototypes -Wtype-limits -Wvla -Wshift-sign-overflow -Wshorten-64-to-32 -Wdouble-promotion -Wenum-conversion -Wunused-const-variable -Wcomma -Wmissing-variable-declarations -Wassign-enum -Wextra-semi-stmt -DHAVE_GETHOSTBYNAME_R_6_REENTRANT  -DHAVE_INTTYPES_H -DHAVE_SYS_IOCTL_H -DHAVE_SYS_PARAM_H -DHAVE_SYS_POLL_H -DHAVE_SYS_RESOURCE_H -DHAVE_SYS_SELECT_H -DHAVE_SYS_SOCKET_H -DHAVE_SYS_STAT_H -DHAVE_SYS_TIME_H -DHAVE_SYS_TYPES_H -DHAVE_SYS_UN_H -DHAVE_SYS_XATTR_H -DHAVE_ARPA_INET_H -DHAVE_ARPA_TFTP_H -DHAVE_FCNTL_H -DHAVE_IFADDRS_H -DHAVE_LIBGEN_H -DHAVE_LOCALE_H -DHAVE_NET_IF_H -DHAVE_NETDB_H -DHAVE_NETINET_IN_H -DHAVE_NETINET_TCP_H -DHAVE_POLL_H -DHAVE_PWD_H -DHAVE_SETJMP_H -DHAVE_SIGNAL_H -DHAVE_STDATOMIC_H -DHAVE_STDBOOL_H -DHAVE_STDINT_H -DHAVE_STDLIB_H -DHAVE_STRING_H -DHAVE_STRINGS_H -DHAVE_STROPTS_H -DHAVE_TERMIOS_H -DHAVE_TIME_H -DHAVE_UNISTD_H -DHAVE_UTIME_H -DHAVE_STDDEF_H -DHAVE_SYS_UTSNAME_H @CMakeFiles\cmTC_00b91.dir\objects1.rsp -o cmTC_00b91.js
+mingw32-make.exe[1]: Leaving directory 'C:/a1e/Tests/c1e/C2e/build/curl/CMakeFiles/CMakeTmp'
+
+
+Performing Curl Test HAVE_IN_ADDR_T passed with the following output:
+Change Dir: 'C:/a1e/Tests/c1e/C2e/build/curl/CMakeFiles/CMakeTmp'
+
+Run Build Command(s): "C:/Program Files/CMake/bin/cmake.exe" -E env VERBOSE=1 C:/MinGW/bin/mingw32-make.exe -f Makefile cmTC_9b65c/fast
+C:/MinGW/bin/mingw32-make.exe  -f CMakeFiles\cmTC_9b65c.dir\build.make CMakeFiles/cmTC_9b65c.dir/build
+mingw32-make.exe[1]: Entering directory 'C:/a1e/Tests/c1e/C2e/build/curl/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_9b65c.dir/CurlTests.c.o
+C:\a1e\Tests\c1e\C2e\emsdk\upstream\emscripten\emcc.exe   -pthread  -Wextra -Wall -pedantic -Wbad-function-cast -Wconversion -Winline -Wmissing-declarations -Wmissing-prototypes -Wnested-externs -Wno-long-long -Wno-multichar -Wpointer-arith -Wshadow -Wsign-compare -Wundef -Wunused -Wwrite-strings -Wcast-align -Wdeclaration-after-statement -Wempty-body -Wendif-labels -Wfloat-equal -Wignored-qualifiers -Wno-format-nonliteral -Wno-sign-conversion -Wno-system-headers -Wstrict-prototypes -Wtype-limits -Wvla -Wshift-sign-overflow -Wshorten-64-to-32 -Wdouble-promotion -Wenum-conversion -Wunused-const-variable -Wcomma -Wmissing-variable-declarations -Wassign-enum -Wextra-semi-stmt -DHAVE_IN_ADDR_T  -DHAVE_INTTYPES_H -DHAVE_SYS_IOCTL_H -DHAVE_SYS_PARAM_H -DHAVE_SYS_POLL_H -DHAVE_SYS_RESOURCE_H -DHAVE_SYS_SELECT_H -DHAVE_SYS_SOCKET_H -DHAVE_SYS_STAT_H -DHAVE_SYS_TIME_H -DHAVE_SYS_TYPES_H -DHAVE_SYS_UN_H -DHAVE_SYS_XATTR_H -DHAVE_ARPA_INET_H -DHAVE_ARPA_TFTP_H -DHAVE_FCNTL_H -DHAVE_IFADDRS_H -DHAVE_LIBGEN_H -DHAVE_LOCALE_H -DHAVE_NET_IF_H -DHAVE_NETDB_H -DHAVE_NETINET_IN_H -DHAVE_NETINET_TCP_H -DHAVE_POLL_H -DHAVE_PWD_H -DHAVE_SETJMP_H -DHAVE_SIGNAL_H -DHAVE_STDATOMIC_H -DHAVE_STDBOOL_H -DHAVE_STDINT_H -DHAVE_STDLIB_H -DHAVE_STRING_H -DHAVE_STRINGS_H -DHAVE_STROPTS_H -DHAVE_TERMIOS_H -DHAVE_TIME_H -DHAVE_UNISTD_H -DHAVE_UTIME_H -DHAVE_STDDEF_H -DHAVE_SYS_UTSNAME_H -MD -MT CMakeFiles/cmTC_9b65c.dir/CurlTests.c.o -MF CMakeFiles\cmTC_9b65c.dir\CurlTests.c.o.d -o CMakeFiles\cmTC_9b65c.dir\CurlTests.c.o -c C:\a1e\Tests\c1e\C2e\source\curl\CMake\CurlTests.c
+C:\a1e\Tests\c1e\C2e\source\curl\CMake\CurlTests.c:152:6: warning: a function declaration without a prototype is deprecated in all versions of C [-Wstrict-prototypes]
+  152 | main ()
+      |      ^
+      |       void
+C:\a1e\Tests\c1e\C2e\source\curl\CMake\CurlTests.c:158:3: warning: empty expression statement has no effect; remove unnecessary ';' to silence this warning [-Wextra-semi-stmt]
+  158 |   ;
+      |   ^
+2 warnings generated.
+Linking C executable cmTC_9b65c.js
+"C:\Program Files\CMake\bin\cmake.exe" -E cmake_link_script CMakeFiles\cmTC_9b65c.dir\link.txt --verbose=1
+C:\a1e\Tests\c1e\C2e\emsdk\upstream\emscripten\emcc.exe -pthread  -Wextra -Wall -pedantic -Wbad-function-cast -Wconversion -Winline -Wmissing-declarations -Wmissing-prototypes -Wnested-externs -Wno-long-long -Wno-multichar -Wpointer-arith -Wshadow -Wsign-compare -Wundef -Wunused -Wwrite-strings -Wcast-align -Wdeclaration-after-statement -Wempty-body -Wendif-labels -Wfloat-equal -Wignored-qualifiers -Wno-format-nonliteral -Wno-sign-conversion -Wno-system-headers -Wstrict-prototypes -Wtype-limits -Wvla -Wshift-sign-overflow -Wshorten-64-to-32 -Wdouble-promotion -Wenum-conversion -Wunused-const-variable -Wcomma -Wmissing-variable-declarations -Wassign-enum -Wextra-semi-stmt -DHAVE_IN_ADDR_T  -DHAVE_INTTYPES_H -DHAVE_SYS_IOCTL_H -DHAVE_SYS_PARAM_H -DHAVE_SYS_POLL_H -DHAVE_SYS_RESOURCE_H -DHAVE_SYS_SELECT_H -DHAVE_SYS_SOCKET_H -DHAVE_SYS_STAT_H -DHAVE_SYS_TIME_H -DHAVE_SYS_TYPES_H -DHAVE_SYS_UN_H -DHAVE_SYS_XATTR_H -DHAVE_ARPA_INET_H -DHAVE_ARPA_TFTP_H -DHAVE_FCNTL_H -DHAVE_IFADDRS_H -DHAVE_LIBGEN_H -DHAVE_LOCALE_H -DHAVE_NET_IF_H -DHAVE_NETDB_H -DHAVE_NETINET_IN_H -DHAVE_NETINET_TCP_H -DHAVE_POLL_H -DHAVE_PWD_H -DHAVE_SETJMP_H -DHAVE_SIGNAL_H -DHAVE_STDATOMIC_H -DHAVE_STDBOOL_H -DHAVE_STDINT_H -DHAVE_STDLIB_H -DHAVE_STRING_H -DHAVE_STRINGS_H -DHAVE_STROPTS_H -DHAVE_TERMIOS_H -DHAVE_TIME_H -DHAVE_UNISTD_H -DHAVE_UTIME_H -DHAVE_STDDEF_H -DHAVE_SYS_UTSNAME_H @CMakeFiles\cmTC_9b65c.dir\objects1.rsp -o cmTC_9b65c.js
+mingw32-make.exe[1]: Leaving directory 'C:/a1e/Tests/c1e/C2e/build/curl/CMakeFiles/CMakeTmp'
+
+
+Performing Curl Test HAVE_BOOL_T passed with the following output:
+Change Dir: 'C:/a1e/Tests/c1e/C2e/build/curl/CMakeFiles/CMakeTmp'
+
+Run Build Command(s): "C:/Program Files/CMake/bin/cmake.exe" -E env VERBOSE=1 C:/MinGW/bin/mingw32-make.exe -f Makefile cmTC_df368/fast
+C:/MinGW/bin/mingw32-make.exe  -f CMakeFiles\cmTC_df368.dir\build.make CMakeFiles/cmTC_df368.dir/build
+mingw32-make.exe[1]: Entering directory 'C:/a1e/Tests/c1e/C2e/build/curl/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_df368.dir/CurlTests.c.o
+C:\a1e\Tests\c1e\C2e\emsdk\upstream\emscripten\emcc.exe   -pthread  -Wextra -Wall -pedantic -Wbad-function-cast -Wconversion -Winline -Wmissing-declarations -Wmissing-prototypes -Wnested-externs -Wno-long-long -Wno-multichar -Wpointer-arith -Wshadow -Wsign-compare -Wundef -Wunused -Wwrite-strings -Wcast-align -Wdeclaration-after-statement -Wempty-body -Wendif-labels -Wfloat-equal -Wignored-qualifiers -Wno-format-nonliteral -Wno-sign-conversion -Wno-system-headers -Wstrict-prototypes -Wtype-limits -Wvla -Wshift-sign-overflow -Wshorten-64-to-32 -Wdouble-promotion -Wenum-conversion -Wunused-const-variable -Wcomma -Wmissing-variable-declarations -Wassign-enum -Wextra-semi-stmt -DHAVE_BOOL_T  -DHAVE_INTTYPES_H -DHAVE_SYS_IOCTL_H -DHAVE_SYS_PARAM_H -DHAVE_SYS_POLL_H -DHAVE_SYS_RESOURCE_H -DHAVE_SYS_SELECT_H -DHAVE_SYS_SOCKET_H -DHAVE_SYS_STAT_H -DHAVE_SYS_TIME_H -DHAVE_SYS_TYPES_H -DHAVE_SYS_UN_H -DHAVE_SYS_XATTR_H -DHAVE_ARPA_INET_H -DHAVE_ARPA_TFTP_H -DHAVE_FCNTL_H -DHAVE_IFADDRS_H -DHAVE_LIBGEN_H -DHAVE_LOCALE_H -DHAVE_NET_IF_H -DHAVE_NETDB_H -DHAVE_NETINET_IN_H -DHAVE_NETINET_TCP_H -DHAVE_POLL_H -DHAVE_PWD_H -DHAVE_SETJMP_H -DHAVE_SIGNAL_H -DHAVE_STDATOMIC_H -DHAVE_STDBOOL_H -DHAVE_STDINT_H -DHAVE_STDLIB_H -DHAVE_STRING_H -DHAVE_STRINGS_H -DHAVE_STROPTS_H -DHAVE_TERMIOS_H -DHAVE_TIME_H -DHAVE_UNISTD_H -DHAVE_UTIME_H -DHAVE_STDDEF_H -DHAVE_SYS_UTSNAME_H -MD -MT CMakeFiles/cmTC_df368.dir/CurlTests.c.o -MF CMakeFiles\cmTC_df368.dir\CurlTests.c.o.d -o CMakeFiles\cmTC_df368.dir\CurlTests.c.o -c C:\a1e\Tests\c1e\C2e\source\curl\CMake\CurlTests.c
+C:\a1e\Tests\c1e\C2e\source\curl\CMake\CurlTests.c:171:6: warning: a function declaration without a prototype is deprecated in all versions of C [-Wstrict-prototypes]
+  171 | main ()
+      |      ^
+      |       void
+C:\a1e\Tests\c1e\C2e\source\curl\CMake\CurlTests.c:175:3: warning: empty expression statement has no effect; remove unnecessary ';' to silence this warning [-Wextra-semi-stmt]
+  175 |   ;
+      |   ^
+2 warnings generated.
+Linking C executable cmTC_df368.js
+"C:\Program Files\CMake\bin\cmake.exe" -E cmake_link_script CMakeFiles\cmTC_df368.dir\link.txt --verbose=1
+C:\a1e\Tests\c1e\C2e\emsdk\upstream\emscripten\emcc.exe -pthread  -Wextra -Wall -pedantic -Wbad-function-cast -Wconversion -Winline -Wmissing-declarations -Wmissing-prototypes -Wnested-externs -Wno-long-long -Wno-multichar -Wpointer-arith -Wshadow -Wsign-compare -Wundef -Wunused -Wwrite-strings -Wcast-align -Wdeclaration-after-statement -Wempty-body -Wendif-labels -Wfloat-equal -Wignored-qualifiers -Wno-format-nonliteral -Wno-sign-conversion -Wno-system-headers -Wstrict-prototypes -Wtype-limits -Wvla -Wshift-sign-overflow -Wshorten-64-to-32 -Wdouble-promotion -Wenum-conversion -Wunused-const-variable -Wcomma -Wmissing-variable-declarations -Wassign-enum -Wextra-semi-stmt -DHAVE_BOOL_T  -DHAVE_INTTYPES_H -DHAVE_SYS_IOCTL_H -DHAVE_SYS_PARAM_H -DHAVE_SYS_POLL_H -DHAVE_SYS_RESOURCE_H -DHAVE_SYS_SELECT_H -DHAVE_SYS_SOCKET_H -DHAVE_SYS_STAT_H -DHAVE_SYS_TIME_H -DHAVE_SYS_TYPES_H -DHAVE_SYS_UN_H -DHAVE_SYS_XATTR_H -DHAVE_ARPA_INET_H -DHAVE_ARPA_TFTP_H -DHAVE_FCNTL_H -DHAVE_IFADDRS_H -DHAVE_LIBGEN_H -DHAVE_LOCALE_H -DHAVE_NET_IF_H -DHAVE_NETDB_H -DHAVE_NETINET_IN_H -DHAVE_NETINET_TCP_H -DHAVE_POLL_H -DHAVE_PWD_H -DHAVE_SETJMP_H -DHAVE_SIGNAL_H -DHAVE_STDATOMIC_H -DHAVE_STDBOOL_H -DHAVE_STDINT_H -DHAVE_STDLIB_H -DHAVE_STRING_H -DHAVE_STRINGS_H -DHAVE_STROPTS_H -DHAVE_TERMIOS_H -DHAVE_TIME_H -DHAVE_UNISTD_H -DHAVE_UTIME_H -DHAVE_STDDEF_H -DHAVE_SYS_UTSNAME_H @CMakeFiles\cmTC_df368.dir\objects1.rsp -o cmTC_df368.js
+mingw32-make.exe[1]: Leaving directory 'C:/a1e/Tests/c1e/C2e/build/curl/CMakeFiles/CMakeTmp'
+
+
+Performing Curl Test STDC_HEADERS passed with the following output:
+Change Dir: 'C:/a1e/Tests/c1e/C2e/build/curl/CMakeFiles/CMakeTmp'
+
+Run Build Command(s): "C:/Program Files/CMake/bin/cmake.exe" -E env VERBOSE=1 C:/MinGW/bin/mingw32-make.exe -f Makefile cmTC_bdad0/fast
+C:/MinGW/bin/mingw32-make.exe  -f CMakeFiles\cmTC_bdad0.dir\build.make CMakeFiles/cmTC_bdad0.dir/build
+mingw32-make.exe[1]: Entering directory 'C:/a1e/Tests/c1e/C2e/build/curl/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_bdad0.dir/CurlTests.c.o
+C:\a1e\Tests\c1e\C2e\emsdk\upstream\emscripten\emcc.exe   -pthread  -Wextra -Wall -pedantic -Wbad-function-cast -Wconversion -Winline -Wmissing-declarations -Wmissing-prototypes -Wnested-externs -Wno-long-long -Wno-multichar -Wpointer-arith -Wshadow -Wsign-compare -Wundef -Wunused -Wwrite-strings -Wcast-align -Wdeclaration-after-statement -Wempty-body -Wendif-labels -Wfloat-equal -Wignored-qualifiers -Wno-format-nonliteral -Wno-sign-conversion -Wno-system-headers -Wstrict-prototypes -Wtype-limits -Wvla -Wshift-sign-overflow -Wshorten-64-to-32 -Wdouble-promotion -Wenum-conversion -Wunused-const-variable -Wcomma -Wmissing-variable-declarations -Wassign-enum -Wextra-semi-stmt -DSTDC_HEADERS  -DHAVE_INTTYPES_H -DHAVE_SYS_IOCTL_H -DHAVE_SYS_PARAM_H -DHAVE_SYS_POLL_H -DHAVE_SYS_RESOURCE_H -DHAVE_SYS_SELECT_H -DHAVE_SYS_SOCKET_H -DHAVE_SYS_STAT_H -DHAVE_SYS_TIME_H -DHAVE_SYS_TYPES_H -DHAVE_SYS_UN_H -DHAVE_SYS_XATTR_H -DHAVE_ARPA_INET_H -DHAVE_ARPA_TFTP_H -DHAVE_FCNTL_H -DHAVE_IFADDRS_H -DHAVE_LIBGEN_H -DHAVE_LOCALE_H -DHAVE_NET_IF_H -DHAVE_NETDB_H -DHAVE_NETINET_IN_H -DHAVE_NETINET_TCP_H -DHAVE_POLL_H -DHAVE_PWD_H -DHAVE_SETJMP_H -DHAVE_SIGNAL_H -DHAVE_STDATOMIC_H -DHAVE_STDBOOL_H -DHAVE_STDINT_H -DHAVE_STDLIB_H -DHAVE_STRING_H -DHAVE_STRINGS_H -DHAVE_STROPTS_H -DHAVE_TERMIOS_H -DHAVE_TIME_H -DHAVE_UNISTD_H -DHAVE_UTIME_H -DHAVE_STDDEF_H -DHAVE_SYS_UTSNAME_H -MD -MT CMakeFiles/cmTC_bdad0.dir/CurlTests.c.o -MF CMakeFiles\cmTC_bdad0.dir\CurlTests.c.o.d -o CMakeFiles\cmTC_bdad0.dir\CurlTests.c.o -c C:\a1e\Tests\c1e\C2e\source\curl\CMake\CurlTests.c
+C:\a1e\Tests\c1e\C2e\source\curl\CMake\CurlTests.c:185:9: warning: a function declaration without a prototype is deprecated in all versions of C [-Wstrict-prototypes]
+  185 | int main() { return 0; }
+      |         ^
+      |          void
+1 warning generated.
+Linking C executable cmTC_bdad0.js
+"C:\Program Files\CMake\bin\cmake.exe" -E cmake_link_script CMakeFiles\cmTC_bdad0.dir\link.txt --verbose=1
+C:\a1e\Tests\c1e\C2e\emsdk\upstream\emscripten\emcc.exe -pthread  -Wextra -Wall -pedantic -Wbad-function-cast -Wconversion -Winline -Wmissing-declarations -Wmissing-prototypes -Wnested-externs -Wno-long-long -Wno-multichar -Wpointer-arith -Wshadow -Wsign-compare -Wundef -Wunused -Wwrite-strings -Wcast-align -Wdeclaration-after-statement -Wempty-body -Wendif-labels -Wfloat-equal -Wignored-qualifiers -Wno-format-nonliteral -Wno-sign-conversion -Wno-system-headers -Wstrict-prototypes -Wtype-limits -Wvla -Wshift-sign-overflow -Wshorten-64-to-32 -Wdouble-promotion -Wenum-conversion -Wunused-const-variable -Wcomma -Wmissing-variable-declarations -Wassign-enum -Wextra-semi-stmt -DSTDC_HEADERS  -DHAVE_INTTYPES_H -DHAVE_SYS_IOCTL_H -DHAVE_SYS_PARAM_H -DHAVE_SYS_POLL_H -DHAVE_SYS_RESOURCE_H -DHAVE_SYS_SELECT_H -DHAVE_SYS_SOCKET_H -DHAVE_SYS_STAT_H -DHAVE_SYS_TIME_H -DHAVE_SYS_TYPES_H -DHAVE_SYS_UN_H -DHAVE_SYS_XATTR_H -DHAVE_ARPA_INET_H -DHAVE_ARPA_TFTP_H -DHAVE_FCNTL_H -DHAVE_IFADDRS_H -DHAVE_LIBGEN_H -DHAVE_LOCALE_H -DHAVE_NET_IF_H -DHAVE_NETDB_H -DHAVE_NETINET_IN_H -DHAVE_NETINET_TCP_H -DHAVE_POLL_H -DHAVE_PWD_H -DHAVE_SETJMP_H -DHAVE_SIGNAL_H -DHAVE_STDATOMIC_H -DHAVE_STDBOOL_H -DHAVE_STDINT_H -DHAVE_STDLIB_H -DHAVE_STRING_H -DHAVE_STRINGS_H -DHAVE_STROPTS_H -DHAVE_TERMIOS_H -DHAVE_TIME_H -DHAVE_UNISTD_H -DHAVE_UTIME_H -DHAVE_STDDEF_H -DHAVE_SYS_UTSNAME_H @CMakeFiles\cmTC_bdad0.dir\objects1.rsp -o cmTC_bdad0.js
+mingw32-make.exe[1]: Leaving directory 'C:/a1e/Tests/c1e/C2e/build/curl/CMakeFiles/CMakeTmp'
+
+
+Performing Curl Test HAVE_FILE_OFFSET_BITS passed with the following output:
+Change Dir: 'C:/a1e/Tests/c1e/C2e/build/curl/CMakeFiles/CMakeTmp'
+
+Run Build Command(s): "C:/Program Files/CMake/bin/cmake.exe" -E env VERBOSE=1 C:/MinGW/bin/mingw32-make.exe -f Makefile cmTC_3d11d/fast
+C:/MinGW/bin/mingw32-make.exe  -f CMakeFiles\cmTC_3d11d.dir\build.make CMakeFiles/cmTC_3d11d.dir/build
+mingw32-make.exe[1]: Entering directory 'C:/a1e/Tests/c1e/C2e/build/curl/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_3d11d.dir/CurlTests.c.o
+C:\a1e\Tests\c1e\C2e\emsdk\upstream\emscripten\emcc.exe   -pthread  -Wextra -Wall -pedantic -Wbad-function-cast -Wconversion -Winline -Wmissing-declarations -Wmissing-prototypes -Wnested-externs -Wno-long-long -Wno-multichar -Wpointer-arith -Wshadow -Wsign-compare -Wundef -Wunused -Wwrite-strings -Wcast-align -Wdeclaration-after-statement -Wempty-body -Wendif-labels -Wfloat-equal -Wignored-qualifiers -Wno-format-nonliteral -Wno-sign-conversion -Wno-system-headers -Wstrict-prototypes -Wtype-limits -Wvla -Wshift-sign-overflow -Wshorten-64-to-32 -Wdouble-promotion -Wenum-conversion -Wunused-const-variable -Wcomma -Wmissing-variable-declarations -Wassign-enum -Wextra-semi-stmt -DHAVE_FILE_OFFSET_BITS  -DHAVE_INTTYPES_H -DHAVE_SYS_IOCTL_H -DHAVE_SYS_PARAM_H -DHAVE_SYS_POLL_H -DHAVE_SYS_RESOURCE_H -DHAVE_SYS_SELECT_H -DHAVE_SYS_SOCKET_H -DHAVE_SYS_STAT_H -DHAVE_SYS_TIME_H -DHAVE_SYS_TYPES_H -DHAVE_SYS_UN_H -DHAVE_SYS_XATTR_H -DHAVE_ARPA_INET_H -DHAVE_ARPA_TFTP_H -DHAVE_FCNTL_H -DHAVE_IFADDRS_H -DHAVE_LIBGEN_H -DHAVE_LOCALE_H -DHAVE_NET_IF_H -DHAVE_NETDB_H -DHAVE_NETINET_IN_H -DHAVE_NETINET_TCP_H -DHAVE_POLL_H -DHAVE_PWD_H -DHAVE_SETJMP_H -DHAVE_SIGNAL_H -DHAVE_STDATOMIC_H -DHAVE_STDBOOL_H -DHAVE_STDINT_H -DHAVE_STDLIB_H -DHAVE_STRING_H -DHAVE_STRINGS_H -DHAVE_STROPTS_H -DHAVE_TERMIOS_H -DHAVE_TIME_H -DHAVE_UNISTD_H -DHAVE_UTIME_H -DHAVE_STDDEF_H -DHAVE_SYS_UTSNAME_H -MD -MT CMakeFiles/cmTC_3d11d.dir/CurlTests.c.o -MF CMakeFiles\cmTC_3d11d.dir\CurlTests.c.o.d -o CMakeFiles\cmTC_3d11d.dir\CurlTests.c.o -c C:\a1e\Tests\c1e\C2e\source\curl\CMake\CurlTests.c
+C:\a1e\Tests\c1e\C2e\source\curl\CMake\CurlTests.c:201:10: warning: a function declaration without a prototype is deprecated in all versions of C [-Wstrict-prototypes]
+  201 | int main () { ; return 0; }
+      |          ^
+      |           void
+C:\a1e\Tests\c1e\C2e\source\curl\CMake\CurlTests.c:201:15: warning: empty expression statement has no effect; remove unnecessary ';' to silence this warning [-Wextra-semi-stmt]
+  201 | int main () { ; return 0; }
+      |               ^
+C:\a1e\Tests\c1e\C2e\source\curl\CMake\CurlTests.c:198:7: warning: no previous extern declaration for non-static variable 'off_t_is_large' [-Wmissing-variable-declarations]
+  198 |   int off_t_is_large[(LARGE_OFF_T % 2147483629 == 721
+      |       ^
+C:\a1e\Tests\c1e\C2e\source\curl\CMake\CurlTests.c:198:3: note: declare 'static' if the variable is not intended to be used outside of this translation unit
+  198 |   int off_t_is_large[(LARGE_OFF_T % 2147483629 == 721
+      |   ^
+3 warnings generated.
+Linking C executable cmTC_3d11d.js
+"C:\Program Files\CMake\bin\cmake.exe" -E cmake_link_script CMakeFiles\cmTC_3d11d.dir\link.txt --verbose=1
+C:\a1e\Tests\c1e\C2e\emsdk\upstream\emscripten\emcc.exe -pthread  -Wextra -Wall -pedantic -Wbad-function-cast -Wconversion -Winline -Wmissing-declarations -Wmissing-prototypes -Wnested-externs -Wno-long-long -Wno-multichar -Wpointer-arith -Wshadow -Wsign-compare -Wundef -Wunused -Wwrite-strings -Wcast-align -Wdeclaration-after-statement -Wempty-body -Wendif-labels -Wfloat-equal -Wignored-qualifiers -Wno-format-nonliteral -Wno-sign-conversion -Wno-system-headers -Wstrict-prototypes -Wtype-limits -Wvla -Wshift-sign-overflow -Wshorten-64-to-32 -Wdouble-promotion -Wenum-conversion -Wunused-const-variable -Wcomma -Wmissing-variable-declarations -Wassign-enum -Wextra-semi-stmt -DHAVE_FILE_OFFSET_BITS  -DHAVE_INTTYPES_H -DHAVE_SYS_IOCTL_H -DHAVE_SYS_PARAM_H -DHAVE_SYS_POLL_H -DHAVE_SYS_RESOURCE_H -DHAVE_SYS_SELECT_H -DHAVE_SYS_SOCKET_H -DHAVE_SYS_STAT_H -DHAVE_SYS_TIME_H -DHAVE_SYS_TYPES_H -DHAVE_SYS_UN_H -DHAVE_SYS_XATTR_H -DHAVE_ARPA_INET_H -DHAVE_ARPA_TFTP_H -DHAVE_FCNTL_H -DHAVE_IFADDRS_H -DHAVE_LIBGEN_H -DHAVE_LOCALE_H -DHAVE_NET_IF_H -DHAVE_NETDB_H -DHAVE_NETINET_IN_H -DHAVE_NETINET_TCP_H -DHAVE_POLL_H -DHAVE_PWD_H -DHAVE_SETJMP_H -DHAVE_SIGNAL_H -DHAVE_STDATOMIC_H -DHAVE_STDBOOL_H -DHAVE_STDINT_H -DHAVE_STDLIB_H -DHAVE_STRING_H -DHAVE_STRINGS_H -DHAVE_STROPTS_H -DHAVE_TERMIOS_H -DHAVE_TIME_H -DHAVE_UNISTD_H -DHAVE_UTIME_H -DHAVE_STDDEF_H -DHAVE_SYS_UTSNAME_H @CMakeFiles\cmTC_3d11d.dir\objects1.rsp -o cmTC_3d11d.js
+mingw32-make.exe[1]: Leaving directory 'C:/a1e/Tests/c1e/C2e/build/curl/CMakeFiles/CMakeTmp'
+
+
+Performing Curl Test HAVE_VARIADIC_MACROS_C99 passed with the following output:
+Change Dir: 'C:/a1e/Tests/c1e/C2e/build/curl/CMakeFiles/CMakeTmp'
+
+Run Build Command(s): "C:/Program Files/CMake/bin/cmake.exe" -E env VERBOSE=1 C:/MinGW/bin/mingw32-make.exe -f Makefile cmTC_4bc9c/fast
+C:/MinGW/bin/mingw32-make.exe  -f CMakeFiles\cmTC_4bc9c.dir\build.make CMakeFiles/cmTC_4bc9c.dir/build
+mingw32-make.exe[1]: Entering directory 'C:/a1e/Tests/c1e/C2e/build/curl/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_4bc9c.dir/CurlTests.c.o
+C:\a1e\Tests\c1e\C2e\emsdk\upstream\emscripten\emcc.exe   -pthread  -Wextra -Wall -pedantic -Wbad-function-cast -Wconversion -Winline -Wmissing-declarations -Wmissing-prototypes -Wnested-externs -Wno-long-long -Wno-multichar -Wpointer-arith -Wshadow -Wsign-compare -Wundef -Wunused -Wwrite-strings -Wcast-align -Wdeclaration-after-statement -Wempty-body -Wendif-labels -Wfloat-equal -Wignored-qualifiers -Wno-format-nonliteral -Wno-sign-conversion -Wno-system-headers -Wstrict-prototypes -Wtype-limits -Wvla -Wshift-sign-overflow -Wshorten-64-to-32 -Wdouble-promotion -Wenum-conversion -Wunused-const-variable -Wcomma -Wmissing-variable-declarations -Wassign-enum -Wextra-semi-stmt -DHAVE_VARIADIC_MACROS_C99  -DHAVE_INTTYPES_H -DHAVE_SYS_IOCTL_H -DHAVE_SYS_PARAM_H -DHAVE_SYS_POLL_H -DHAVE_SYS_RESOURCE_H -DHAVE_SYS_SELECT_H -DHAVE_SYS_SOCKET_H -DHAVE_SYS_STAT_H -DHAVE_SYS_TIME_H -DHAVE_SYS_TYPES_H -DHAVE_SYS_UN_H -DHAVE_SYS_XATTR_H -DHAVE_ARPA_INET_H -DHAVE_ARPA_TFTP_H -DHAVE_FCNTL_H -DHAVE_IFADDRS_H -DHAVE_LIBGEN_H -DHAVE_LOCALE_H -DHAVE_NET_IF_H -DHAVE_NETDB_H -DHAVE_NETINET_IN_H -DHAVE_NETINET_TCP_H -DHAVE_POLL_H -DHAVE_PWD_H -DHAVE_SETJMP_H -DHAVE_SIGNAL_H -DHAVE_STDATOMIC_H -DHAVE_STDBOOL_H -DHAVE_STDINT_H -DHAVE_STDLIB_H -DHAVE_STRING_H -DHAVE_STRINGS_H -DHAVE_STROPTS_H -DHAVE_TERMIOS_H -DHAVE_TIME_H -DHAVE_UNISTD_H -DHAVE_UTIME_H -DHAVE_STDDEF_H -DHAVE_SYS_UTSNAME_H -MD -MT CMakeFiles/cmTC_4bc9c.dir/CurlTests.c.o -MF CMakeFiles\cmTC_4bc9c.dir\CurlTests.c.o.d -o CMakeFiles\cmTC_4bc9c.dir\CurlTests.c.o -c C:\a1e\Tests\c1e\C2e\source\curl\CMake\CurlTests.c
+C:\a1e\Tests\c1e\C2e\source\curl\CMake\CurlTests.c:466:5: warning: a function declaration without a prototype is deprecated in all versions of C [-Wstrict-prototypes]
+  466 | main() {
+      |     ^
+      |      void
+1 warning generated.
+Linking C executable cmTC_4bc9c.js
+"C:\Program Files\CMake\bin\cmake.exe" -E cmake_link_script CMakeFiles\cmTC_4bc9c.dir\link.txt --verbose=1
+C:\a1e\Tests\c1e\C2e\emsdk\upstream\emscripten\emcc.exe -pthread  -Wextra -Wall -pedantic -Wbad-function-cast -Wconversion -Winline -Wmissing-declarations -Wmissing-prototypes -Wnested-externs -Wno-long-long -Wno-multichar -Wpointer-arith -Wshadow -Wsign-compare -Wundef -Wunused -Wwrite-strings -Wcast-align -Wdeclaration-after-statement -Wempty-body -Wendif-labels -Wfloat-equal -Wignored-qualifiers -Wno-format-nonliteral -Wno-sign-conversion -Wno-system-headers -Wstrict-prototypes -Wtype-limits -Wvla -Wshift-sign-overflow -Wshorten-64-to-32 -Wdouble-promotion -Wenum-conversion -Wunused-const-variable -Wcomma -Wmissing-variable-declarations -Wassign-enum -Wextra-semi-stmt -DHAVE_VARIADIC_MACROS_C99  -DHAVE_INTTYPES_H -DHAVE_SYS_IOCTL_H -DHAVE_SYS_PARAM_H -DHAVE_SYS_POLL_H -DHAVE_SYS_RESOURCE_H -DHAVE_SYS_SELECT_H -DHAVE_SYS_SOCKET_H -DHAVE_SYS_STAT_H -DHAVE_SYS_TIME_H -DHAVE_SYS_TYPES_H -DHAVE_SYS_UN_H -DHAVE_SYS_XATTR_H -DHAVE_ARPA_INET_H -DHAVE_ARPA_TFTP_H -DHAVE_FCNTL_H -DHAVE_IFADDRS_H -DHAVE_LIBGEN_H -DHAVE_LOCALE_H -DHAVE_NET_IF_H -DHAVE_NETDB_H -DHAVE_NETINET_IN_H -DHAVE_NETINET_TCP_H -DHAVE_POLL_H -DHAVE_PWD_H -DHAVE_SETJMP_H -DHAVE_SIGNAL_H -DHAVE_STDATOMIC_H -DHAVE_STDBOOL_H -DHAVE_STDINT_H -DHAVE_STDLIB_H -DHAVE_STRING_H -DHAVE_STRINGS_H -DHAVE_STROPTS_H -DHAVE_TERMIOS_H -DHAVE_TIME_H -DHAVE_UNISTD_H -DHAVE_UTIME_H -DHAVE_STDDEF_H -DHAVE_SYS_UTSNAME_H @CMakeFiles\cmTC_4bc9c.dir\objects1.rsp -o cmTC_4bc9c.js
+mingw32-make.exe[1]: Leaving directory 'C:/a1e/Tests/c1e/C2e/build/curl/CMakeFiles/CMakeTmp'
+
+
+Performing Curl Test HAVE_VARIADIC_MACROS_GCC passed with the following output:
+Change Dir: 'C:/a1e/Tests/c1e/C2e/build/curl/CMakeFiles/CMakeTmp'
+
+Run Build Command(s): "C:/Program Files/CMake/bin/cmake.exe" -E env VERBOSE=1 C:/MinGW/bin/mingw32-make.exe -f Makefile cmTC_f0753/fast
+C:/MinGW/bin/mingw32-make.exe  -f CMakeFiles\cmTC_f0753.dir\build.make CMakeFiles/cmTC_f0753.dir/build
+mingw32-make.exe[1]: Entering directory 'C:/a1e/Tests/c1e/C2e/build/curl/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_f0753.dir/CurlTests.c.o
+C:\a1e\Tests\c1e\C2e\emsdk\upstream\emscripten\emcc.exe   -pthread  -Wextra -Wall -pedantic -Wbad-function-cast -Wconversion -Winline -Wmissing-declarations -Wmissing-prototypes -Wnested-externs -Wno-long-long -Wno-multichar -Wpointer-arith -Wshadow -Wsign-compare -Wundef -Wunused -Wwrite-strings -Wcast-align -Wdeclaration-after-statement -Wempty-body -Wendif-labels -Wfloat-equal -Wignored-qualifiers -Wno-format-nonliteral -Wno-sign-conversion -Wno-system-headers -Wstrict-prototypes -Wtype-limits -Wvla -Wshift-sign-overflow -Wshorten-64-to-32 -Wdouble-promotion -Wenum-conversion -Wunused-const-variable -Wcomma -Wmissing-variable-declarations -Wassign-enum -Wextra-semi-stmt -DHAVE_VARIADIC_MACROS_GCC  -DHAVE_INTTYPES_H -DHAVE_SYS_IOCTL_H -DHAVE_SYS_PARAM_H -DHAVE_SYS_POLL_H -DHAVE_SYS_RESOURCE_H -DHAVE_SYS_SELECT_H -DHAVE_SYS_SOCKET_H -DHAVE_SYS_STAT_H -DHAVE_SYS_TIME_H -DHAVE_SYS_TYPES_H -DHAVE_SYS_UN_H -DHAVE_SYS_XATTR_H -DHAVE_ARPA_INET_H -DHAVE_ARPA_TFTP_H -DHAVE_FCNTL_H -DHAVE_IFADDRS_H -DHAVE_LIBGEN_H -DHAVE_LOCALE_H -DHAVE_NET_IF_H -DHAVE_NETDB_H -DHAVE_NETINET_IN_H -DHAVE_NETINET_TCP_H -DHAVE_POLL_H -DHAVE_PWD_H -DHAVE_SETJMP_H -DHAVE_SIGNAL_H -DHAVE_STDATOMIC_H -DHAVE_STDBOOL_H -DHAVE_STDINT_H -DHAVE_STDLIB_H -DHAVE_STRING_H -DHAVE_STRINGS_H -DHAVE_STROPTS_H -DHAVE_TERMIOS_H -DHAVE_TIME_H -DHAVE_UNISTD_H -DHAVE_UTIME_H -DHAVE_STDDEF_H -DHAVE_SYS_UTSNAME_H -MD -MT CMakeFiles/cmTC_f0753.dir/CurlTests.c.o -MF CMakeFiles\cmTC_f0753.dir\CurlTests.c.o.d -o CMakeFiles\cmTC_f0753.dir\CurlTests.c.o -c C:\a1e\Tests\c1e\C2e\source\curl\CMake\CurlTests.c
+C:\a1e\Tests\c1e\C2e\source\curl\CMake\CurlTests.c:475:32: warning: named variadic macros are a GNU extension [-Wvariadic-macros]
+  475 | #define gcc_vmacro3(first, args...) fun3(first, args)
+      |                                ^
+C:\a1e\Tests\c1e\C2e\source\curl\CMake\CurlTests.c:476:32: warning: named variadic macros are a GNU extension [-Wvariadic-macros]
+  476 | #define gcc_vmacro2(first, args...) fun2(first, args)
+      |                                ^
+C:\a1e\Tests\c1e\C2e\source\curl\CMake\CurlTests.c:489:5: warning: a function declaration without a prototype is deprecated in all versions of C [-Wstrict-prototypes]
+  489 | main() {
+      |     ^
+      |      void
+3 warnings generated.
+Linking C executable cmTC_f0753.js
+"C:\Program Files\CMake\bin\cmake.exe" -E cmake_link_script CMakeFiles\cmTC_f0753.dir\link.txt --verbose=1
+C:\a1e\Tests\c1e\C2e\emsdk\upstream\emscripten\emcc.exe -pthread  -Wextra -Wall -pedantic -Wbad-function-cast -Wconversion -Winline -Wmissing-declarations -Wmissing-prototypes -Wnested-externs -Wno-long-long -Wno-multichar -Wpointer-arith -Wshadow -Wsign-compare -Wundef -Wunused -Wwrite-strings -Wcast-align -Wdeclaration-after-statement -Wempty-body -Wendif-labels -Wfloat-equal -Wignored-qualifiers -Wno-format-nonliteral -Wno-sign-conversion -Wno-system-headers -Wstrict-prototypes -Wtype-limits -Wvla -Wshift-sign-overflow -Wshorten-64-to-32 -Wdouble-promotion -Wenum-conversion -Wunused-const-variable -Wcomma -Wmissing-variable-declarations -Wassign-enum -Wextra-semi-stmt -DHAVE_VARIADIC_MACROS_GCC  -DHAVE_INTTYPES_H -DHAVE_SYS_IOCTL_H -DHAVE_SYS_PARAM_H -DHAVE_SYS_POLL_H -DHAVE_SYS_RESOURCE_H -DHAVE_SYS_SELECT_H -DHAVE_SYS_SOCKET_H -DHAVE_SYS_STAT_H -DHAVE_SYS_TIME_H -DHAVE_SYS_TYPES_H -DHAVE_SYS_UN_H -DHAVE_SYS_XATTR_H -DHAVE_ARPA_INET_H -DHAVE_ARPA_TFTP_H -DHAVE_FCNTL_H -DHAVE_IFADDRS_H -DHAVE_LIBGEN_H -DHAVE_LOCALE_H -DHAVE_NET_IF_H -DHAVE_NETDB_H -DHAVE_NETINET_IN_H -DHAVE_NETINET_TCP_H -DHAVE_POLL_H -DHAVE_PWD_H -DHAVE_SETJMP_H -DHAVE_SIGNAL_H -DHAVE_STDATOMIC_H -DHAVE_STDBOOL_H -DHAVE_STDINT_H -DHAVE_STDLIB_H -DHAVE_STRING_H -DHAVE_STRINGS_H -DHAVE_STROPTS_H -DHAVE_TERMIOS_H -DHAVE_TIME_H -DHAVE_UNISTD_H -DHAVE_UTIME_H -DHAVE_STDDEF_H -DHAVE_SYS_UTSNAME_H @CMakeFiles\cmTC_f0753.dir\objects1.rsp -o cmTC_f0753.js
+mingw32-make.exe[1]: Leaving directory 'C:/a1e/Tests/c1e/C2e/build/curl/CMakeFiles/CMakeTmp'
+
+
+Performing Curl Test HAVE_ATOMIC passed with the following output:
+Change Dir: 'C:/a1e/Tests/c1e/C2e/build/curl/CMakeFiles/CMakeTmp'
+
+Run Build Command(s): "C:/Program Files/CMake/bin/cmake.exe" -E env VERBOSE=1 C:/MinGW/bin/mingw32-make.exe -f Makefile cmTC_bd27d/fast
+C:/MinGW/bin/mingw32-make.exe  -f CMakeFiles\cmTC_bd27d.dir\build.make CMakeFiles/cmTC_bd27d.dir/build
+mingw32-make.exe[1]: Entering directory 'C:/a1e/Tests/c1e/C2e/build/curl/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_bd27d.dir/CurlTests.c.o
+C:\a1e\Tests\c1e\C2e\emsdk\upstream\emscripten\emcc.exe   -pthread  -Wextra -Wall -pedantic -Wbad-function-cast -Wconversion -Winline -Wmissing-declarations -Wmissing-prototypes -Wnested-externs -Wno-long-long -Wno-multichar -Wpointer-arith -Wshadow -Wsign-compare -Wundef -Wunused -Wwrite-strings -Wcast-align -Wdeclaration-after-statement -Wempty-body -Wendif-labels -Wfloat-equal -Wignored-qualifiers -Wno-format-nonliteral -Wno-sign-conversion -Wno-system-headers -Wstrict-prototypes -Wtype-limits -Wvla -Wshift-sign-overflow -Wshorten-64-to-32 -Wdouble-promotion -Wenum-conversion -Wunused-const-variable -Wcomma -Wmissing-variable-declarations -Wassign-enum -Wextra-semi-stmt -DHAVE_ATOMIC  -DHAVE_INTTYPES_H -DHAVE_SYS_IOCTL_H -DHAVE_SYS_PARAM_H -DHAVE_SYS_POLL_H -DHAVE_SYS_RESOURCE_H -DHAVE_SYS_SELECT_H -DHAVE_SYS_SOCKET_H -DHAVE_SYS_STAT_H -DHAVE_SYS_TIME_H -DHAVE_SYS_TYPES_H -DHAVE_SYS_UN_H -DHAVE_SYS_XATTR_H -DHAVE_ARPA_INET_H -DHAVE_ARPA_TFTP_H -DHAVE_FCNTL_H -DHAVE_IFADDRS_H -DHAVE_LIBGEN_H -DHAVE_LOCALE_H -DHAVE_NET_IF_H -DHAVE_NETDB_H -DHAVE_NETINET_IN_H -DHAVE_NETINET_TCP_H -DHAVE_POLL_H -DHAVE_PWD_H -DHAVE_SETJMP_H -DHAVE_SIGNAL_H -DHAVE_STDATOMIC_H -DHAVE_STDBOOL_H -DHAVE_STDINT_H -DHAVE_STDLIB_H -DHAVE_STRING_H -DHAVE_STRINGS_H -DHAVE_STROPTS_H -DHAVE_TERMIOS_H -DHAVE_TIME_H -DHAVE_UNISTD_H -DHAVE_UTIME_H -DHAVE_STDDEF_H -DHAVE_SYS_UTSNAME_H -MD -MT CMakeFiles/cmTC_bd27d.dir/CurlTests.c.o -MF CMakeFiles\cmTC_bd27d.dir\CurlTests.c.o.d -o CMakeFiles\cmTC_bd27d.dir\CurlTests.c.o -c C:\a1e\Tests\c1e\C2e\source\curl\CMake\CurlTests.c
+C:\a1e\Tests\c1e\C2e\source\curl\CMake\CurlTests.c:511:5: warning: a function declaration without a prototype is deprecated in all versions of C [-Wstrict-prototypes]
+  511 | main() {
+      |     ^
+      |      void
+1 warning generated.
+Linking C executable cmTC_bd27d.js
+"C:\Program Files\CMake\bin\cmake.exe" -E cmake_link_script CMakeFiles\cmTC_bd27d.dir\link.txt --verbose=1
+C:\a1e\Tests\c1e\C2e\emsdk\upstream\emscripten\emcc.exe -pthread  -Wextra -Wall -pedantic -Wbad-function-cast -Wconversion -Winline -Wmissing-declarations -Wmissing-prototypes -Wnested-externs -Wno-long-long -Wno-multichar -Wpointer-arith -Wshadow -Wsign-compare -Wundef -Wunused -Wwrite-strings -Wcast-align -Wdeclaration-after-statement -Wempty-body -Wendif-labels -Wfloat-equal -Wignored-qualifiers -Wno-format-nonliteral -Wno-sign-conversion -Wno-system-headers -Wstrict-prototypes -Wtype-limits -Wvla -Wshift-sign-overflow -Wshorten-64-to-32 -Wdouble-promotion -Wenum-conversion -Wunused-const-variable -Wcomma -Wmissing-variable-declarations -Wassign-enum -Wextra-semi-stmt -DHAVE_ATOMIC  -DHAVE_INTTYPES_H -DHAVE_SYS_IOCTL_H -DHAVE_SYS_PARAM_H -DHAVE_SYS_POLL_H -DHAVE_SYS_RESOURCE_H -DHAVE_SYS_SELECT_H -DHAVE_SYS_SOCKET_H -DHAVE_SYS_STAT_H -DHAVE_SYS_TIME_H -DHAVE_SYS_TYPES_H -DHAVE_SYS_UN_H -DHAVE_SYS_XATTR_H -DHAVE_ARPA_INET_H -DHAVE_ARPA_TFTP_H -DHAVE_FCNTL_H -DHAVE_IFADDRS_H -DHAVE_LIBGEN_H -DHAVE_LOCALE_H -DHAVE_NET_IF_H -DHAVE_NETDB_H -DHAVE_NETINET_IN_H -DHAVE_NETINET_TCP_H -DHAVE_POLL_H -DHAVE_PWD_H -DHAVE_SETJMP_H -DHAVE_SIGNAL_H -DHAVE_STDATOMIC_H -DHAVE_STDBOOL_H -DHAVE_STDINT_H -DHAVE_STDLIB_H -DHAVE_STRING_H -DHAVE_STRINGS_H -DHAVE_STROPTS_H -DHAVE_TERMIOS_H -DHAVE_TIME_H -DHAVE_UNISTD_H -DHAVE_UTIME_H -DHAVE_STDDEF_H -DHAVE_SYS_UTSNAME_H @CMakeFiles\cmTC_bd27d.dir\objects1.rsp -o cmTC_bd27d.js
+mingw32-make.exe[1]: Leaving directory 'C:/a1e/Tests/c1e/C2e/build/curl/CMakeFiles/CMakeTmp'
+
+
+Determining size of off_t passed with the following output:
+Change Dir: 'C:/a1e/Tests/c1e/C2e/build/curl/CMakeFiles/CMakeTmp'
+
+Run Build Command(s): "C:/Program Files/CMake/bin/cmake.exe" -E env VERBOSE=1 C:/MinGW/bin/mingw32-make.exe -f Makefile cmTC_bae71/fast
+C:/MinGW/bin/mingw32-make.exe  -f CMakeFiles\cmTC_bae71.dir\build.make CMakeFiles/cmTC_bae71.dir/build
+mingw32-make.exe[1]: Entering directory 'C:/a1e/Tests/c1e/C2e/build/curl/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_bae71.dir/SIZEOF_OFF_T.c.o
+C:\a1e\Tests\c1e\C2e\emsdk\upstream\emscripten\emcc.exe   -pthread  -Wextra -Wall -pedantic -Wbad-function-cast -Wconversion -Winline -Wmissing-declarations -Wmissing-prototypes -Wnested-externs -Wno-long-long -Wno-multichar -Wpointer-arith -Wshadow -Wsign-compare -Wundef -Wunused -Wwrite-strings -Wcast-align -Wdeclaration-after-statement -Wempty-body -Wendif-labels -Wfloat-equal -Wignored-qualifiers -Wno-format-nonliteral -Wno-sign-conversion -Wno-system-headers -Wstrict-prototypes -Wtype-limits -Wvla -Wshift-sign-overflow -Wshorten-64-to-32 -Wdouble-promotion -Wenum-conversion -Wunused-const-variable -Wcomma -Wmissing-variable-declarations -Wassign-enum -Wextra-semi-stmt -D_FILE_OFFSET_BITS=64 -MD -MT CMakeFiles/cmTC_bae71.dir/SIZEOF_OFF_T.c.o -MF CMakeFiles\cmTC_bae71.dir\SIZEOF_OFF_T.c.o.d -o CMakeFiles\cmTC_bae71.dir\SIZEOF_OFF_T.c.o -c C:\a1e\Tests\c1e\C2e\build\curl\CMakeFiles\CheckTypeSize\SIZEOF_OFF_T.c
+C:\a1e\Tests\c1e\C2e\build\curl\CMakeFiles\CheckTypeSize\SIZEOF_OFF_T.c:24:6: warning: no previous extern declaration for non-static variable 'info_size' [-Wmissing-variable-declarations]
+   24 | char info_size[] =  {'I', 'N', 'F', 'O', ':', 's','i','z','e','[',
+      |      ^
+C:\a1e\Tests\c1e\C2e\build\curl\CMakeFiles\CheckTypeSize\SIZEOF_OFF_T.c:24:1: note: declare 'static' if the variable is not intended to be used outside of this translation unit
+   24 | char info_size[] =  {'I', 'N', 'F', 'O', ':', 's','i','z','e','[',
+      | ^
+1 warning generated.
+Linking C executable cmTC_bae71.js
+"C:\Program Files\CMake\bin\cmake.exe" -E cmake_link_script CMakeFiles\cmTC_bae71.dir\link.txt --verbose=1
+C:\a1e\Tests\c1e\C2e\emsdk\upstream\emscripten\emcc.exe -pthread  -Wextra -Wall -pedantic -Wbad-function-cast -Wconversion -Winline -Wmissing-declarations -Wmissing-prototypes -Wnested-externs -Wno-long-long -Wno-multichar -Wpointer-arith -Wshadow -Wsign-compare -Wundef -Wunused -Wwrite-strings -Wcast-align -Wdeclaration-after-statement -Wempty-body -Wendif-labels -Wfloat-equal -Wignored-qualifiers -Wno-format-nonliteral -Wno-sign-conversion -Wno-system-headers -Wstrict-prototypes -Wtype-limits -Wvla -Wshift-sign-overflow -Wshorten-64-to-32 -Wdouble-promotion -Wenum-conversion -Wunused-const-variable -Wcomma -Wmissing-variable-declarations -Wassign-enum -Wextra-semi-stmt -D_FILE_OFFSET_BITS=64 @CMakeFiles\cmTC_bae71.dir\objects1.rsp -o cmTC_bae71.js @CMakeFiles\cmTC_bae71.dir\linkLibs.rsp
+mingw32-make.exe[1]: Leaving directory 'C:/a1e/Tests/c1e/C2e/build/curl/CMakeFiles/CMakeTmp'
+
+
+
+Determining size of curl_off_t passed with the following output:
+Change Dir: 'C:/a1e/Tests/c1e/C2e/build/curl/CMakeFiles/CMakeTmp'
+
+Run Build Command(s): "C:/Program Files/CMake/bin/cmake.exe" -E env VERBOSE=1 C:/MinGW/bin/mingw32-make.exe -f Makefile cmTC_a165a/fast
+C:/MinGW/bin/mingw32-make.exe  -f CMakeFiles\cmTC_a165a.dir\build.make CMakeFiles/cmTC_a165a.dir/build
+mingw32-make.exe[1]: Entering directory 'C:/a1e/Tests/c1e/C2e/build/curl/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_a165a.dir/SIZEOF_CURL_OFF_T.c.o
+C:\a1e\Tests\c1e\C2e\emsdk\upstream\emscripten\emcc.exe  @CMakeFiles/cmTC_a165a.dir/includes_C.rsp -pthread  -Wextra -Wall -pedantic -Wbad-function-cast -Wconversion -Winline -Wmissing-declarations -Wmissing-prototypes -Wnested-externs -Wno-long-long -Wno-multichar -Wpointer-arith -Wshadow -Wsign-compare -Wundef -Wunused -Wwrite-strings -Wcast-align -Wdeclaration-after-statement -Wempty-body -Wendif-labels -Wfloat-equal -Wignored-qualifiers -Wno-format-nonliteral -Wno-sign-conversion -Wno-system-headers -Wstrict-prototypes -Wtype-limits -Wvla -Wshift-sign-overflow -Wshorten-64-to-32 -Wdouble-promotion -Wenum-conversion -Wunused-const-variable -Wcomma -Wmissing-variable-declarations -Wassign-enum -Wextra-semi-stmt -D_FILE_OFFSET_BITS=64 -MD -MT CMakeFiles/cmTC_a165a.dir/SIZEOF_CURL_OFF_T.c.o -MF CMakeFiles\cmTC_a165a.dir\SIZEOF_CURL_OFF_T.c.o.d -o CMakeFiles\cmTC_a165a.dir\SIZEOF_CURL_OFF_T.c.o -c C:\a1e\Tests\c1e\C2e\build\curl\CMakeFiles\CheckTypeSize\SIZEOF_CURL_OFF_T.c
+C:\a1e\Tests\c1e\C2e\build\curl\CMakeFiles\CheckTypeSize\SIZEOF_CURL_OFF_T.c:25:6: warning: no previous extern declaration for non-static variable 'info_size' [-Wmissing-variable-declarations]
+   25 | char info_size[] =  {'I', 'N', 'F', 'O', ':', 's','i','z','e','[',
+      |      ^
+C:\a1e\Tests\c1e\C2e\build\curl\CMakeFiles\CheckTypeSize\SIZEOF_CURL_OFF_T.c:25:1: note: declare 'static' if the variable is not intended to be used outside of this translation unit
+   25 | char info_size[] =  {'I', 'N', 'F', 'O', ':', 's','i','z','e','[',
+      | ^
+1 warning generated.
+Linking C executable cmTC_a165a.js
+"C:\Program Files\CMake\bin\cmake.exe" -E cmake_link_script CMakeFiles\cmTC_a165a.dir\link.txt --verbose=1
+C:\a1e\Tests\c1e\C2e\emsdk\upstream\emscripten\emcc.exe -pthread  -Wextra -Wall -pedantic -Wbad-function-cast -Wconversion -Winline -Wmissing-declarations -Wmissing-prototypes -Wnested-externs -Wno-long-long -Wno-multichar -Wpointer-arith -Wshadow -Wsign-compare -Wundef -Wunused -Wwrite-strings -Wcast-align -Wdeclaration-after-statement -Wempty-body -Wendif-labels -Wfloat-equal -Wignored-qualifiers -Wno-format-nonliteral -Wno-sign-conversion -Wno-system-headers -Wstrict-prototypes -Wtype-limits -Wvla -Wshift-sign-overflow -Wshorten-64-to-32 -Wdouble-promotion -Wenum-conversion -Wunused-const-variable -Wcomma -Wmissing-variable-declarations -Wassign-enum -Wextra-semi-stmt -D_FILE_OFFSET_BITS=64 @CMakeFiles\cmTC_a165a.dir\objects1.rsp -o cmTC_a165a.js @CMakeFiles\cmTC_a165a.dir\linkLibs.rsp
+mingw32-make.exe[1]: Leaving directory 'C:/a1e/Tests/c1e/C2e/build/curl/CMakeFiles/CMakeTmp'
+
+
+
+Determining size of curl_socket_t passed with the following output:
+Change Dir: 'C:/a1e/Tests/c1e/C2e/build/curl/CMakeFiles/CMakeTmp'
+
+Run Build Command(s): "C:/Program Files/CMake/bin/cmake.exe" -E env VERBOSE=1 C:/MinGW/bin/mingw32-make.exe -f Makefile cmTC_fab96/fast
+C:/MinGW/bin/mingw32-make.exe  -f CMakeFiles\cmTC_fab96.dir\build.make CMakeFiles/cmTC_fab96.dir/build
+mingw32-make.exe[1]: Entering directory 'C:/a1e/Tests/c1e/C2e/build/curl/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_fab96.dir/SIZEOF_CURL_SOCKET_T.c.o
+C:\a1e\Tests\c1e\C2e\emsdk\upstream\emscripten\emcc.exe  @CMakeFiles/cmTC_fab96.dir/includes_C.rsp -pthread  -Wextra -Wall -pedantic -Wbad-function-cast -Wconversion -Winline -Wmissing-declarations -Wmissing-prototypes -Wnested-externs -Wno-long-long -Wno-multichar -Wpointer-arith -Wshadow -Wsign-compare -Wundef -Wunused -Wwrite-strings -Wcast-align -Wdeclaration-after-statement -Wempty-body -Wendif-labels -Wfloat-equal -Wignored-qualifiers -Wno-format-nonliteral -Wno-sign-conversion -Wno-system-headers -Wstrict-prototypes -Wtype-limits -Wvla -Wshift-sign-overflow -Wshorten-64-to-32 -Wdouble-promotion -Wenum-conversion -Wunused-const-variable -Wcomma -Wmissing-variable-declarations -Wassign-enum -Wextra-semi-stmt -D_FILE_OFFSET_BITS=64 -MD -MT CMakeFiles/cmTC_fab96.dir/SIZEOF_CURL_SOCKET_T.c.o -MF CMakeFiles\cmTC_fab96.dir\SIZEOF_CURL_SOCKET_T.c.o.d -o CMakeFiles\cmTC_fab96.dir\SIZEOF_CURL_SOCKET_T.c.o -c C:\a1e\Tests\c1e\C2e\build\curl\CMakeFiles\CheckTypeSize\SIZEOF_CURL_SOCKET_T.c
+C:\a1e\Tests\c1e\C2e\build\curl\CMakeFiles\CheckTypeSize\SIZEOF_CURL_SOCKET_T.c:25:6: warning: no previous extern declaration for non-static variable 'info_size' [-Wmissing-variable-declarations]
+   25 | char info_size[] =  {'I', 'N', 'F', 'O', ':', 's','i','z','e','[',
+      |      ^
+C:\a1e\Tests\c1e\C2e\build\curl\CMakeFiles\CheckTypeSize\SIZEOF_CURL_SOCKET_T.c:25:1: note: declare 'static' if the variable is not intended to be used outside of this translation unit
+   25 | char info_size[] =  {'I', 'N', 'F', 'O', ':', 's','i','z','e','[',
+      | ^
+1 warning generated.
+Linking C executable cmTC_fab96.js
+"C:\Program Files\CMake\bin\cmake.exe" -E cmake_link_script CMakeFiles\cmTC_fab96.dir\link.txt --verbose=1
+C:\a1e\Tests\c1e\C2e\emsdk\upstream\emscripten\emcc.exe -pthread  -Wextra -Wall -pedantic -Wbad-function-cast -Wconversion -Winline -Wmissing-declarations -Wmissing-prototypes -Wnested-externs -Wno-long-long -Wno-multichar -Wpointer-arith -Wshadow -Wsign-compare -Wundef -Wunused -Wwrite-strings -Wcast-align -Wdeclaration-after-statement -Wempty-body -Wendif-labels -Wfloat-equal -Wignored-qualifiers -Wno-format-nonliteral -Wno-sign-conversion -Wno-system-headers -Wstrict-prototypes -Wtype-limits -Wvla -Wshift-sign-overflow -Wshorten-64-to-32 -Wdouble-promotion -Wenum-conversion -Wunused-const-variable -Wcomma -Wmissing-variable-declarations -Wassign-enum -Wextra-semi-stmt -D_FILE_OFFSET_BITS=64 @CMakeFiles\cmTC_fab96.dir\objects1.rsp -o cmTC_fab96.js @CMakeFiles\cmTC_fab96.dir\linkLibs.rsp
+mingw32-make.exe[1]: Leaving directory 'C:/a1e/Tests/c1e/C2e/build/curl/CMakeFiles/CMakeTmp'
+
+
+
+Performing Curl Test HAVE_POSIX_STRERROR_R passed with the following output:
+Change Dir: 'C:/a1e/Tests/c1e/C2e/build/curl/CMakeFiles/CMakeTmp'
+
+Run Build Command(s): "C:/Program Files/CMake/bin/cmake.exe" -E env VERBOSE=1 C:/MinGW/bin/mingw32-make.exe -f Makefile cmTC_ac35e/fast
+C:/MinGW/bin/mingw32-make.exe  -f CMakeFiles\cmTC_ac35e.dir\build.make CMakeFiles/cmTC_ac35e.dir/build
+mingw32-make.exe[1]: Entering directory 'C:/a1e/Tests/c1e/C2e/build/curl/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_ac35e.dir/CurlTests.c.o
+C:\a1e\Tests\c1e\C2e\emsdk\upstream\emscripten\emcc.exe   -pthread  -Wextra -Wall -pedantic -Wbad-function-cast -Wconversion -Winline -Wmissing-declarations -Wmissing-prototypes -Wnested-externs -Wno-long-long -Wno-multichar -Wpointer-arith -Wshadow -Wsign-compare -Wundef -Wunused -Wwrite-strings -Wcast-align -Wdeclaration-after-statement -Wempty-body -Wendif-labels -Wfloat-equal -Wignored-qualifiers -Wno-format-nonliteral -Wno-sign-conversion -Wno-system-headers -Wstrict-prototypes -Wtype-limits -Wvla -Wshift-sign-overflow -Wshorten-64-to-32 -Wdouble-promotion -Wenum-conversion -Wunused-const-variable -Wcomma -Wmissing-variable-declarations -Wassign-enum -Wextra-semi-stmt -DHAVE_POSIX_STRERROR_R  -DHAVE_INTTYPES_H -DHAVE_SYS_IOCTL_H -DHAVE_SYS_PARAM_H -DHAVE_SYS_POLL_H -DHAVE_SYS_RESOURCE_H -DHAVE_SYS_SELECT_H -DHAVE_SYS_SOCKET_H -DHAVE_SYS_STAT_H -DHAVE_SYS_TIME_H -DHAVE_SYS_TYPES_H -DHAVE_SYS_UN_H -DHAVE_SYS_XATTR_H -DHAVE_ARPA_INET_H -DHAVE_ARPA_TFTP_H -DHAVE_FCNTL_H -DHAVE_IFADDRS_H -DHAVE_LIBGEN_H -DHAVE_LOCALE_H -DHAVE_NET_IF_H -DHAVE_NETDB_H -DHAVE_NETINET_IN_H -DHAVE_NETINET_TCP_H -DHAVE_POLL_H -DHAVE_PWD_H -DHAVE_SETJMP_H -DHAVE_SIGNAL_H -DHAVE_STDATOMIC_H -DHAVE_STDBOOL_H -DHAVE_STDINT_H -DHAVE_STDLIB_H -DHAVE_STRING_H -DHAVE_STRINGS_H -DHAVE_STROPTS_H -DHAVE_TERMIOS_H -DHAVE_TIME_H -DHAVE_UNISTD_H -DHAVE_UTIME_H -DHAVE_STDDEF_H -DHAVE_SYS_UTSNAME_H -MD -MT CMakeFiles/cmTC_ac35e.dir/CurlTests.c.o -MF CMakeFiles\cmTC_ac35e.dir\CurlTests.c.o.d -o CMakeFiles\cmTC_ac35e.dir\CurlTests.c.o -c C:\a1e\Tests\c1e\C2e\source\curl\CMake\CurlTests.c
+C:\a1e\Tests\c1e\C2e\source\curl\CMake\CurlTests.c:409:18: warning: unused parameter 'f' [-Wunused-parameter]
+  409 | void check(float f) {}
+      |                  ^
+C:\a1e\Tests\c1e\C2e\source\curl\CMake\CurlTests.c:409:6: warning: no previous prototype for function 'check' [-Wmissing-prototypes]
+  409 | void check(float f) {}
+      |      ^
+C:\a1e\Tests\c1e\C2e\source\curl\CMake\CurlTests.c:409:1: note: declare 'static' if the function is not intended to be used outside of this translation unit
+  409 | void check(float f) {}
+      | ^
+      | static 
+C:\a1e\Tests\c1e\C2e\source\curl\CMake\CurlTests.c:412:6: warning: a function declaration without a prototype is deprecated in all versions of C [-Wstrict-prototypes]
+  412 | main () {
+      |      ^
+      |       void
+C:\a1e\Tests\c1e\C2e\source\curl\CMake\CurlTests.c:415:9: warning: implicit conversion from 'int' to 'float' may lose precision [-Wimplicit-int-float-conversion]
+  415 |   check(strerror_r(EACCES, buffer, sizeof(buffer)));
+      |   ~~~~~ ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+4 warnings generated.
+Linking C executable cmTC_ac35e.js
+"C:\Program Files\CMake\bin\cmake.exe" -E cmake_link_script CMakeFiles\cmTC_ac35e.dir\link.txt --verbose=1
+C:\a1e\Tests\c1e\C2e\emsdk\upstream\emscripten\emcc.exe -pthread  -Wextra -Wall -pedantic -Wbad-function-cast -Wconversion -Winline -Wmissing-declarations -Wmissing-prototypes -Wnested-externs -Wno-long-long -Wno-multichar -Wpointer-arith -Wshadow -Wsign-compare -Wundef -Wunused -Wwrite-strings -Wcast-align -Wdeclaration-after-statement -Wempty-body -Wendif-labels -Wfloat-equal -Wignored-qualifiers -Wno-format-nonliteral -Wno-sign-conversion -Wno-system-headers -Wstrict-prototypes -Wtype-limits -Wvla -Wshift-sign-overflow -Wshorten-64-to-32 -Wdouble-promotion -Wenum-conversion -Wunused-const-variable -Wcomma -Wmissing-variable-declarations -Wassign-enum -Wextra-semi-stmt -DHAVE_POSIX_STRERROR_R  -DHAVE_INTTYPES_H -DHAVE_SYS_IOCTL_H -DHAVE_SYS_PARAM_H -DHAVE_SYS_POLL_H -DHAVE_SYS_RESOURCE_H -DHAVE_SYS_SELECT_H -DHAVE_SYS_SOCKET_H -DHAVE_SYS_STAT_H -DHAVE_SYS_TIME_H -DHAVE_SYS_TYPES_H -DHAVE_SYS_UN_H -DHAVE_SYS_XATTR_H -DHAVE_ARPA_INET_H -DHAVE_ARPA_TFTP_H -DHAVE_FCNTL_H -DHAVE_IFADDRS_H -DHAVE_LIBGEN_H -DHAVE_LOCALE_H -DHAVE_NET_IF_H -DHAVE_NETDB_H -DHAVE_NETINET_IN_H -DHAVE_NETINET_TCP_H -DHAVE_POLL_H -DHAVE_PWD_H -DHAVE_SETJMP_H -DHAVE_SIGNAL_H -DHAVE_STDATOMIC_H -DHAVE_STDBOOL_H -DHAVE_STDINT_H -DHAVE_STDLIB_H -DHAVE_STRING_H -DHAVE_STRINGS_H -DHAVE_STROPTS_H -DHAVE_TERMIOS_H -DHAVE_TIME_H -DHAVE_UNISTD_H -DHAVE_UTIME_H -DHAVE_STDDEF_H -DHAVE_SYS_UTSNAME_H @CMakeFiles\cmTC_ac35e.dir\objects1.rsp -o cmTC_ac35e.js
+mingw32-make.exe[1]: Leaving directory 'C:/a1e/Tests/c1e/C2e/build/curl/CMakeFiles/CMakeTmp'
+
+
+Performing Curl Test HAVE_CLOCK_GETTIME_MONOTONIC passed with the following output:
+Change Dir: 'C:/a1e/Tests/c1e/C2e/build/curl/CMakeFiles/CMakeTmp'
+
+Run Build Command(s): "C:/Program Files/CMake/bin/cmake.exe" -E env VERBOSE=1 C:/MinGW/bin/mingw32-make.exe -f Makefile cmTC_4508f/fast
+C:/MinGW/bin/mingw32-make.exe  -f CMakeFiles\cmTC_4508f.dir\build.make CMakeFiles/cmTC_4508f.dir/build
+mingw32-make.exe[1]: Entering directory 'C:/a1e/Tests/c1e/C2e/build/curl/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_4508f.dir/CurlTests.c.o
+C:\a1e\Tests\c1e\C2e\emsdk\upstream\emscripten\emcc.exe   -pthread  -Wextra -Wall -pedantic -Wbad-function-cast -Wconversion -Winline -Wmissing-declarations -Wmissing-prototypes -Wnested-externs -Wno-long-long -Wno-multichar -Wpointer-arith -Wshadow -Wsign-compare -Wundef -Wunused -Wwrite-strings -Wcast-align -Wdeclaration-after-statement -Wempty-body -Wendif-labels -Wfloat-equal -Wignored-qualifiers -Wno-format-nonliteral -Wno-sign-conversion -Wno-system-headers -Wstrict-prototypes -Wtype-limits -Wvla -Wshift-sign-overflow -Wshorten-64-to-32 -Wdouble-promotion -Wenum-conversion -Wunused-const-variable -Wcomma -Wmissing-variable-declarations -Wassign-enum -Wextra-semi-stmt -DHAVE_CLOCK_GETTIME_MONOTONIC  -DHAVE_INTTYPES_H -DHAVE_SYS_IOCTL_H -DHAVE_SYS_PARAM_H -DHAVE_SYS_POLL_H -DHAVE_SYS_RESOURCE_H -DHAVE_SYS_SELECT_H -DHAVE_SYS_SOCKET_H -DHAVE_SYS_STAT_H -DHAVE_SYS_TIME_H -DHAVE_SYS_TYPES_H -DHAVE_SYS_UN_H -DHAVE_SYS_XATTR_H -DHAVE_ARPA_INET_H -DHAVE_ARPA_TFTP_H -DHAVE_FCNTL_H -DHAVE_IFADDRS_H -DHAVE_LIBGEN_H -DHAVE_LOCALE_H -DHAVE_NET_IF_H -DHAVE_NETDB_H -DHAVE_NETINET_IN_H -DHAVE_NETINET_TCP_H -DHAVE_POLL_H -DHAVE_PWD_H -DHAVE_SETJMP_H -DHAVE_SIGNAL_H -DHAVE_STDATOMIC_H -DHAVE_STDBOOL_H -DHAVE_STDINT_H -DHAVE_STDLIB_H -DHAVE_STRING_H -DHAVE_STRINGS_H -DHAVE_STROPTS_H -DHAVE_TERMIOS_H -DHAVE_TIME_H -DHAVE_UNISTD_H -DHAVE_UTIME_H -DHAVE_STDDEF_H -DHAVE_SYS_UTSNAME_H -MD -MT CMakeFiles/cmTC_4508f.dir/CurlTests.c.o -MF CMakeFiles\cmTC_4508f.dir\CurlTests.c.o.d -o CMakeFiles\cmTC_4508f.dir\CurlTests.c.o -c C:\a1e\Tests\c1e\C2e\source\curl\CMake\CurlTests.c
+C:\a1e\Tests\c1e\C2e\source\curl\CMake\CurlTests.c:438:5: warning: a function declaration without a prototype is deprecated in all versions of C [-Wstrict-prototypes]
+  438 | main() {
+      |     ^
+      |      void
+1 warning generated.
+Linking C executable cmTC_4508f.js
+"C:\Program Files\CMake\bin\cmake.exe" -E cmake_link_script CMakeFiles\cmTC_4508f.dir\link.txt --verbose=1
+C:\a1e\Tests\c1e\C2e\emsdk\upstream\emscripten\emcc.exe -pthread  -Wextra -Wall -pedantic -Wbad-function-cast -Wconversion -Winline -Wmissing-declarations -Wmissing-prototypes -Wnested-externs -Wno-long-long -Wno-multichar -Wpointer-arith -Wshadow -Wsign-compare -Wundef -Wunused -Wwrite-strings -Wcast-align -Wdeclaration-after-statement -Wempty-body -Wendif-labels -Wfloat-equal -Wignored-qualifiers -Wno-format-nonliteral -Wno-sign-conversion -Wno-system-headers -Wstrict-prototypes -Wtype-limits -Wvla -Wshift-sign-overflow -Wshorten-64-to-32 -Wdouble-promotion -Wenum-conversion -Wunused-const-variable -Wcomma -Wmissing-variable-declarations -Wassign-enum -Wextra-semi-stmt -DHAVE_CLOCK_GETTIME_MONOTONIC  -DHAVE_INTTYPES_H -DHAVE_SYS_IOCTL_H -DHAVE_SYS_PARAM_H -DHAVE_SYS_POLL_H -DHAVE_SYS_RESOURCE_H -DHAVE_SYS_SELECT_H -DHAVE_SYS_SOCKET_H -DHAVE_SYS_STAT_H -DHAVE_SYS_TIME_H -DHAVE_SYS_TYPES_H -DHAVE_SYS_UN_H -DHAVE_SYS_XATTR_H -DHAVE_ARPA_INET_H -DHAVE_ARPA_TFTP_H -DHAVE_FCNTL_H -DHAVE_IFADDRS_H -DHAVE_LIBGEN_H -DHAVE_LOCALE_H -DHAVE_NET_IF_H -DHAVE_NETDB_H -DHAVE_NETINET_IN_H -DHAVE_NETINET_TCP_H -DHAVE_POLL_H -DHAVE_PWD_H -DHAVE_SETJMP_H -DHAVE_SIGNAL_H -DHAVE_STDATOMIC_H -DHAVE_STDBOOL_H -DHAVE_STDINT_H -DHAVE_STDLIB_H -DHAVE_STRING_H -DHAVE_STRINGS_H -DHAVE_STROPTS_H -DHAVE_TERMIOS_H -DHAVE_TIME_H -DHAVE_UNISTD_H -DHAVE_UTIME_H -DHAVE_STDDEF_H -DHAVE_SYS_UTSNAME_H @CMakeFiles\cmTC_4508f.dir\objects1.rsp -o cmTC_4508f.js
+mingw32-make.exe[1]: Leaving directory 'C:/a1e/Tests/c1e/C2e/build/curl/CMakeFiles/CMakeTmp'
+
+
+Performing Curl Test HAVE_BUILTIN_AVAILABLE passed with the following output:
+Change Dir: 'C:/a1e/Tests/c1e/C2e/build/curl/CMakeFiles/CMakeTmp'
+
+Run Build Command(s): "C:/Program Files/CMake/bin/cmake.exe" -E env VERBOSE=1 C:/MinGW/bin/mingw32-make.exe -f Makefile cmTC_c8119/fast
+C:/MinGW/bin/mingw32-make.exe  -f CMakeFiles\cmTC_c8119.dir\build.make CMakeFiles/cmTC_c8119.dir/build
+mingw32-make.exe[1]: Entering directory 'C:/a1e/Tests/c1e/C2e/build/curl/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_c8119.dir/CurlTests.c.o
+C:\a1e\Tests\c1e\C2e\emsdk\upstream\emscripten\emcc.exe   -pthread  -Wextra -Wall -pedantic -Wbad-function-cast -Wconversion -Winline -Wmissing-declarations -Wmissing-prototypes -Wnested-externs -Wno-long-long -Wno-multichar -Wpointer-arith -Wshadow -Wsign-compare -Wundef -Wunused -Wwrite-strings -Wcast-align -Wdeclaration-after-statement -Wempty-body -Wendif-labels -Wfloat-equal -Wignored-qualifiers -Wno-format-nonliteral -Wno-sign-conversion -Wno-system-headers -Wstrict-prototypes -Wtype-limits -Wvla -Wshift-sign-overflow -Wshorten-64-to-32 -Wdouble-promotion -Wenum-conversion -Wunused-const-variable -Wcomma -Wmissing-variable-declarations -Wassign-enum -Wextra-semi-stmt -DHAVE_BUILTIN_AVAILABLE  -DHAVE_INTTYPES_H -DHAVE_SYS_IOCTL_H -DHAVE_SYS_PARAM_H -DHAVE_SYS_POLL_H -DHAVE_SYS_RESOURCE_H -DHAVE_SYS_SELECT_H -DHAVE_SYS_SOCKET_H -DHAVE_SYS_STAT_H -DHAVE_SYS_TIME_H -DHAVE_SYS_TYPES_H -DHAVE_SYS_UN_H -DHAVE_SYS_XATTR_H -DHAVE_ARPA_INET_H -DHAVE_ARPA_TFTP_H -DHAVE_FCNTL_H -DHAVE_IFADDRS_H -DHAVE_LIBGEN_H -DHAVE_LOCALE_H -DHAVE_NET_IF_H -DHAVE_NETDB_H -DHAVE_NETINET_IN_H -DHAVE_NETINET_TCP_H -DHAVE_POLL_H -DHAVE_PWD_H -DHAVE_SETJMP_H -DHAVE_SIGNAL_H -DHAVE_STDATOMIC_H -DHAVE_STDBOOL_H -DHAVE_STDINT_H -DHAVE_STDLIB_H -DHAVE_STRING_H -DHAVE_STRINGS_H -DHAVE_STROPTS_H -DHAVE_TERMIOS_H -DHAVE_TIME_H -DHAVE_UNISTD_H -DHAVE_UTIME_H -DHAVE_STDDEF_H -DHAVE_SYS_UTSNAME_H -MD -MT CMakeFiles/cmTC_c8119.dir/CurlTests.c.o -MF CMakeFiles\cmTC_c8119.dir\CurlTests.c.o.d -o CMakeFiles\cmTC_c8119.dir\CurlTests.c.o -c C:\a1e\Tests\c1e\C2e\source\curl\CMake\CurlTests.c
+C:\a1e\Tests\c1e\C2e\source\curl\CMake\CurlTests.c:446:5: warning: a function declaration without a prototype is deprecated in all versions of C [-Wstrict-prototypes]
+  446 | main() {
+      |     ^
+      |      void
+1 warning generated.
+Linking C executable cmTC_c8119.js
+"C:\Program Files\CMake\bin\cmake.exe" -E cmake_link_script CMakeFiles\cmTC_c8119.dir\link.txt --verbose=1
+C:\a1e\Tests\c1e\C2e\emsdk\upstream\emscripten\emcc.exe -pthread  -Wextra -Wall -pedantic -Wbad-function-cast -Wconversion -Winline -Wmissing-declarations -Wmissing-prototypes -Wnested-externs -Wno-long-long -Wno-multichar -Wpointer-arith -Wshadow -Wsign-compare -Wundef -Wunused -Wwrite-strings -Wcast-align -Wdeclaration-after-statement -Wempty-body -Wendif-labels -Wfloat-equal -Wignored-qualifiers -Wno-format-nonliteral -Wno-sign-conversion -Wno-system-headers -Wstrict-prototypes -Wtype-limits -Wvla -Wshift-sign-overflow -Wshorten-64-to-32 -Wdouble-promotion -Wenum-conversion -Wunused-const-variable -Wcomma -Wmissing-variable-declarations -Wassign-enum -Wextra-semi-stmt -DHAVE_BUILTIN_AVAILABLE  -DHAVE_INTTYPES_H -DHAVE_SYS_IOCTL_H -DHAVE_SYS_PARAM_H -DHAVE_SYS_POLL_H -DHAVE_SYS_RESOURCE_H -DHAVE_SYS_SELECT_H -DHAVE_SYS_SOCKET_H -DHAVE_SYS_STAT_H -DHAVE_SYS_TIME_H -DHAVE_SYS_TYPES_H -DHAVE_SYS_UN_H -DHAVE_SYS_XATTR_H -DHAVE_ARPA_INET_H -DHAVE_ARPA_TFTP_H -DHAVE_FCNTL_H -DHAVE_IFADDRS_H -DHAVE_LIBGEN_H -DHAVE_LOCALE_H -DHAVE_NET_IF_H -DHAVE_NETDB_H -DHAVE_NETINET_IN_H -DHAVE_NETINET_TCP_H -DHAVE_POLL_H -DHAVE_PWD_H -DHAVE_SETJMP_H -DHAVE_SIGNAL_H -DHAVE_STDATOMIC_H -DHAVE_STDBOOL_H -DHAVE_STDINT_H -DHAVE_STDLIB_H -DHAVE_STRING_H -DHAVE_STRINGS_H -DHAVE_STROPTS_H -DHAVE_TERMIOS_H -DHAVE_TIME_H -DHAVE_UNISTD_H -DHAVE_UTIME_H -DHAVE_STDDEF_H -DHAVE_SYS_UTSNAME_H @CMakeFiles\cmTC_c8119.dir\objects1.rsp -o cmTC_c8119.js
+mingw32-make.exe[1]: Leaving directory 'C:/a1e/Tests/c1e/C2e/build/curl/CMakeFiles/CMakeTmp'
+
+
+Determining size of struct sockaddr_storage passed with the following output:
+Change Dir: 'C:/a1e/Tests/c1e/C2e/build/curl/CMakeFiles/CMakeTmp'
+
+Run Build Command(s): "C:/Program Files/CMake/bin/cmake.exe" -E env VERBOSE=1 C:/MinGW/bin/mingw32-make.exe -f Makefile cmTC_40519/fast
+C:/MinGW/bin/mingw32-make.exe  -f CMakeFiles\cmTC_40519.dir\build.make CMakeFiles/cmTC_40519.dir/build
+mingw32-make.exe[1]: Entering directory 'C:/a1e/Tests/c1e/C2e/build/curl/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_40519.dir/SIZEOF_STRUCT_SOCKADDR_STORAGE.c.o
+C:\a1e\Tests\c1e\C2e\emsdk\upstream\emscripten\emcc.exe  @CMakeFiles/cmTC_40519.dir/includes_C.rsp -pthread  -Wextra -Wall -pedantic -Wbad-function-cast -Wconversion -Winline -Wmissing-declarations -Wmissing-prototypes -Wnested-externs -Wno-long-long -Wno-multichar -Wpointer-arith -Wshadow -Wsign-compare -Wundef -Wunused -Wwrite-strings -Wcast-align -Wdeclaration-after-statement -Wempty-body -Wendif-labels -Wfloat-equal -Wignored-qualifiers -Wno-format-nonliteral -Wno-sign-conversion -Wno-system-headers -Wstrict-prototypes -Wtype-limits -Wvla -Wshift-sign-overflow -Wshorten-64-to-32 -Wdouble-promotion -Wenum-conversion -Wunused-const-variable -Wcomma -Wmissing-variable-declarations -Wassign-enum -Wextra-semi-stmt  -MD -MT CMakeFiles/cmTC_40519.dir/SIZEOF_STRUCT_SOCKADDR_STORAGE.c.o -MF CMakeFiles\cmTC_40519.dir\SIZEOF_STRUCT_SOCKADDR_STORAGE.c.o.d -o CMakeFiles\cmTC_40519.dir\SIZEOF_STRUCT_SOCKADDR_STORAGE.c.o -c C:\a1e\Tests\c1e\C2e\build\curl\CMakeFiles\CheckTypeSize\SIZEOF_STRUCT_SOCKADDR_STORAGE.c
+C:\a1e\Tests\c1e\C2e\build\curl\CMakeFiles\CheckTypeSize\SIZEOF_STRUCT_SOCKADDR_STORAGE.c:25:6: warning: no previous extern declaration for non-static variable 'info_size' [-Wmissing-variable-declarations]
+   25 | char info_size[] =  {'I', 'N', 'F', 'O', ':', 's','i','z','e','[',
+      |      ^
+C:\a1e\Tests\c1e\C2e\build\curl\CMakeFiles\CheckTypeSize\SIZEOF_STRUCT_SOCKADDR_STORAGE.c:25:1: note: declare 'static' if the variable is not intended to be used outside of this translation unit
+   25 | char info_size[] =  {'I', 'N', 'F', 'O', ':', 's','i','z','e','[',
+      | ^
+1 warning generated.
+Linking C static library libcmTC_40519.a
+"C:\Program Files\CMake\bin\cmake.exe" -P CMakeFiles\cmTC_40519.dir\cmake_clean_target.cmake
+"C:\Program Files\CMake\bin\cmake.exe" -E cmake_link_script CMakeFiles\cmTC_40519.dir\link.txt --verbose=1
+C:\a1e\Tests\c1e\C2e\emsdk\upstream\emscripten\emar.exe qc libcmTC_40519.a CMakeFiles/cmTC_40519.dir/SIZEOF_STRUCT_SOCKADDR_STORAGE.c.o
+C:\a1e\Tests\c1e\C2e\emsdk\upstream\emscripten\emranlib.exe libcmTC_40519.a
+mingw32-make.exe[1]: Leaving directory 'C:/a1e/Tests/c1e/C2e/build/curl/CMakeFiles/CMakeTmp'
+
+
+

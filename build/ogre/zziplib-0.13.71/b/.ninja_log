@@ -1,0 +1,17 @@
+# ninja log v7
+103	1190	8087146731010481	zzip/CMakeFiles/libzzip.dir/fetch.c.o	25b1a85753f20cf2
+46	1226	8087146730440075	zzip/CMakeFiles/libzzip.dir/err.c.o	56bbfde15366db1f
+68	1251	8087146730648812	zzip/CMakeFiles/libzzip.dir/plugin.c.o	c85da05ea1e2f6bd
+60	1275	8087146730569882	zzip/CMakeFiles/libzzip.dir/info.c.o	e0f674fceb70fa81
+77	1293	8087146730740392	zzip/CMakeFiles/libzzip.dir/stat.c.o	b35b3ad59d92e6c7
+87	1318	8087146730848911	zzip/CMakeFiles/libzzip.dir/write.c.o	97b86ab6bee45bf5
+32	1339	8087146730289009	zzip/CMakeFiles/libzzip.dir/dir.c.o	602ba3feeb5672f4
+97	1355	8087146730949428	zzip/CMakeFiles/libzzip.dir/zip.c.o	f6083283f9c437d0
+112	1370	8087146743549023	zzip/zziplib.pc	4beb12545d8b24cc
+112	1370	8087146743549023	zzip/zzipmmapped.pc	4beb12545d8b24cc
+112	1370	8087146743549023	zzip/zzipfseeko.pc	4beb12545d8b24cc
+112	1370	8087146743549023	C:/a1e/Tests/c1e/C2e/build/ogre/zziplib-0.13.71/b/zzip/zziplib.pc	4beb12545d8b24cc
+112	1370	8087146743549023	C:/a1e/Tests/c1e/C2e/build/ogre/zziplib-0.13.71/b/zzip/zzipmmapped.pc	4beb12545d8b24cc
+112	1370	8087146743549023	C:/a1e/Tests/c1e/C2e/build/ogre/zziplib-0.13.71/b/zzip/zzipfseeko.pc	4beb12545d8b24cc
+52	1403	8087146730498776	zzip/CMakeFiles/libzzip.dir/file.c.o	ab640b9f52e1899e
+1403	2222	8087146743999146	zzip/libzzip-0.a	9a72c5d171b432ed

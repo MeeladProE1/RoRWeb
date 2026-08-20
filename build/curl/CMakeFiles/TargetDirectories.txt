@@ -1,0 +1,15 @@
+C:/a1e/Tests/c1e/C2e/build/curl/CMakeFiles/curl_uninstall.dir
+C:/a1e/Tests/c1e/C2e/build/curl/CMakeFiles/edit_cache.dir
+C:/a1e/Tests/c1e/C2e/build/curl/CMakeFiles/rebuild_cache.dir
+C:/a1e/Tests/c1e/C2e/build/curl/CMakeFiles/list_install_components.dir
+C:/a1e/Tests/c1e/C2e/build/curl/CMakeFiles/install.dir
+C:/a1e/Tests/c1e/C2e/build/curl/CMakeFiles/install/local.dir
+C:/a1e/Tests/c1e/C2e/build/curl/CMakeFiles/install/strip.dir
+C:/a1e/Tests/c1e/C2e/build/curl/lib/CMakeFiles/libcurl.dir
+C:/a1e/Tests/c1e/C2e/build/curl/lib/CMakeFiles/curlu.dir
+C:/a1e/Tests/c1e/C2e/build/curl/lib/CMakeFiles/edit_cache.dir
+C:/a1e/Tests/c1e/C2e/build/curl/lib/CMakeFiles/rebuild_cache.dir
+C:/a1e/Tests/c1e/C2e/build/curl/lib/CMakeFiles/list_install_components.dir
+C:/a1e/Tests/c1e/C2e/build/curl/lib/CMakeFiles/install.dir
+C:/a1e/Tests/c1e/C2e/build/curl/lib/CMakeFiles/install/local.dir
+C:/a1e/Tests/c1e/C2e/build/curl/lib/CMakeFiles/install/strip.dir

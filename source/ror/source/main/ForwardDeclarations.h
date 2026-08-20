@@ -1,0 +1,298 @@
+/*
+    This source file is part of Rigs of Rods
+    Copyright 2005-2012 Pierre-Michel Ricordel
+    Copyright 2007-2012 Thomas Fischer
+    Copyright 2013-2020 Petr Ohlidal
+
+    For more information, see http://www.rigsofrods.org/
+
+    Rigs of Rods is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License version 3, as
+    published by the Free Software Foundation.
+
+    Rigs of Rods is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Rigs of Rods. If not, see <http://www.gnu.org/licenses/>.
+*/
+
+
+/// @file   ForwardDeclarations.h
+/// @brief  Global forward declarations.
+/// @author Petr Ohlidal
+/// @date   12/2013
+
+#include "RefCountingObjectPtr.h"
+
+#include <limits>
+#include <memory>
+#include <vector>
+
+#pragma once
+
+namespace RoR
+{
+    typedef int ActorInstanceID_t; //!< Unique sequentially generated ID of an actor in session. Use `ActorManager::GetActorById()`
+    static const ActorInstanceID_t ACTORINSTANCEID_INVALID = 0;
+
+    typedef int ScriptUnitID_t; //!< Unique sequentially generated ID of a loaded and running scriptin session. Use `ScriptEngine::getScriptUnit()`
+    static const ScriptUnitID_t SCRIPTUNITID_INVALID = -1;
+    static const ScriptUnitID_t SCRIPTUNITID_DEFAULT = -2; //!< The script defined in .terrn2 [Scripts], or 'default.as' ~ classic behavior.
+
+    typedef int PointidID_t; //!< index to `PointColDetector::hit_pointid_list`, use `RoR::POINTIDID_INVALID` as empty value.
+    static const PointidID_t POINTIDID_INVALID = -1;
+
+    typedef int RefelemID_t; //!< index to `PointColDetector::m_ref_list`, use `RoR::REFELEMID_INVALID` as empty value.
+    static const RefelemID_t REFELEMID_INVALID = -1;
+
+    typedef int CacheEntryID_t; //!< index to `CacheSystem::m_cache_entries`, use `RoR::CACHEENTRYNUM_INVALID` as empty value.
+    static const CacheEntryID_t CACHEENTRYID_INVALID = -1;
+
+    typedef uint16_t NodeNum_t; //!< Node position within `Actor::ar_nodes`; use RoR::NODENUM_INVALID as empty value.
+    static const NodeNum_t NODENUM_INVALID = std::numeric_limits<NodeNum_t>::max();
+    static const NodeNum_t NODENUM_MAX = std::numeric_limits<NodeNum_t>::max() - 1;
+
+    typedef int WheelID_t; //!< Index to `Actor::ar_wheels`, `use RoR::WHEELID_INVALID` as empty value
+    static const WheelID_t WHEELID_INVALID = -1;
+
+    typedef int PropID_t; //!< Index to `GfxActor::m_props`, use `RoR::PROPID_INVALID` as empty value
+    static const PropID_t PROPID_INVALID = -1;
+
+    typedef int FlexbodyID_t; //!< Index to `GfxActor::m_flexbodies`, `use RoR::FLEXBODYID_INVALID` as empty value
+    static const FlexbodyID_t FLEXBODYID_INVALID = -1;
+
+    typedef int FreeForceID_t; //!< Unique sequentially generated ID of `FreeForce`; use `ActorManager::GetFreeForceNextId()`.
+    static const FreeForceID_t FREEFORCEID_INVALID = -1;
+
+    typedef int FlareID_t; //!< Index into `Actor::ar_flares`, use `RoR::FLAREID_INVALID` as empty value
+    static const FlareID_t FLAREID_INVALID = -1;
+
+    typedef int ExhaustID_t; //!< Index into `GfxActor::m_exhausts`, use `RoR::EXHAUSTID_INVALID` as empty value
+    static const ExhaustID_t EXHAUSTID_INVALID = -1;
+
+    typedef int CParticleID_t; //!< Index into `GfxActor::m_cparticles`, use `RoR::CPARTICLEID_INVALID` as empty value
+    static const CParticleID_t CPARTICLEID_INVALID = -1;
+
+    typedef int CineCameraID_t; //!< Index into `Actor::ar_cinecam_node` and `Actor::ar_camera_node_*` arrays; use `RoR::CINECAMERAID_INVALID` as empty value
+    static const CineCameraID_t CINECAMERAID_INVALID = -1;
+
+    typedef int CommandkeyID_t; //!< Index into `Actor::ar_commandkeys` (BEWARE: indexed 1-MAX_COMMANDKEYS, 0 is invalid value, negative subscript of any size is acceptable, see `class CmdKeyArray` ).
+    static const CommandkeyID_t COMMANDKEYID_INVALID = 0;
+
+    typedef int VideoCameraID_t; //!< Index into `GfxActor::m_videocameras`, use `RoR::VIDEOCAMERAID_INVALID` as empty value
+    static const VideoCameraID_t VIDEOCAMERAID_INVALID = -1;
+
+    typedef int ScriptRetCode_t; //!< see enum `RoR::ScriptRetCode` - combines AngelScript codes and RoR internal codes.
+
+    typedef int TerrainEditorObjectID_t; //!< Offset into `RoR::TerrainObjectManager::m_editor_objects`, use `RoR::TERRAINEDITOROBJECTID_INVALID` as empty value.
+    static const TerrainEditorObjectID_t TERRAINEDITOROBJECTID_INVALID = -1;
+
+    typedef int FreeBeamGfxID_t; //!< Index into `GfxScene::m_gfx_freebeams`, use `RoR::FREEBEAMGFXID_INVALID` as empty value
+    static const FreeBeamGfxID_t FREEBEAMGFXID_INVALID = -1;
+
+    typedef int BuoyCachedNodeID_t; //<! Offset to `Buoyance::buoy_cached_nodes`, use BUOYCACHEDNODEID_INVALID as empty value.
+    static const BuoyCachedNodeID_t BUOYCACHEDNODEID_INVALID = -1;
+
+    typedef int RepoFileInstallRequestID_t; //!< Unique sequentially generated ID of a repository item installation request; use `GUI::RepositorySelector::GetNextInstallRequestId()`.
+    static const RepoFileInstallRequestID_t REPOFILEINSTALLREQUESTID_INVALID = -1; //!< Invalid ID for repository item installation request.
+
+    class  Actor;
+    class  ActorManager;
+    class  ActorSpawner;
+    class  AeroEngine;
+    class  Airbrake;
+    class  Airfoil;
+    class  AppContext;
+    class  Autopilot;
+    class  Buoyance;
+    class  CacheEntry;
+    class  CacheSystem;
+    class  CameraManager;
+    class  Character;
+    class  Collisions;
+    class  ConfigFile;
+    class  Console;
+    class  ContentManager;
+    struct CurlFailInfo;
+    class  CVar;
+    class  DashBoard;
+    class  DashBoardManager;
+    class  DustPool;
+    class  DiscordRpc;
+    class  Engine;
+    class  Flexable;
+    class  FlexAirfoil;
+    class  FlexBody;
+    class  FlexBodyFileIO;
+    struct FlexBodyCacheData;
+    class  FlexFactory;
+    class  FlexMeshWheel;
+    class  FlexObj;
+    class  ForceFeedback;
+    class  GameContext;
+    class  GameScript;
+    class  GfxActor;
+    struct GenericDocument;
+    struct GenericDocContext;
+    struct GfxCharacter;
+    class  GfxEnvmap;
+    class  GfxScene;
+    class  GUIManager;
+    struct GuiManagerImpl;
+    class  HydraxWater;
+    class  InputEngine;
+    class  IGfxWater;
+    class  Landusemap;
+    class  LanguageEngine;
+    class  LocalStorage;
+    class  MovableText;
+    class  MumbleIntegration;
+    class  OutGauge;
+    class  OverlayWrapper;
+    class  Network;
+    struct ODefDocument;
+    class  OgreSubsystem;
+    struct OTCDocument;
+    struct PlatformUtils;
+    class  PointColDetector;
+    class  ProceduralManager;
+    struct ProceduralObject;
+    struct ProceduralPoint;
+    class  ProceduralRoad;
+    struct Prop;
+    struct PropAnim;
+    class  RailGroup;
+    class  Renderdash;
+    class  Replay;
+    class  RigLoadingProfiler;
+    class  Screwprop;
+    class  ScriptEngine;
+    class  ShadowManager;
+    class  Skidmark;
+    class  SkidmarkConfig;
+    struct SkinDocument;
+    class  SkinManager;
+    class  SkyManager;
+    class  SkyXManager;
+    class  SlideNode;
+    class  Sound;
+    class  SoundManager;
+    class  SoundScriptInstance;
+    class  SoundScriptManager;
+    class  SoundScriptTemplate;
+    class  Task;
+    class  TerrainEditor;
+    class  TerrainGeometryManager;
+    class  Terrain;
+    class  TerrainEditorObject;
+    class  TerrainObjectManager;
+    struct Terrn2Author;
+    struct Terrn2Document;
+    class  Terrn2Parser;
+    struct Terrn2Telepoint;
+    class  ThreadPool;
+    struct TObjDocument;
+    class  TorqueCurve;
+    struct TuneupDef;
+    class  VehicleAI;
+    class  VideoCamera;
+
+    // SimData.h
+    struct node_t;
+    struct beam_t;
+    struct shock_t;
+    struct eventsource_t;
+    struct soundsource_t;
+    struct rigidifier_t;
+    struct wheel_t;
+    struct vwheel_t;
+    struct ropable_t;
+    struct wing_t;
+    struct command_t;
+    struct rotator_t;
+    struct flare_t;
+    struct rope_t;
+    struct Exhaust;
+    struct CParticle;
+    struct collision_box_t;
+    struct tie_t;
+    struct hook_t;
+    struct ground_model_t;
+    struct client_t;
+    struct authorinfo_t;
+
+    // File formats - see also separate `RigDef` namespace below.
+    typedef std::shared_ptr<ODefDocument> ODefDocumentPtr;
+    typedef std::shared_ptr<OTCDocument> OTCDocumentPtr;
+    typedef std::shared_ptr<SkinDocument> SkinDocumentPtr;
+    typedef std::shared_ptr<TObjDocument> TObjDocumentPtr;
+    typedef std::shared_ptr<Terrn2Document> Terrn2DocumentPtr;
+
+    typedef RefCountingObjectPtr<Actor> ActorPtr;
+    typedef RefCountingObjectPtr<AeroEngine> AeroEnginePtr;
+    typedef RefCountingObjectPtr<Autopilot> AutopilotPtr;
+    typedef RefCountingObjectPtr<CacheEntry> CacheEntryPtr;
+    typedef RefCountingObjectPtr<DashBoardManager> DashBoardManagerPtr;
+    typedef RefCountingObjectPtr<Engine> EnginePtr;
+    typedef RefCountingObjectPtr<GenericDocument> GenericDocumentPtr;
+    typedef RefCountingObjectPtr<GenericDocContext> GenericDocContextPtr;
+    typedef RefCountingObjectPtr<LocalStorage> LocalStoragePtr;
+    typedef RefCountingObjectPtr<ProceduralPoint> ProceduralPointPtr;
+    typedef RefCountingObjectPtr<ProceduralObject> ProceduralObjectPtr;
+    typedef RefCountingObjectPtr<ProceduralRoad> ProceduralRoadPtr;
+    typedef RefCountingObjectPtr<ProceduralManager> ProceduralManagerPtr;
+    typedef RefCountingObjectPtr<Screwprop> ScrewpropPtr;
+    typedef RefCountingObjectPtr<Sound> SoundPtr;
+    typedef RefCountingObjectPtr<SoundScriptInstance> SoundScriptInstancePtr;
+    typedef RefCountingObjectPtr<SoundScriptTemplate> SoundScriptTemplatePtr;
+    typedef RefCountingObjectPtr<Terrain> TerrainPtr;
+    typedef RefCountingObjectPtr<TerrainEditorObject> TerrainEditorObjectPtr;
+    typedef RefCountingObjectPtr<TuneupDef> TuneupDefPtr;
+    typedef RefCountingObjectPtr<VehicleAI> VehicleAIPtr;
+
+    typedef std::vector<ActorPtr> ActorPtrVec;
+    typedef std::vector<TerrainEditorObjectPtr> TerrainEditorObjectPtrVec;
+    typedef std::vector<CacheEntryPtr> CacheEntryPtrVec;
+
+    namespace GUI
+    {
+        class  ConsoleView;
+        class  Dialog;
+        class  FrictionSettings;
+        class  GameControls;
+        class  GameMainMenu;
+        class  LoadingWindow;
+        class  MainSelector;
+        class  MpClientList;
+        class  MultiplayerSelector;
+        class  RepositorySelector;
+        class  DirectionArrow;
+        class  SceneMouse;
+        class  SurveyMap;
+        class  TopMenubar;
+        class  VehicleInfoTPanel;
+    }
+} // namespace RoR
+
+namespace RoRnet
+{
+    struct Header;
+    struct UserInfo;
+    struct StreamRegister;
+    struct ActorStreamRegister;
+    struct ServerInfo;
+    struct VehicleState;
+}
+
+namespace RigDef
+{
+    struct Document;
+    typedef std::shared_ptr<Document> DocumentPtr;
+}
+
+#ifdef USE_SOCKETW
+class SWBaseSocket;
+#endif // USE_SOCKETW

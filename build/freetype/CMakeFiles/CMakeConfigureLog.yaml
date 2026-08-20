@@ -1,0 +1,105 @@
+
+---
+events:
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-3.30/Modules/CMakeDetermineSystem.cmake:200 (message)"
+      - "CMakeLists.txt:134 (project)"
+    message: |
+      The target system is: Emscripten - 1 - x86
+      The host system is: Windows - 10.0.19045 - AMD64
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-3.30/Modules/CheckIncludeFile.cmake:90 (try_compile)"
+      - "CMakeLists.txt:214 (check_include_file)"
+    checks:
+      - "Looking for unistd.h"
+    directories:
+      source: "C:/a1e/Tests/c1e/C2e/build/freetype/CMakeFiles/CMakeScratch/TryCompile-6xm9dr"
+      binary: "C:/a1e/Tests/c1e/C2e/build/freetype/CMakeFiles/CMakeScratch/TryCompile-6xm9dr"
+    cmakeVariables:
+      CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS: "C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/emscan-deps.exe"
+      CMAKE_C_FLAGS: "-pthread"
+      CMAKE_MODULE_PATH: "C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/cmake/Modules;C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/cmake/Modules;C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/cmake/Modules;C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/cmake/Modules;C:/a1e/Tests/c1e/C2e/build/ogre/freetype-2.10.1/builds/cmake"
+    buildResult:
+      variable: "HAVE_UNISTD_H"
+      cached: true
+      stdout: |
+        Change Dir: 'C:/a1e/Tests/c1e/C2e/build/freetype/CMakeFiles/CMakeScratch/TryCompile-6xm9dr'
+        
+        Run Build Command(s): "C:/Program Files/CMake/bin/cmake.exe" -E env VERBOSE=1 C:/MinGW/bin/mingw32-make.exe -f Makefile cmTC_422fb/fast
+        C:/MinGW/bin/mingw32-make.exe  -f CMakeFiles\\cmTC_422fb.dir\\build.make CMakeFiles/cmTC_422fb.dir/build
+        mingw32-make.exe[1]: Entering directory 'C:/a1e/Tests/c1e/C2e/build/freetype/CMakeFiles/CMakeScratch/TryCompile-6xm9dr'
+        Building C object CMakeFiles/cmTC_422fb.dir/CheckIncludeFile.c.o
+        C:\\a1e\\Tests\\c1e\\C2e\\emsdk\\upstream\\emscripten\\emcc.exe   -pthread  -MD -MT CMakeFiles/cmTC_422fb.dir/CheckIncludeFile.c.o -MF CMakeFiles\\cmTC_422fb.dir\\CheckIncludeFile.c.o.d -o CMakeFiles\\cmTC_422fb.dir\\CheckIncludeFile.c.o -c C:\\a1e\\Tests\\c1e\\C2e\\build\\freetype\\CMakeFiles\\CMakeScratch\\TryCompile-6xm9dr\\CheckIncludeFile.c
+        Linking C executable cmTC_422fb.js
+        "C:\\Program Files\\CMake\\bin\\cmake.exe" -E cmake_link_script CMakeFiles\\cmTC_422fb.dir\\link.txt --verbose=1
+        C:\\a1e\\Tests\\c1e\\C2e\\emsdk\\upstream\\emscripten\\emcc.exe -pthread  @CMakeFiles\\cmTC_422fb.dir\\objects1.rsp -o cmTC_422fb.js
+        mingw32-make.exe[1]: Leaving directory 'C:/a1e/Tests/c1e/C2e/build/freetype/CMakeFiles/CMakeScratch/TryCompile-6xm9dr'
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-3.30/Modules/CheckIncludeFile.cmake:90 (try_compile)"
+      - "CMakeLists.txt:215 (check_include_file)"
+    checks:
+      - "Looking for fcntl.h"
+    directories:
+      source: "C:/a1e/Tests/c1e/C2e/build/freetype/CMakeFiles/CMakeScratch/TryCompile-z3kb9k"
+      binary: "C:/a1e/Tests/c1e/C2e/build/freetype/CMakeFiles/CMakeScratch/TryCompile-z3kb9k"
+    cmakeVariables:
+      CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS: "C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/emscan-deps.exe"
+      CMAKE_C_FLAGS: "-pthread"
+      CMAKE_MODULE_PATH: "C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/cmake/Modules;C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/cmake/Modules;C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/cmake/Modules;C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/cmake/Modules;C:/a1e/Tests/c1e/C2e/build/ogre/freetype-2.10.1/builds/cmake"
+    buildResult:
+      variable: "HAVE_FCNTL_H"
+      cached: true
+      stdout: |
+        Change Dir: 'C:/a1e/Tests/c1e/C2e/build/freetype/CMakeFiles/CMakeScratch/TryCompile-z3kb9k'
+        
+        Run Build Command(s): "C:/Program Files/CMake/bin/cmake.exe" -E env VERBOSE=1 C:/MinGW/bin/mingw32-make.exe -f Makefile cmTC_6facd/fast
+        C:/MinGW/bin/mingw32-make.exe  -f CMakeFiles\\cmTC_6facd.dir\\build.make CMakeFiles/cmTC_6facd.dir/build
+        mingw32-make.exe[1]: Entering directory 'C:/a1e/Tests/c1e/C2e/build/freetype/CMakeFiles/CMakeScratch/TryCompile-z3kb9k'
+        Building C object CMakeFiles/cmTC_6facd.dir/CheckIncludeFile.c.o
+        C:\\a1e\\Tests\\c1e\\C2e\\emsdk\\upstream\\emscripten\\emcc.exe   -pthread  -MD -MT CMakeFiles/cmTC_6facd.dir/CheckIncludeFile.c.o -MF CMakeFiles\\cmTC_6facd.dir\\CheckIncludeFile.c.o.d -o CMakeFiles\\cmTC_6facd.dir\\CheckIncludeFile.c.o -c C:\\a1e\\Tests\\c1e\\C2e\\build\\freetype\\CMakeFiles\\CMakeScratch\\TryCompile-z3kb9k\\CheckIncludeFile.c
+        Linking C executable cmTC_6facd.js
+        "C:\\Program Files\\CMake\\bin\\cmake.exe" -E cmake_link_script CMakeFiles\\cmTC_6facd.dir\\link.txt --verbose=1
+        C:\\a1e\\Tests\\c1e\\C2e\\emsdk\\upstream\\emscripten\\emcc.exe -pthread  @CMakeFiles\\cmTC_6facd.dir\\objects1.rsp -o cmTC_6facd.js
+        mingw32-make.exe[1]: Leaving directory 'C:/a1e/Tests/c1e/C2e/build/freetype/CMakeFiles/CMakeScratch/TryCompile-z3kb9k'
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-3.30/Modules/CheckIncludeFile.cmake:90 (try_compile)"
+      - "CMakeLists.txt:216 (check_include_file)"
+    checks:
+      - "Looking for stdint.h"
+    directories:
+      source: "C:/a1e/Tests/c1e/C2e/build/freetype/CMakeFiles/CMakeScratch/TryCompile-ingnae"
+      binary: "C:/a1e/Tests/c1e/C2e/build/freetype/CMakeFiles/CMakeScratch/TryCompile-ingnae"
+    cmakeVariables:
+      CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS: "C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/emscan-deps.exe"
+      CMAKE_C_FLAGS: "-pthread"
+      CMAKE_MODULE_PATH: "C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/cmake/Modules;C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/cmake/Modules;C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/cmake/Modules;C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/cmake/Modules;C:/a1e/Tests/c1e/C2e/build/ogre/freetype-2.10.1/builds/cmake"
+    buildResult:
+      variable: "HAVE_STDINT_H"
+      cached: true
+      stdout: |
+        Change Dir: 'C:/a1e/Tests/c1e/C2e/build/freetype/CMakeFiles/CMakeScratch/TryCompile-ingnae'
+        
+        Run Build Command(s): "C:/Program Files/CMake/bin/cmake.exe" -E env VERBOSE=1 C:/MinGW/bin/mingw32-make.exe -f Makefile cmTC_42c4e/fast
+        C:/MinGW/bin/mingw32-make.exe  -f CMakeFiles\\cmTC_42c4e.dir\\build.make CMakeFiles/cmTC_42c4e.dir/build
+        mingw32-make.exe[1]: Entering directory 'C:/a1e/Tests/c1e/C2e/build/freetype/CMakeFiles/CMakeScratch/TryCompile-ingnae'
+        Building C object CMakeFiles/cmTC_42c4e.dir/CheckIncludeFile.c.o
+        C:\\a1e\\Tests\\c1e\\C2e\\emsdk\\upstream\\emscripten\\emcc.exe   -pthread  -MD -MT CMakeFiles/cmTC_42c4e.dir/CheckIncludeFile.c.o -MF CMakeFiles\\cmTC_42c4e.dir\\CheckIncludeFile.c.o.d -o CMakeFiles\\cmTC_42c4e.dir\\CheckIncludeFile.c.o -c C:\\a1e\\Tests\\c1e\\C2e\\build\\freetype\\CMakeFiles\\CMakeScratch\\TryCompile-ingnae\\CheckIncludeFile.c
+        Linking C executable cmTC_42c4e.js
+        "C:\\Program Files\\CMake\\bin\\cmake.exe" -E cmake_link_script CMakeFiles\\cmTC_42c4e.dir\\link.txt --verbose=1
+        C:\\a1e\\Tests\\c1e\\C2e\\emsdk\\upstream\\emscripten\\emcc.exe -pthread  @CMakeFiles\\cmTC_42c4e.dir\\objects1.rsp -o cmTC_42c4e.js
+        mingw32-make.exe[1]: Leaving directory 'C:/a1e/Tests/c1e/C2e/build/freetype/CMakeFiles/CMakeScratch/TryCompile-ingnae'
+        
+      exitCode: 0
+...

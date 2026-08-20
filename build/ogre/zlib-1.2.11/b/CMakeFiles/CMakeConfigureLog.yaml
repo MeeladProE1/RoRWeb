@@ -1,0 +1,164 @@
+
+---
+events:
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-3.30/Modules/CMakeDetermineSystem.cmake:200 (message)"
+      - "CMakeLists.txt:4 (project)"
+    message: |
+      The target system is: Emscripten - 1 - x86
+      The host system is: Windows - 10.0.19045 - AMD64
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-3.30/Modules/CheckIncludeFile.cmake:90 (try_compile)"
+      - "CMakeLists.txt:23 (check_include_file)"
+    checks:
+      - "Looking for sys/types.h"
+    directories:
+      source: "C:/a1e/Tests/c1e/C2e/build/ogre/zlib-1.2.11/b/CMakeFiles/CMakeScratch/TryCompile-mc4oav"
+      binary: "C:/a1e/Tests/c1e/C2e/build/ogre/zlib-1.2.11/b/CMakeFiles/CMakeScratch/TryCompile-mc4oav"
+    cmakeVariables:
+      CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS: "C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/emscan-deps.exe"
+      CMAKE_C_FLAGS: ""
+      CMAKE_MODULE_PATH: "C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/cmake/Modules;C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/cmake/Modules;C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/cmake/Modules;C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/cmake/Modules"
+    buildResult:
+      variable: "HAVE_SYS_TYPES_H"
+      cached: true
+      stdout: |
+        Change Dir: 'C:/a1e/Tests/c1e/C2e/build/ogre/zlib-1.2.11/b/CMakeFiles/CMakeScratch/TryCompile-mc4oav'
+        
+        Run Build Command(s): C:/a1e/Tests/c1e/C2e/python/Scripts/ninja.exe -v cmTC_cb319
+        [1/2] C:\\a1e\\Tests\\c1e\\C2e\\emsdk\\upstream\\emscripten\\emcc.exe    -MD -MT CMakeFiles/cmTC_cb319.dir/CheckIncludeFile.c.o -MF CMakeFiles\\cmTC_cb319.dir\\CheckIncludeFile.c.o.d -o CMakeFiles/cmTC_cb319.dir/CheckIncludeFile.c.o -c C:/a1e/Tests/c1e/C2e/build/ogre/zlib-1.2.11/b/CMakeFiles/CMakeScratch/TryCompile-mc4oav/CheckIncludeFile.c
+        [2/2] C:\\Windows\\system32\\cmd.exe /C "cd . && C:\\a1e\\Tests\\c1e\\C2e\\emsdk\\upstream\\emscripten\\emcc.exe   CMakeFiles/cmTC_cb319.dir/CheckIncludeFile.c.o -o cmTC_cb319.js   && cd ."
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-3.30/Modules/CheckIncludeFile.cmake:90 (try_compile)"
+      - "CMakeLists.txt:24 (check_include_file)"
+    checks:
+      - "Looking for stdint.h"
+    directories:
+      source: "C:/a1e/Tests/c1e/C2e/build/ogre/zlib-1.2.11/b/CMakeFiles/CMakeScratch/TryCompile-zvvzp8"
+      binary: "C:/a1e/Tests/c1e/C2e/build/ogre/zlib-1.2.11/b/CMakeFiles/CMakeScratch/TryCompile-zvvzp8"
+    cmakeVariables:
+      CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS: "C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/emscan-deps.exe"
+      CMAKE_C_FLAGS: ""
+      CMAKE_MODULE_PATH: "C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/cmake/Modules;C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/cmake/Modules;C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/cmake/Modules;C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/cmake/Modules"
+    buildResult:
+      variable: "HAVE_STDINT_H"
+      cached: true
+      stdout: |
+        Change Dir: 'C:/a1e/Tests/c1e/C2e/build/ogre/zlib-1.2.11/b/CMakeFiles/CMakeScratch/TryCompile-zvvzp8'
+        
+        Run Build Command(s): C:/a1e/Tests/c1e/C2e/python/Scripts/ninja.exe -v cmTC_1d967
+        [1/2] C:\\a1e\\Tests\\c1e\\C2e\\emsdk\\upstream\\emscripten\\emcc.exe    -MD -MT CMakeFiles/cmTC_1d967.dir/CheckIncludeFile.c.o -MF CMakeFiles\\cmTC_1d967.dir\\CheckIncludeFile.c.o.d -o CMakeFiles/cmTC_1d967.dir/CheckIncludeFile.c.o -c C:/a1e/Tests/c1e/C2e/build/ogre/zlib-1.2.11/b/CMakeFiles/CMakeScratch/TryCompile-zvvzp8/CheckIncludeFile.c
+        [2/2] C:\\Windows\\system32\\cmd.exe /C "cd . && C:\\a1e\\Tests\\c1e\\C2e\\emsdk\\upstream\\emscripten\\emcc.exe   CMakeFiles/cmTC_1d967.dir/CheckIncludeFile.c.o -o cmTC_1d967.js   && cd ."
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-3.30/Modules/CheckIncludeFile.cmake:90 (try_compile)"
+      - "CMakeLists.txt:25 (check_include_file)"
+    checks:
+      - "Looking for stddef.h"
+    directories:
+      source: "C:/a1e/Tests/c1e/C2e/build/ogre/zlib-1.2.11/b/CMakeFiles/CMakeScratch/TryCompile-w4a6z6"
+      binary: "C:/a1e/Tests/c1e/C2e/build/ogre/zlib-1.2.11/b/CMakeFiles/CMakeScratch/TryCompile-w4a6z6"
+    cmakeVariables:
+      CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS: "C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/emscan-deps.exe"
+      CMAKE_C_FLAGS: ""
+      CMAKE_MODULE_PATH: "C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/cmake/Modules;C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/cmake/Modules;C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/cmake/Modules;C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/cmake/Modules"
+    buildResult:
+      variable: "HAVE_STDDEF_H"
+      cached: true
+      stdout: |
+        Change Dir: 'C:/a1e/Tests/c1e/C2e/build/ogre/zlib-1.2.11/b/CMakeFiles/CMakeScratch/TryCompile-w4a6z6'
+        
+        Run Build Command(s): C:/a1e/Tests/c1e/C2e/python/Scripts/ninja.exe -v cmTC_492a3
+        [1/2] C:\\a1e\\Tests\\c1e\\C2e\\emsdk\\upstream\\emscripten\\emcc.exe    -MD -MT CMakeFiles/cmTC_492a3.dir/CheckIncludeFile.c.o -MF CMakeFiles\\cmTC_492a3.dir\\CheckIncludeFile.c.o.d -o CMakeFiles/cmTC_492a3.dir/CheckIncludeFile.c.o -c C:/a1e/Tests/c1e/C2e/build/ogre/zlib-1.2.11/b/CMakeFiles/CMakeScratch/TryCompile-w4a6z6/CheckIncludeFile.c
+        [2/2] C:\\Windows\\system32\\cmd.exe /C "cd . && C:\\a1e\\Tests\\c1e\\C2e\\emsdk\\upstream\\emscripten\\emcc.exe   CMakeFiles/cmTC_492a3.dir/CheckIncludeFile.c.o -o cmTC_492a3.js   && cd ."
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/cmake/Modules/CheckTypeSize.cmake:114 (try_compile)"
+      - "C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/cmake/Modules/CheckTypeSize.cmake:239 (__check_type_size_impl)"
+      - "CMakeLists.txt:43 (check_type_size)"
+    directories:
+      source: "C:/a1e/Tests/c1e/C2e/build/ogre/zlib-1.2.11/b/CMakeFiles/CMakeTmp"
+      binary: "C:/a1e/Tests/c1e/C2e/build/ogre/zlib-1.2.11/b/CMakeFiles/CMakeTmp"
+    cmakeVariables:
+      CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS: "C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/emscan-deps.exe"
+      CMAKE_C_FLAGS: ""
+      CMAKE_MODULE_PATH: "C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/cmake/Modules;C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/cmake/Modules;C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/cmake/Modules;C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/cmake/Modules"
+    buildResult:
+      variable: "HAVE_OFF64_T"
+      cached: true
+      stdout: |
+        Change Dir: 'C:/a1e/Tests/c1e/C2e/build/ogre/zlib-1.2.11/b/CMakeFiles/CMakeTmp'
+        
+        Run Build Command(s): C:/a1e/Tests/c1e/C2e/python/Scripts/ninja.exe -v cmTC_0b978
+        [1/2] C:\\a1e\\Tests\\c1e\\C2e\\emsdk\\upstream\\emscripten\\emcc.exe -DHAVE_STDDEF_H -DHAVE_STDINT_H -DHAVE_SYS_TYPES_H -D_LARGEFILE64_SOURCE=1   -MD -MT CMakeFiles/cmTC_0b978.dir/OFF64_T.c.o -MF CMakeFiles\\cmTC_0b978.dir\\OFF64_T.c.o.d -o CMakeFiles/cmTC_0b978.dir/OFF64_T.c.o -c C:/a1e/Tests/c1e/C2e/build/ogre/zlib-1.2.11/b/CMakeFiles/CheckTypeSize/OFF64_T.c
+        [2/2] C:\\Windows\\system32\\cmd.exe /C "cd . && C:\\a1e\\Tests\\c1e\\C2e\\emsdk\\upstream\\emscripten\\emcc.exe   CMakeFiles/cmTC_0b978.dir/OFF64_T.c.o -o cmTC_0b978.js  --oformat=wasm  -sWASM=1 && cd ."
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-3.30/Modules/CheckFunctionExists.cmake:86 (try_compile)"
+      - "CMakeLists.txt:52 (check_function_exists)"
+    checks:
+      - "Looking for fseeko"
+    directories:
+      source: "C:/a1e/Tests/c1e/C2e/build/ogre/zlib-1.2.11/b/CMakeFiles/CMakeScratch/TryCompile-16z1dk"
+      binary: "C:/a1e/Tests/c1e/C2e/build/ogre/zlib-1.2.11/b/CMakeFiles/CMakeScratch/TryCompile-16z1dk"
+    cmakeVariables:
+      CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS: "C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/emscan-deps.exe"
+      CMAKE_C_FLAGS: ""
+      CMAKE_MODULE_PATH: "C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/cmake/Modules;C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/cmake/Modules;C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/cmake/Modules;C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/cmake/Modules"
+    buildResult:
+      variable: "HAVE_FSEEKO"
+      cached: true
+      stdout: |
+        Change Dir: 'C:/a1e/Tests/c1e/C2e/build/ogre/zlib-1.2.11/b/CMakeFiles/CMakeScratch/TryCompile-16z1dk'
+        
+        Run Build Command(s): C:/a1e/Tests/c1e/C2e/python/Scripts/ninja.exe -v cmTC_e0e3c
+        [1/2] C:\\a1e\\Tests\\c1e\\C2e\\emsdk\\upstream\\emscripten\\emcc.exe   -DCHECK_FUNCTION_EXISTS=fseeko -MD -MT CMakeFiles/cmTC_e0e3c.dir/CheckFunctionExists.c.o -MF CMakeFiles\\cmTC_e0e3c.dir\\CheckFunctionExists.c.o.d -o CMakeFiles/cmTC_e0e3c.dir/CheckFunctionExists.c.o -c C:/a1e/Tests/c1e/C2e/build/ogre/zlib-1.2.11/b/CMakeFiles/CMakeScratch/TryCompile-16z1dk/CheckFunctionExists.c
+        [2/2] C:\\Windows\\system32\\cmd.exe /C "cd . && C:\\a1e\\Tests\\c1e\\C2e\\emsdk\\upstream\\emscripten\\emcc.exe -DCHECK_FUNCTION_EXISTS=fseeko  CMakeFiles/cmTC_e0e3c.dir/CheckFunctionExists.c.o -o cmTC_e0e3c.js   && cd ."
+        wasm-ld: warning: function signature mismatch: fseeko
+        >>> defined as () -> i32 in CMakeFiles/cmTC_e0e3c.dir/CheckFunctionExists.c.o
+        >>> defined as (i32, i64, i32) -> i32 in C:\\a1e\\Tests\\c1e\\C2e\\emsdk\\upstream\\emscripten\\cache\\sysroot\\lib\\wasm32-emscripten\\libc-debug.a(fseek.o)
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-3.30/Modules/CheckIncludeFile.cmake:90 (try_compile)"
+      - "CMakeLists.txt:60 (check_include_file)"
+    checks:
+      - "Looking for unistd.h"
+    directories:
+      source: "C:/a1e/Tests/c1e/C2e/build/ogre/zlib-1.2.11/b/CMakeFiles/CMakeScratch/TryCompile-845j5y"
+      binary: "C:/a1e/Tests/c1e/C2e/build/ogre/zlib-1.2.11/b/CMakeFiles/CMakeScratch/TryCompile-845j5y"
+    cmakeVariables:
+      CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS: "C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/emscan-deps.exe"
+      CMAKE_C_FLAGS: ""
+      CMAKE_MODULE_PATH: "C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/cmake/Modules;C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/cmake/Modules;C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/cmake/Modules;C:/a1e/Tests/c1e/C2e/emsdk/upstream/emscripten/cmake/Modules"
+    buildResult:
+      variable: "Z_HAVE_UNISTD_H"
+      cached: true
+      stdout: |
+        Change Dir: 'C:/a1e/Tests/c1e/C2e/build/ogre/zlib-1.2.11/b/CMakeFiles/CMakeScratch/TryCompile-845j5y'
+        
+        Run Build Command(s): C:/a1e/Tests/c1e/C2e/python/Scripts/ninja.exe -v cmTC_a6cd7
+        [1/2] C:\\a1e\\Tests\\c1e\\C2e\\emsdk\\upstream\\emscripten\\emcc.exe    -MD -MT CMakeFiles/cmTC_a6cd7.dir/CheckIncludeFile.c.o -MF CMakeFiles\\cmTC_a6cd7.dir\\CheckIncludeFile.c.o.d -o CMakeFiles/cmTC_a6cd7.dir/CheckIncludeFile.c.o -c C:/a1e/Tests/c1e/C2e/build/ogre/zlib-1.2.11/b/CMakeFiles/CMakeScratch/TryCompile-845j5y/CheckIncludeFile.c
+        [2/2] C:\\Windows\\system32\\cmd.exe /C "cd . && C:\\a1e\\Tests\\c1e\\C2e\\emsdk\\upstream\\emscripten\\emcc.exe   CMakeFiles/cmTC_a6cd7.dir/CheckIncludeFile.c.o -o cmTC_a6cd7.js   && cd ."
+        
+      exitCode: 0
+...

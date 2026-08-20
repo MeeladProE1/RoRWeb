@@ -1,0 +1,11 @@
+# ninja log v7
+147	3658	8087191335540272	CMakeFiles/SocketW.dir/src/sw_ssl.cxx.o	d3fb76e503df5862
+158	5032	8087191335650483	CMakeFiles/SocketW.dir/src/sw_unix.cxx.o	e8c68be4b3e0362d
+136	5122	8087191335430621	CMakeFiles/SocketW.dir/src/sw_inet.cxx.o	2693eb1f89c70d8c
+124	5273	8087191335310553	CMakeFiles/SocketW.dir/src/sw_base.cxx.o	abe116d56a5818a5
+5273	6388	8087191386802242	libSocketW.a	34e2fe5a8c5ca0c3
+124	1804	8087849516842327	CMakeFiles/SocketW.dir/src/sw_base.cxx.o	e7dab9d556199667
+1804	3376	8087849533405078	CMakeFiles/SocketW.dir/src/sw_inet.cxx.o	1579ac26f5c16d04
+3376	3938	8087849549117895	CMakeFiles/SocketW.dir/src/sw_ssl.cxx.o	d8f282d6db25ae86
+3939	5362	8087849554750849	CMakeFiles/SocketW.dir/src/sw_unix.cxx.o	5ba196dbac592d99
+5362	5947	8087849568983070	libSocketW.a	34e2fe5a8c5ca0c3

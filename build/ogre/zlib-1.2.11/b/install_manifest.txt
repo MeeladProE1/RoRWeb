@@ -1,0 +1,8 @@
+C:/a1e/Tests/c1e/C2e/build/deps/lib/libz.so.1.2.11
+C:/a1e/Tests/c1e/C2e/build/deps/lib/libz.so.1
+C:/a1e/Tests/c1e/C2e/build/deps/lib/libz.so
+C:/a1e/Tests/c1e/C2e/build/deps/lib/libz.a
+C:/a1e/Tests/c1e/C2e/build/deps/include/zconf.h
+C:/a1e/Tests/c1e/C2e/build/deps/include/zlib.h
+C:/a1e/Tests/c1e/C2e/build/deps/share/man/man3/zlib.3
+C:/a1e/Tests/c1e/C2e/build/deps/share/pkgconfig/zlib.pc

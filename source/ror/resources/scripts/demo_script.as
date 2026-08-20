@@ -1,0 +1,678 @@
+/*
+---------------------------------------------------------------------------
+Project Rigs of Rods (www.rigsofrods.org)
+
+DEMO SCRIPT
+
+This program showcases all the various things you can do using scripting:
+* Use DearIMGUI to draw UI of any kind, including diagnostic views.
+* Collect and show stats (i.e. frame count, total time)
+* Read/Write cvars (RoR.cfg values, cli args, game state...)
+* View and update game state (current vehicle...)
+* Parse and display definition files with syntax highlighting. ==> moved to 'example_GenericDocument_uniEditor.as'
+* Load and write text files in the resource system.
+* Inspect loaded sounds and soundscript templates, and of course play sounds!
+* Post messages to game's main message queue, performing almost any operation.
+* Query list of resource files (filtered using pattern) from OGRE resource groups.
+* Add custom icons to survey map.
+
+To invoke this script, open in-game console and say `loadscript demo_script.as`.
+Alternatively, you can run the game with parameter '-runscript <filename>'.
+You can use this command multiple times at once.
+Alternatively, you can set 'app_custom_scripts' in RoR.cfg.
+It's a comma-separated list, spaces in filenames are acceptable.
+
+For introduction to game events, read
+https://docs.rigsofrods.org/terrain-creation/scripting/.
+
+Scripting documentation:
+https://developer.rigsofrods.org/d4/d07/group___script2_game.html
+
+---------------------------------------------------------------------------
+*/
+
+#include "imgui_utils.as"
+
+/*
+---------------------------------------------------------------------------
+Global variables
+*/
+int         g_total_frames = 0;
+float       g_total_seconds = 0;
+CVarClass@  g_app_state = console.cVarFind("app_state"); // 0=bootstrap, 1=main menu, 2=simulation, see AppState in Application.h
+CVarClass@  g_sys_cache_dir = console.cVarFind("sys_cache_dir");
+CVarClass@  g_sim_state = console.cVarFind("sim_state"); // 0=off, 1=running, 2=paused, 3=terrain editor, see SimState in Application.h
+CVarClass@  g_mp_state = console.cVarFind("mp_state"); // 0=disabled, 1=connecting, 2=connected, see MpState in Application.h
+CVarClass@  g_io_arcade_controls = console.cVarFind("io_arcade_controls"); // bool
+
+array<string> g_terrain_tobj_files;
+SoundScriptInstanceClass@ g_playing_soundscript = null;
+SoundClass@ g_playing_sound = null;
+bool g_sound_follows_player = true;
+string g_demofile_data;
+
+// Main window state
+imgui_utils::CloseWindowPrompt closeBtnHandler;
+
+
+// tab settings
+bool demotabsReorderable = false;
+bool demotabsNoTooltip = true;
+// closable tabs
+bool demotabOpentabChecks = true;
+bool demotabOpentabEmpty = true;
+
+// findResourceFileInfo
+const string RG_NAME = "Scripts";
+const string RG_PATTERN = "demo*.*";
+
+/*
+---------------------------------------------------------------------------
+Script setup function - invoked once when script is loaded.
+*/
+void main()
+{
+    log("Hello Rigs of Rods!");
+}
+
+/*
+---------------------------------------------------------------------------
+Script update function - invoked by the game once every rendered frame,
+with elapsed time (delta time, in seconds) as parameter.
+*/
+void frameStep(float dt)
+{
+    // Open demo window
+    ImGui::Begin("Demo Script", closeBtnHandler.windowOpen, ImGuiWindowFlags_AlwaysAutoResize);
+    closeBtnHandler.draw();
+    
+    // show some stats
+    ImGui::Text("Total frames: " + g_total_frames);
+    ImGui::Text("Total time: " + int(g_total_seconds / 60) + "min, " 
+    + int(g_total_seconds % 60) + "sec");
+    
+    // Show some game context
+    if (g_app_state.getInt() == 1) // main menu
+    {
+        drawMainMenuPanel();
+        
+        ImGui::Separator();
+        drawAudioButtons();
+        
+        ImGui::Separator();
+        drawTextResourceButtons();   
+        drawExampleTabs();
+        ImGui::Separator();
+        drawFindResourceFileInfo();        
+    }
+    else if (g_app_state.getInt() == 2) // simulation
+    {
+        if (g_mp_state.getInt() == 2)
+        {
+            ImGui::Text("Game state: multiplayer");
+        }
+        else
+        {
+            ImGui::Text("Game state: single player");
+        }
+        
+        if (g_sim_state.getInt() == 2)
+        {
+            ImGui::SameLine();
+            ImGui::Text("(paused)");
+        }
+        else if (g_sim_state.getInt() == 3)
+        {
+            ImGui::SameLine();
+            ImGui::Text("(terrain edit)");
+        }
+        
+        
+        
+        ImGui::TextDisabled("Camera controls:");
+        ImGui::Text("Change camera: " + inputs.getEventCommandTrimmed(EV_CAMERA_CHANGE));
+        ImGui::Text("Toggle free camera: " + inputs.getEventCommandTrimmed(EV_CAMERA_FREE_MODE));
+        ImGui::Text("Toggle fixed camera: " + inputs.getEventCommandTrimmed(EV_CAMERA_FREE_MODE_FIX));              
+        
+        BeamClass@ actor = game.getCurrentTruck();
+        if (@actor != null)
+        {
+            // Actor name and "View document" button
+            ImGui::PushID("actor");
+            ImGui::AlignTextToFramePadding();
+            ImGui::Text("You are driving " + actor.getTruckName());
+            
+            ImGui::PopID(); //"actor"
+            
+            ImGui::TextDisabled("Vehicle controls:");
+            
+            ImGui::Text("Accelerate/Brake: "
+            + inputs.getEventCommandTrimmed(EV_TRUCK_ACCELERATE) + "/"
+            + inputs.getEventCommandTrimmed(EV_TRUCK_BRAKE));
+            if (g_io_arcade_controls.getBool() == true)
+            {
+                ImGui::Text("Arcade controls are enabled (?)");
+                if (ImGui::IsItemHovered())
+                {
+                    ImGui::BeginTooltip();
+                    ImGui::Text("'brake' key also accelerates in reverse.");
+                    ImGui::Text("You can change the setting in main menu / settings / gameplay.");
+                    ImGui::EndTooltip();
+                }
+            }
+            else
+            {
+                ImGui::Text("Arcade controls are disabled (?)");
+                if (ImGui::IsItemHovered())
+                {
+                    ImGui::BeginTooltip();
+                    ImGui::Text("'brake' key only brakes, to accelerate in reverse use 'accelerate' key.");
+                    ImGui::Text("You can change the setting in main menu / settings / gameplay.");
+                    ImGui::EndTooltip();
+                }
+            }
+            
+            ImGui::Text("Steer left/right: "
+            + inputs.getEventCommandTrimmed(EV_TRUCK_STEER_LEFT) + "/"
+            + inputs.getEventCommandTrimmed(EV_TRUCK_STEER_RIGHT));            
+            
+            drawActorAngles(actor);
+            
+        }
+        else
+        {
+            ImGui::Text("You are on foot");
+            ImGui::TextDisabled("Character controls:");
+            ImGui::Text("Forward/Backward: "
+            + inputs.getEventCommandTrimmed(EV_CHARACTER_FORWARD) + "/"
+            + inputs.getEventCommandTrimmed(EV_CHARACTER_BACKWARDS));
+            ImGui::Text("Turn left/right: "
+            + inputs.getEventCommandTrimmed(EV_CHARACTER_LEFT) + "/"
+            + inputs.getEventCommandTrimmed(EV_CHARACTER_RIGHT));
+            ImGui::Text("Run: " + inputs.getEventCommandTrimmed(EV_CHARACTER_RUN));
+            
+            ImGui::Separator();
+            drawSurveymapIconsPanel();
+        }
+        ImGui::Separator();
+        drawAIButtons();
+        
+        ImGui::Separator();
+        drawAudioButtons();
+        
+        ImGui::Separator();
+        drawTextResourceButtons();
+    }
+    
+    // End window
+    ImGui::End();
+    
+    // Update global counters
+    g_total_frames++;
+    g_total_seconds += dt;
+    
+    
+}
+
+
+
+
+void drawMainMenuPanel()
+{
+    ImGui::Text("Game state: main menu");
+    ImGui::Text("Pro tip: Press '"
+    + inputs.getEventCommandTrimmed(EV_COMMON_CONSOLE_TOGGLE)
+    + "' to open console anytime.");
+    
+    // Test message queue
+    if (ImGui::Button("Launch simple test terrain"))
+    {
+game.pushMessage(MSG_SIM_LOAD_TERRN_REQUESTED, {{'filename', 'simple2.terrn2'}});
+    }
+    
+    // Reset simulation data
+    
+    g_terrain_tobj_files.removeRange(0, g_terrain_tobj_files.length());
+}
+
+const int SURVEYMAP_ICONS_GROUPID = -222;
+
+void drawSurveymapIconsPanel()
+{
+    ImGui::TextDisabled("Survey map icon test");
+    TerrainClass@ terrn = game.getTerrain();
+    if (ImGui::Button("Add icons"))
+    {
+        vector3 pos = game.getPersonPosition();
+        terrn.addSurveyMapEntity("info!", "arrow_up.png", /*resource_group:*/"", /*caption:*/"", pos + vector3(0.f, 0.f, -100.f), /*angle:*/0.f, SURVEYMAP_ICONS_GROUPID);
+        terrn.addSurveyMapEntity("warn!", "error.png", /*resource_group:*/"", /*caption:*/"", pos + vector3(-100.f, 0.f, 0.f), /*angle:*/-3.14/2, SURVEYMAP_ICONS_GROUPID);
+        terrn.addSurveyMapEntity("error!", "exclamation.png", /*resource_group:*/"", /*caption:*/"", pos + vector3(100.f, 0.f, 0.f), /*angle:*/3.14/2, SURVEYMAP_ICONS_GROUPID);
+    }
+    ImGui::SameLine();
+    if (ImGui::Button("Clear icons"))
+    {
+        terrn.delSurveyMapEntities(SURVEYMAP_ICONS_GROUPID);
+    }
+}
+
+vector3 detectPlayerPosition()
+{
+    if (g_app_state.getInt() == 2) // simulation
+    {
+        
+        // get current pos
+        vector3 pos;
+        BeamClass@ actor = game.getCurrentTruck();
+        if (@actor != null)
+        pos = actor.getVehiclePosition();
+        else
+        pos = game.getPersonPosition();
+        
+        return pos;
+        
+    }
+    else // main menu
+    {
+        return vector3(0,0,0);
+    }
+}
+
+void drawAudioButtons()
+{
+    ImGui::PushID("AudioTest");
+    ImGui::TextDisabled("Audio API test");
+    
+    if (g_app_state.getInt() == 1) // main menu
+    {
+        ImGui::TextDisabled("You are in main menu - spatial (3D) audio is off");
+    }
+    else if (g_app_state.getInt() == 2) // simulation
+    {
+        ImGui::TextDisabled("You are in simulation - spatial (3D) audio is on");
+        ImGui::Checkbox("Sound follows player", g_sound_follows_player);
+        
+        // Update sound positions
+        if (g_sound_follows_player)
+        {
+            vector3 pos = detectPlayerPosition();
+            if (@g_playing_sound != null)
+            g_playing_sound.setPosition(pos);
+            if (@g_playing_soundscript != null)
+            g_playing_soundscript.setPosition(pos);
+        }
+    }
+    
+    array<SoundScriptTemplateClass@>@ templates = game.getAllSoundScriptTemplates();
+    string templates_title = "Sound script templates (" + templates.length() + ")";
+    if (ImGui::CollapsingHeader(templates_title))
+    {
+        ImGui::PushID("templates");
+        
+        for (uint i = 0; i < templates.length(); i++)
+        {
+            ImGui::PushID(i);
+            
+            SoundScriptTemplateClass@ template = game.getSoundScriptTemplate(templates[i].getName()); // Look up again by name, just to test the API
+            
+            if (@template != null)
+            {
+                ImGui::Text(template.getName());
+                if (template.isBaseTemplate())
+                {
+                    ImGui::SameLine();
+                    ImGui::TextDisabled(" [base]");
+                }
+                ImGui::SameLine();
+                
+                if (@g_playing_soundscript == null)
+                {
+                    if (ImGui::Button("Play"))
+                    {
+                        @g_playing_soundscript = game.createSoundScriptInstance(template.getName());
+                        if (@g_playing_soundscript != null)
+                        {
+                            g_playing_soundscript.setPosition(detectPlayerPosition());
+                            g_playing_soundscript.start();
+                        }
+                        else
+                        {
+                            game.log("Demo script: could not create sound script instance from template '" + template.getName() + "'");
+                        }
+                    }
+                }
+                else
+                {
+                    if (ImGui::Button("Stop"))
+                    {
+                        g_playing_soundscript.kill();
+                        @g_playing_soundscript = null;
+                    }
+                }
+            }
+            else
+            {
+                ImGui::Text("(Lookup failed for template "+i+"/"+templates.length()+")");
+            }
+            
+            ImGui::PopID(); // i
+        }
+        
+        ImGui::PopID(); // "templates"
+    }
+    
+    array<SoundScriptInstanceClass@>@ instances = game.getAllSoundScriptInstances();
+    string instances_title = "Sound script instances (" + instances.length() + ")";
+    if (ImGui::CollapsingHeader(instances_title))
+    {
+        ImGui::PushID("instances");
+        
+        for (uint i = 0; i < instances.length(); i++)
+        {
+            ImGui::PushID(i);
+            
+            SoundScriptInstanceClass@ instance = instances[i];
+            
+            ImGui::Text(instance.getInstanceName());
+            ImGui::SameLine();
+            ImGui::TextDisabled("(show tooltip with details)");
+            if (ImGui::IsItemHovered())
+            {
+                ImGui::BeginTooltip();
+                drawSoundScriptInstanceDiagPanel(instance);
+                ImGui::EndTooltip();
+            }
+            
+            ImGui::PopID(); // i
+        }
+        
+        ImGui::PopID(); // "instances"
+    }
+    
+    ImGui::TextDisabled("Some builtin sounds");
+    
+    drawWavPreviewBulletButton("default_horn.wav");
+    drawWavPreviewBulletButton("default_police.wav");
+    drawWavPreviewBulletButton("default_pump.wav");
+    drawWavPreviewBulletButton("default_shift.wav");
+    drawWavPreviewBulletButton("default_starter.wav");
+    
+    ImGui::PopID(); // "AudioTest"
+}
+
+void drawWavPreviewBulletButton(string wav_file)
+{
+    ImGui::PushID(wav_file);
+    
+    ImGui::Bullet();
+    ImGui::SameLine();
+    ImGui::Text(wav_file);
+    ImGui::SameLine();
+    if (@g_playing_sound == null)
+    {
+        if (ImGui::Button("Play loop"))
+        {        
+            @g_playing_sound = game.createSoundFromResource(wav_file);
+            g_playing_sound.setEnabled(true);
+            g_playing_sound.setGain(1.f);
+            g_playing_sound.setLoop(true);
+            g_playing_sound.setPosition(detectPlayerPosition());
+            g_playing_sound.play();
+            game.log("Demo script: playing file " + wav_file);
+        }
+    }
+    else
+    {
+        if (ImGui::Button("Stop"))
+        {
+            g_playing_sound.stop();
+            @g_playing_sound = null;
+            game.log("Demo script: stopping file " + wav_file);
+        }
+    }
+    
+    ImGui::PopID(); // wav_file
+}
+
+void drawSoundObjectDiag(SoundClass@ snd)
+{
+    string txt 
+    = "\t enabled:"+snd.getEnabled()+", playing:"+snd.isPlaying()
+    +"\n\t audibility:"+snd.getAudibility()
+    +"\n\t gain:"+snd.getGain() +", pitch:"+snd.getPitch()
+    +"\n\t loop:"+snd.getLoop()
+    +"\n\t currentHardwareIndex:"+snd.getCurrentHardwareIndex()
+    +"\n\t OpenAL buffer ID:"+snd.getBuffer()
+    +"\n\t position: X="+snd.getPosition().x+" Y="+snd.getPosition().y+" Z="+snd.getPosition().z
+    +"\n\t velocity: X="+snd.getVelocity().x+" Y="+snd.getVelocity().y+" Z="+snd.getVelocity().z;
+    ImGui::Text(txt);
+}
+
+void drawSoundScriptInstanceDiagPanel(SoundScriptInstanceClass@ instance)
+{
+    SoundScriptTemplateClass@ template = instance.getTemplate();
+    
+    // START sound
+    SoundClass@ startSnd = instance.getStartSound();
+    if (@startSnd != null)
+    {
+        ImGui::Text("START sound: '" + template.getStartSoundName() + "' (pitchgain: "+instance.getStartSoundPitchgain()+")");
+        drawSoundObjectDiag(startSnd);
+    }
+    else
+    {
+        ImGui::TextDisabled("[no START sound]");
+    }
+    
+    // SOUNDS (running)
+    int numSounds = template.getNumSounds();
+    ImGui::Text("SOUNDS (count: " + numSounds + ")");
+    for (int i = 0; i < numSounds; i++)
+    {
+        SoundClass@ snd = instance.getSound(i);
+        ImGui::Text("SOUND: '" + template.getSoundName(i) + "' (pitchgain: "+instance.getSoundPitchgain(i)+")");
+        drawSoundObjectDiag(snd);
+    }
+    
+    // STOP sound
+    SoundClass@ stopSnd = instance.getStopSound();
+    if (@stopSnd != null)
+    {
+        ImGui::Text("STOP sound: '" + template.getStopSoundName() + "' (pitchgain: "+instance.getStopSoundPitchgain()+")");
+        drawSoundObjectDiag(stopSnd);
+    }
+    else
+    {
+        ImGui::TextDisabled("[no STOP sound]");
+    }    
+}
+
+void drawAIButtons()
+{
+    ImGui::TextDisabled("AI script test");
+    if (ImGui::Button("Start DAF semitruck in follow-mode"))
+    {
+        // the filename
+        // first parameter is index - only use 0/1 for drag race and crash modes. Otherwise use 0.
+        game.setAIVehicleName(0, "b6b0UID-semi.truck");
+        
+        // 0) Normal driving mode
+        // 1) Race
+        // 2) Drag Race
+        // 3) Crash driving mode
+        // 4) Chase the player mode
+        game.setAIMode(4);
+        
+        // define the start position by inserting initial waypoint.
+        game.addWaypoint(game.getPersonPosition() + vector3(6, 0, 6)); // 6 meters away from player
+        
+        // define the start direction by inserting another waypoint
+        game.addWaypoint(game.getPersonPosition()); // look at player!
+        
+        // Request loading the AI script (asynchronously) - it will spawn the vehicle.
+        // WARNING: this doesn't save off the setup values above - you can still modify them below and change what the AI will do!
+        //          If you want to launch multiple AIs in sequence, register for SE_GENERIC_NEW_TRUCK event - when it arrives, it's safe to setup and launch new AI script.
+game.pushMessage(MSG_APP_LOAD_SCRIPT_REQUESTED, { {"filename", "AI.as"} });
+    }
+}
+
+void drawTextResourceButtons()
+{    
+    ImGui::TextDisabled("Text file test: file 'demofile.txt' in group 'Cache'");
+    ImGui::TextDisabled("Location: " + g_sys_cache_dir.getStr());
+    
+    // The 'exists?' line
+    bool exists = game.checkResourceExists("demofile.txt", "Cache");
+    if (exists)
+    {
+        ImGui::Text("File exists.");
+        ImGui::SameLine();
+        if (ImGui::Button("(re)load"))
+        {
+            g_demofile_data = game.loadTextResourceAsString("demofile.txt", "Cache");
+        }
+    }
+    else
+    {
+        ImGui::Text("File does not exist yet, create it below.");
+    }
+    
+    // The text editor part
+    ImGui::InputText("demofile text", g_demofile_data);
+    if (ImGui::Button("(over)write"))
+    {
+        game.createTextResourceFromString(g_demofile_data, "demofile.txt", "Cache", /*overwrite:*/true);
+    }
+    ImGui::SameLine();
+    if (ImGui::Button("delete"))
+    {
+        game.deleteResource("demofile.txt", "Cache");
+        g_demofile_data = "";
+    }
+}
+
+string formatVector3(vector3 val, int total, int frac)
+{
+    return "X:" + formatFloat(val.x, "", total, frac)
+    + " Y:" + formatFloat(val.y, "", total, frac)
+    + " Z:" + formatFloat(val.z, "", total, frac);
+}
+
+void drawActorAngles(BeamClass@ actor)
+{
+    if (ImGui::CollapsingHeader("Actor positions/angles test"))
+    {
+        ImGui::Text("getPosition(): [vector3] " + formatVector3(actor.getPosition(), 6,2));
+        //ImGui::Text("getRotation(): [float] " + formatFloat(actor.getRotation(), "", 6,2)); // returns valid yaw in radians, but prefer using `.getOrientation.getYaw()`
+        ImGui::Text("getSpeed(): [float] " + formatFloat(actor.getSpeed(), "", 6,2));
+        ImGui::Text("getOrientation(): [quaternion]");
+        ImGui::Text("  .getYaw(): [radian] "   + formatFloat(actor.getOrientation().getYaw().valueRadians(), "", 6,2)   
+        + " (degrees: " + formatFloat(actor.getOrientation().getYaw().valueDegrees(), "", 6,2) + ")");
+        ImGui::Text("  .getPitch(): [radian] " + formatFloat(actor.getOrientation().getPitch().valueRadians(), "", 6,2) 
+        + " (degrees: " + formatFloat(actor.getOrientation().getPitch().valueDegrees(), "", 6,2) + ")");
+        ImGui::Text("  .getRoll(): [radian] "  + formatFloat(actor.getOrientation().getRoll().valueRadians(), "", 6,2)  
+        + " (degrees: " + formatFloat(actor.getOrientation().getRoll().valueDegrees(), "", 6,2) + ")");
+    }
+}
+
+
+
+void drawExampleTabs()
+{
+    ImGui::TextDisabled("* *   E X A M P L E   T A B   B A R   * *");
+    // TABS, TAB BARS:
+    //bool BeginTabBar(const string&in, int TabBarFlags = 0)
+    //void EndTabBar()
+    //bool BeginTabItem(const string&in, int = 0)                             // BeginTabItem() without X close button.
+    //bool BeginTabItem(const string&in, bool&out , int TabItemFlags = 0)     // BeginTabItem() with X close button.
+    //void EndTabItem()
+    //bool TabItemButton(const string&in, int TabItemFlags = 0)
+    //void SetTabItemClosed(const string&in)
+    
+    // IMGUI TAB BAR FLAGS:
+    //ImGuiTabBarFlags_Reorderable); // // Allow manually dragging tabs to re-order them + New tabs are appended at the end of list
+    //ImGuiTabBarFlags_AutoSelectNewTabs); // // Automatically select new tabs when they appear
+    //ImGuiTabBarFlags_TabListPopupButton); // // Disable buttons to open the tab list popup
+    //ImGuiTabBarFlags_NoCloseWithMiddleMouseButton); // // Disable behavior of closing tabs (that are submitted with p_open != NULL) with middle mouse button. You can still repro this behavior on user's side with if (IsItemHovered() && IsMouseClicked(2)) *p_open = false.
+    //ImGuiTabBarFlags_NoTabListScrollingButtons); // // Disable scrolling buttons (apply when fitting policy is ImGuiTabBarFlags_FittingPolicyScroll)
+    //ImGuiTabBarFlags_NoTooltip); // // Disable tooltips when hovering a tab
+    //ImGuiTabBarFlags_FittingPolicyResizeDown); // // Resize tabs when they don't fit
+    //ImGuiTabBarFlags_FittingPolicyScroll); // // Add scroll buttons when tabs don't fit  
+    // // ============================================================================
+    
+    int barflags =  
+    ImGuiTabBarFlags_NoCloseWithMiddleMouseButton 
+    | ImGuiTabBarFlags_NoTabListScrollingButtons
+    | ImGuiTabBarFlags_FittingPolicyResizeDown;
+    if (demotabsReorderable)
+    barflags = barflags | ImGuiTabBarFlags_Reorderable; 
+    if (demotabsNoTooltip)    
+    barflags = barflags |= ImGuiTabBarFlags_NoTooltip;
+    
+    if (ImGui::BeginTabBar("demotabs", barflags))
+    {
+        
+        if (ImGui::BeginTabItem("Text"))
+        {
+            // just text
+            ImGui::TextDisabled(">1");
+            ImGui::TextDisabled(">>2");
+            ImGui::TextDisabled(">>>3");
+            ImGui::TextDisabled(">>>>4\n>>>>>5\n>>>>>>6");
+            
+            ImGui::EndTabItem();
+        }
+        
+        
+        if (ImGui::BeginTabItem("Reset"))
+        {
+            // boring text
+            if (ImGui::Button("Reset closed tabs"))
+            {
+                demotabOpentabChecks=true;
+                demotabOpentabEmpty=true;
+            }
+            
+            ImGui::EndTabItem();
+        }        
+        if ( ImGui::BeginTabItem("Checks", /*inout:*/demotabOpentabChecks))
+        {
+            // chekcboxes
+            ImGui::Checkbox("reorderable", /*inout:*/demotabsReorderable);
+            ImGui::Checkbox("no tooltip", /*inout:*/demotabsNoTooltip);
+            ImGui::EndTabItem();
+        }
+        if (ImGui::BeginTabItem("Empty", /*inout:*/demotabOpentabEmpty))
+        {
+            // empty
+            ImGui::EndTabItem();
+        }
+        ImGui::EndTabBar();
+    }
+    
+    ImGui::Separator();
+    ImGui::Text("nothing interesting down here...");
+}
+
+
+
+void drawFindResourceFileInfo()
+{
+    array<dictionary> @fileinfo = game.findResourceFileInfo(RG_NAME, RG_PATTERN);
+    if (@fileinfo != null)
+    {
+        ImGui::Text(RG_NAME+" ("+fileinfo.length()+" results for pattern '"+RG_PATTERN+"')");
+        for (uint i=0; i<fileinfo.length(); i++)
+        {
+            string filename = string(fileinfo[i]['filename']);
+            uint size = uint(fileinfo[i]['compressedSize']);
+            ImGui::Bullet(); ImGui::SameLine();
+            ImGui::Text(filename); ImGui::SameLine(); 
+            ImGui::TextDisabled("("+float(size)/1000.f+" KB)");
+        }
+    }
+    else
+    {
+        ImGui::Text("Null result :(");
+    }
+}
+

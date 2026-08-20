@@ -1,0 +1,7 @@
+
+import * from "OneTexture.material"
+
+material Robot : OneTexture
+{
+	set $texture_unit "Robot_white_dif.png"
+}

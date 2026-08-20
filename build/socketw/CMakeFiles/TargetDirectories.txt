@@ -1,0 +1,7 @@
+C:/a1e/Tests/c1e/C2e/build/socketw/CMakeFiles/SocketW.dir
+C:/a1e/Tests/c1e/C2e/build/socketw/CMakeFiles/edit_cache.dir
+C:/a1e/Tests/c1e/C2e/build/socketw/CMakeFiles/rebuild_cache.dir
+C:/a1e/Tests/c1e/C2e/build/socketw/CMakeFiles/list_install_components.dir
+C:/a1e/Tests/c1e/C2e/build/socketw/CMakeFiles/install.dir
+C:/a1e/Tests/c1e/C2e/build/socketw/CMakeFiles/install/local.dir
+C:/a1e/Tests/c1e/C2e/build/socketw/CMakeFiles/install/strip.dir

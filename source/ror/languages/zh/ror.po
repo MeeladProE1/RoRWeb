@@ -1,0 +1,6552 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Elizabeth Sherrock <lizzyd710@gmail.com>, 2021.
+# 404 <212174808@qq.com>, 2022.
+# Galspong Veil <yscmatthew@gmail.com>, 2023.
+# 左莫莫 <1778553013@qq.com>, 2025.
+msgid ""
+msgstr ""
+"Project-Id-Version: Rigs of Rods\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-02-24 13:04+0100\n"
+"PO-Revision-Date: 2025-07-04 16:01+0000\n"
+"Last-Translator: 左莫莫 <1778553013@qq.com>\n"
+"Language-Team: Chinese (Simplified Han script) <https://hosted.weblate.org/"
+"projects/rigs-of-rods/game/zh_Hans/>\n"
+"Language: zh\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Weblate 5.13-dev\n"
+
+#: AppContext.cpp:259 AppContext.cpp:270 AppContext.cpp:408 AppContext.cpp:426
+#: AppContext.cpp:477 AppContext.cpp:491 AppContext.cpp:502
+msgid "Startup error"
+msgstr "启动错误"
+
+#: AppContext.cpp:270
+msgid "No render system plugin available. Check your plugins.cfg"
+msgstr "没有可用的渲染系统插件。检查您的插件.cfg"
+
+#: AppContext.cpp:378
+msgid "Screenshot: "
+msgstr "截图： "
+
+#: AppContext.cpp:408
+msgid "Error while retrieving program directory path"
+msgstr "检索程序目录路径时出错"
+
+#: AppContext.cpp:426
+msgid "Error while retrieving user directory path"
+msgstr "检索用户目录路径时出错"
+
+#: AppContext.cpp:477
+msgid "Resources folder not found. Check if correctly installed."
+msgstr "未找到资源文件夹。检查是否正确安装。"
+
+#: AppContext.cpp:491 AppContext.cpp:502
+msgid "Faulty resource folder. Check if correctly installed."
+msgstr "有故障的资源文件夹。检查是否正确安装。"
+
+#: Application.cpp:387
+msgctxt "SimGearboxMode"
+msgid "Automatic shift"
+msgstr "自动波"
+
+#: Application.cpp:388
+msgctxt "SimGearboxMode"
+msgid "Manual shift with auto clutch"
+msgstr ""
+
+#: Application.cpp:389
+msgctxt "SimGearboxMode"
+msgid "Fully manual: sequential shift"
+msgstr "手动挡：顺序切换"
+
+#: Application.cpp:390
+msgctxt "SimGearboxMode"
+msgid "Fully manual: stick shift"
+msgstr "全手动"
+
+#: Application.cpp:391
+msgctxt "SimGearboxMode"
+msgid "Fully manual: stick shift with ranges"
+msgstr "完全手动：带范围的换挡杆"
+
+#: Application.cpp:400
+msgctxt "GfxFlaresMode"
+msgid "None (fastest)"
+msgstr "无（最快）"
+
+#: Application.cpp:401
+msgctxt "GfxFlaresMode"
+msgid "No light sources"
+msgstr "没有光源"
+
+#: Application.cpp:402
+msgctxt "GfxFlaresMode"
+msgid "Only current vehicle, main lights"
+msgstr "只有目前車輛，燈光"
+
+#: Application.cpp:403
+msgctxt "GfxFlaresMode"
+msgid "All vehicles, main lights"
+msgstr "所有车辆，主灯"
+
+#: Application.cpp:404
+msgctxt "GfxFlaresMode"
+msgid "All vehicles, all lights"
+msgstr "所有车辆、所有照明"
+
+#: Application.cpp:413
+msgctxt "GfxShadowType"
+msgid "Disabled"
+msgstr "禁用"
+
+#: Application.cpp:414
+msgctxt "GfxShadowType"
+msgid "PSSM"
+msgstr "PSSM"
+
+#: Application.cpp:423
+msgctxt "GfxSkyMode"
+msgid "Sandstorm (fastest)"
+msgstr "沙尘暴（最快）"
+
+#: Application.cpp:424
+msgctxt "GfxSkyMode"
+msgid "Caelum (best looking, slower)"
+msgstr "Caelum（最好看，速度较慢）"
+
+#: Application.cpp:425
+msgctxt "GfxSkyMode"
+msgid "SkyX (best looking, slower)"
+msgstr "SkyX（最好看，速度较慢）"
+
+#: Application.cpp:434
+msgctxt "GfxTexFilter"
+msgid "None"
+msgstr "无"
+
+#: Application.cpp:435
+msgctxt "GfxTexFilter"
+msgid "Bilinear"
+msgstr "双线性"
+
+#: Application.cpp:436
+msgctxt "GfxTexFilter"
+msgid "Trilinear"
+msgstr "三线制"
+
+#: Application.cpp:437
+msgctxt "GfxTexFilter"
+msgid "Anisotropic"
+msgstr "各向异性"
+
+#: Application.cpp:446
+msgctxt "GfxVegetation"
+msgid "None"
+msgstr "无"
+
+#: Application.cpp:447
+msgctxt "GfxVegetation"
+msgid "20%"
+msgstr "20%"
+
+#: Application.cpp:448
+msgctxt "GfxVegetation"
+msgid "50%"
+msgstr "50%"
+
+#: Application.cpp:449
+msgctxt "GfxVegetation"
+msgid "Full"
+msgstr "满"
+
+#: Application.cpp:458
+msgctxt "GfxWaterMode"
+msgid "None"
+msgstr "无"
+
+#: Application.cpp:459
+msgctxt "GfxWaterMode"
+msgid "Basic (fastest)"
+msgstr "基本（最快）"
+
+#: Application.cpp:460
+msgctxt "GfxWaterMode"
+msgid "Reflection"
+msgstr "射"
+
+#: Application.cpp:461
+msgctxt "GfxWaterMode"
+msgid "Reflection + refraction (speed optimized)"
+msgstr "反射+折射（速度优化）"
+
+#: Application.cpp:462
+msgctxt "GfxWaterMode"
+msgid "Reflection + refraction (quality optimized)"
+msgstr "反射+折射（速度优化）"
+
+#: Application.cpp:463
+msgctxt "GfxWaterMode"
+msgid "HydraX"
+msgstr "Hydrax"
+
+#: Application.cpp:472
+msgctxt "GfxExtCamMode"
+msgid "None"
+msgstr "无"
+
+#: Application.cpp:473
+msgctxt "GfxExtCamMode"
+msgid "Static"
+msgstr "靜態"
+
+#: Application.cpp:474
+msgctxt "GfxExtCamMode"
+msgid "Pitching"
+msgstr "解放党"
+
+#: Application.cpp:483
+msgctxt "IoInputGrabMode"
+msgid "None"
+msgstr "无"
+
+#: Application.cpp:484
+msgctxt "IoInputGrabMode"
+msgid "All"
+msgstr "都"
+
+#: Application.cpp:485
+msgctxt "IoInputGrabMode"
+msgid "Dynamic"
+msgstr "动态"
+
+#: Application.cpp:494
+msgctxt "SimResetMode"
+msgid "Hard"
+msgstr ""
+
+#: Application.cpp:495
+msgctxt "SimResetMode"
+msgid "Soft"
+msgstr ""
+
+#: GameContext.cpp:120
+msgid "Terrain not found: "
+msgstr "未找到地形： "
+
+#: GameContext.cpp:122 GameContext.cpp:144
+msgid "Terrain loading error"
+msgstr "地形加载错误"
+
+#: GameContext.cpp:658
+msgid "Please clear the place first"
+msgstr "请先清除该地点"
+
+#: GameContext.cpp:762
+msgid "Default skin '{}' for actor '{}' not found!"
+msgstr ""
+
+#: GameContext.cpp:1036
+msgid "Enabled hard reset mode"
+msgstr "已启用硬重置模式"
+
+#: GameContext.cpp:1036
+msgid "Enabled soft reset mode"
+msgstr "启用软复位模式"
+
+#: GameContext.cpp:1230
+msgid "Time set to "
+msgstr "时间设置为 "
+
+#: GameContext.cpp:1417
+msgid "No rescue truck found!"
+msgstr "没有发现救援卡车！"
+
+#: GameContext.cpp:1493
+msgid "forwardcommands enabled"
+msgstr "已启用前进命令"
+
+#: GameContext.cpp:1497
+msgid "forwardcommands disabled"
+msgstr "已禁用前进命令"
+
+#: GameContext.cpp:1506
+msgid "importcommands enabled"
+msgstr "导入命令已启用"
+
+#: GameContext.cpp:1510
+msgid "importcommands disabled"
+msgstr "导入命令已禁用"
+
+#: gameplay/ChatSystem.cpp:56
+msgid " [whispered] "
+msgstr " [低声说] "
+
+#: gameplay/EngineSim.cpp:1463
+msgid "Low range selected"
+msgstr "低范围选择"
+
+#: gameplay/EngineSim.cpp:1469
+msgid "Mid range selected"
+msgstr "选择中档"
+
+#: gameplay/EngineSim.cpp:1475
+msgid "High range selected"
+msgstr "高范围选择"
+
+#: gameplay/Landusemap.cpp:101
+msgid "Error while loading landuse config"
+msgstr "加载土地使用配置时出错"
+
+#: gfx/camera/CameraManager.cpp:302
+msgid "FOV: Limit reached"
+msgstr "视场角：已达到限制"
+
+#: gfx/camera/CameraManager.cpp:314
+msgid "FOV: "
+msgstr "视场角： "
+
+#: gfx/camera/CameraManager.cpp:384
+msgid "Free camera"
+msgstr "免费相机"
+
+#: gfx/camera/CameraManager.cpp:389
+msgid "Fixed camera"
+msgstr "固定摄像机"
+
+#: gfx/camera/CameraManager.cpp:870
+msgid "Limited camera movement enabled"
+msgstr "启用了有限的相机移动"
+
+#: gfx/camera/CameraManager.cpp:874
+msgid "Limited camera movement disabled"
+msgstr "已禁用有限的相机移动"
+
+#: gfx/camera/CameraManager.cpp:1158
+msgid "Auto tracking enabled"
+msgstr "启用自动跟踪"
+
+#: gfx/camera/CameraManager.cpp:1162
+msgid "Auto tracking disabled"
+msgstr "自动跟踪已禁用"
+
+#: gui/GUIUtils.cpp:471
+msgid "Hold to confirm"
+msgstr ""
+
+#: gui/OverlayWrapper.cpp:428
+msgid "Current FPS: "
+msgstr "当前转数快： "
+
+#: gui/OverlayWrapper.cpp:429
+msgid "Average FPS: "
+msgstr "平均转数快： "
+
+#: gui/OverlayWrapper.cpp:430
+msgid "Best FPS: "
+msgstr "最好FPS： "
+
+#: gui/OverlayWrapper.cpp:431
+msgid "Worst FPS: "
+msgstr "最差转数快： "
+
+#: gui/OverlayWrapper.cpp:432
+msgid "Triangle Count: "
+msgstr "三角形计数： "
+
+#: gui/OverlayWrapper.cpp:459
+msgid "Textures: "
+msgstr "纹理： "
+
+#: gui/OverlayWrapper.cpp:461
+msgid "Compositors: "
+msgstr "作曲家： "
+
+#: gui/OverlayWrapper.cpp:463
+msgid "Fonts: "
+msgstr "来源： "
+
+#: gui/OverlayWrapper.cpp:465
+msgid "GPU Program: "
+msgstr "GPU 程序： "
+
+#: gui/OverlayWrapper.cpp:467
+msgid "HL GPU Program: "
+msgstr "HL GPU 程序： "
+
+#: gui/OverlayWrapper.cpp:469 gui/OverlayWrapper.cpp:475
+msgid "Materials: "
+msgstr "材料： "
+
+#: gui/OverlayWrapper.cpp:471
+msgid "Meshes: "
+msgstr "网 格： "
+
+#: gui/OverlayWrapper.cpp:473
+msgid "Skeletons: "
+msgstr "骨骼： "
+
+#: gui/OverlayWrapper.cpp:482
+msgid "Memory (Ogre): "
+msgstr "内存（食人魔）： "
+
+#: gui/panels/GUI_AngelScriptExamples.cpp:24
+msgctxt "AngelScript"
+msgid "Scales the truck"
+msgstr "再大小卡车"
+
+#: gui/panels/GUI_AngelScriptExamples.cpp:25
+msgctxt "AngelScript"
+msgid "Gets the name of the truck"
+msgstr "卡车名字"
+
+#: gui/panels/GUI_AngelScriptExamples.cpp:26
+msgctxt "AngelScript"
+msgid "Gets the name of the truck file"
+msgstr "获取卡车文件的名称"
+
+#: gui/panels/GUI_AngelScriptExamples.cpp:27
+msgctxt "AngelScript"
+msgid "Gets the name of the loaded section for a truck"
+msgstr "获取卡车装载部分的名称"
+
+#: gui/panels/GUI_AngelScriptExamples.cpp:28
+msgctxt "AngelScript"
+msgid "Gets the type of the truck"
+msgstr "获取卡车的类型"
+
+#: gui/panels/GUI_AngelScriptExamples.cpp:29
+msgctxt "AngelScript"
+msgid "Resets the truck"
+msgstr "重置卡车"
+
+#: gui/panels/GUI_AngelScriptExamples.cpp:30
+msgctxt "AngelScript"
+msgid "Toggles the parking brake"
+msgstr "切换驻车制动器"
+
+#: gui/panels/GUI_AngelScriptExamples.cpp:31
+msgctxt "AngelScript"
+msgid "Toggles the tracktion control"
+msgstr "切换跟踪控制"
+
+#: gui/panels/GUI_AngelScriptExamples.cpp:32
+msgctxt "AngelScript"
+msgid "Toggles the anti-lock brakes"
+msgstr "切换防固定制动器"
+
+#: gui/panels/GUI_AngelScriptExamples.cpp:33
+msgctxt "AngelScript"
+msgid "Toggles the beacons"
+msgstr "切换信标"
+
+#: gui/panels/GUI_AngelScriptExamples.cpp:34
+msgctxt "AngelScript"
+msgid "Toggles the custom particles"
+msgstr "切换自定义粒子"
+
+#: gui/panels/GUI_AngelScriptExamples.cpp:35
+msgctxt "AngelScript"
+msgid "Gets the total amount of nodes of the truck"
+msgstr "获取卡车的节点总数"
+
+#: gui/panels/GUI_AngelScriptExamples.cpp:36
+msgctxt "AngelScript"
+msgid "Gets the total mass of the truck"
+msgstr "将负载绑在卡车上"
+
+#: gui/panels/GUI_AngelScriptExamples.cpp:37
+msgctxt "AngelScript"
+msgid "Gets the total amount of nodes of the wheels of the truck"
+msgstr "获取卡车的节点总数"
+
+#: gui/panels/GUI_AngelScriptExamples.cpp:38
+msgctxt "AngelScript"
+msgid "Sets the mass of the truck"
+msgstr "设置卡车的重量"
+
+#: gui/panels/GUI_AngelScriptExamples.cpp:39
+msgctxt "AngelScript"
+msgid "Returns true if the brake light is enabled"
+msgstr "如果启用制动灯，则返回 真的"
+
+#: gui/panels/GUI_AngelScriptExamples.cpp:40
+msgctxt "AngelScript"
+msgid "Returns true if the custom light with the number is enabled"
+msgstr "如果启用了带有数字的自定义指示灯，则返回 真的"
+
+#: gui/panels/GUI_AngelScriptExamples.cpp:41
+msgctxt "AngelScript"
+msgid "Enables or disables the custom light"
+msgstr "启用或禁用物理场"
+
+#: gui/panels/GUI_AngelScriptExamples.cpp:42
+msgctxt "AngelScript"
+msgid "Gets the mode of the beacon"
+msgstr "获取信标的模式"
+
+#: gui/panels/GUI_AngelScriptExamples.cpp:43
+msgctxt "AngelScript"
+msgid "Sets the blinking type"
+msgstr "设置闪烁类型"
+
+#: gui/panels/GUI_AngelScriptExamples.cpp:44
+msgctxt "AngelScript"
+msgid "Gets the blinking type"
+msgstr "设置闪烁类型"
+
+#: gui/panels/GUI_AngelScriptExamples.cpp:45
+msgctxt "AngelScript"
+msgid "Gets the custom particles mode"
+msgstr "[使用自定义粒子]"
+
+#: gui/panels/GUI_AngelScriptExamples.cpp:46
+msgctxt "AngelScript"
+msgid "Returns true if the reverse lights are enabled"
+msgstr "如果启用了倒车灯，则返回 真的"
+
+#: gui/panels/GUI_AngelScriptExamples.cpp:47
+msgctxt "AngelScript"
+msgid "Returns the angle in which the truck is heading"
+msgstr ""
+
+#: gui/panels/GUI_AngelScriptExamples.cpp:48
+msgctxt "AngelScript"
+msgid "Returns true if a hook of this truck is locked"
+msgstr ""
+
+#: gui/panels/GUI_AngelScriptExamples.cpp:49
+msgctxt "AngelScript"
+msgid "Gets the current wheel speed of the vehicle"
+msgstr "获取车辆轮胎速度"
+
+#: gui/panels/GUI_AngelScriptExamples.cpp:50
+msgctxt "AngelScript"
+msgid "Gets the current speed of the vehicle"
+msgstr "获取车辆当前空速"
+
+#: gui/panels/GUI_AngelScriptExamples.cpp:51
+msgctxt "AngelScript"
+msgid "Gets the G-forces that this truck is currently experiencing"
+msgstr ""
+
+#: gui/panels/GUI_AngelScriptExamples.cpp:52
+#, fuzzy
+#| msgctxt "InputEvent"
+#| msgid "save the currently loaded terrain to a mesh file"
+msgctxt "AngelScript"
+msgid "Gets the current rotation of the vehicle"
+msgstr "将当前加载的地形保存到网格文件中"
+
+#: gui/panels/GUI_AngelScriptExamples.cpp:53
+msgctxt "AngelScript"
+msgid "Gets the current position of the vehicle"
+msgstr "获取车辆的当前位置"
+
+#: gui/panels/GUI_AngelScriptExamples.cpp:54
+#, fuzzy
+#| msgctxt "InputEvent"
+#| msgid "reset the camera position"
+msgctxt "AngelScript"
+msgid "Gets the node position"
+msgstr "重置相机位置"
+
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Elizabeth Sherrock <lizzyd710@gmail.com>, 2021.
+# 404 <212174808@qq.com>, 2022.
+#: gui/panels/GUI_AngelScriptExamples.cpp:65
+msgctxt "Console"
+msgid ""
+msgstr ""
+"Project-Id-Version: Rigs of Rods\n"
+"Report-Msgid-Bugs-To:\n"
+"POT-Creation-Date: 2021-12-05 16:27+0100\n"
+"PO-Revision-Date: 2022-02-19 15:08+0000\n"
+"Last-Translator: 404 <212174808@qq.com>\n"
+"Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
+"rigs-of-rods/game/zh_Hans/>\n"
+"Language: zh\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Weblate 4.11-dev"
+
+#: gui/panels/GUI_CollisionsDebug.cpp:48
+#, fuzzy
+#| msgctxt "FrictionSettings"
+#| msgid "Static friction coef"
+msgctxt "About"
+msgid "Static collision debug"
+msgstr "静摩擦系数"
+
+#: gui/panels/GUI_ConsoleView.cpp:249
+msgctxt "Console"
+msgid "By area:"
+msgstr "按地区："
+
+#: gui/panels/GUI_ConsoleView.cpp:250
+msgctxt "Console"
+msgid "Logfile echo"
+msgstr "日志文件回显"
+
+#: gui/panels/GUI_ConsoleView.cpp:251
+msgctxt "Console"
+msgid "Scripting"
+msgstr "脚本"
+
+#: gui/panels/GUI_ConsoleView.cpp:252
+msgctxt "Console"
+msgid "Actors"
+msgstr "演员"
+
+#: gui/panels/GUI_ConsoleView.cpp:253
+msgctxt "Console"
+msgid "Terrain"
+msgstr "地形"
+
+#: gui/panels/GUI_ConsoleView.cpp:256
+msgctxt "Console"
+msgid "By level:"
+msgstr "按级别："
+
+#: gui/panels/GUI_ConsoleView.cpp:257
+msgctxt "Console"
+msgid "Notices"
+msgstr "通知"
+
+#: gui/panels/GUI_ConsoleView.cpp:258
+msgctxt "Console"
+msgid "Warnings"
+msgstr "警告"
+
+#: gui/panels/GUI_ConsoleView.cpp:259
+msgctxt "Console"
+msgid "Errors"
+msgstr "错误"
+
+#: gui/panels/GUI_ConsoleView.cpp:260
+msgctxt "Console"
+msgid "Net chat"
+msgstr "网络聊天"
+
+#: gui/panels/GUI_ConsoleView.cpp:261 gui/panels/GUI_ConsoleWindow.cpp:55
+msgctxt "Console"
+msgid "Commands"
+msgstr "控制鍵"
+
+#: gui/panels/GUI_ConsoleWindow.cpp:50
+msgctxt "Console"
+msgid "Filter options"
+msgstr "过滤器选项"
+
+#: gui/panels/GUI_ConsoleWindow.cpp:81
+#, fuzzy
+#| msgctxt "Console"
+#| msgid "Scripting"
+msgctxt "Console"
+msgid "AngelScript"
+msgstr "脚本"
+
+#. reset to auto-fit
+#: gui/panels/GUI_ConsoleWindow.cpp:96
+#, fuzzy
+#| msgctxt "Console"
+#| msgid "Scripting"
+msgctxt "Console"
+msgid "Script Monitor"
+msgstr "脚本"
+
+#: gui/panels/GUI_ConsoleWindow.cpp:114
+msgctxt "Console"
+msgid "Command"
+msgstr "控制鍵"
+
+#: gui/panels/GUI_FlexbodyDebug.cpp:44
+msgctxt "FlexbodyDebug"
+msgid "Flexbody/Prop debug"
+msgstr ""
+
+#: gui/panels/GUI_FlexbodyDebug.cpp:49
+msgctxt "FlexbodyDebug"
+msgid "You are on foot."
+msgstr "正在行走。"
+
+#: gui/panels/GUI_FlexbodyDebug.cpp:57
+msgctxt "FlexbodyDebug"
+msgid "This vehicle has no flexbodies or props."
+msgstr ""
+
+#: gui/panels/GUI_FlexbodyDebug.cpp:62
+msgctxt "FlexbodyDebug"
+msgid "Select element"
+msgstr ""
+
+#: gui/panels/GUI_FrictionSettings.cpp:46
+msgctxt "FrictionSettings"
+msgid "Friction Settings"
+msgstr "摩擦设置"
+
+#: gui/panels/GUI_FrictionSettings.cpp:48
+msgctxt "FrictionSettings"
+msgid "Current active Ground: "
+msgstr "当前活动接地： "
+
+#: gui/panels/GUI_FrictionSettings.cpp:55
+msgctxt "FrictionSettings"
+msgid "selected Ground Type:"
+msgstr "所选地面类型："
+
+#: gui/panels/GUI_FrictionSettings.cpp:61
+msgctxt "FrictionSettings"
+msgid "Solid ground settings"
+msgstr "坚实的地面设置"
+
+#: gui/panels/GUI_FrictionSettings.cpp:63
+msgctxt "FrictionSettings"
+msgid "Solid ground level:"
+msgstr "坚实的地面："
+
+#: gui/panels/GUI_FrictionSettings.cpp:64
+msgctxt "FrictionSettings"
+msgid "Solid ground level"
+msgstr "坚实的地面"
+
+#: gui/panels/GUI_FrictionSettings.cpp:64
+msgctxt "FrictionSettings"
+msgid ""
+"With this you can define how deep the solid ground is. If it is 0 then the "
+"surface will be solid. If it is 0.1 then you'll have 10 cm of fluid on top "
+"of solid ground. If it is 100 then the solid ground will be way deep (100m), "
+"with fluid on top."
+msgstr ""
+"有了这个，你可以定义坚实的地面有多深。如果为 0，则表面将是实心的。如果它是"
+"0.1，那么你将有10厘米的流体在固体地面上。如果是100，那么固体地面将很深（100"
+"米），顶部有液体。"
+
+#: gui/panels/GUI_FrictionSettings.cpp:66
+msgctxt "FrictionSettings"
+msgid "Strength:"
+msgstr "强度："
+
+#: gui/panels/GUI_FrictionSettings.cpp:67
+msgctxt "FrictionSettings"
+msgid "Strength"
+msgstr "强度"
+
+#: gui/panels/GUI_FrictionSettings.cpp:67
+msgctxt "FrictionSettings"
+msgid ""
+"This parameter raises or diminishes surface friction in a generic way. It is "
+"here so as to be able to do quick calibrations of friction. Start with "
+"having this to 1.0 and after tuning the rest of the surface variables, come "
+"back and play with this."
+msgstr ""
+"此参数以一般方式提高或减少表面摩擦。它在这里是为了能够对摩擦进行快速校准。首"
+"先将此值设置为 1.0，在调整其余表面变量后，返回并使用它。"
+
+#: gui/panels/GUI_FrictionSettings.cpp:69
+msgctxt "FrictionSettings"
+msgid "Static friction coef:"
+msgstr "静摩擦系数："
+
+#: gui/panels/GUI_FrictionSettings.cpp:70
+msgctxt "FrictionSettings"
+msgid "Static friction coef"
+msgstr "静摩擦系数"
+
+#: gui/panels/GUI_FrictionSettings.cpp:70
+msgctxt "FrictionSettings"
+msgid ""
+"Static friction keeps you in the same place when you are stopped on a hill. "
+"In the real world this friction is always bigger than dynamic friction "
+"(sliding friction). Start with 0.5 and work from there. It is better to try "
+"to find some experimentally validated values for this and the rest of "
+"surface friction variables in the net, and then to fine tune via strength."
+msgstr ""
+"当您在山上停车时，静电摩擦力使您保持在同一位置。在现实世界中，这种摩擦力总是"
+"大于动态摩擦力（滑动摩擦力）。从 0.5 开始，然后从那里开始工作。最好尝试为该值"
+"和净表中的其他表面摩擦变量找到一些经过实验验证的值，然后通过强度进行微调。"
+
+#: gui/panels/GUI_FrictionSettings.cpp:72
+msgctxt "FrictionSettings"
+msgid "Adhesion velocity:"
+msgstr "粘合速度："
+
+#: gui/panels/GUI_FrictionSettings.cpp:73
+msgctxt "FrictionSettings"
+msgid "Adhesion velocity"
+msgstr "粘合速度"
+
+#: gui/panels/GUI_FrictionSettings.cpp:73
+msgctxt "FrictionSettings"
+msgid ""
+"Below this value static friction laws apply, above it dynamic friction laws "
+"apply. Value should be small, in the range of 0.1-0.4 . This velocity "
+"threshold is also used by fluid dynamics so you should always define it. "
+"NEVER set it to 0."
+msgstr ""
+"低于此值的静态摩擦定律适用，高于此值的动态摩擦定律适用。值应较小，在 0.1-0.4 "
+"的范围内。流体动力学也使用此速度阈值，因此应始终对其进行定义。切勿将其设置为 "
+"0。"
+
+#: gui/panels/GUI_FrictionSettings.cpp:75
+msgctxt "FrictionSettings"
+msgid "Dynamic friction coef:"
+msgstr "动态摩擦系数："
+
+#: gui/panels/GUI_FrictionSettings.cpp:76
+msgctxt "FrictionSettings"
+msgid "Dynamic friction coef"
+msgstr "动态摩擦系数"
+
+#: gui/panels/GUI_FrictionSettings.cpp:76
+msgctxt "FrictionSettings"
+msgid ""
+"Or sliding friction coef. It should be smaller than static friction coef. "
+"This parameter defines how much friction you'll have when sliding. Try to "
+"find some values for it from the net."
+msgstr ""
+"或滑动摩擦系数。它应该比静态摩擦系数小。此参数定义滑动时将产生的摩擦力。尝试"
+"从网络中找到它的一些值。"
+
+#: gui/panels/GUI_FrictionSettings.cpp:78
+msgctxt "FrictionSettings"
+msgid "Hydrodynamic friction coef:"
+msgstr "流体动压摩擦系数："
+
+#: gui/panels/GUI_FrictionSettings.cpp:79
+msgctxt "FrictionSettings"
+msgid "Hydrodynamic friction coef"
+msgstr "流体动压摩擦系数"
+
+#: gui/panels/GUI_FrictionSettings.cpp:79
+msgctxt "FrictionSettings"
+msgid ""
+"This friction defines the added friction that you'll feel from a surface "
+"that has a little film of fluid on it. It is kind of redundant with all the "
+"fluid physics below, but it is here so as for experimentally validated "
+"values from the net to be usable. If you decide that you'll simulate the "
+"film of fluid with the more complex fluid physics below, then just set this "
+"to 0."
+msgstr ""
+"这种摩擦力定义了你从表面上有一小层液体的表面上感觉到的额外摩擦力。它与下面的"
+"所有流体物理场有点冗余，但它在这里是为了使来自网络的实验验证值可用。如果您决"
+"定使用下面更复杂的流体物理来模拟流体胶片，则只需将其设置为 0 即可。"
+
+#: gui/panels/GUI_FrictionSettings.cpp:81
+msgctxt "FrictionSettings"
+msgid "Stribeck velocity:"
+msgstr "斯特里贝克速度："
+
+#: gui/panels/GUI_FrictionSettings.cpp:82
+msgctxt "FrictionSettings"
+msgid "Stribeck velocity"
+msgstr "斯特里贝克速度"
+
+#: gui/panels/GUI_FrictionSettings.cpp:82
+msgctxt "FrictionSettings"
+msgid ""
+"You'll either find stribeck velocity in the net, or the inverse (1/stribeck "
+"velocity) of it described as 'stribeck coef'. It defines the shape of the "
+"dynamic friction curve. Lets leave it at that. Just find some nice values "
+"for it from the net."
+msgstr ""
+"你要么在网络中找到斯特里贝克速度，要么在网络中发现它的逆（1/斯特里贝克速度）"
+"被描述为\"斯特里贝克速度\"。它定义了动态摩擦曲线的形状。让我们把它留在那里。"
+"只需从网络中找到一些不错的值即可。"
+
+#: gui/panels/GUI_FrictionSettings.cpp:84
+msgctxt "FrictionSettings"
+msgid "alpha:"
+msgstr "阿尔法："
+
+#: gui/panels/GUI_FrictionSettings.cpp:85
+msgctxt "FrictionSettings"
+msgid "Alpha"
+msgstr "阿尔法"
+
+#: gui/panels/GUI_FrictionSettings.cpp:85
+msgctxt "FrictionSettings"
+msgid "Its usual value is 2. But you can try others."
+msgstr "其通常的值为 2。但你可以尝试其他方法。"
+
+#: gui/panels/GUI_FrictionSettings.cpp:87
+msgctxt "FrictionSettings"
+msgid "Fluid Settings"
+msgstr "流体设置"
+
+#: gui/panels/GUI_FrictionSettings.cpp:89
+msgctxt "FrictionSettings"
+msgid "Flow behavior index:"
+msgstr "流行为指数："
+
+#: gui/panels/GUI_FrictionSettings.cpp:90
+msgctxt "FrictionSettings"
+msgid "Flow behavior index"
+msgstr "流行为指数"
+
+#: gui/panels/GUI_FrictionSettings.cpp:90
+msgctxt "FrictionSettings"
+msgid ""
+"If it is 1.0 then the fluid will behave like water. The lower you get from "
+"1.0, the more like mud the fluid will behave, meaning that for small "
+"velocities the fluid will resist motion and for large velocities the fluid "
+"will not resist so much. The higher you get from 1.0 the more like sand the "
+"fluid will behave. The bigger the velocity, the bigger the resistance of the "
+"fluid (try to hit sand hard it'll feel like stone)."
+msgstr ""
+"如果它是1.0，那么流体将表现得像水一样。从1.0开始越低，流体的行为就越像泥浆，"
+"这意味着对于小速度，流体将抵抗运动，对于大速度，流体不会抵抗那么多。从1.0得到"
+"的越高，流体的行为就越像沙子。速度越大，流体的阻力就越大（尝试用力撞击沙子，"
+"它会感觉像石头一样）。"
+
+#: gui/panels/GUI_FrictionSettings.cpp:92
+msgctxt "FrictionSettings"
+msgid "Flow consistency:"
+msgstr "流量一致性："
+
+#: gui/panels/GUI_FrictionSettings.cpp:93
+msgctxt "FrictionSettings"
+msgid "Flow consistency"
+msgstr "流量一致性"
+
+#: gui/panels/GUI_FrictionSettings.cpp:93
+msgctxt "FrictionSettings"
+msgid ""
+"Think of it as default fluid resistance. Behavior index above changes it at "
+"real time. Useful values in practice are quite large."
+msgstr ""
+"将其视为默认的流体阻力。上面的行为索引会实时更改它。在实践中，有用的值相当"
+"大。"
+
+#: gui/panels/GUI_FrictionSettings.cpp:95
+msgctxt "FrictionSettings"
+msgid "Fluid density:"
+msgstr "流体密度："
+
+#: gui/panels/GUI_FrictionSettings.cpp:96
+msgctxt "FrictionSettings"
+msgid "Fluid density"
+msgstr "流体密度"
+
+#: gui/panels/GUI_FrictionSettings.cpp:96
+msgctxt "FrictionSettings"
+msgid ""
+"In mud (or sand) the resistance of the fluid described by the parameters "
+"above will stop you and so keep you from sinking. But for substances like "
+"water it isn't the drag that stops you from sinking. Its buoyancy. This "
+"parameter is here so as to keep you from sinking when you wish to simulate "
+"fluids with low drag (resistance). For fluids like mud or sand you can put "
+"it at 0, but it is best to keep it at some minimum value. For fluids with "
+"behavior index >=1 it will behave like you are in water. For fluids with "
+"behavior index <1 it'll behave like you are in mud."
+msgstr ""
+"在泥浆（或沙子）中，上述参数所描述的流体的阻力将阻止您，从而防止您下沉。但对"
+"于像水这样的物质来说，它不是阻止你下沉的阻力。它的浮力。此参数在此处是为了防"
+"止您在希望模拟低阻力（阻力）流体时下沉。对于泥浆或沙子等流体，您可以将其设置"
+"为0，但最好将其保持在某个最小值。对于行为指数为>=1的流体，它的行为就像在水中"
+"一样。对于行为指数为<1的流体，它的行为就像你在泥泞中一样。"
+
+#: gui/panels/GUI_FrictionSettings.cpp:98
+msgctxt "FrictionSettings"
+msgid "Drag anisotropy:"
+msgstr "拖动各向异性："
+
+#: gui/panels/GUI_FrictionSettings.cpp:99
+msgctxt "FrictionSettings"
+msgid "Drag anisotropy"
+msgstr "拖动各向异性"
+
+#: gui/panels/GUI_FrictionSettings.cpp:99
+msgctxt "FrictionSettings"
+msgid ""
+"This parameter is for making it easier(cheating) to get out from mud. To get "
+"stuck in real mud isn't fun at all, so this makes the mud push up. Ranges in "
+"this parameter are from 0 to 1 . If you set it at 1 then you'll get real "
+"mud. For values from 0 to 1, the behavior goes from real mud to easy mud "
+"depending on this parameter and the value of Adhesion velocity. For velocity "
+"0 real mud it is. For velocity >= adhesion velocity easy mud it is."
+msgstr ""
+"此参数用于使从泥泞中更容易（作弊）出来。被困在真正的泥泞中一点也不好玩，所以"
+"这会使泥浆向上推。此参数中的范围是从 0 到 1 。如果你把它设置为1，那么你会得到"
+"真正的泥浆。对于从 0 到 1 的值，行为从实际泥浆变为易泥浆，具体取决于此参数和"
+"粘附速度值。对于速度 0 真正的泥浆，它是。对于速度>=粘附速度容易泥浆它是。"
+
+#: gui/panels/GUI_GameAbout.cpp:47
+msgctxt "About"
+msgid "About Rigs of Rods"
+msgstr "关于钻杆"
+
+#: gui/panels/GUI_GameAbout.cpp:49
+msgctxt "About"
+msgid "Version"
+msgstr "版本"
+
+#: gui/panels/GUI_GameAbout.cpp:53
+msgctxt "About"
+msgid "Network protocol"
+msgstr "网络协议"
+
+#: gui/panels/GUI_GameAbout.cpp:57
+msgctxt "About"
+msgid "Build time"
+msgstr "构建时间"
+
+#: gui/panels/GUI_GameAbout.cpp:63
+msgctxt "About"
+msgid "Authors"
+msgstr "作者"
+
+#: gui/panels/GUI_GameAbout.cpp:68
+msgctxt "About"
+msgid "Current Developers"
+msgstr "当前开发人员"
+
+#: gui/panels/GUI_GameAbout.cpp:73
+msgctxt "About"
+msgid "Server Contributors"
+msgstr "服务器参与者"
+
+#: gui/panels/GUI_GameAbout.cpp:81
+msgctxt "About"
+msgid "Code Contributors"
+msgstr "代码贡献者"
+
+#: gui/panels/GUI_GameAbout.cpp:107
+msgctxt "About"
+msgid "Core Content Contributors"
+msgstr "核心内容贡献者"
+
+#: gui/panels/GUI_GameAbout.cpp:113
+msgctxt "About"
+msgid "Mod Contributors"
+msgstr "模组贡献者"
+
+#: gui/panels/GUI_GameAbout.cpp:117
+msgctxt "About"
+msgid "Testers"
+msgstr "测试"
+
+#: gui/panels/GUI_GameAbout.cpp:121
+msgctxt "About"
+msgid "Used Libs"
+msgstr "二手库"
+
+#: gui/panels/GUI_GameChatBox.cpp:81
+msgctxt "ChatBox"
+msgid "Press {} to spawn a vehicle"
+msgstr "按 {} 生成车辆"
+
+#: gui/panels/GUI_GameChatBox.cpp:143
+msgctxt "ChatBox"
+msgid "Chat history (use mouse wheel to scroll)"
+msgstr "聊天记录（使用鼠标滚轮滚动）"
+
+#: gui/panels/GUI_GameChatBox.cpp:144
+msgctxt "ChatBox"
+msgid "Message"
+msgstr "消息"
+
+#: gui/panels/GUI_GameChatBox.cpp:192
+msgctxt "ChatBox"
+msgid "Whisper message not sent, unknown username: {}"
+msgstr "未发送耳语消息，用户名未知：{}"
+
+#: gui/panels/GUI_GameChatBox.cpp:199
+msgctxt "ChatBox"
+msgid "usage: /whisper username message"
+msgstr "用法：/耳语用户名消息"
+
+#: gui/panels/GUI_GameControls.cpp:65
+msgctxt "GameControls"
+msgid "Press a new key"
+msgstr "按新键"
+
+#: gui/panels/GUI_GameControls.cpp:74
+msgctxt "GameControls"
+msgid "EXPL"
+msgstr "开普勒"
+
+#: gui/panels/GUI_GameControls.cpp:83
+msgctxt "GameControls"
+msgid ""
+"With EXPL tag, only exactly matching key combos will be triggered.\n"
+"Without it, partial matches will trigger, too."
+msgstr ""
+"使用 EXPL 标签时，只会触发完全匹配的键组合。\n"
+"没有它，部分匹配也会触发。"
+
+#: gui/panels/GUI_GameControls.cpp:87
+msgctxt "GameControls"
+msgid ""
+"Example: Pressing CTRL+F1 will trigger COMMANDS_03 and COMMANDS_01\n"
+"but not COMMANDS_02 which has EXPL tag."
+msgstr ""
+"示例：按 Ctrl+F1 将触发COMMANDS_03和COMMANDS_01\n"
+"但不会触发具有 EXPL 标记COMMANDS_02。"
+
+#: gui/panels/GUI_GameControls.cpp:108
+msgctxt "GameControls"
+msgid "Game Controls"
+msgstr "游戏控制"
+
+#: gui/panels/GUI_GameControls.cpp:116
+msgctxt "GameControls"
+msgid "Save changes"
+msgstr "保存更改"
+
+#: gui/panels/GUI_GameControls.cpp:121
+msgctxt "GameControls"
+msgid "Reset changes"
+msgstr "重置更改"
+
+#. Device type selector
+#. - General BeginCombo() API, you have full control over your selection data and display type.
+#: gui/panels/GUI_GameControls.cpp:235
+msgctxt "GameSettings"
+msgid "EventType"
+msgstr "事件类型"
+
+#. Buttons
+#: gui/panels/GUI_GameControls.cpp:280
+msgctxt "GameSettings"
+msgid "OK"
+msgstr "还行"
+
+#: gui/panels/GUI_GameControls.cpp:285
+msgctxt "GameSettings"
+msgid "Cancel"
+msgstr "取消"
+
+#: gui/panels/GUI_GameControls.cpp:290
+msgctxt "GameSettings"
+msgid "Delete"
+msgstr "删除"
+
+#: gui/panels/GUI_GameMainMenu.cpp:115
+msgctxt "MainMenu"
+msgid "Single player"
+msgstr "单人游戏"
+
+#: gui/panels/GUI_GameMainMenu.cpp:125 gui/panels/GUI_GameMainMenu.cpp:134
+msgctxt "MainMenu"
+msgid "Resume game"
+msgstr "恢复游戏"
+
+#: gui/panels/GUI_GameMainMenu.cpp:143
+msgctxt "MainMenu"
+msgid "Multiplayer"
+msgstr "多人游戏"
+
+#: gui/panels/GUI_GameMainMenu.cpp:149
+msgctxt "MainMenu"
+msgid "Repository"
+msgstr "存储库"
+
+#: gui/panels/GUI_GameMainMenu.cpp:155
+msgctxt "MainMenu"
+msgid "Settings"
+msgstr "设置"
+
+#: gui/panels/GUI_GameMainMenu.cpp:161 gui/panels/GUI_GameMainMenu.cpp:175
+msgctxt "MainMenu"
+msgid "Controls"
+msgstr "控制"
+
+#: gui/panels/GUI_GameMainMenu.cpp:167
+msgctxt "MainMenu"
+msgid "About"
+msgstr "大约"
+
+#: gui/panels/GUI_GameMainMenu.cpp:181
+msgid "Return to menu"
+msgstr "返回菜单"
+
+#: gui/panels/GUI_GameMainMenu.cpp:192
+msgctxt "MainMenu"
+msgid "Exit game"
+msgstr "离开游戏"
+
+#: gui/panels/GUI_GameMainMenu.cpp:230 gui/panels/GUI_GameMainMenu.cpp:258
+msgctxt "MainMenu"
+msgid "Game version"
+msgstr "游戏版本"
+
+#. needed to align with VersionBox
+#: gui/panels/GUI_GameMainMenu.cpp:231 gui/panels/GUI_GameMainMenu.cpp:259
+msgctxt "MainMenu"
+msgid "Net. protocol"
+msgstr "网。协议"
+
+#: gui/panels/GUI_GameMainMenu.cpp:244
+msgctxt "MainMenu"
+msgid "Version box"
+msgstr "版本框"
+
+#. needed to align with VersionBox
+#: gui/panels/GUI_GameMainMenu.cpp:260
+msgctxt "MainMenu"
+msgid "Cache updated"
+msgstr "缓存已更新"
+
+#: gui/panels/GUI_GameMainMenu.cpp:273
+msgctxt "MainMenu"
+msgid "Notice box"
+msgstr "通知框"
+
+#: gui/panels/GUI_GameSettings.cpp:43
+msgctxt "GameSettings"
+msgid "Game settings"
+msgstr "游戏设置"
+
+#. Combobox for selecting the Render System
+#: gui/panels/GUI_GameSettings.cpp:51 gui/panels/GUI_GameSettings.cpp:128
+msgctxt "GameSettings"
+msgid "Render System"
+msgstr "渲染系统"
+
+#: gui/panels/GUI_GameSettings.cpp:58
+msgctxt "GameSettings"
+msgid "General"
+msgstr "常规"
+
+#: gui/panels/GUI_GameSettings.cpp:65
+msgctxt "GameSettings"
+msgid "Gameplay"
+msgstr "游戏玩法"
+
+#: gui/panels/GUI_GameSettings.cpp:72
+msgctxt "GameSettings"
+msgid "Graphics"
+msgstr "图形"
+
+#: gui/panels/GUI_GameSettings.cpp:79
+msgctxt "GameSettings"
+msgid "Audio"
+msgstr "音频"
+
+#: gui/panels/GUI_GameSettings.cpp:86
+msgctxt "GameSettings"
+msgid "Controls"
+msgstr "控制"
+
+#: gui/panels/GUI_GameSettings.cpp:93
+msgctxt "GameSettings"
+msgid "Diagnostic"
+msgstr "诊断"
+
+#: gui/panels/GUI_GameSettings.cpp:114
+msgctxt "GameSettings"
+msgid "Render system (changes require a restart)"
+msgstr "渲染系统（更改需要重新启动）"
+
+#: gui/panels/GUI_GameSettings.cpp:166
+msgctxt "GameSettings"
+msgid "Application settings"
+msgstr "应用程序设置"
+
+#: gui/panels/GUI_GameSettings.cpp:178
+msgctxt "GameSettings"
+msgid "Language"
+msgstr "语言"
+
+#: gui/panels/GUI_GameSettings.cpp:209
+msgctxt "GameSettings"
+msgid "Country"
+msgstr "国家"
+
+#. Hardcoded; TODO: list available formats.
+#. Screenshot format: Can be png or jpg
+#: gui/panels/GUI_GameSettings.cpp:218
+msgctxt "GameSettings"
+msgid "Screenshot format"
+msgstr "屏幕截图格式"
+
+#: gui/panels/GUI_GameSettings.cpp:224
+msgctxt "GameSettings"
+msgid "Extra mod path"
+msgstr "额外的模组路径"
+
+#: gui/panels/GUI_GameSettings.cpp:226
+msgctxt "GameSettings"
+msgid "Skip main menu"
+msgstr "跳过主菜单"
+
+#: gui/panels/GUI_GameSettings.cpp:227
+msgctxt "GameSettings"
+msgid "Async physics"
+msgstr "异步物理"
+
+#: gui/panels/GUI_GameSettings.cpp:228
+msgctxt "GameSettings"
+msgid "Disable online api"
+msgstr "禁用在线 API"
+
+#: gui/panels/GUI_GameSettings.cpp:230
+msgctxt "GameSettings"
+msgid "Update cache"
+msgstr "更新缓存"
+
+#: gui/panels/GUI_GameSettings.cpp:240
+msgctxt "GameSettings"
+msgid "Simulation settings"
+msgstr "模拟设置"
+
+#: gui/panels/GUI_GameSettings.cpp:242
+msgctxt "GameSettings"
+msgid "Gearbox mode"
+msgstr "变速箱模式"
+
+#: gui/panels/GUI_GameSettings.cpp:245
+msgctxt "GameSettings"
+msgid "Digital speedometer"
+msgstr "数字车速表"
+
+#: gui/panels/GUI_GameSettings.cpp:246
+msgctxt "GameSettings"
+msgid "Imperial speedometer"
+msgstr "英制车速表"
+
+#. DrawGCheckbox(App::gfx_flexbody_cache,     "Enable flexbody cache");
+#: gui/panels/GUI_GameSettings.cpp:250
+msgctxt "GameSettings"
+msgid "Engines spawn running"
+msgstr "引擎生成正在运行"
+
+#: gui/panels/GUI_GameSettings.cpp:252
+msgctxt "GameSettings"
+msgid "Replay mode"
+msgstr "重播模式"
+
+#: gui/panels/GUI_GameSettings.cpp:255
+msgctxt "GameSettings"
+msgid "Replay length"
+msgstr "回放长度"
+
+#: gui/panels/GUI_GameSettings.cpp:256
+msgctxt "GameSettings"
+msgid "Replay stepping"
+msgstr "重播步进"
+
+#: gui/panels/GUI_GameSettings.cpp:259
+msgctxt "GameSettings"
+msgid "Realistic forward commands"
+msgstr "逼真的转发命令"
+
+#: gui/panels/GUI_GameSettings.cpp:261
+msgctxt "GameSettings"
+msgid "Enable races"
+msgstr "启用比赛"
+
+#: gui/panels/GUI_GameSettings.cpp:263
+msgctxt "GameSettings"
+msgid "No intra truck collisions"
+msgstr "无卡车内碰撞"
+
+#: gui/panels/GUI_GameSettings.cpp:264
+msgctxt "GameSettings"
+msgid "No inter truck collisions"
+msgstr "无卡车间碰撞"
+
+#: gui/panels/GUI_GameSettings.cpp:266
+msgctxt "GameSettings"
+msgid "Discord Rich Presence"
+msgstr "不和谐丰富的存在"
+
+#: gui/panels/GUI_GameSettings.cpp:268
+msgctxt "GameSettings"
+msgid "Show confirm. UI dialog for quickload"
+msgstr "显示确认。用于快速加载的 UI 对话框"
+
+#: gui/panels/GUI_GameSettings.cpp:270
+msgctxt "GameSettings"
+msgid "Show controls in live repair box"
+msgstr ""
+
+#: gui/panels/GUI_GameSettings.cpp:272
+msgctxt "GameSettings"
+msgid "Show vehicle buttons menu"
+msgstr "显示车辆菜单"
+
+#: gui/panels/GUI_GameSettings.cpp:274
+#, fuzzy
+#| msgctxt "GameSettings"
+#| msgid "Enable particle gfx"
+msgctxt "GameSettings"
+msgid "Enable vehicle tuning"
+msgstr "启用粒子 gfx"
+
+#: gui/panels/GUI_GameSettings.cpp:280
+msgctxt "GameSettings"
+msgid "Audio settings"
+msgstr "音频设置"
+
+#: gui/panels/GUI_GameSettings.cpp:296
+msgctxt "GameSettings"
+msgid "Audio device"
+msgstr "音频设备"
+
+#: gui/panels/GUI_GameSettings.cpp:301
+msgctxt "GameSettings"
+msgid "Creak sound"
+msgstr "吱吱声"
+
+#: gui/panels/GUI_GameSettings.cpp:302
+msgctxt "GameSettings"
+msgid "Main menu music"
+msgstr "主菜单音乐"
+
+#: gui/panels/GUI_GameSettings.cpp:303
+msgctxt "GameSettings"
+msgid "Master volume"
+msgstr "主卷"
+
+#: gui/panels/GUI_GameSettings.cpp:309
+msgctxt "GameSettings"
+msgid "Video settings"
+msgstr "视频设置"
+
+#: gui/panels/GUI_GameSettings.cpp:311
+msgctxt "GameSettings"
+msgid "Light sources"
+msgstr "光源"
+
+#: gui/panels/GUI_GameSettings.cpp:314
+msgctxt "GameSettings"
+msgid "Shadow type (requires restart)"
+msgstr "阴影类型（需要重新启动）"
+
+#: gui/panels/GUI_GameSettings.cpp:319
+msgctxt "GameSettings"
+msgid "Shadow optimizations"
+msgstr "影子优化"
+
+#: gui/panels/GUI_GameSettings.cpp:322
+msgctxt "GameSettings"
+msgid "Shadow quality"
+msgstr "阴影质量"
+
+#: gui/panels/GUI_GameSettings.cpp:326
+msgctxt "GameSettings"
+msgid "Sky gfx"
+msgstr ""
+
+#: gui/panels/GUI_GameSettings.cpp:331
+msgctxt "GameSettings"
+msgid "Sight range (meters)"
+msgstr "瞄准范围（米）"
+
+#: gui/panels/GUI_GameSettings.cpp:334
+msgctxt "GameSettings"
+msgid "Texture filtering"
+msgstr "纹理过滤"
+
+#: gui/panels/GUI_GameSettings.cpp:341
+msgctxt "GameSettings"
+msgid "Anisotropy"
+msgstr "各向异性"
+
+#: gui/panels/GUI_GameSettings.cpp:347
+msgctxt "GameSettings"
+msgid "Vegetation density"
+msgstr "植被密度"
+
+#: gui/panels/GUI_GameSettings.cpp:350
+msgctxt "GameSettings"
+msgid "Water gfx"
+msgstr "水"
+
+#: gui/panels/GUI_GameSettings.cpp:353
+msgctxt "GameSettings"
+msgid "FPS limit"
+msgstr "转数快限制"
+
+#: gui/panels/GUI_GameSettings.cpp:355
+msgctxt "GameSettings"
+msgid "Enable particle gfx"
+msgstr "启用粒子 gfx"
+
+#: gui/panels/GUI_GameSettings.cpp:356
+msgctxt "GameSettings"
+msgid "Enable skidmarks"
+msgstr "启用滑行标记"
+
+#: gui/panels/GUI_GameSettings.cpp:358
+msgctxt "GameSettings"
+msgid "Realtime reflections"
+msgstr "实时反射"
+
+#. Width includes [+/-] buttons
+#: gui/panels/GUI_GameSettings.cpp:362
+msgctxt "GameSettings"
+msgid "Realtime refl. update rate"
+msgstr "实时刷新率"
+
+#: gui/panels/GUI_GameSettings.cpp:366
+msgctxt "GameSettings"
+msgid "Render video cameras"
+msgstr "渲染摄像机"
+
+#: gui/panels/GUI_GameSettings.cpp:367
+msgctxt "GameSettings"
+msgid "Overview map icons"
+msgstr "总览图图标"
+
+#: gui/panels/GUI_GameSettings.cpp:370
+msgctxt "GameSettings"
+msgid "Declutter overview map"
+msgstr "整理总览图"
+
+#: gui/panels/GUI_GameSettings.cpp:372
+msgctxt "GameSettings"
+msgid "Waves on water"
+msgstr "水面上的波浪"
+
+#: gui/panels/GUI_GameSettings.cpp:373
+msgctxt "GameSettings"
+msgid "Use alternate vehicle materials"
+msgstr ""
+
+#: gui/panels/GUI_GameSettings.cpp:378
+msgctxt "GameSettings"
+msgid "Static camera height (meters)"
+msgstr "静态摄像机高度（米）"
+
+#: gui/panels/GUI_GameSettings.cpp:379
+msgctxt "GameSettings"
+msgid "Exterior field of view"
+msgstr "外部视野"
+
+#: gui/panels/GUI_GameSettings.cpp:380
+msgctxt "GameSettings"
+msgid "Interior field of view"
+msgstr "内部视野"
+
+#: gui/panels/GUI_GameSettings.cpp:385
+msgctxt "GameSettings"
+msgid "Diagnostic options"
+msgstr "诊断选项"
+
+#: gui/panels/GUI_GameSettings.cpp:386
+msgctxt "GameSettings"
+msgid ""
+"These settings are for advanced users only, you should only change these if "
+"you know what you're doing"
+msgstr "这些设置仅适用于高级用户，只有在您知道自己在做什么时才应更改这些设置"
+
+#: gui/panels/GUI_GameSettings.cpp:388
+msgctxt "GameSettings"
+msgid "Preselected terrain"
+msgstr "预选地形"
+
+#: gui/panels/GUI_GameSettings.cpp:389
+msgctxt "GameSettings"
+msgid "Preselected vehicle"
+msgstr "预选车辆"
+
+#: gui/panels/GUI_GameSettings.cpp:390
+msgctxt "GameSettings"
+msgid "Presel. veh. config"
+msgstr "预选。呵呵。配置"
+
+#: gui/panels/GUI_GameSettings.cpp:391
+msgctxt "GameSettings"
+msgid "Enter preselected vehicle"
+msgstr "输入预选车辆"
+
+#: gui/panels/GUI_GameSettings.cpp:392
+msgctxt "GameSettings"
+msgid "Auto actor spawner report"
+msgstr "自动演员生成器报告"
+
+#: gui/panels/GUI_GameSettings.cpp:393
+msgctxt "GameSettings"
+msgid "Log node import (spawn)"
+msgstr "日志节点导入（生成）"
+
+#: gui/panels/GUI_GameSettings.cpp:394
+msgctxt "GameSettings"
+msgid "Log node stats (spawn)"
+msgstr "日志节点统计信息（生成）"
+
+#: gui/panels/GUI_GameSettings.cpp:395
+msgctxt "GameSettings"
+msgid "Debug camera (rails)"
+msgstr "调试相机（导轨）"
+
+#: gui/panels/GUI_GameSettings.cpp:396
+msgctxt "GameSettings"
+msgid "Debug actor mass"
+msgstr "调试执行组件质量"
+
+#: gui/panels/GUI_GameSettings.cpp:397
+msgctxt "GameSettings"
+msgid "Debug realtime reflections"
+msgstr "调试实时反射"
+
+#: gui/panels/GUI_GameSettings.cpp:398
+msgctxt "GameSettings"
+msgid "Debug videocameras"
+msgstr "调试摄像机"
+
+#: gui/panels/GUI_GameSettings.cpp:399
+msgctxt "GameSettings"
+msgid "Debug textures"
+msgstr "调试纹理"
+
+#: gui/panels/GUI_GameSettings.cpp:400
+msgctxt "GameSettings"
+msgid "Hide broken beams"
+msgstr "隐藏断梁"
+
+#: gui/panels/GUI_GameSettings.cpp:401
+msgctxt "GameSettings"
+msgid "Hide wheel info"
+msgstr "隐藏滚轮信息"
+
+#: gui/panels/GUI_GameSettings.cpp:402
+msgctxt "GameSettings"
+msgid "Hide wheels"
+msgstr "隐藏轮子"
+
+#: gui/panels/GUI_GameSettings.cpp:403
+msgctxt "GameSettings"
+msgid "Hide nodes"
+msgstr "隐藏节点"
+
+#: gui/panels/GUI_GameSettings.cpp:404
+msgctxt "GameSettings"
+msgid "Echo log to console"
+msgstr "将日志回显到控制台"
+
+#: gui/panels/GUI_GameSettings.cpp:405
+msgctxt "GameSettings"
+msgid "Log beam breaking"
+msgstr "原木梁断裂"
+
+#: gui/panels/GUI_GameSettings.cpp:406
+msgctxt "GameSettings"
+msgid "Log beam deforming"
+msgstr "原木梁变形"
+
+#: gui/panels/GUI_GameSettings.cpp:407
+msgctxt "GameSettings"
+msgid "Log beam triggers"
+msgstr "对数光束触发器"
+
+#: gui/panels/GUI_GameSettings.cpp:408
+msgctxt "GameSettings"
+msgid "Rebuild cache"
+msgstr "重建缓存"
+
+#: gui/panels/GUI_GameSettings.cpp:418
+msgctxt "GameSettings"
+msgid "Controller options"
+msgstr "控制器选项"
+
+#: gui/panels/GUI_GameSettings.cpp:420
+msgctxt "GameSettings"
+msgid "Input grab mode"
+msgstr "输入抓取模式"
+
+#: gui/panels/GUI_GameSettings.cpp:423
+msgctxt "GameSettings"
+msgid "Analog Input Smoothing"
+msgstr "模拟输入平滑"
+
+#: gui/panels/GUI_GameSettings.cpp:424
+msgctxt "GameSettings"
+msgid "Analog Input Sensitivity"
+msgstr "模拟输入灵敏度"
+
+#: gui/panels/GUI_GameSettings.cpp:425
+msgctxt "GameSettings"
+msgid "Blinker Lock Range"
+msgstr "闪光灯锁定范围"
+
+#: gui/panels/GUI_GameSettings.cpp:427
+msgctxt "GameSettings"
+msgid "Use arcade controls"
+msgstr "使用街机控件"
+
+#: gui/panels/GUI_GameSettings.cpp:428
+#, fuzzy
+#| msgctxt "GameSettings"
+#| msgid "Render video cameras"
+msgctxt "GameSettings"
+msgid "Invert orbit camera"
+msgstr "渲染摄像机"
+
+#: gui/panels/GUI_GameSettings.cpp:430
+msgctxt "GameSettings"
+msgid "Enable ForceFeedback"
+msgstr "启用强制反馈"
+
+#: gui/panels/GUI_GameSettings.cpp:434
+msgctxt "GameSettings"
+msgid "FFB camera gain"
+msgstr "FFB相机增益"
+
+#: gui/panels/GUI_GameSettings.cpp:435
+msgctxt "GameSettings"
+msgid "FFB center gain"
+msgstr "FFB 中心增益"
+
+#: gui/panels/GUI_GameSettings.cpp:436
+msgctxt "GameSettings"
+msgid "FFB master gain"
+msgstr "FFB 主增益"
+
+#: gui/panels/GUI_GameSettings.cpp:437
+msgctxt "GameSettings"
+msgid "FFB stress gain"
+msgstr "FFB 应力增益"
+
+#: gui/panels/GUI_GameSettings.cpp:441
+msgctxt "GameSettings"
+msgid "Enable OutGauge protocol"
+msgstr "启用出量程协议"
+
+#: gui/panels/GUI_GameSettings.cpp:444
+msgctxt "GameSettings"
+msgid "OutGauge IP"
+msgstr "出量 IP"
+
+#: gui/panels/GUI_GameSettings.cpp:446
+msgctxt "GameSettings"
+msgid "OutGauge port"
+msgstr "出程端口"
+
+#: gui/panels/GUI_GameSettings.cpp:447
+msgctxt "GameSettings"
+msgid "OutGauge ID"
+msgstr "出量程 ID"
+
+#: gui/panels/GUI_GameSettings.cpp:448
+msgctxt "GameSettings"
+msgid "OutGauge delay"
+msgstr "出量程延迟"
+
+#: gui/panels/GUI_LoadingWindow.cpp:76
+msgctxt "LoadingWindow"
+msgid "Joining"
+msgstr "加入"
+
+#: gui/panels/GUI_LoadingWindow.cpp:99
+msgctxt "LoadingWindow"
+msgid "Please wait"
+msgstr "请稍候"
+
+#: gui/panels/GUI_MainSelector.cpp:95
+msgctxt "MainSelector"
+msgid "Loader"
+msgstr "装载 机"
+
+#: gui/panels/GUI_MainSelector.cpp:301
+msgctxt "MainSelector"
+msgid "Author(s): "
+msgstr "作者： "
+
+#: gui/panels/GUI_MainSelector.cpp:305
+msgctxt "MainSelector"
+msgid "Version: "
+msgstr "版本： "
+
+#: gui/panels/GUI_MainSelector.cpp:308
+msgctxt "MainSelector"
+msgid "Wheels: "
+msgstr "车轮： "
+
+#: gui/panels/GUI_MainSelector.cpp:314
+msgctxt "MainSelector"
+msgid "Mass: "
+msgstr "质量： "
+
+#: gui/panels/GUI_MainSelector.cpp:323
+msgctxt "MainSelector"
+msgid "Load Mass: "
+msgstr "负载质量： "
+
+#: gui/panels/GUI_MainSelector.cpp:327
+msgctxt "MainSelector"
+msgid "Nodes: "
+msgstr "节点： "
+
+#: gui/panels/GUI_MainSelector.cpp:328
+msgctxt "MainSelector"
+msgid "Beams: "
+msgstr "梁： "
+
+#: gui/panels/GUI_MainSelector.cpp:329
+msgctxt "MainSelector"
+msgid "Shocks: "
+msgstr "冲击： "
+
+#: gui/panels/GUI_MainSelector.cpp:330
+msgctxt "MainSelector"
+msgid "Hydros: "
+msgstr "水力： "
+
+#: gui/panels/GUI_MainSelector.cpp:331
+msgctxt "MainSelector"
+msgid "SoundSources: "
+msgstr "声音来源： "
+
+#: gui/panels/GUI_MainSelector.cpp:332
+msgctxt "MainSelector"
+msgid "Commands: "
+msgstr "命令： "
+
+#: gui/panels/GUI_MainSelector.cpp:333
+msgctxt "MainSelector"
+msgid "Rotators: "
+msgstr "旋转器： "
+
+#: gui/panels/GUI_MainSelector.cpp:334
+msgctxt "MainSelector"
+msgid "Exhausts: "
+msgstr "废气： "
+
+#: gui/panels/GUI_MainSelector.cpp:335
+msgctxt "MainSelector"
+msgid "Flares: "
+msgstr "耀斑： "
+
+#: gui/panels/GUI_MainSelector.cpp:336
+msgctxt "MainSelector"
+msgid "Flexbodies: "
+msgstr "弹性体： "
+
+#: gui/panels/GUI_MainSelector.cpp:337
+msgctxt "MainSelector"
+msgid "Props: "
+msgstr "道具： "
+
+#: gui/panels/GUI_MainSelector.cpp:338
+msgctxt "MainSelector"
+msgid "Wings: "
+msgstr "翅膀： "
+
+#: gui/panels/GUI_MainSelector.cpp:341
+msgctxt "MainSelector"
+msgid "Using Submeshs: "
+msgstr "使用子主题： "
+
+#: gui/panels/GUI_MainSelector.cpp:343
+msgctxt "MainSelector"
+msgid "No"
+msgstr "不"
+
+#: gui/panels/GUI_MainSelector.cpp:343
+msgctxt "MainSelector"
+msgid "Yes"
+msgstr "是的"
+
+#: gui/panels/GUI_MainSelector.cpp:347
+msgctxt "MainSelector"
+msgid "Default skin: "
+msgstr "默认皮肤： "
+
+#: gui/panels/GUI_MainSelector.cpp:351
+msgctxt "MainSelector"
+msgid "Torque: "
+msgstr "力矩： "
+
+#: gui/panels/GUI_MainSelector.cpp:352
+msgctxt "MainSelector"
+msgid "Transmission Gear Count: "
+msgstr "传动齿轮数： "
+
+#: gui/panels/GUI_MainSelector.cpp:355
+msgctxt "MainSelector"
+msgid "Engine RPM: "
+msgstr "发动机转速： "
+
+#: gui/panels/GUI_MainSelector.cpp:359
+msgctxt "MainSelector"
+msgid "Unique ID: "
+msgstr "唯一标识： "
+
+#: gui/panels/GUI_MainSelector.cpp:360
+msgctxt "MainSelector"
+msgid "GUID: "
+msgstr "指导意见： "
+
+#: gui/panels/GUI_MainSelector.cpp:361
+msgctxt "MainSelector"
+msgid "Times used: "
+msgstr "使用时间： "
+
+#: gui/panels/GUI_MainSelector.cpp:362
+msgctxt "MainSelector"
+msgid "Date and Time modified: "
+msgstr "修改日期和时间： "
+
+#: gui/panels/GUI_MainSelector.cpp:363
+msgctxt "MainSelector"
+msgid "Date and Time installed: "
+msgstr "安装日期和时间： "
+
+#: gui/panels/GUI_MainSelector.cpp:366
+msgctxt "MainSelector"
+msgid "Vehicle Type: "
+msgstr "车辆类型： "
+
+#: gui/panels/GUI_MainSelector.cpp:369
+msgctxt "MainSelector"
+msgid "[forwards commands]"
+msgstr "[转发命令]"
+
+#: gui/panels/GUI_MainSelector.cpp:370
+msgctxt "MainSelector"
+msgid "[imports commands]"
+msgstr "[导入命令]"
+
+#: gui/panels/GUI_MainSelector.cpp:371
+msgctxt "MainSelector"
+msgid "[is rescuer]"
+msgstr "[是救援者]"
+
+#: gui/panels/GUI_MainSelector.cpp:372
+msgctxt "MainSelector"
+msgid "[uses custom particles]"
+msgstr "[使用自定义粒子]"
+
+#: gui/panels/GUI_MainSelector.cpp:373
+msgctxt "MainSelector"
+msgid "[has fixes]"
+msgstr "[有修复]"
+
+#. Engine type 't' (truck) is the default, do not display it
+#: gui/panels/GUI_MainSelector.cpp:375
+msgctxt "MainSelector"
+msgid "[car engine]"
+msgstr "[汽车引擎]"
+
+#: gui/panels/GUI_MainSelector.cpp:376
+msgctxt "MainSelector"
+msgid "[zip archive]"
+msgstr "[压缩存档]"
+
+#: gui/panels/GUI_MainSelector.cpp:377
+msgctxt "MainSelector"
+msgid "[unpacked in directory]"
+msgstr "[在目录中解压缩]"
+
+#: gui/panels/GUI_MainSelector.cpp:381
+msgctxt "MainSelector"
+msgid "Source: "
+msgstr "源： "
+
+#: gui/panels/GUI_MainSelector.cpp:388
+msgctxt "MainSelector"
+msgid "Filename: "
+msgstr "文件名： "
+
+#: gui/panels/GUI_MainSelector.cpp:394
+msgctxt "MainSelector"
+msgid "Show details"
+msgstr "显示详细信息"
+
+#: gui/panels/GUI_MainSelector.cpp:405
+msgctxt "MainSelector"
+msgid "Configuration"
+msgstr "配置"
+
+#: gui/panels/GUI_MainSelector.cpp:411
+msgctxt "MainSelector"
+msgid "OK"
+msgstr "还行"
+
+#: gui/panels/GUI_MainSelector.cpp:418
+msgctxt "MainSelector"
+msgid "Cancel"
+msgstr "取消"
+
+#: gui/panels/GUI_MessageBox.cpp:110
+msgctxt "MessageBox"
+msgid "Always ask"
+msgstr "总是问"
+
+#. TextDisabled() are captions, Text() are values
+#: gui/panels/GUI_MultiplayerClientList.cpp:149
+msgctxt "MultiplayerClientList"
+msgid "user name"
+msgstr "用户名"
+
+#: gui/panels/GUI_MultiplayerClientList.cpp:154
+msgctxt "MultiplayerClientList"
+msgid "user uid"
+msgstr ""
+
+#: gui/panels/GUI_MultiplayerClientList.cpp:158
+msgctxt "MultiplayerClientList"
+msgid "user language: "
+msgstr "用户语言： "
+
+#: gui/panels/GUI_MultiplayerClientList.cpp:162
+msgctxt "MultiplayerClientList"
+msgid "user country: "
+msgstr "用户所在国家： "
+
+#: gui/panels/GUI_MultiplayerClientList.cpp:173
+msgctxt "MultiplayerClientList"
+msgid "user authentication level"
+msgstr "用户身份验证级别"
+
+#: gui/panels/GUI_MultiplayerClientList.cpp:188
+msgctxt "MultiplayerClientList"
+msgid "truck loading state"
+msgstr "卡车装载状态"
+
+#: gui/panels/GUI_MultiplayerClientList.cpp:197
+msgctxt "MultiplayerClientList"
+msgid "Truck loading errors"
+msgstr "卡车装载错误"
+
+#: gui/panels/GUI_MultiplayerClientList.cpp:198
+msgctxt "MultiplayerClientList"
+msgid "Truck loaded correctly, no errors"
+msgstr "卡车装载正确，无错误"
+
+#: gui/panels/GUI_MultiplayerClientList.cpp:199
+msgctxt "MultiplayerClientList"
+msgid "no truck loaded"
+msgstr "无卡车装载"
+
+#: gui/panels/GUI_MultiplayerClientList.cpp:203
+msgctxt "MultiplayerClientList"
+msgid "remote truck loading state"
+msgstr "远程卡车装载状态"
+
+#: gui/panels/GUI_MultiplayerClientList.cpp:212
+msgctxt "MultiplayerClientList"
+msgid "Remote Truck loading errors"
+msgstr "远程卡车装载错误"
+
+#: gui/panels/GUI_MultiplayerClientList.cpp:213
+msgctxt "MultiplayerClientList"
+msgid "Remote Truck loaded correctly, no errors"
+msgstr "远程卡车正确装载，无错误"
+
+#: gui/panels/GUI_MultiplayerClientList.cpp:214
+msgctxt "MultiplayerClientList"
+msgid "No Trucks loaded"
+msgstr "没有卡车装载"
+
+#: gui/panels/GUI_MultiplayerClientList.cpp:229
+msgctxt "MultiplayerClientList"
+msgid "Slow  Network  Download"
+msgstr "慢速网络下载"
+
+#: gui/panels/GUI_MultiplayerSelector.cpp:86
+msgctxt "MultiplayerSelector"
+msgid "Error connecting to server :("
+msgstr "连接到服务器:(时出错"
+
+#: gui/panels/GUI_MultiplayerSelector.cpp:102
+msgctxt "MultiplayerSelector"
+msgid "Server returned invalid data :("
+msgstr "服务器返回无效数据:("
+
+#: gui/panels/GUI_MultiplayerSelector.cpp:121
+msgctxt "MultiplayerSelector"
+msgid "No"
+msgstr "不"
+
+#: gui/panels/GUI_MultiplayerSelector.cpp:121
+msgctxt "MultiplayerSelector"
+msgid "Yes"
+msgstr "是的"
+
+#: gui/panels/GUI_MultiplayerSelector.cpp:158
+msgctxt "MultiplayerSelector"
+msgid "Online (click to refresh)"
+msgstr "在线（点击刷新）"
+
+#: gui/panels/GUI_MultiplayerSelector.cpp:167
+msgctxt "MultiplayerSelector"
+msgid "Direct IP"
+msgstr "直接 IP"
+
+#: gui/panels/GUI_MultiplayerSelector.cpp:172
+msgctxt "MultiplayerSelector"
+msgid "Settings"
+msgstr "设置"
+
+#: gui/panels/GUI_MultiplayerSelector.cpp:191
+msgctxt "MultiplayerSelector"
+msgid "Auto connect"
+msgstr "自动连接"
+
+#: gui/panels/GUI_MultiplayerSelector.cpp:192
+msgctxt "MultiplayerSelector"
+msgid "Auto hide chat"
+msgstr "自动隐藏聊天"
+
+#: gui/panels/GUI_MultiplayerSelector.cpp:193
+msgctxt "MultiplayerSelector"
+msgid "Hide net labels"
+msgstr "隐藏网络标签"
+
+#: gui/panels/GUI_MultiplayerSelector.cpp:194
+msgctxt "MultiplayerSelector"
+msgid "Hide own net label"
+msgstr "隐藏自己的网络标签"
+
+#: gui/panels/GUI_MultiplayerSelector.cpp:195
+msgctxt "MultiplayerSelector"
+msgid "Multiplayer collisions"
+msgstr "多人游戏碰撞"
+
+#: gui/panels/GUI_MultiplayerSelector.cpp:196
+msgctxt "MultiplayerSelector"
+msgid "Include remote actors when cycling via hotkeys"
+msgstr ""
+
+#: gui/panels/GUI_MultiplayerSelector.cpp:203
+msgctxt "MultiplayerSelector"
+msgid "Player nickname"
+msgstr "玩家昵称"
+
+#: gui/panels/GUI_MultiplayerSelector.cpp:204
+msgctxt "MultiplayerSelector"
+msgid "Default server password"
+msgstr "默认服务器密码"
+
+#: gui/panels/GUI_MultiplayerSelector.cpp:209
+msgctxt "MultiplayerSelector"
+msgid "User token"
+msgstr "用户令牌"
+
+#: gui/panels/GUI_MultiplayerSelector.cpp:220
+msgctxt "MultiplayerSelector"
+msgid "Server host"
+msgstr "服务器主机"
+
+#: gui/panels/GUI_MultiplayerSelector.cpp:221
+msgctxt "MultiplayerSelector"
+msgid "Server port"
+msgstr "服务器端口"
+
+#: gui/panels/GUI_MultiplayerSelector.cpp:222
+#: gui/panels/GUI_MultiplayerSelector.cpp:344
+msgctxt "MultiplayerSelector"
+msgid "Server password"
+msgstr "服务器密码"
+
+#: gui/panels/GUI_MultiplayerSelector.cpp:226
+#: gui/panels/GUI_MultiplayerSelector.cpp:332
+msgctxt "MultiplayerSelector"
+msgid "Join"
+msgstr "加入"
+
+#: gui/panels/GUI_MultiplayerSelector.cpp:277
+msgctxt "MultiplayerSelector"
+msgid "Name"
+msgstr "名字"
+
+#: gui/panels/GUI_MultiplayerSelector.cpp:278
+msgctxt "MultiplayerSelector"
+msgid "Terrain"
+msgstr "地形"
+
+#: gui/panels/GUI_MultiplayerSelector.cpp:279
+msgctxt "MultiplayerSelector"
+msgid "Users"
+msgstr "用户"
+
+#: gui/panels/GUI_MultiplayerSelector.cpp:280
+msgctxt "MultiplayerSelector"
+msgid "Version"
+msgstr "版本"
+
+#: gui/panels/GUI_MultiplayerSelector.cpp:281
+msgctxt "MultiplayerSelector"
+msgid "Host/Port"
+msgstr "主机/端口"
+
+#: gui/panels/GUI_MultiplayerSelector.cpp:415
+msgid "HTTP code: {}"
+msgstr ""
+
+#: gui/panels/GUI_MultiplayerSelector.cpp:425
+msgctxt "MultiplayerSelector"
+msgid "There are no available servers :/"
+msgstr "没有可用的服务器 ：/"
+
+#: gui/panels/GUI_NodeBeamUtils.cpp:44
+msgctxt "NodeBeamUtils"
+msgid "Node/Beam Utils"
+msgstr "节点/光束使用"
+
+#: gui/panels/GUI_NodeBeamUtils.cpp:49
+msgctxt "NodeBeamUtils"
+msgid "Total mass"
+msgstr "总质量"
+
+#: gui/panels/GUI_NodeBeamUtils.cpp:56
+msgctxt "NodeBeamUtils"
+msgid "Beams:"
+msgstr "梁："
+
+#: gui/panels/GUI_NodeBeamUtils.cpp:66
+msgctxt "NodeBeamUtils"
+msgid "Shocks:"
+msgstr "冲击："
+
+#: gui/panels/GUI_NodeBeamUtils.cpp:76
+msgctxt "NodeBeamUtils"
+msgid "Wheels:"
+msgstr "车轮："
+
+#: gui/panels/GUI_NodeBeamUtils.cpp:87
+msgctxt "NodeBeamUtils"
+msgid "Reset to default settings"
+msgstr "重置为默认设置"
+
+#: gui/panels/GUI_NodeBeamUtils.cpp:96
+msgctxt "NodeBeamUtils"
+msgid "Update initial node positions"
+msgstr "更新初始节点位置"
+
+#. Width includes [+/-] buttons
+#: gui/panels/GUI_NodeBeamUtils.cpp:103
+msgctxt "NodeBeamUtils"
+msgid "Physics steps:"
+msgstr "物理步骤："
+
+#: gui/panels/GUI_NodeBeamUtils.cpp:110
+msgctxt "NodeBeamUtils"
+msgid "Beams (spring & damping search interval):"
+msgstr "梁（弹簧和阻尼搜索间隔）："
+
+#: gui/panels/GUI_NodeBeamUtils.cpp:118
+msgctxt "NodeBeamUtils"
+msgid "Shocks (spring & damping search interval):"
+msgstr "冲击（弹簧和阻尼搜索间隔）："
+
+#: gui/panels/GUI_NodeBeamUtils.cpp:126
+msgctxt "NodeBeamUtils"
+msgid "Wheels (spring & damping search interval):"
+msgstr "车轮（弹簧和阻尼搜索间隔）："
+
+#: gui/panels/GUI_NodeBeamUtils.cpp:137
+msgctxt "NodeBeamUtils"
+msgid "Continue searching"
+msgstr "继续搜索"
+
+#: gui/panels/GUI_NodeBeamUtils.cpp:137
+msgctxt "NodeBeamUtils"
+msgid "Start searching"
+msgstr "开始搜索"
+
+#: gui/panels/GUI_NodeBeamUtils.cpp:137
+msgctxt "NodeBeamUtils"
+msgid "Stop searching"
+msgstr "停止搜索"
+
+#: gui/panels/GUI_NodeBeamUtils.cpp:147
+msgctxt "NodeBeamUtils"
+msgid "Reset search"
+msgstr "重置搜索"
+
+#: gui/panels/GUI_NodeBeamUtils.cpp:156
+msgctxt "NodeBeamUtils"
+msgid "Search results"
+msgstr "搜索结果"
+
+#: gui/panels/GUI_NodeBeamUtils.cpp:158
+msgctxt "NodeBeamUtils"
+msgid "Reference"
+msgstr "参考"
+
+#: gui/panels/GUI_NodeBeamUtils.cpp:160
+msgctxt "NodeBeamUtils"
+msgid "Optimum"
+msgstr "最佳"
+
+#: gui/panels/GUI_NodeBeamUtils.cpp:163 gui/panels/GUI_NodeBeamUtils.cpp:167
+msgctxt "NodeBeamUtils"
+msgid "Movement"
+msgstr "运动"
+
+#: gui/panels/GUI_NodeBeamUtils.cpp:164 gui/panels/GUI_NodeBeamUtils.cpp:168
+msgctxt "NodeBeamUtils"
+msgid "Stress"
+msgstr "强调"
+
+#: gui/panels/GUI_NodeBeamUtils.cpp:165 gui/panels/GUI_NodeBeamUtils.cpp:169
+msgctxt "NodeBeamUtils"
+msgid "Yitter"
+msgstr "伊特"
+
+#: gui/panels/GUI_RepositorySelector.cpp:201
+msgctxt "RepositorySelector"
+msgid "Could not connect to server. Please check your connection."
+msgstr "无法连接到服务器。请检查您的互联网连接。"
+
+#: gui/panels/GUI_RepositorySelector.cpp:217
+msgctxt "RepositorySelector"
+msgid "Received malformed data. Please try again."
+msgstr ""
+
+#: gui/panels/GUI_RepositorySelector.cpp:400
+msgctxt "RepositorySelector"
+msgid "Rigs of Rods Repository"
+msgstr ""
+
+#: gui/panels/GUI_RepositorySelector.cpp:490
+msgctxt "RepositorySelector"
+msgid "Sort"
+msgstr "排序"
+
+#: gui/panels/GUI_RepositorySelector.cpp:492
+#: gui/panels/GUI_RepositorySelector.cpp:799
+#: gui/panels/GUI_RepositorySelector.cpp:921
+msgctxt "RepositorySelector"
+msgid "Last Update"
+msgstr ""
+
+#: gui/panels/GUI_RepositorySelector.cpp:497
+msgctxt "RepositorySelector"
+msgid "Date Added"
+msgstr "添加日期"
+
+#: gui/panels/GUI_RepositorySelector.cpp:502
+#: gui/panels/GUI_RepositorySelector.cpp:795
+msgctxt "RepositorySelector"
+msgid "Title"
+msgstr "标题"
+
+#: gui/panels/GUI_RepositorySelector.cpp:507
+#: gui/panels/GUI_RepositorySelector.cpp:801
+#: gui/panels/GUI_RepositorySelector.cpp:927
+msgctxt "RepositorySelector"
+msgid "Downloads"
+msgstr "下载"
+
+#: gui/panels/GUI_RepositorySelector.cpp:512
+#: gui/panels/GUI_RepositorySelector.cpp:803
+#, fuzzy
+#| msgid "Rotating: "
+msgctxt "RepositorySelector"
+msgid "Rating"
+msgstr "旋转： "
+
+#: gui/panels/GUI_RepositorySelector.cpp:517
+#, fuzzy
+#| msgid "Triangle Count: "
+msgctxt "RepositorySelector"
+msgid "Rating Count"
+msgstr "三角形计数： "
+
+#: gui/panels/GUI_RepositorySelector.cpp:529
+msgctxt "RepositorySelector"
+msgid "View"
+msgstr ""
+
+#: gui/panels/GUI_RepositorySelector.cpp:531
+msgctxt "RepositorySelector"
+msgid "List"
+msgstr "列表"
+
+#: gui/panels/GUI_RepositorySelector.cpp:535
+msgctxt "RepositorySelector"
+msgid "Compact"
+msgstr ""
+
+#: gui/panels/GUI_RepositorySelector.cpp:539
+msgctxt "RepositorySelector"
+msgid "Basic"
+msgstr ""
+
+#: gui/panels/GUI_RepositorySelector.cpp:551
+msgctxt "RepositorySelector"
+msgid "Search Title, Author"
+msgstr ""
+
+#: gui/panels/GUI_RepositorySelector.cpp:571
+msgctxt "RepositorySelector"
+msgid "Details:"
+msgstr ""
+
+#: gui/panels/GUI_RepositorySelector.cpp:574
+msgctxt "RepositorySelector"
+msgid "Title:"
+msgstr ""
+
+#: gui/panels/GUI_RepositorySelector.cpp:580
+msgctxt "RepositorySelector"
+msgid "Resource ID:"
+msgstr ""
+
+#: gui/panels/GUI_RepositorySelector.cpp:586
+msgctxt "RepositorySelector"
+msgid "Category:"
+msgstr ""
+
+#: gui/panels/GUI_RepositorySelector.cpp:600
+#, fuzzy
+#| msgctxt "VehicleDescription"
+#| msgid "Description"
+msgctxt "RepositorySelector"
+msgid "Description:"
+msgstr "描述"
+
+#: gui/panels/GUI_RepositorySelector.cpp:606
+msgctxt "RepositorySelector"
+msgid "Downloads:"
+msgstr ""
+
+#: gui/panels/GUI_RepositorySelector.cpp:612
+#, fuzzy
+#| msgid "Triangle Count: "
+msgctxt "RepositorySelector"
+msgid "View Count:"
+msgstr "三角形计数： "
+
+#: gui/panels/GUI_RepositorySelector.cpp:618
+#, fuzzy
+#| msgid "Rotating: "
+msgctxt "RepositorySelector"
+msgid "Rating:"
+msgstr "旋转： "
+
+#: gui/panels/GUI_RepositorySelector.cpp:624
+#, fuzzy
+#| msgid "Triangle Count: "
+msgctxt "RepositorySelector"
+msgid "Rating Count:"
+msgstr "三角形计数： "
+
+#: gui/panels/GUI_RepositorySelector.cpp:630
+msgctxt "RepositorySelector"
+msgid "Date Added:"
+msgstr ""
+
+#: gui/panels/GUI_RepositorySelector.cpp:637
+msgctxt "RepositorySelector"
+msgid "Last Update:"
+msgstr ""
+
+#: gui/panels/GUI_RepositorySelector.cpp:644
+#, fuzzy
+#| msgctxt "MainSelector"
+#| msgid "Version: "
+msgctxt "RepositorySelector"
+msgid "Version:"
+msgstr "版本： "
+
+#: gui/panels/GUI_RepositorySelector.cpp:650
+#, fuzzy
+#| msgctxt "About"
+#| msgid "Authors"
+msgctxt "RepositorySelector"
+msgid "Authors:"
+msgstr "作者"
+
+#: gui/panels/GUI_RepositorySelector.cpp:656
+msgctxt "RepositorySelector"
+msgid "View URL:"
+msgstr ""
+
+#: gui/panels/GUI_RepositorySelector.cpp:663
+#, fuzzy
+#| msgctxt "MainSelector"
+#| msgid "Filename: "
+msgctxt "RepositorySelector"
+msgid "Files:"
+msgstr "文件名： "
+
+#: gui/panels/GUI_RepositorySelector.cpp:692
+#, fuzzy
+#| msgctxt "MainSelector"
+#| msgid "Filename: "
+msgctxt "RepositorySelector"
+msgid "Filename:"
+msgstr "文件名： "
+
+#: gui/panels/GUI_RepositorySelector.cpp:741
+#, fuzzy
+#| msgctxt "GameSettings"
+#| msgid "Update cache"
+msgctxt "RepositorySelector"
+msgid "Update"
+msgstr "更新缓存"
+
+#: gui/panels/GUI_RepositorySelector.cpp:745
+msgctxt "RepositorySelector"
+msgid "Reinstall"
+msgstr ""
+
+#: gui/panels/GUI_RepositorySelector.cpp:749
+msgctxt "RepositorySelector"
+msgid "Install"
+msgstr ""
+
+#: gui/panels/GUI_RepositorySelector.cpp:759
+#: gui/panels/GUI_RepositorySelector.cpp:769
+msgctxt "RepositorySelector"
+msgid "Remove"
+msgstr ""
+
+#: gui/panels/GUI_RepositorySelector.cpp:797
+#: gui/panels/GUI_RepositorySelector.cpp:1026
+#, fuzzy
+#| msgctxt "About"
+#| msgid "Version"
+msgctxt "RepositorySelector"
+msgid "Version"
+msgstr "版本"
+
+#. Authors, rating count, last update, download count, description
+#: gui/panels/GUI_RepositorySelector.cpp:911
+#, fuzzy
+#| msgctxt "About"
+#| msgid "Authors"
+msgctxt "RepositorySelector"
+msgid "Authors"
+msgstr "作者"
+
+#: gui/panels/GUI_RepositorySelector.cpp:932
+#, fuzzy
+#| msgctxt "VehicleDescription"
+#| msgid "Description"
+msgctxt "RepositorySelector"
+msgid "Description"
+msgstr "描述"
+
+#: gui/panels/GUI_RepositorySelector.cpp:1033
+#, fuzzy
+#| msgid "Scene loaded"
+msgctxt "RepositorySelector"
+msgid "Downloaded"
+msgstr "场景已加载"
+
+#: gui/panels/GUI_RepositorySelector.cpp:1033
+msgctxt "RepositorySelector"
+msgid "times"
+msgstr ""
+
+#: gui/panels/GUI_RepositorySelector.cpp:1177
+msgctxt "RepositorySelector"
+msgid "Sorry, the repository isn't available. Try again later."
+msgstr ""
+
+#: gui/panels/GUI_RepositorySelector.cpp:1193
+msgctxt "RepositorySelector"
+msgid "No files available :("
+msgstr ""
+
+#: gui/panels/GUI_RepositorySelector.cpp:1235
+msgid "HTTP response code: {}"
+msgstr ""
+
+#. Header
+#: gui/panels/GUI_ScriptMonitor.cpp:41
+msgctxt "ScriptMonitor"
+msgid "ID"
+msgstr ""
+
+#: gui/panels/GUI_ScriptMonitor.cpp:43
+#, fuzzy
+#| msgctxt "MainSelector"
+#| msgid "Filename: "
+msgctxt "ScriptMonitor"
+msgid "File name"
+msgstr "文件名： "
+
+#: gui/panels/GUI_ScriptMonitor.cpp:45
+msgctxt "ScriptMonitor"
+msgid "Options"
+msgstr ""
+
+#: gui/panels/GUI_ScriptMonitor.cpp:47
+msgctxt "ScriptMonitor"
+msgid "Active"
+msgstr ""
+
+#: gui/panels/GUI_ScriptMonitor.cpp:66
+#, fuzzy
+#| msgctxt "ModCategory"
+#| msgid "Tractors"
+msgctxt "ScriptMonitor"
+msgid "actor"
+msgstr "拖拉机"
+
+#: gui/panels/GUI_ScriptMonitor.cpp:70
+#, fuzzy
+#| msgctxt "Console"
+#| msgid "Terrain"
+msgctxt "ScriptMonitor"
+msgid "(terrain)"
+msgstr "地形"
+
+#: gui/panels/GUI_ScriptMonitor.cpp:75
+msgctxt "ScriptMonitor"
+msgid "Reload"
+msgstr ""
+
+#: gui/panels/GUI_ScriptMonitor.cpp:84
+msgctxt "ScriptMonitor"
+msgid "Stop"
+msgstr ""
+
+#: gui/panels/GUI_ScriptMonitor.cpp:91
+msgctxt "ScriptMonitor"
+msgid "Autoload"
+msgstr ""
+
+#: gui/panels/GUI_ScriptMonitor.cpp:127
+msgctxt "ScriptMonitor"
+msgid "Recent"
+msgstr ""
+
+#: gui/panels/GUI_ScriptMonitor.cpp:139
+#, fuzzy
+#| msgctxt "QuickloadDialog"
+#| msgid "Load"
+msgctxt "ScriptMonitor"
+msgid "Load"
+msgstr "负荷"
+
+#: gui/panels/GUI_ScriptMonitor.cpp:147 gui/panels/GUI_ScriptMonitor.cpp:150
+msgctxt "ScriptMonitor"
+msgid "Remove"
+msgstr ""
+
+#: gui/panels/GUI_SimActorStats.cpp:53
+msgctxt "SimActorStats"
+msgid "Vehicle health: "
+msgstr "车辆健康状况： "
+
+#: gui/panels/GUI_SimActorStats.cpp:59
+msgctxt "SimActorStats"
+msgid "Vehicle destruction: "
+msgstr "车辆销毁： "
+
+#: gui/panels/GUI_SimActorStats.cpp:66
+msgctxt "SimActorStats"
+msgid "Beam count: "
+msgstr "光束数： "
+
+#: gui/panels/GUI_SimActorStats.cpp:71
+msgctxt "SimActorStats"
+msgid "Broken beams count: "
+msgstr "断梁数： "
+
+#: gui/panels/GUI_SimActorStats.cpp:76
+msgctxt "SimActorStats"
+msgid "Deformed beams count: "
+msgstr "变形梁数： "
+
+#: gui/panels/GUI_SimActorStats.cpp:81
+msgctxt "SimActorStats"
+msgid "Average deformation: "
+msgstr "平均变形： "
+
+#: gui/panels/GUI_SimActorStats.cpp:86
+msgctxt "SimActorStats"
+msgid "Average stress: "
+msgstr "平均压力： "
+
+#: gui/panels/GUI_SimActorStats.cpp:94
+msgctxt "SimActorStats"
+msgid "Node count: "
+msgstr "节点数： "
+
+#: gui/panels/GUI_SimActorStats.cpp:98
+msgctxt "SimActorStats"
+msgid "Total mass: "
+msgstr "总质量： "
+
+#: gui/panels/GUI_SimActorStats.cpp:115
+msgctxt "SimActorStats"
+msgid "Engine RPM: "
+msgstr "发动机转速： "
+
+#: gui/panels/GUI_SimActorStats.cpp:120
+msgctxt "SimActorStats"
+msgid "Input shaft RPM: "
+msgstr "输入轴转速： "
+
+#: gui/panels/GUI_SimActorStats.cpp:125
+msgctxt "SimActorStats"
+msgid "Current torque: "
+msgstr "电流转矩： "
+
+#: gui/panels/GUI_SimActorStats.cpp:130
+msgctxt "SimActorStats"
+msgid "Current power: "
+msgstr "电流功率： "
+
+#: gui/panels/GUI_SimActorStats.cpp:134
+msgctxt "SimActorStats"
+msgid "Current gear: "
+msgstr "当前齿轮： "
+
+#: gui/panels/GUI_SimActorStats.cpp:138
+msgctxt "SimActorStats"
+msgid "Drive ratio: "
+msgstr "传动比： "
+
+#: gui/panels/GUI_SimActorStats.cpp:157
+msgctxt "SimActorStats"
+msgid "Wheel speed: "
+msgstr "轮速： "
+
+#: gui/panels/GUI_SimActorStats.cpp:161
+msgctxt "SimActorStats"
+msgid "Vehicle speed: "
+msgstr "车速： "
+
+#: gui/panels/GUI_SimActorStats.cpp:168
+msgctxt "SimActorStats"
+msgid "Current speed: "
+msgstr "当前速度： "
+
+#: gui/panels/GUI_SimActorStats.cpp:175
+msgctxt "SimActorStats"
+msgid "Altitude: "
+msgstr "高度： "
+
+#: gui/panels/GUI_SimActorStats.cpp:182 gui/panels/GUI_SimActorStats.cpp:200
+msgctxt "SimActorStats"
+msgid "Engine "
+msgstr "发动机 "
+
+#: gui/panels/GUI_SimActorStats.cpp:212
+msgctxt "SimActorStats"
+msgid "Top speed: "
+msgstr "最高速度： "
+
+#: gui/panels/GUI_SimActorStats.cpp:218
+msgctxt "SimActorStats"
+msgid "G-Forces:"
+msgstr "重力："
+
+#: gui/panels/GUI_SimPerfStats.cpp:81
+msgctxt "SimPerfStats"
+msgid "Triangle count: "
+msgstr "三角形计数： "
+
+#: gui/panels/GUI_SimPerfStats.cpp:82
+msgctxt "SimPerfStats"
+msgid "Batch count: "
+msgstr "批次计数： "
+
+#: gui/panels/GUI_TextureToolWindow.cpp:42
+msgctxt "TextureToolWindow"
+msgid "Texture Tool"
+msgstr "纹理工具"
+
+#: gui/panels/GUI_TextureToolWindow.cpp:51
+msgctxt "TextureToolWindow"
+msgid "Dynamic only"
+msgstr "仅动态"
+
+#: gui/panels/GUI_TextureToolWindow.cpp:135
+msgctxt "TextureToolWindow"
+msgid "Save as PNG"
+msgstr "另存为 PNG"
+
+#: gui/panels/GUI_TextureToolWindow.cpp:140
+msgctxt "TextureToolWindow"
+msgid "Save Raw"
+msgstr "保存原始"
+
+#: gui/panels/GUI_TextureToolWindow.cpp:174
+msgctxt "TextureToolWindow"
+msgid "saved texture as "
+msgstr "将纹理保存为 "
+
+#: gui/panels/GUI_TopMenubar.cpp:138
+msgctxt "TopMenubar"
+msgid "Simulation"
+msgstr "模拟"
+
+#: gui/panels/GUI_TopMenubar.cpp:139
+msgctxt "TopMenubar"
+msgid "Vehicles"
+msgstr "车辆"
+
+#: gui/panels/GUI_TopMenubar.cpp:140
+msgctxt "TopMenubar"
+msgid "Saves"
+msgstr "节省"
+
+#: gui/panels/GUI_TopMenubar.cpp:141
+msgctxt "TopMenubar"
+msgid "Settings"
+msgstr "设置"
+
+#: gui/panels/GUI_TopMenubar.cpp:142
+msgctxt "TopMenubar"
+msgid "Tools"
+msgstr "工具"
+
+#: gui/panels/GUI_TopMenubar.cpp:143
+#, fuzzy
+#| msgctxt "TopMenubar"
+#| msgid "Vehicles"
+msgctxt "TopMenubar"
+msgid "Vehicle AI"
+msgstr "车辆"
+
+#: gui/panels/GUI_TopMenubar.cpp:144
+#, fuzzy
+#| msgctxt "LoadingWindow"
+#| msgid "Joining"
+msgctxt "TopMenubar"
+msgid "Tuning"
+msgstr "加入"
+
+#: gui/panels/GUI_TopMenubar.cpp:295
+msgctxt "TopMenubar"
+msgid "Sim menu"
+msgstr "模拟菜单"
+
+#. TODO: Display hotkeys on the right side of the menu (with different text color)
+#: gui/panels/GUI_TopMenubar.cpp:299
+msgctxt "TopMenubar"
+msgid "Get new vehicle"
+msgstr "获取新车"
+
+#: gui/panels/GUI_TopMenubar.cpp:310
+msgctxt "TopMenubar"
+msgid "Show vehicle description"
+msgstr "显示车辆描述"
+
+#: gui/panels/GUI_TopMenubar.cpp:317
+msgctxt "TopMenubar"
+msgid "Reload current vehicle"
+msgstr "重新加载当前车辆"
+
+#: gui/panels/GUI_TopMenubar.cpp:325
+msgctxt "TopMenubar"
+msgid "Remove current vehicle"
+msgstr "移除当前车辆"
+
+#: gui/panels/GUI_TopMenubar.cpp:333
+msgctxt "TopMenubar"
+msgid "Activate last spawned vehicle"
+msgstr "激活最后生成的车辆"
+
+#: gui/panels/GUI_TopMenubar.cpp:341
+msgctxt "TopMenubar"
+msgid "Reload last spawned vehicle"
+msgstr "重新加载最后生成的车辆"
+
+#: gui/panels/GUI_TopMenubar.cpp:349
+msgctxt "TopMenubar"
+msgid "Remove last spawned vehicle"
+msgstr "移除最后生成的车辆"
+
+#: gui/panels/GUI_TopMenubar.cpp:358
+msgctxt "TopMenubar"
+msgid "Remove all vehicles"
+msgstr "移除所有车辆"
+
+#: gui/panels/GUI_TopMenubar.cpp:365
+msgctxt "TopMenubar"
+msgid " [!] Confirm removal"
+msgstr " [!]确认移除"
+
+#: gui/panels/GUI_TopMenubar.cpp:380
+msgctxt "TopMenubar"
+msgid "Activate all vehicles"
+msgstr "激活所有车辆"
+
+#: gui/panels/GUI_TopMenubar.cpp:386
+msgctxt "TopMenubar"
+msgid "Activated vehicles never sleep"
+msgstr "激活的车辆从不睡觉"
+
+#: gui/panels/GUI_TopMenubar.cpp:391
+msgctxt "TopMenubar"
+msgid "Send all vehicles to sleep"
+msgstr "让所有车辆进入休眠状态"
+
+#: gui/panels/GUI_TopMenubar.cpp:399
+msgctxt "TopMenubar"
+msgid "Reload current terrain"
+msgstr "重新加载当前地形"
+
+#: gui/panels/GUI_TopMenubar.cpp:412
+msgctxt "TopMenubar"
+msgid "Back to menu"
+msgstr "返回菜单"
+
+#: gui/panels/GUI_TopMenubar.cpp:422
+msgctxt "TopMenubar"
+msgid "Exit"
+msgstr "退出"
+
+#: gui/panels/GUI_TopMenubar.cpp:439
+msgctxt "TopMenubar"
+msgid "Actors menu"
+msgstr "演员菜单"
+
+#: gui/panels/GUI_TopMenubar.cpp:470
+msgctxt "TopMenubar"
+msgid "Savegames"
+msgstr "保存游戏"
+
+#: gui/panels/GUI_TopMenubar.cpp:472
+msgctxt "TopMenubar"
+msgid "Quicksave"
+msgstr "快速保存"
+
+#: gui/panels/GUI_TopMenubar.cpp:482
+msgctxt "TopMenubar"
+msgid "Quickload"
+msgstr "快速加载"
+
+#: gui/panels/GUI_TopMenubar.cpp:493
+msgctxt "TopMenubar"
+msgid "(Save with CTRL+ALT+1..5)"
+msgstr "（使用 CTRL+ALT+1..5 保存）"
+
+#: gui/panels/GUI_TopMenubar.cpp:496
+msgctxt "TopMenubar"
+msgid "Empty Slot"
+msgstr "空插槽"
+
+#: gui/panels/GUI_TopMenubar.cpp:510
+msgctxt "TopMenubar"
+msgid "(Load with ALT+1..5)"
+msgstr "（使用 ALT +1..5 加载）"
+
+#: gui/panels/GUI_TopMenubar.cpp:538
+msgctxt "TopMenubar"
+msgid "Settings menu"
+msgstr "设置菜单"
+
+#. Width includes [+/-] buttons
+#: gui/panels/GUI_TopMenubar.cpp:541
+msgctxt "TopMenubar"
+msgid "Audio:"
+msgstr "音频："
+
+#: gui/panels/GUI_TopMenubar.cpp:542
+msgctxt "TopMenubar"
+msgid "Volume"
+msgstr "卷"
+
+#: gui/panels/GUI_TopMenubar.cpp:544
+msgctxt "TopMenubar"
+msgid "Frames per second:"
+msgstr "每秒帧数："
+
+#: gui/panels/GUI_TopMenubar.cpp:547
+msgctxt "TopMenubar"
+msgid "Reflections"
+msgstr "思考"
+
+#: gui/panels/GUI_TopMenubar.cpp:549
+msgctxt "TopMenubar"
+msgid "Game"
+msgstr "游戏"
+
+#: gui/panels/GUI_TopMenubar.cpp:552
+msgctxt "TopMenubar"
+msgid "Simulation:"
+msgstr "模拟："
+
+#: gui/panels/GUI_TopMenubar.cpp:554
+msgctxt "TopMenubar"
+msgid "Slow motion"
+msgstr "慢动作"
+
+#: gui/panels/GUI_TopMenubar.cpp:559
+msgctxt "TopMenubar"
+msgid "Time lapse"
+msgstr "延时摄影"
+
+#: gui/panels/GUI_TopMenubar.cpp:566 gui/panels/GUI_TopMenubar.cpp:573
+msgctxt "TopMenubar"
+msgid "Camera:"
+msgstr "照相机："
+
+#: gui/panels/GUI_TopMenubar.cpp:567 gui/panels/GUI_TopMenubar.cpp:577
+#: gui/panels/GUI_TopMenubar.cpp:585
+msgctxt "TopMenubar"
+msgid "FOV"
+msgstr "视场角"
+
+#: gui/panels/GUI_TopMenubar.cpp:568
+msgctxt "TopMenubar"
+msgid "Height"
+msgstr "高度"
+
+#: gui/panels/GUI_TopMenubar.cpp:592
+msgctxt "TopMenubar"
+msgid "Tracking"
+msgstr "跟踪"
+
+#: gui/panels/GUI_TopMenubar.cpp:599
+msgctxt "TopMenubar"
+msgid "Time of day:"
+msgstr "一天中的时间："
+
+#: gui/panels/GUI_TopMenubar.cpp:606
+msgctxt "TopMenubar"
+msgid "Cycle"
+msgstr "周期"
+
+#: gui/panels/GUI_TopMenubar.cpp:609 gui/panels/GUI_TopMenubar.cpp:1106
+msgctxt "TopMenubar"
+msgid "Speed"
+msgstr "速度"
+
+#: gui/panels/GUI_TopMenubar.cpp:618
+msgctxt "TopMenubar"
+msgid "Waves Height:"
+msgstr "波浪高度："
+
+#: gui/panels/GUI_TopMenubar.cpp:630
+msgctxt "TopMenubar"
+msgid "Vehicle control options:"
+msgstr "车辆控制选项："
+
+#: gui/panels/GUI_TopMenubar.cpp:631
+msgctxt "TopMenubar"
+msgid "Keyboard steering speed coupling"
+msgstr "键盘转向速度联轴器"
+
+#: gui/panels/GUI_TopMenubar.cpp:636
+msgctxt "TopMenubar"
+msgid "Multiplayer:"
+msgstr "多人游戏："
+
+#: gui/panels/GUI_TopMenubar.cpp:637
+msgctxt "TopMenubar"
+msgid "Collisions"
+msgstr "碰撞"
+
+#: gui/panels/GUI_TopMenubar.cpp:638
+msgctxt "TopMenubar"
+msgid "Hide labels"
+msgstr "隐藏标签"
+
+#: gui/panels/GUI_TopMenubar.cpp:653
+msgctxt "TopMenubar"
+msgid "Tools menu"
+msgstr "工具菜单"
+
+#: gui/panels/GUI_TopMenubar.cpp:655
+msgctxt "TopMenubar"
+msgid "Friction settings"
+msgstr "摩擦设置"
+
+#: gui/panels/GUI_TopMenubar.cpp:661
+msgctxt "TopMenubar"
+msgid "Show console"
+msgstr "显示控制台"
+
+#: gui/panels/GUI_TopMenubar.cpp:667
+msgctxt "TopMenubar"
+msgid "Texture tool"
+msgstr "纹理工具"
+
+#: gui/panels/GUI_TopMenubar.cpp:673
+#, fuzzy
+#| msgctxt "TopMenubar"
+#| msgid "Collisions"
+msgctxt "TopMenubar"
+msgid "Collisions debug"
+msgstr "碰撞"
+
+#: gui/panels/GUI_TopMenubar.cpp:681
+msgctxt "TopMenubar"
+msgid "Node / Beam utility"
+msgstr "节点/梁实用程序"
+
+#: gui/panels/GUI_TopMenubar.cpp:687
+msgctxt "TopMenubar"
+msgid "FlexBody debug"
+msgstr ""
+
+#: gui/panels/GUI_TopMenubar.cpp:695
+msgctxt "TopMenubar"
+msgid "Pre-spawn diag. options:"
+msgstr "生成前诊断选项："
+
+#: gui/panels/GUI_TopMenubar.cpp:698
+msgctxt "TopMenubar"
+msgid "Node mass recalc. logging"
+msgstr "节点质量重新计算。伐木"
+
+#: gui/panels/GUI_TopMenubar.cpp:705
+msgctxt "TopMenubar"
+msgid "Extra logging on runtime - mass recalculation"
+msgstr "运行时的额外日志记录 - 大规模重新计算"
+
+#: gui/panels/GUI_TopMenubar.cpp:710
+msgctxt "TopMenubar"
+msgid "Beam break logging"
+msgstr "波束断裂测井"
+
+#: gui/panels/GUI_TopMenubar.cpp:717 gui/panels/GUI_TopMenubar.cpp:729
+msgctxt "TopMenubar"
+msgid "Extra logging on runtime"
+msgstr "运行时的额外日志记录"
+
+#: gui/panels/GUI_TopMenubar.cpp:722
+msgctxt "TopMenubar"
+msgid "Beam deform. logging"
+msgstr "光束变形。伐木"
+
+#: gui/panels/GUI_TopMenubar.cpp:734
+msgctxt "TopMenubar"
+msgid "Trigger logging"
+msgstr "触发日志记录"
+
+#: gui/panels/GUI_TopMenubar.cpp:741
+msgctxt "TopMenubar"
+msgid "Extra logging on runtime - trigger beams activity"
+msgstr "运行时的额外日志记录 - 触发波束活动"
+
+#: gui/panels/GUI_TopMenubar.cpp:746
+msgctxt "TopMenubar"
+msgid "VideoCamera direction marker"
+msgstr "摄像机方向标记"
+
+#: gui/panels/GUI_TopMenubar.cpp:753
+msgctxt "TopMenubar"
+msgid "Visual marker of VideoCameras direction"
+msgstr "视频摄像机方向的视觉标记"
+
+#: gui/panels/GUI_TopMenubar.cpp:759
+#, fuzzy
+#| msgid "Vehicle position: "
+msgctxt "TopMenubar"
+msgid "Visual options:"
+msgstr "车辆位置： "
+
+#: gui/panels/GUI_TopMenubar.cpp:760
+#, fuzzy
+#| msgctxt "GameSettings"
+#| msgid "Replay mode"
+msgctxt "TopMenubar"
+msgid "Polygon mode"
+msgstr "重播模式"
+
+#: gui/panels/GUI_TopMenubar.cpp:764
+msgctxt "TopMenubar"
+msgid "1 = Solid"
+msgstr ""
+
+#: gui/panels/GUI_TopMenubar.cpp:765
+msgctxt "TopMenubar"
+msgid "2 = Wireframe"
+msgstr ""
+
+#: gui/panels/GUI_TopMenubar.cpp:766
+msgctxt "TopMenubar"
+msgid "3 = Points"
+msgstr ""
+
+#: gui/panels/GUI_TopMenubar.cpp:774
+msgctxt "TopMenubar"
+msgid "Live diagnostic views:"
+msgstr "实时诊断视图："
+
+#: gui/panels/GUI_TopMenubar.cpp:775
+#, fuzzy
+#| msgctxt "TopMenubar"
+#| msgid "(Toggle with %s)"
+msgctxt "TopMenubar"
+msgid "(Toggle with {})"
+msgstr "（切换方式%s)"
+
+#: gui/panels/GUI_TopMenubar.cpp:776
+#, fuzzy
+#| msgctxt "TopMenubar"
+#| msgid "(Cycle with %s)"
+msgctxt "TopMenubar"
+msgid "(Cycle with {})"
+msgstr "（循环方式%s)"
+
+#: gui/panels/GUI_TopMenubar.cpp:783
+msgctxt "TopMenubar"
+msgid "Normal view"
+msgstr "普通视图"
+
+#: gui/panels/GUI_TopMenubar.cpp:784
+msgctxt "TopMenubar"
+msgid "Skeleton view"
+msgstr "骨架视图"
+
+#: gui/panels/GUI_TopMenubar.cpp:785
+msgctxt "TopMenubar"
+msgid "Node details"
+msgstr "节点详细信息"
+
+#: gui/panels/GUI_TopMenubar.cpp:786
+msgctxt "TopMenubar"
+msgid "Beam details"
+msgstr "光束细节"
+
+#: gui/panels/GUI_TopMenubar.cpp:789
+msgctxt "TopMenubar"
+msgid "Wheel details"
+msgstr "车轮细节"
+
+#: gui/panels/GUI_TopMenubar.cpp:793
+msgctxt "TopMenubar"
+msgid "Shock details"
+msgstr "震撼细节"
+
+#: gui/panels/GUI_TopMenubar.cpp:797
+msgctxt "TopMenubar"
+msgid "Rotator details"
+msgstr "旋转器详细信息"
+
+#: gui/panels/GUI_TopMenubar.cpp:801
+msgctxt "TopMenubar"
+msgid "Slidenode details"
+msgstr "滑动节点详细信息"
+
+#: gui/panels/GUI_TopMenubar.cpp:805
+msgctxt "TopMenubar"
+msgid "Submesh details"
+msgstr "子网格详细信息"
+
+#: gui/panels/GUI_TopMenubar.cpp:816
+msgctxt "TopMenubar"
+msgid "Settings:"
+msgstr "设置："
+
+#: gui/panels/GUI_TopMenubar.cpp:817
+msgctxt "TopMenubar"
+msgid "Hide broken beams"
+msgstr "隐藏断梁"
+
+#: gui/panels/GUI_TopMenubar.cpp:818
+msgctxt "TopMenubar"
+msgid "Hide beam stress"
+msgstr "隐藏梁应力"
+
+#: gui/panels/GUI_TopMenubar.cpp:819
+msgctxt "TopMenubar"
+msgid "Hide wheels"
+msgstr "隐藏轮子"
+
+#: gui/panels/GUI_TopMenubar.cpp:820
+msgctxt "TopMenubar"
+msgid "Hide nodes"
+msgstr "隐藏节点"
+
+#: gui/panels/GUI_TopMenubar.cpp:823
+msgctxt "TopMenubar"
+msgid "Hide wheel info"
+msgstr "隐藏滚轮信息"
+
+#: gui/panels/GUI_TopMenubar.cpp:840
+#, fuzzy
+#| msgctxt "TopMenubar"
+#| msgid "Sim menu"
+msgctxt "TopMenubar"
+msgid "AI menu"
+msgstr "模拟菜单"
+
+#. Width includes [+/-] buttons
+#: gui/panels/GUI_TopMenubar.cpp:848
+#, fuzzy
+#| msgctxt "Console"
+#| msgid "Filter options"
+msgctxt "TopMenubar"
+msgid "General options:"
+msgstr "过滤器选项"
+
+#: gui/panels/GUI_TopMenubar.cpp:860
+#, fuzzy
+#| msgctxt "TopMenubar"
+#| msgid "Vehicles"
+msgctxt "TopMenubar"
+msgid "Vehicle count"
+msgstr "车辆"
+
+#: gui/panels/GUI_TopMenubar.cpp:864
+#, fuzzy
+#| msgctxt "TopMenubar"
+#| msgid "Remove all vehicles"
+msgctxt "TopMenubar"
+msgid "Number of vehicles"
+msgstr "移除所有车辆"
+
+#: gui/panels/GUI_TopMenubar.cpp:886
+msgctxt "TopMenubar"
+msgid "Distance"
+msgstr ""
+
+#: gui/panels/GUI_TopMenubar.cpp:890
+msgctxt "TopMenubar"
+msgid "Following distance in meters"
+msgstr ""
+
+#: gui/panels/GUI_TopMenubar.cpp:931
+msgctxt "TopMenubar"
+msgid "Positioning scheme"
+msgstr ""
+
+#: gui/panels/GUI_TopMenubar.cpp:933
+msgctxt "TopMenubar"
+msgid "Behind: Set vehicle behind vehicle, in line"
+msgstr ""
+
+#: gui/panels/GUI_TopMenubar.cpp:934
+msgctxt "TopMenubar"
+msgid ""
+"Parallel: Set vehicles in parallel, useful for certain scenarios like drag "
+"races"
+msgstr ""
+
+#: gui/panels/GUI_TopMenubar.cpp:953
+msgctxt "TopMenubar"
+msgid "Repeat times"
+msgstr ""
+
+#: gui/panels/GUI_TopMenubar.cpp:957
+msgctxt "TopMenubar"
+msgid "How many times to loop the path"
+msgstr ""
+
+#: gui/panels/GUI_TopMenubar.cpp:974
+#, fuzzy
+#| msgid "Vehicle position: "
+msgctxt "TopMenubar"
+msgid "Vehicle options:"
+msgstr "车辆位置： "
+
+#: gui/panels/GUI_TopMenubar.cpp:1083
+#, fuzzy
+#| msgid "Entered terrain editing mode"
+msgctxt "TopMenubar"
+msgid "Land vehicle driving mode"
+msgstr "进入地形编辑模式"
+
+#: gui/panels/GUI_TopMenubar.cpp:1085
+msgctxt "TopMenubar"
+msgid "Normal: Modify speed according to turns, other vehicles and character"
+msgstr ""
+
+#: gui/panels/GUI_TopMenubar.cpp:1086
+msgctxt "TopMenubar"
+msgid "Race: Always keep defined speed"
+msgstr ""
+
+#: gui/panels/GUI_TopMenubar.cpp:1087
+msgctxt "TopMenubar"
+msgid "Drag Race: Two vehicles performing a drag race"
+msgstr ""
+
+#: gui/panels/GUI_TopMenubar.cpp:1088
+msgctxt "TopMenubar"
+msgid "Crash: Two vehicles driving in opposite direction"
+msgstr ""
+
+#: gui/panels/GUI_TopMenubar.cpp:1089
+msgctxt "TopMenubar"
+msgid "Chase: Follow character and player vehicle"
+msgstr ""
+
+#: gui/panels/GUI_TopMenubar.cpp:1110
+msgctxt "TopMenubar"
+msgid "Speed in km/h for land vehicles or knots/s for boats"
+msgstr ""
+
+#: gui/panels/GUI_TopMenubar.cpp:1117
+#, fuzzy
+#| msgctxt "SimActorStats"
+#| msgid "Altitude: "
+msgctxt "TopMenubar"
+msgid "Altitude"
+msgstr "高度： "
+
+#: gui/panels/GUI_TopMenubar.cpp:1121
+msgctxt "TopMenubar"
+msgid "Airplane maximum altitude in feet"
+msgstr ""
+
+#: gui/panels/GUI_TopMenubar.cpp:1138 gui/panels/GUI_TopMenubar.cpp:1156
+msgctxt "TopMenubar"
+msgid "Land vehicles, boats and airplanes"
+msgstr ""
+
+#: gui/panels/GUI_TopMenubar.cpp:1175
+msgctxt "TopMenubar"
+msgid "Start"
+msgstr "开始中"
+
+#: gui/panels/GUI_TopMenubar.cpp:1199
+msgctxt "TopMenubar"
+msgid "Select a preset, record or open survey map ({}) to set waypoints."
+msgstr ""
+
+#: gui/panels/GUI_TopMenubar.cpp:1216
+msgctxt "TopMenubar"
+msgid "Stop"
+msgstr ""
+
+#: gui/panels/GUI_TopMenubar.cpp:1264
+msgctxt "TopMenubar"
+msgid "Presets"
+msgstr ""
+
+#: gui/panels/GUI_TopMenubar.cpp:1325
+msgctxt "TopMenubar"
+msgid "No presets found for this terrain :("
+msgstr ""
+
+#: gui/panels/GUI_TopMenubar.cpp:1326
+#, fuzzy
+#| msgctxt "GameSettings"
+#| msgid "Preselected terrain"
+msgctxt "TopMenubar"
+msgid "Supported terrains:"
+msgstr "预选地形"
+
+#: gui/panels/GUI_TopMenubar.cpp:1347
+msgctxt "TopMenubar"
+msgid "Waypoints"
+msgstr ""
+
+#: gui/panels/GUI_TopMenubar.cpp:1351
+msgctxt "TopMenubar"
+msgid "No waypoints defined."
+msgstr ""
+
+#: gui/panels/GUI_TopMenubar.cpp:1355
+msgctxt "TopMenubar"
+msgid "Export"
+msgstr ""
+
+#: gui/panels/GUI_TopMenubar.cpp:1382
+msgctxt "TopMenubar"
+msgid "{} waypoints exported to RoR.log"
+msgstr ""
+
+#: gui/panels/GUI_TopMenubar.cpp:1413
+#, fuzzy
+#| msgctxt "TopMenubar"
+#| msgid "Speed"
+msgctxt "TopMenubar"
+msgid "speed"
+msgstr "速度"
+
+#: gui/panels/GUI_TopMenubar.cpp:1417
+msgctxt "TopMenubar"
+msgid "Set waypoint speed in km/h for land vehicles"
+msgstr ""
+
+#: gui/panels/GUI_TopMenubar.cpp:1419
+msgctxt "TopMenubar"
+msgid "Value -1: Ignore, vehicle will use default speed"
+msgstr ""
+
+#: gui/panels/GUI_TopMenubar.cpp:1420
+msgctxt "TopMenubar"
+msgid "Value >= 5: Override default speed"
+msgstr ""
+
+#: gui/panels/GUI_TopMenubar.cpp:1443
+#, fuzzy
+#| msgctxt "TopMenubar"
+#| msgid "Settings menu"
+msgctxt "TopMenubar"
+msgid "Tuning menu"
+msgstr "设置菜单"
+
+#: gui/panels/GUI_TopMenubar.cpp:1449
+msgctxt "Tuning"
+msgid "You are on foot."
+msgstr ""
+
+#: gui/panels/GUI_TopMenubar.cpp:1450
+#, fuzzy
+#| msgctxt "TopMenubar"
+#| msgid "Send all vehicles to sleep"
+msgctxt "Tuning"
+msgid "Enter a vehicle to tune it."
+msgstr "让所有车辆进入休眠状态"
+
+#. SAVED TUNEUPS
+#: gui/panels/GUI_TopMenubar.cpp:1459
+msgctxt "Tuning"
+msgid "Saved tuneups ({})"
+msgstr ""
+
+#: gui/panels/GUI_TopMenubar.cpp:1485
+#, fuzzy
+#| msgctxt "GameSettings"
+#| msgid "Delete"
+msgctxt "Tuning"
+msgid "Delete"
+msgstr "删除"
+
+#: gui/panels/GUI_TopMenubar.cpp:1505
+msgctxt "Tuning"
+msgid "Working tuneup"
+msgstr ""
+
+#: gui/panels/GUI_TopMenubar.cpp:1508
+#, fuzzy
+#| msgctxt "MultiplayerSelector"
+#| msgid "Name"
+msgctxt "Tuning"
+msgid "Name"
+msgstr "名字"
+
+#: gui/panels/GUI_TopMenubar.cpp:1510
+#, fuzzy
+#| msgctxt "TopMenubar"
+#| msgid "Saves"
+msgctxt "Tuning"
+msgid "Save"
+msgstr "节省"
+
+#: gui/panels/GUI_TopMenubar.cpp:1521
+msgctxt "Tuning"
+msgid "Overwrite"
+msgstr ""
+
+#: gui/panels/GUI_TopMenubar.cpp:1526 gui/panels/GUI_TopMenubar.cpp:1532
+#, fuzzy
+#| msgctxt "GameSettings"
+#| msgid "Cancel"
+msgctxt "Tuning"
+msgid "Cancel"
+msgstr "取消"
+
+#: gui/panels/GUI_TopMenubar.cpp:1541
+#, fuzzy
+#| msgctxt "TextureToolWindow"
+#| msgid "Save as PNG"
+msgctxt "Tuning"
+msgid "Save as..."
+msgstr "另存为 PNG"
+
+#: gui/panels/GUI_TopMenubar.cpp:1551 gui/panels/GUI_TopMenubar.cpp:1755
+#: gui/panels/GUI_TopMenubar.cpp:2365
+msgctxt "Tuning"
+msgid "Reset"
+msgstr ""
+
+#: gui/panels/GUI_TopMenubar.cpp:1572
+msgctxt "TopMenubar"
+msgid "Addon parts ({})"
+msgstr ""
+
+#: gui/panels/GUI_TopMenubar.cpp:1594
+msgctxt "Tuning"
+msgid "Reload"
+msgstr ""
+
+#: gui/panels/GUI_TopMenubar.cpp:1617
+msgctxt "Tuning"
+msgid "Browse all parts"
+msgstr ""
+
+#: gui/panels/GUI_TopMenubar.cpp:1627
+#, fuzzy
+#| msgctxt "MainSelector"
+#| msgid "Props: "
+msgctxt "Tuning"
+msgid "Props ({})"
+msgstr "道具： "
+
+#: gui/panels/GUI_TopMenubar.cpp:1685
+#, fuzzy
+#| msgctxt "MainSelector"
+#| msgid "Flexbodies: "
+msgctxt "Tuning"
+msgid "Flexbodies ({})"
+msgstr "弹性体： "
+
+#: gui/panels/GUI_TopMenubar.cpp:1716
+#, fuzzy
+#| msgctxt "MainSelector"
+#| msgid "Wheels: "
+msgctxt "TopMenubar"
+msgid "Wheels ({})"
+msgstr "车轮： "
+
+#: gui/panels/GUI_TopMenubar.cpp:1939
+msgctxt "TopMenubar"
+msgid "None spawned yet"
+msgstr "尚未生成任何生成"
+
+#: gui/panels/GUI_TopMenubar.cpp:1940
+msgctxt "TopMenubar"
+msgid "Use [Simulation] menu"
+msgstr "使用[模拟]菜单"
+
+#: gui/panels/GUI_TopMenubar.cpp:2012
+msgctxt "TopMenubar"
+msgid "All physics paused, press {} to resume"
+msgstr "所有物理已暂停，按 {} 继续"
+
+#: gui/panels/GUI_TopMenubar.cpp:2021
+msgctxt "TopMenubar"
+msgid "Vehicle physics paused, press {} to resume"
+msgstr "车辆物理已暂停，按 {} 恢复"
+
+#: gui/panels/GUI_TopMenubar.cpp:2030
+msgctxt "TopMenubar"
+msgid "Replay"
+msgstr "重播"
+
+#: gui/panels/GUI_TopMenubar.cpp:2034
+msgctxt "TopMenubar"
+msgid "Live repair mode, hit '{}' to stop"
+msgstr ""
+
+#: gui/panels/GUI_TopMenubar.cpp:2043
+msgctxt "TopMenubar"
+msgid "Quick repair ('{}' for Live repair)"
+msgstr ""
+
+#: gui/panels/GUI_TopMenubar.cpp:2071
+msgctxt "DirectionArrow"
+msgid "meter"
+msgstr "米"
+
+#: gui/panels/GUI_TopMenubar.cpp:2090
+msgctxt "TopMenubar"
+msgid "Terrain editing mode, press {} to save and exit"
+msgstr "地形编辑模式，按 {} 保存并退出"
+
+#: gui/panels/GUI_TopMenubar.cpp:2139
+msgctxt "TopMenubar"
+msgid "Time"
+msgstr "时间"
+
+#: gui/panels/GUI_TopMenubar.cpp:2169
+#, fuzzy
+#| msgctxt "TopMenubar"
+#| msgid "Show console"
+msgctxt "LiveRepair"
+msgid "Show controls"
+msgstr "显示控制台"
+
+#: gui/panels/GUI_TopMenubar.cpp:2179
+#, fuzzy
+#| msgctxt "NodeBeamUtils"
+#| msgid "Movement"
+msgctxt "LiveRepair"
+msgid "Movement"
+msgstr "运动"
+
+#: gui/panels/GUI_TopMenubar.cpp:2183
+msgctxt "LiveRepair"
+msgid "Forward"
+msgstr ""
+
+#: gui/panels/GUI_TopMenubar.cpp:2184
+msgctxt "LiveRepair"
+msgid "Backward"
+msgstr ""
+
+#: gui/panels/GUI_TopMenubar.cpp:2186
+msgctxt "LiveRepair"
+msgid "Left"
+msgstr ""
+
+#: gui/panels/GUI_TopMenubar.cpp:2187
+#, fuzzy
+#| msgctxt "TopMenubar"
+#| msgid "Height"
+msgctxt "LiveRepair"
+msgid "Right"
+msgstr "高度"
+
+#: gui/panels/GUI_TopMenubar.cpp:2189
+msgctxt "LiveRepair"
+msgid "Up"
+msgstr ""
+
+#: gui/panels/GUI_TopMenubar.cpp:2190
+msgctxt "LiveRepair"
+msgid "Down"
+msgstr ""
+
+#: gui/panels/GUI_TopMenubar.cpp:2193
+#, fuzzy
+#| msgid "Rotating: "
+msgctxt "LiveRepair"
+msgid "Rotation"
+msgstr "旋转： "
+
+#: gui/panels/GUI_TopMenubar.cpp:2197
+#, fuzzy
+#| msgctxt "InputEvent"
+#| msgid "steer left"
+msgctxt "LiveRepair"
+msgid "Rot. left"
+msgstr "向左转向"
+
+#: gui/panels/GUI_TopMenubar.cpp:2198
+#, fuzzy
+#| msgctxt "InputEvent"
+#| msgid "steer right"
+msgctxt "LiveRepair"
+msgid "Rot. right"
+msgstr "右转"
+
+#: gui/panels/GUI_TopMenubar.cpp:2201
+msgctxt "LiveRepair"
+msgid "Modifiers"
+msgstr ""
+
+#: gui/panels/GUI_TopMenubar.cpp:2207
+msgctxt "LiveRepair"
+msgid "Slow step"
+msgstr ""
+
+#. Left alt
+#: gui/panels/GUI_TopMenubar.cpp:2208
+msgctxt "LiveRepair"
+msgid "Fast step"
+msgstr ""
+
+#: gui/panels/GUI_TopMenubar.cpp:2209
+msgctxt "LiveRepair"
+msgid "10x step"
+msgstr ""
+
+#: gui/panels/GUI_TopMenubar.cpp:2213
+#, fuzzy
+#| msgctxt "InputEvent"
+#| msgid "toggle reset mode"
+msgctxt "LiveRepair"
+msgid "Reset mode"
+msgstr "切换重置模式"
+
+#: gui/panels/GUI_TopMenubar.cpp:2216
+#, fuzzy
+#| msgctxt "InputEvent"
+#| msgid "toggle reset mode"
+msgctxt "LiveRepair"
+msgid "Switch reset mode"
+msgstr "切换重置模式"
+
+#: gui/panels/GUI_TopMenubar.cpp:2309
+msgctxt "Tuning"
+msgid "Protected"
+msgstr ""
+
+#: gui/panels/GUI_VehicleButtons.cpp:64
+msgctxt "VehicleButtons"
+msgid "Hover the mouse on the left to see controls"
+msgstr ""
+
+#. Align with the buttons
+#: gui/panels/GUI_VehicleButtons.cpp:82
+#, fuzzy
+#| msgctxt "GameControls"
+#| msgid "Game Controls"
+msgctxt "VehicleButtons"
+msgid "Main Controls"
+msgstr "游戏控制"
+
+#. Align with the buttons
+#: gui/panels/GUI_VehicleButtons.cpp:129
+msgctxt "VehicleButtons"
+msgid "Custom Lights"
+msgstr ""
+
+#. Align with the buttons
+#: gui/panels/GUI_VehicleButtons.cpp:135
+#, fuzzy
+#| msgctxt "Console"
+#| msgid "Commands"
+msgctxt "VehicleButtons"
+msgid "Commands"
+msgstr "控制鍵"
+
+#: gui/panels/GUI_VehicleDescription.cpp:66
+msgctxt "VehicleDescription"
+msgid "Description"
+msgstr "描述"
+
+#: gui/panels/GUI_VehicleDescription.cpp:74
+msgctxt "VehicleDescription"
+msgid "Commands"
+msgstr "命令"
+
+#: gui/panels/GUI_VehicleDescription.cpp:104
+msgctxt "VehicleDescription"
+msgid "unknown function"
+msgstr "未知功能"
+
+#: gui/panels/GUI_VehicleDescription.cpp:111
+msgctxt "VehicleDescription"
+msgid "Authors"
+msgstr "作者"
+
+#: gui/panels/GUI_VehicleDescription.cpp:120
+msgctxt "VehicleDescription"
+msgid "(no author information available) "
+msgstr "（没有作者信息） "
+
+#: main.cpp:365
+msgid "Display mode changed to fullscreen"
+msgstr "显示模式更改为全屏"
+
+#: main.cpp:371
+msgid "Display mode changed to windowed"
+msgstr "显示模式更改为窗口化"
+
+#: main.cpp:460
+msgctxt "Network"
+msgid "Network disconnected"
+msgstr "网络已断开连接"
+
+#: main.cpp:468
+msgid "Network fatal error: "
+msgstr "网络致命错误： "
+
+#: main.cpp:519
+msgctxt "Network"
+msgid "Multiplayer: connection failed"
+msgstr "多人游戏：连接失败"
+
+#: main.cpp:587
+msgid "Loading resources"
+msgstr "加载资源"
+
+#: main.cpp:619
+msgctxt "ChatBox"
+msgid "Press {} to start chatting"
+msgstr "按 {} 开始聊天"
+
+#: main.cpp:675
+msgid "Could not read savegame file"
+msgstr "无法读取保存游戏文件"
+
+#: main.cpp:688 physics/Savegame.cpp:267
+msgid "Error while loading scene: Terrain mismatch"
+msgstr "加载场景时出错：地形不匹配"
+
+#: main.cpp:922
+msgid "Entered terrain editing mode"
+msgstr "进入地形编辑模式"
+
+#: main.cpp:924
+msgid "Press {} or middle mouse click to select an object"
+msgstr "按 {} 或单击鼠标中键以选择对象"
+
+#: main.cpp:936
+msgid "Left terrain editing mode"
+msgstr "左侧地形编辑模式"
+
+#: main.cpp:1259
+msgid "An exception has occured!"
+msgstr "发生异常！"
+
+#: main.cpp:1264
+msgid "An exception (std::runtime_error) has occured!"
+msgstr "发生了异常 （std：：runtime_error） ！"
+
+#. Atomic; instruct sender thread to stop
+#: network/Network.cpp:254
+msgctxt "Network"
+msgid "Error receiving data from network"
+msgstr "从网络接收数据时出错"
+
+#: network/Network.cpp:297
+msgid "disconnected: remote side closed the connection"
+msgstr "已断开连接：远程端已关闭连接"
+
+#: network/Network.cpp:315
+msgid "left the game"
+msgstr "离开游戏"
+
+#: network/Network.cpp:347
+msgid "joined the game"
+msgstr "加入游戏"
+
+#. Mark connect thread as started
+#: network/Network.cpp:401
+msgctxt "Network"
+msgid "Starting..."
+msgstr "开始。。。"
+
+#: network/Network.cpp:407
+msgid "Failed to launch connection thread"
+msgstr "无法启动连接线程"
+
+#: network/Network.cpp:425
+msgctxt "Network"
+msgid "Estabilishing connection..."
+msgstr "正在稳定连接..."
+
+#: network/Network.cpp:431
+msgid "Could not create connection"
+msgstr "无法创建连接"
+
+#: network/Network.cpp:435
+msgctxt "Network"
+msgid "Getting server info..."
+msgstr "正在获取服务器信息..."
+
+#: network/Network.cpp:438
+msgid "Establishing network session: error sending hello"
+msgstr "正在建立网络会话：发送问候时出错"
+
+#: network/Network.cpp:448
+msgid "Establishing network session: error getting server version"
+msgstr "建立网络会话：获取服务器版本时出错"
+
+#: network/Network.cpp:455 network/Network.cpp:479
+#, c-format
+msgid ""
+"Establishing network session: wrong server version, you are using version "
+"'%s' and the server is using '%s'"
+msgstr ""
+"正在建立网络会话：服务器版本错误，您使用的是版本 '%s\" 并且服务器正在使用 "
+"\"%s'"
+
+#: network/Network.cpp:464
+msgid "server uses a different protocol version"
+msgstr "服务器使用不同的协议版本"
+
+#: network/Network.cpp:469
+msgid "Establishing network session: error getting server hello"
+msgstr "正在建立网络会话：获取服务器 hello 时出错"
+
+#: network/Network.cpp:485
+msgctxt "Network"
+msgid "Authorizing..."
+msgstr "授权。。。"
+
+#: network/Network.cpp:506
+msgid "Establishing network session: error sending user info"
+msgstr "正在建立网络会话：发送用户信息时出错"
+
+#: network/Network.cpp:513
+msgid "Establishing network session: error getting server authorization"
+msgstr "建立网络会话：获取服务器授权时出错"
+
+#: network/Network.cpp:519
+msgid "Establishing network session: sorry, server has too many players"
+msgstr "正在建立网络会话：抱歉，服务器玩家太多"
+
+#. Do NOT `disconnect()` the m_socket in this case - causes SocketW to terminate RoR.
+#: network/Network.cpp:525
+msgid "Establishing network session: sorry, you are banned!"
+msgstr "建立网络会话：抱歉，您被禁止了！"
+
+#: network/Network.cpp:530
+msgid "Establishing network session: sorry, wrong password!"
+msgstr "建立网络会话：抱歉，密码错误！"
+
+#: network/Network.cpp:535
+msgid "Establishing network session: sorry, wrong protocol version!"
+msgstr "正在建立网络会话：抱歉，协议版本错误！"
+
+#: network/Network.cpp:541
+msgid "Establishing network session: sorry, unknown server response"
+msgstr "正在建立网络会话：抱歉，未知服务器响应"
+
+#: network/Network.cpp:545
+msgctxt "Network"
+msgid "Finishing..."
+msgstr "整理。。。"
+
+#: network/Network.cpp:798
+msgctxt "NetUserAuth"
+msgid "Admin"
+msgstr "管理"
+
+#: network/Network.cpp:799
+msgctxt "NetUserAuth"
+msgid "Mod"
+msgstr "国防部"
+
+#: network/Network.cpp:800 network/Network.cpp:810
+msgctxt "NetUserAuth"
+msgid "Bot"
+msgstr "机器人"
+
+#: network/Network.cpp:801
+msgctxt "NetUserAuth"
+msgid "Ranked"
+msgstr "排名"
+
+#: network/Network.cpp:802
+msgctxt "NetUserAuth"
+msgid "Banned"
+msgstr "禁止"
+
+#: network/Network.cpp:803 network/Network.cpp:813
+msgctxt "NetUserAuth"
+msgid "Guest"
+msgstr "客人"
+
+#: network/Network.cpp:808
+msgctxt "NetUserAuth"
+msgid "Server Administrator"
+msgstr "服务器管理员"
+
+#: network/Network.cpp:809
+msgctxt "NetUserAuth"
+msgid "Server Moderator"
+msgstr "服务器主持人"
+
+#: network/Network.cpp:811
+msgctxt "NetUserAuth"
+msgid "Ranked user"
+msgstr "排名用户"
+
+#: network/Network.cpp:812
+msgctxt "NetUserAuth"
+msgid "Banned user"
+msgstr "禁止的用户"
+
+#: physics/Actor.cpp:443
+msgid " content mismatch: "
+msgstr " 内容不匹配： "
+
+#: physics/Actor.cpp:1319
+msgid "No inter-axle differential installed on current vehicle!"
+msgstr "当前车辆上未安装桥间差速器！"
+
+#: physics/Actor.cpp:1333 physics/Actor.cpp:1359
+msgid "Axle "
+msgstr "轴 "
+
+#: physics/Actor.cpp:1347
+msgid "No inter-wheel differential installed on current vehicle!"
+msgstr "当前车辆上没有安装轮间差速器！"
+
+#: physics/Actor.cpp:1373
+msgid "Transfercase switched to: "
+msgstr "转接箱已切换至： "
+
+#: physics/Actor.cpp:1378
+msgid "No transfercase installed on current vehicle!"
+msgstr "当前车辆上未安装分动箱！"
+
+#: physics/Actor.cpp:1945
+msgid "Actor is too big to be sent over the net."
+msgstr "演员太大，无法通过网络发送。"
+
+#: physics/Actor.cpp:1945
+msgid "Network error!"
+msgstr "网络错误！"
+
+#: physics/ActorManager.cpp:395
+msgid "spawned a new vehicle: "
+msgstr "催生了一辆新车： "
+
+#: physics/ActorManager.cpp:405
+msgid "Mod not installed: "
+msgstr "未安装模组： "
+
+#: physics/ActorManager.cpp:1382 physics/ActorManager.cpp:1391
+#: physics/ActorManager.cpp:1409
+msgid "New simulation speed: "
+msgstr "新的仿真速度： "
+
+#: physics/ActorManager.cpp:1403
+msgid "Simulation speed reset."
+msgstr "仿真速度复位。"
+
+#: physics/ActorManager.cpp:1429
+msgid "Physics paused"
+msgstr "物理暂停"
+
+#: physics/ActorManager.cpp:1434
+msgid "Physics unpaused"
+msgstr "未暂停的物理"
+
+#: physics/ActorSpawner.cpp:134
+msgid "Could not load addon part '{}' (file '{}')"
+msgstr ""
+
+#: physics/ActorSpawner.cpp:139
+msgid "Requested addon part '{}' is not installed"
+msgstr ""
+
+#: physics/Differentials.cpp:52 physics/Differentials.cpp:60
+msgid "invalid"
+msgstr "无效"
+
+#: physics/Differentials.cpp:56
+msgid "Split"
+msgstr "分裂"
+
+#: physics/Differentials.cpp:57
+msgid "Open"
+msgstr "打开"
+
+#: physics/Differentials.cpp:58
+msgid "Viscous"
+msgstr "粘性"
+
+#: physics/Differentials.cpp:59
+msgid "Locked"
+msgstr "锁"
+
+#: physics/Savegame.cpp:205
+msgctxt "QuickloadDialog"
+msgid "Load game?"
+msgstr "加载游戏？"
+
+#: physics/Savegame.cpp:206
+msgctxt "QuickloadDialog"
+msgid "You will lose all unsaved progress!"
+msgstr "您将失去所有未保存的进度！"
+
+#: physics/Savegame.cpp:210
+msgctxt "QuickloadDialog"
+msgid "Load"
+msgstr "负荷"
+
+#: physics/Savegame.cpp:216
+msgctxt "QuickloadDialog"
+msgid "Cancel"
+msgstr "取消"
+
+#: physics/Savegame.cpp:247
+msgid "Error while loading scene: File invalid or missing"
+msgstr "加载场景时出错：文件无效或丢失"
+
+#: physics/Savegame.cpp:253
+msgid "Error while loading scene: File format mismatch"
+msgstr "加载场景时出错：文件格式不匹配"
+
+#: physics/Savegame.cpp:273
+msgid "Error while loading scene: Too many vehicles"
+msgstr "装载场景时出错：车辆过多"
+
+#: physics/Savegame.cpp:309
+msgid "Error while loading scene: Missing content (probably not installed)"
+msgstr "加载场景时出错：缺少内容（可能未安装）"
+
+#: physics/Savegame.cpp:415
+msgid "Scene loaded"
+msgstr "场景已加载"
+
+#: physics/Savegame.cpp:432
+msgid "Error while saving scene: Too many vehicles"
+msgstr "保存场景时出错：车辆过多"
+
+#: physics/Savegame.cpp:770
+msgid "Error while saving scene"
+msgstr "保存场景时出错"
+
+#: physics/Savegame.cpp:777
+msgid "Scene saved"
+msgstr "场景已保存"
+
+#: physics/collision/Collisions.cpp:199
+msgid "Configuration error"
+msgstr "配置错误"
+
+#: physics/collision/Collisions.cpp:199
+msgid ""
+"Your ground configuration is too old, please copy skeleton/config/"
+"ground_models.cfg to My Documents/Rigs of Rods/config"
+msgstr ""
+"您的地面配置太旧，请将骨架/配置/ground_models.cfg复制到\"我的文档/杆钻机/配置"
+"\""
+
+#: resources/CacheSystem.cpp:513
+msgctxt "MainSelector"
+msgid "Non-Driveable"
+msgstr "不可驾驶"
+
+#: resources/CacheSystem.cpp:514
+msgctxt "MainSelector"
+msgid "Truck"
+msgstr "卡车"
+
+#: resources/CacheSystem.cpp:515
+msgctxt "MainSelector"
+msgid "Airplane"
+msgstr "飞机"
+
+#: resources/CacheSystem.cpp:516
+msgctxt "MainSelector"
+msgid "Boat"
+msgstr "船"
+
+#: resources/CacheSystem.cpp:517
+msgctxt "MainSelector"
+msgid "Machine"
+msgstr "机器"
+
+#: resources/CacheSystem.cpp:518
+msgctxt "MainSelector"
+msgid "A.I."
+msgstr "人工智能"
+
+#: resources/CacheSystem.cpp:1054
+msgid "Loading zips in group "
+msgstr "在组中加载拉链 "
+
+#: resources/CacheSystem.cpp:1251
+msgid "Failed to load asset pack '{}' (requested by '{}'): {}"
+msgstr ""
+
+#: resources/CacheSystem.cpp:1257
+msgid "Asset pack '{}' (requested by '{}') not found"
+msgstr ""
+
+#: resources/CacheSystem.cpp:1576
+msgctxt "CacheSystem"
+msgid "Cannot create project '{}' - no source mod specified!"
+msgstr ""
+
+#: resources/CacheSystem.cpp:1588
+msgctxt "CacheSystem"
+msgid "Project directory '{}' already exists!"
+msgstr ""
+
+#: resources/CacheSystem.cpp:1595
+msgctxt "CacheSystem"
+msgid "Project directory '{}' could not be created!"
+msgstr ""
+
+#: resources/CacheSystem.cpp:1708
+msgctxt "CacheSystem"
+msgid "Could not copy file '{}' to project '{}', message: {}."
+msgstr ""
+
+#: resources/CacheSystem.cpp:1740
+msgctxt "CacheSystem"
+msgid "Unexpected error creating project '{}', message: {}"
+msgstr ""
+
+#: resources/CacheSystem.cpp:1832
+msgctxt "CacheSystem"
+msgid "Error loading tuneup: file '{}', not found in mod cache"
+msgstr ""
+
+#: resources/CacheSystem.cpp:1889
+msgctxt "CacheSystem"
+msgid "Problem deleting project '{}' - could not delete file '{}'"
+msgstr ""
+
+#: resources/CacheSystem.cpp:1899
+msgctxt "CacheSystem"
+msgid "Problem deleting project '{}' - could not delete directory '{}'"
+msgstr ""
+
+#: resources/CacheSystem.cpp:1912
+msgctxt "CacheSystem"
+msgid "Unexpected error deleting project '{}'"
+msgstr ""
+
+#. these are the category numbers from the repository. do not modify them!
+#. vehicles
+#: resources/CacheSystem.h:375
+msgctxt "ModCategory"
+msgid "Other Land Vehicles"
+msgstr "其他陆地车辆"
+
+#: resources/CacheSystem.h:377
+msgctxt "ModCategory"
+msgid "Street Cars"
+msgstr "街车"
+
+#: resources/CacheSystem.h:378
+msgctxt "ModCategory"
+msgid "Light Racing Cars"
+msgstr "轻型赛车"
+
+#: resources/CacheSystem.h:379
+msgctxt "ModCategory"
+msgid "Offroad Cars"
+msgstr "越野车"
+
+#: resources/CacheSystem.h:380
+msgctxt "ModCategory"
+msgid "Fantasy Cars"
+msgstr "梦幻汽车"
+
+#: resources/CacheSystem.h:381
+msgctxt "ModCategory"
+msgid "Bikes"
+msgstr "自行车"
+
+#: resources/CacheSystem.h:382
+msgctxt "ModCategory"
+msgid "Crawlers"
+msgstr "爬虫"
+
+#: resources/CacheSystem.h:384
+msgctxt "ModCategory"
+msgid "Towercranes"
+msgstr "塔式起重机"
+
+#: resources/CacheSystem.h:385
+msgctxt "ModCategory"
+msgid "Mobile Cranes"
+msgstr "移动式起重机"
+
+#: resources/CacheSystem.h:386
+msgctxt "ModCategory"
+msgid "Other cranes"
+msgstr "其他起重机"
+
+#: resources/CacheSystem.h:388
+msgctxt "ModCategory"
+msgid "Buses"
+msgstr "巴士"
+
+#: resources/CacheSystem.h:389
+msgctxt "ModCategory"
+msgid "Tractors"
+msgstr "拖拉机"
+
+#: resources/CacheSystem.h:390
+msgctxt "ModCategory"
+msgid "Forklifts"
+msgstr "叉车"
+
+#: resources/CacheSystem.h:391
+msgctxt "ModCategory"
+msgid "Fantasy Trucks"
+msgstr "梦幻卡车"
+
+#: resources/CacheSystem.h:392
+msgctxt "ModCategory"
+msgid "Transport Trucks"
+msgstr "运输卡车"
+
+#: resources/CacheSystem.h:393
+msgctxt "ModCategory"
+msgid "Racing Trucks"
+msgstr "赛车卡车"
+
+#: resources/CacheSystem.h:394
+msgctxt "ModCategory"
+msgid "Offroad Trucks"
+msgstr "越野卡车"
+
+#: resources/CacheSystem.h:396
+msgctxt "ModCategory"
+msgid "Boats"
+msgstr "船"
+
+#: resources/CacheSystem.h:398
+msgctxt "ModCategory"
+msgid "Helicopters"
+msgstr "直升机"
+
+#: resources/CacheSystem.h:399
+msgctxt "ModCategory"
+msgid "Aircraft"
+msgstr "飞机"
+
+#: resources/CacheSystem.h:401
+msgctxt "ModCategory"
+msgid "Trailers"
+msgstr "拖车"
+
+#: resources/CacheSystem.h:402
+msgctxt "ModCategory"
+msgid "Other Loads"
+msgstr "其他负载"
+
+#. terrains
+#: resources/CacheSystem.h:405
+msgctxt "ModCategory"
+msgid "Addon Terrains"
+msgstr "插件地形"
+
+#: resources/CacheSystem.h:407
+msgctxt "ModCategory"
+msgid "Container"
+msgstr "容器"
+
+#: resources/CacheSystem.h:409
+msgctxt "ModCategory"
+msgid "Submarine"
+msgstr "潜艇"
+
+#. note: these categories are NOT in the repository:
+#: resources/CacheSystem.h:412
+msgctxt "ModCategory"
+msgid "Official Terrains"
+msgstr "官方地形"
+
+#: resources/CacheSystem.h:413
+msgctxt "ModCategory"
+msgid "Night Terrains"
+msgstr "夜间地形"
+
+#: resources/CacheSystem.h:415
+msgctxt "ModCategory"
+msgid "Projects"
+msgstr ""
+
+#: resources/CacheSystem.h:416
+msgctxt "ModCategory"
+msgid "Tuneups"
+msgstr ""
+
+#. do not use category numbers above 9000!
+#: resources/CacheSystem.h:419
+msgctxt "ModCategory"
+msgid "Unsorted"
+msgstr "排序"
+
+#: resources/CacheSystem.h:420
+msgctxt "ModCategory"
+msgid "All"
+msgstr "都"
+
+#: resources/CacheSystem.h:421
+msgctxt "ModCategory"
+msgid "Fresh"
+msgstr "新鲜"
+
+#: resources/CacheSystem.h:422
+msgctxt "ModCategory"
+msgid "Hidden"
+msgstr "隐藏"
+
+#: scripting/GameScript.cpp:875
+msgid "using Online API..."
+msgstr "使用在线 API..."
+
+#: scripting/GameScript.cpp:911
+msgid "Cannot use Online API in this build (CURL not available)"
+msgstr ""
+
+#: system/AppCommandLine.cpp:165
+msgid "Command Line Arguments"
+msgstr "命令行参数"
+
+#: system/AppCommandLine.cpp:166
+#, fuzzy
+#| msgid ""
+#| "--help (this)\n"
+#| "-map <map> (loads map on startup)\n"
+#| "-pos <Vect> (overrides spawn position)\n"
+#| "-rot <float> (overrides spawn rotation)\n"
+#| "-truck <truck> (loads truck on startup)\n"
+#| "-truckconfig <section>\n"
+#| "-enter (player enters the selected truck)\n"
+#| "-resume loads previous autosave\n"
+#| "-checkcache forces cache update\n"
+#| "-version shows the version information\n"
+#| "-joinserver=<server>:<port> (join multiplayer server)\n"
+#| "For example: RoR.exe -map simple2 -pos '518 0 518' -rot 45 -truck semi."
+#| "truck -enter"
+msgid ""
+"--help (this)\n"
+"-map <map> (loads map on startup)\n"
+"-pos <Vect> (overrides spawn position)\n"
+"-rot <float> (overrides spawn rotation)\n"
+"-truck <truck> (loads truck on startup)\n"
+"-truckconfig <section>\n"
+"-enter (player enters the selected truck)\n"
+"-resume loads previous autosave\n"
+"-checkcache forces cache update\n"
+"-version shows the version information\n"
+"-joinserver=<server>:<port> (join multiplayer server)\n"
+"-runscript <filename> (load script, can be repeated)\n"
+"For example: RoR.exe -map simple2 -pos '518 0 518' -rot 45 -truck semi.truck "
+"-enter"
+msgstr ""
+"--帮助（此）\n"
+"-地图<地图>（启动时加载地图）\n"
+"-pos <Vect>（覆盖生成位置）\n"
+"-腐烂<浮动>（覆盖生成旋转）\n"
+"-卡车<卡车>（启动时加载卡车）\n"
+"-卡车配置<剖面>\n"
+"-输入（玩家进入所选卡车）\n"
+"-恢复加载以前的自动保存\n"
+"-检查缓存强制缓存更新\n"
+"版本显示版本信息\n"
+"-joinserver=<server>：<port> （加入多人游戏服务器）\n"
+"例如： RoR.exe -map simple2 -pos '518 0 518' -rot 45 -truck semi.truck -enter"
+
+#: system/AppCommandLine.cpp:183
+msgid "Version Information"
+msgstr "版本信息"
+
+#: system/ConsoleCmd.cpp:62
+msgid "Get or set terrain gravity. Constants: earth/moon/mars/jupiter."
+msgstr "获取或设置地形重力。常量：地球/月球/火星/木星。"
+
+#: system/ConsoleCmd.cpp:72
+msgid "Current gravity is: "
+msgstr "目前的重力是： "
+
+#: system/ConsoleCmd.cpp:82
+msgid "Gravity set to: "
+msgstr "重力设置为： "
+
+#: system/ConsoleCmd.cpp:92
+msgid "Get or set water level."
+msgstr "获取或设置水位。"
+
+#: system/ConsoleCmd.cpp:105
+msgid "This terrain does not have water."
+msgstr "这个地形没有水。"
+
+#: system/ConsoleCmd.cpp:117
+msgid "Water level set to: "
+msgstr "水位设置为： "
+
+#: system/ConsoleCmd.cpp:126
+msgid "Get elevation of terrain at current position"
+msgstr "获取当前位置的地形高程"
+
+#: system/ConsoleCmd.cpp:150
+msgid "Terrain height at position: "
+msgstr "位置处的地形高度： "
+
+#: system/ConsoleCmd.cpp:160
+msgid "spawnobject  - spawn a object at the player position"
+msgstr "生成对象 - 在玩家位置生成对象"
+
+#: system/ConsoleCmd.cpp:179 system/ConsoleCmd.cpp:411
+msgid "Missing parameter: "
+msgstr "缺少参数： "
+
+#: system/ConsoleCmd.cpp:187 terrain/TerrainEditor.cpp:101
+msgid "Spawned object at position: "
+msgstr "在位置生成对象： "
+
+#: system/ConsoleCmd.cpp:192
+#, fuzzy
+#| msgid "Could not create connection"
+msgid "Could not spawn object"
+msgstr "无法创建连接"
+
+#: system/ConsoleCmd.cpp:208
+msgid "log - toggles log output on the console"
+msgstr "log - 在控制台上切换日志输出"
+
+#: system/ConsoleCmd.cpp:229
+msgid "ver - shows the Rigs of Rods version"
+msgstr "ver - 显示钻机的杆版本"
+
+#: system/ConsoleCmd.cpp:248
+msgid "pos - outputs the current position"
+msgstr "pos - 输出当前位置"
+
+#: system/ConsoleCmd.cpp:263
+msgid "Character position: "
+msgstr "角色位置： "
+
+#: system/ConsoleCmd.cpp:268
+msgid "Vehicle position: "
+msgstr "车辆位置： "
+
+#: system/ConsoleCmd.cpp:278
+msgid "goto <x> <y> <z> - jumps to the mentioned position"
+msgstr "goto <x> <y> <z> - 跳到上述位置"
+
+#: system/ConsoleCmd.cpp:292
+msgid "usage: goto x y z"
+msgstr "用法： 转到 x y z"
+
+#: system/ConsoleCmd.cpp:303
+msgid "Character position set to: "
+msgstr "字符位置设置为： "
+
+#: system/ConsoleCmd.cpp:309
+msgid "Vehicle position set to: "
+msgstr "车辆位置设置为： "
+
+#: system/ConsoleCmd.cpp:321
+msgid "Run AngelScript code snippet"
+msgstr "运行 AngelScript 代码片段"
+
+#: system/ConsoleCmd.cpp:352 system/ConsoleCmd.cpp:429
+msgid "Scripting disabled in this build"
+msgstr "在此版本中禁用了脚本"
+
+#: system/ConsoleCmd.cpp:361
+msgid "quit - exit Rigs of Rods"
+msgstr "退出 - 退出钻机的杆"
+
+#: system/ConsoleCmd.cpp:372
+msgid "help - information on commands (this)"
+msgstr "帮助 - 有关命令的信息（此）"
+
+#: system/ConsoleCmd.cpp:377
+msgid "Available commands:"
+msgstr "可用命令："
+
+#: system/ConsoleCmd.cpp:390
+msgid "Tips:"
+msgstr "技巧："
+
+#: system/ConsoleCmd.cpp:392
+msgid "- use Arrow Up/Down Keys in the InputBox to reuse old messages"
+msgstr "- 使用输入框中的向上/向下箭头键重用旧消息"
+
+#: system/ConsoleCmd.cpp:399
+#, fuzzy
+#| msgid "Run AngelScript code snippet"
+msgid "Runs an AngelScript file"
+msgstr "运行 AngelScript 代码片段"
+
+#: system/ConsoleCmd.cpp:419
+msgid ""
+"Failed to load script. See 'Angelscript.log' or use console command `log` "
+"and retry."
+msgstr ""
+
+#: system/ConsoleCmd.cpp:424
+msgid "Script '{}' running with ID '{}'"
+msgstr ""
+
+#: system/ConsoleCmd.cpp:442
+msgid "Print cvars with one of <expr> in name"
+msgstr "打印名称中带有<expr>之一的cvar"
+
+#: system/ConsoleCmd.cpp:481
+msgid "Get or set value of existing CVar"
+msgstr "获取或设置现有 CVar 的值"
+
+#: system/ConsoleCmd.cpp:509
+msgid "No such CVar: "
+msgstr "没有这样的CVar： "
+
+#: system/ConsoleCmd.cpp:571
+msgid "Set or create string CVar"
+msgstr "设置或创建字符串 CVar"
+
+#: system/ConsoleCmd.cpp:577
+msgid "Set or create boolean CVar"
+msgstr "设置或创建布尔 CVar"
+
+#: system/ConsoleCmd.cpp:583
+msgid "Set or create integer CVar"
+msgstr "设置或创建整数 CVar"
+
+#: system/ConsoleCmd.cpp:589
+msgid "Set or create real-number CVar"
+msgstr "设置或创建实数 CVar"
+
+#: system/ConsoleCmd.cpp:595
+msgid "Clear console history. Types: all/info/net/chat/terrn/actor/script"
+msgstr "清除控制台历史记录。类型：全部/信息/网络/聊天/特恩/演员/脚本"
+
+#: system/ConsoleCmd.cpp:632
+msgid "No such message type: {}"
+msgstr "没有此类消息类型：{}"
+
+#: system/ConsoleCmd.cpp:683
+msgid ""
+"Using slashes before commands are deprecated, you can now type command "
+"without any slashes"
+msgstr "在命令不推荐使用之前使用斜杠，您现在可以键入不带任何斜杠的命令"
+
+#: system/ConsoleCmd.cpp:706
+msgid "unknown command: "
+msgstr "未知命令： "
+
+#: system/ConsoleCmd.cpp:722
+msgid "Only allowed when simulation is running"
+msgstr "仅在模拟运行时才允许"
+
+#: system/ConsoleCmd.cpp:726
+msgid "Not allowed in current app state"
+msgstr "在当前应用状态下不允许"
+
+#: terrain/Terrain.cpp:150
+msgid "Initializing Shadow Subsystem"
+msgstr "初始化影子子系统"
+
+#: terrain/Terrain.cpp:153
+msgid "Initializing Geometry Subsystem"
+msgstr "初始化几何子系统"
+
+#: terrain/Terrain.cpp:156
+msgid "Initializing Object Subsystem"
+msgstr "初始化对象子系统"
+
+#. *.odef files
+#: terrain/Terrain.cpp:159
+msgid "Initializing Camera Subsystem"
+msgstr "初始化相机子系统"
+
+#. sky, must come after camera due to m_sight_range
+#: terrain/Terrain.cpp:163
+msgid "Initializing Sky Subsystem"
+msgstr "初始化天空子系统"
+
+#: terrain/Terrain.cpp:166
+msgid "Initializing Light Subsystem"
+msgstr "初始化光子系统"
+
+#: terrain/Terrain.cpp:171
+msgid "Initializing Fog Subsystem"
+msgstr "初始化雾子系统"
+
+#: terrain/Terrain.cpp:175
+msgid "Initializing Vegetation Subsystem"
+msgstr "初始化植被子系统"
+
+#: terrain/Terrain.cpp:180
+msgid "Loading Terrain Geometry"
+msgstr "加载地形几何图形"
+
+#: terrain/Terrain.cpp:186
+msgid "Initializing Collision Subsystem"
+msgstr "初始化冲突子系统"
+
+#: terrain/Terrain.cpp:189
+msgid "Initializing Script Subsystem"
+msgstr "初始化脚本子系统"
+
+#: terrain/Terrain.cpp:192
+msgid "Initializing Water Subsystem"
+msgstr "初始化水子系统"
+
+#: terrain/Terrain.cpp:195
+msgid "Loading Terrain Objects"
+msgstr "加载地形对象"
+
+#: terrain/Terrain.cpp:201
+msgid "Initializing terrain light properties"
+msgstr "初始化地形光源属性"
+
+#. *.terrn2 file feature
+#. Particle effects
+#: terrain/Terrain.cpp:209
+msgid "Initializing Overview Map Subsystem"
+msgstr "初始化总览图子系统"
+
+#: terrain/Terrain.cpp:213
+msgid "Loading Terrain Actors"
+msgstr "加载地形演员"
+
+#: terrain/TerrainEditor.cpp:126 terrain/TerrainEditor.cpp:129
+msgid "ry"
+msgstr "里"
+
+#: terrain/TerrainEditor.cpp:134
+msgid "rz"
+msgstr "断续器"
+
+#: terrain/TerrainEditor.cpp:139
+msgid "rx"
+msgstr "断续器"
+
+#: terrain/TerrainEditor.cpp:142
+msgid "Rotating: "
+msgstr "旋转： "
+
+#: terrain/TerrainEditor.cpp:148
+msgid "Disabled object tracking"
+msgstr "已禁用对象跟踪"
+
+#: terrain/TerrainEditor.cpp:148
+msgid "Enabled object tracking"
+msgstr "已启用对象跟踪"
+
+#: terrain/TerrainEditor.cpp:153
+msgid "Selected object: ["
+msgstr "所选对象： ["
+
+#. sync load since we want everything in place when we start
+#: terrain/TerrainGeometryManager.cpp:328
+msgid "Loading terrain pages ..."
+msgstr "正在加载地形页面..."
+
+#: terrain/TerrainGeometryManager.cpp:375
+msgid "Saving all terrain pages ..."
+msgstr "保存所有地形页面..."
+
+#: terrain/TerrainObjectManager.cpp:558
+#, fuzzy
+#| msgid "Could not read savegame file"
+msgid "Could not load file '{}'"
+msgstr "无法读取保存游戏文件"
+
+#: terrain/TerrainObjectManager.cpp:583
+msgid "Could not load mesh '{}' (used by object '{}')"
+msgstr ""
+
+#: utils/ErrorUtils.cpp:45
+msgid ""
+"An internal error occured in Rigs of Rods.\n"
+"\n"
+"Technical details below: \n"
+"\n"
+msgstr ""
+"钻杆钻机中发生内部错误。\n"
+"\n"
+"技术细节如下： \n"
+"\n"
+
+#: utils/ErrorUtils.cpp:46
+msgid "FATAL ERROR"
+msgstr "致命错误"
+
+#: utils/ForceFeedback.cpp:110
+msgid "Disabling force feedback - no controller found"
+msgstr "禁用力反馈 - 未找到控制器"
+
+#. Common: generic
+#: utils/InputEngine.cpp:39
+msgctxt "InputEvent"
+msgid "accelerate the simulation"
+msgstr "加速仿真"
+
+#: utils/InputEngine.cpp:40
+msgctxt "InputEvent"
+msgid "decelerate the simulation"
+msgstr "减速模拟"
+
+#: utils/InputEngine.cpp:41
+msgctxt "InputEvent"
+msgid "reset the simulation pace"
+msgstr "重置模拟速度"
+
+#: utils/InputEngine.cpp:42
+msgctxt "InputEvent"
+msgid ""
+"write current position to log (you can open the logfile and reuse the "
+"position)"
+msgstr "将当前位置写入日志（您可以打开日志文件并重复使用该位置）"
+
+#: utils/InputEngine.cpp:43
+msgctxt "InputEvent"
+msgid "exit the game"
+msgstr "退出游戏"
+
+#: utils/InputEngine.cpp:44
+msgctxt "InputEvent"
+msgid "quickload scene"
+msgstr "快速加载场景"
+
+#: utils/InputEngine.cpp:45
+msgctxt "InputEvent"
+msgid "quicksave scene"
+msgstr "快速保存场景"
+
+#: utils/InputEngine.cpp:46
+msgctxt "InputEvent"
+msgid "take a screenshot"
+msgstr "截取屏幕截图"
+
+#: utils/InputEngine.cpp:47
+msgctxt "InputEvent"
+msgid "take a big screenshot (3 times the screen size)"
+msgstr "截取大截图（屏幕尺寸的3倍）"
+
+#: utils/InputEngine.cpp:48
+msgctxt "InputEvent"
+msgid "debug purpose - dont use"
+msgstr "调试目的 - 不要使用"
+
+#: utils/InputEngine.cpp:49
+msgctxt "InputEvent"
+msgid "enable or disable physics"
+msgstr "启用或禁用物理场"
+
+#: utils/InputEngine.cpp:50
+msgctxt "InputEvent"
+msgid "decreases the current FOV value"
+msgstr "降低当前视场值"
+
+#: utils/InputEngine.cpp:51
+msgctxt "InputEvent"
+msgid "increase the current FOV value"
+msgstr "增加当前视场值"
+
+#: utils/InputEngine.cpp:52
+msgctxt "InputEvent"
+msgid "reset the FOV value"
+msgstr "重置视场值"
+
+#: utils/InputEngine.cpp:53
+msgctxt "InputEvent"
+msgid "save the currently loaded terrain to a mesh file"
+msgstr "将当前加载的地形保存到网格文件中"
+
+#: utils/InputEngine.cpp:54
+msgctxt "InputEvent"
+msgid "toggle terrain editor"
+msgstr "切换地形编辑器"
+
+#: utils/InputEngine.cpp:55
+msgctxt "InputEvent"
+msgid "toggle between windowed and fullscreen mode"
+msgstr "在窗口模式和全屏模式之间切换"
+
+#. Comon: actor interaction
+#: utils/InputEngine.cpp:58
+msgctxt "InputEvent"
+msgid "enter or exit a truck"
+msgstr "进入或退出卡车"
+
+#: utils/InputEngine.cpp:59
+msgctxt "InputEvent"
+msgid "enter next truck"
+msgstr "进入下一辆卡车"
+
+#: utils/InputEngine.cpp:60
+msgctxt "InputEvent"
+msgid "enter previous truck"
+msgstr "输入以前的卡车"
+
+#: utils/InputEngine.cpp:61
+msgctxt "InputEvent"
+msgid "remove current truck"
+msgstr "移除当前卡车"
+
+#: utils/InputEngine.cpp:62
+msgctxt "InputEvent"
+msgid "delete current truck"
+msgstr "删除当前卡车"
+
+#: utils/InputEngine.cpp:63
+msgctxt "InputEvent"
+msgid "respawn last truck"
+msgstr "重生最后一辆卡车"
+
+#: utils/InputEngine.cpp:64
+msgctxt "InputEvent"
+msgid "get new vehicle"
+msgstr "获得新车"
+
+#: utils/InputEngine.cpp:65
+msgctxt "InputEvent"
+msgid "decrease tire pressure (note: only very few trucks support this)"
+msgstr "降低轮胎压力（注意：只有极少数卡车支持此功能）"
+
+#: utils/InputEngine.cpp:66
+msgctxt "InputEvent"
+msgid "increase tire pressure (note: only very few trucks support this)"
+msgstr "增加轮胎压力（注意：只有极少数卡车支持这一点）"
+
+#: utils/InputEngine.cpp:67
+msgctxt "InputEvent"
+msgid "connect hook node to a node in close proximity"
+msgstr "将挂接节点连接到邻近的节点"
+
+#: utils/InputEngine.cpp:68
+msgctxt "InputEvent"
+msgid "unlock autolock hook node"
+msgstr "解锁自动锁定挂钩节点"
+
+#: utils/InputEngine.cpp:69
+msgctxt "InputEvent"
+msgid "connect a rope to a node in close proximity"
+msgstr "将绳索连接到附近的节点"
+
+#: utils/InputEngine.cpp:70
+msgctxt "InputEvent"
+msgid "repair truck"
+msgstr "修理车"
+
+#: utils/InputEngine.cpp:71
+#, fuzzy
+#| msgctxt "InputEvent"
+#| msgid "toggle truck description"
+msgctxt "InputEvent"
+msgid "toggle truck interactive repair mode"
+msgstr "切换卡车说明"
+
+#: utils/InputEngine.cpp:72
+msgctxt "InputEvent"
+msgid "teleport to rescue truck"
+msgstr "传送到救援卡车"
+
+#: utils/InputEngine.cpp:73
+msgctxt "InputEvent"
+msgid "reset truck to original starting position"
+msgstr "将卡车重置为原始起始位置"
+
+#: utils/InputEngine.cpp:74
+msgctxt "InputEvent"
+msgid "toggle reset mode"
+msgstr "切换重置模式"
+
+#: utils/InputEngine.cpp:75
+msgctxt "InputEvent"
+msgid "tie a load to the truck"
+msgstr "将负载绑在卡车上"
+
+#: utils/InputEngine.cpp:76
+msgctxt "InputEvent"
+msgid "toggle truck beacons"
+msgstr "切换卡车信标"
+
+#: utils/InputEngine.cpp:77
+#, fuzzy
+#| msgctxt "InputEvent"
+#| msgid "toggle truck beacons"
+msgctxt "InputEvent"
+msgid "toggle truck low beams"
+msgstr "切换卡车信标"
+
+#: utils/InputEngine.cpp:78
+#, fuzzy
+#| msgctxt "InputEvent"
+#| msgid "toggle between transmission modes"
+msgctxt "InputEvent"
+msgid "cycle between light modes"
+msgstr "在传输模式之间切换"
+
+#: utils/InputEngine.cpp:79
+#, fuzzy
+#| msgctxt "InputEvent"
+#| msgid "toggle truck beacons"
+msgctxt "InputEvent"
+msgid "toggle truck high beams"
+msgstr "切换卡车信标"
+
+#: utils/InputEngine.cpp:80
+#, fuzzy
+#| msgctxt "InputEvent"
+#| msgid "toggle truck front lights"
+msgctxt "InputEvent"
+msgid "toggle truck fog lights"
+msgstr "切换卡车前灯"
+
+#: utils/InputEngine.cpp:81
+msgctxt "InputEvent"
+msgid "toggle particle cannon"
+msgstr "切换粒子炮"
+
+#: utils/InputEngine.cpp:82
+msgctxt "InputEvent"
+msgid "enable or disable replay mode"
+msgstr "启用或禁用重播模式"
+
+#: utils/InputEngine.cpp:83
+msgctxt "InputEvent"
+msgid "more replay forward"
+msgstr "更多重播转发"
+
+#: utils/InputEngine.cpp:84
+msgctxt "InputEvent"
+msgid "more replay backward"
+msgstr "更多向后重播"
+
+#: utils/InputEngine.cpp:85
+msgctxt "InputEvent"
+msgid "move replay fast forward"
+msgstr "移动重播 快进"
+
+#: utils/InputEngine.cpp:86
+msgctxt "InputEvent"
+msgid "move replay fast backward"
+msgstr "快速向后移动重播"
+
+#. Common: UI
+#: utils/InputEngine.cpp:89
+msgctxt "InputEvent"
+msgid "show / hide the console"
+msgstr "显示/隐藏控制台"
+
+#: utils/InputEngine.cpp:90
+msgctxt "InputEvent"
+msgid "enter the chat"
+msgstr "进入聊天"
+
+#: utils/InputEngine.cpp:91
+msgctxt "InputEvent"
+msgid "sends the entered text"
+msgstr "发送输入的文本"
+
+#: utils/InputEngine.cpp:92
+msgctxt "InputEvent"
+msgid "hide all GUI elements"
+msgstr "隐藏所有 GUI 元素"
+
+#: utils/InputEngine.cpp:93
+msgctxt "InputEvent"
+msgid "display or hide the dashboard overlay"
+msgstr "显示或隐藏仪表板叠加"
+
+#: utils/InputEngine.cpp:94
+msgctxt "InputEvent"
+msgid "toggle debug view"
+msgstr "切换调试视图"
+
+#: utils/InputEngine.cpp:95
+msgctxt "InputEvent"
+msgid "cycle debug views"
+msgstr "循环调试视图"
+
+#: utils/InputEngine.cpp:96
+msgctxt "InputEvent"
+msgid "toggle truck HUD"
+msgstr "切换卡车 HUD"
+
+#: utils/InputEngine.cpp:97
+msgctxt "InputEvent"
+msgid "toggle truck description"
+msgstr "切换卡车说明"
+
+#: utils/InputEngine.cpp:98
+msgctxt "InputEvent"
+msgid "display or hide net chat"
+msgstr "显示或隐藏网络聊天"
+
+#: utils/InputEngine.cpp:99
+msgctxt "InputEvent"
+msgid "toggle between net chat display modes"
+msgstr "在网络聊天显示模式之间切换"
+
+#: utils/InputEngine.cpp:100
+msgctxt "InputEvent"
+msgid "toggle Ogre statistics (FPS etc.)"
+msgstr "切换食人魔统计数据（FPS 等）"
+
+#. Common: savegames
+#: utils/InputEngine.cpp:103
+msgctxt "InputEvent"
+msgid "save scene in slot 01"
+msgstr "在插槽 01 中保存场景"
+
+#: utils/InputEngine.cpp:104
+msgctxt "InputEvent"
+msgid "save scene in slot 02"
+msgstr "在插槽 02 中保存场景"
+
+#: utils/InputEngine.cpp:105
+msgctxt "InputEvent"
+msgid "save scene in slot 03"
+msgstr "在插槽 03 中保存场景"
+
+#: utils/InputEngine.cpp:106
+msgctxt "InputEvent"
+msgid "save scene in slot 04"
+msgstr "在插槽 04 中保存场景"
+
+#: utils/InputEngine.cpp:107
+msgctxt "InputEvent"
+msgid "save scene in slot 05"
+msgstr "在插槽 05 中保存场景"
+
+#: utils/InputEngine.cpp:108
+msgctxt "InputEvent"
+msgid "save scene in slot 06"
+msgstr "在插槽 06 中保存场景"
+
+#: utils/InputEngine.cpp:109
+msgctxt "InputEvent"
+msgid "save scene in slot 07"
+msgstr "在插槽 07 中保存场景"
+
+#: utils/InputEngine.cpp:110
+msgctxt "InputEvent"
+msgid "save scene in slot 08"
+msgstr "在插槽 08 中保存场景"
+
+#: utils/InputEngine.cpp:111
+msgctxt "InputEvent"
+msgid "save scene in slot 09"
+msgstr "在插槽 09 中保存场景"
+
+#: utils/InputEngine.cpp:112
+msgctxt "InputEvent"
+msgid "save scene in slot 10"
+msgstr "在插槽 10 中保存场景"
+
+#: utils/InputEngine.cpp:114
+msgctxt "InputEvent"
+msgid "load scene from slot 01"
+msgstr "从插槽 01 加载场景"
+
+#: utils/InputEngine.cpp:115
+msgctxt "InputEvent"
+msgid "load scene from slot 02"
+msgstr "从插槽 02 加载场景"
+
+#: utils/InputEngine.cpp:116
+msgctxt "InputEvent"
+msgid "load scene from slot 03"
+msgstr "从插槽 03 加载场景"
+
+#: utils/InputEngine.cpp:117
+msgctxt "InputEvent"
+msgid "load scene from slot 04"
+msgstr "从插槽 04 加载场景"
+
+#: utils/InputEngine.cpp:118
+msgctxt "InputEvent"
+msgid "load scene from slot 05"
+msgstr "从插槽 05 加载场景"
+
+#: utils/InputEngine.cpp:119
+msgctxt "InputEvent"
+msgid "load scene from slot 06"
+msgstr "从插槽06加载场景"
+
+#: utils/InputEngine.cpp:120
+msgctxt "InputEvent"
+msgid "load scene from slot 07"
+msgstr "从插槽07加载场景"
+
+#: utils/InputEngine.cpp:121
+msgctxt "InputEvent"
+msgid "load scene from slot 08"
+msgstr "从插槽 08 加载场景"
+
+#: utils/InputEngine.cpp:122
+msgctxt "InputEvent"
+msgid "load scene from slot 09"
+msgstr "从插槽09加载场景"
+
+#: utils/InputEngine.cpp:123
+msgctxt "InputEvent"
+msgid "load scene from slot 10"
+msgstr "从插槽 10 加载场景"
+
+#. Truck: generic
+#: utils/InputEngine.cpp:126
+msgctxt "InputEvent"
+msgid "accelerate the truck"
+msgstr "加速卡车"
+
+#: utils/InputEngine.cpp:127
+msgctxt "InputEvent"
+msgid "accelerate with 25 percent pedal input"
+msgstr "使用 25% 踏板输入加速"
+
+#: utils/InputEngine.cpp:128
+msgctxt "InputEvent"
+msgid "accelerate with 50 percent pedal input"
+msgstr "使用 50% 踏板输入加速"
+
+#: utils/InputEngine.cpp:129
+msgctxt "InputEvent"
+msgid "toggle left direction indicator (blinker)"
+msgstr "切换左方向指示器（闪光灯）"
+
+#: utils/InputEngine.cpp:130
+msgctxt "InputEvent"
+msgid "toggle right direction indicator (blinker)"
+msgstr "切换右方向指示器（闪光灯）"
+
+#: utils/InputEngine.cpp:131
+msgctxt "InputEvent"
+msgid "toggle all direction indicators"
+msgstr "切换所有方向指示器"
+
+#: utils/InputEngine.cpp:132
+msgctxt "InputEvent"
+msgid "brake"
+msgstr "制动"
+
+#: utils/InputEngine.cpp:133
+msgctxt "InputEvent"
+msgid "brake with 25 percent pedal input"
+msgstr "带 25% 踏板输入的制动器"
+
+#: utils/InputEngine.cpp:134
+msgctxt "InputEvent"
+msgid "brake with 50 percent pedal input"
+msgstr "带 50% 踏板输入的制动器"
+
+#: utils/InputEngine.cpp:135
+msgctxt "InputEvent"
+msgid "truck horn"
+msgstr "卡车喇叭"
+
+#: utils/InputEngine.cpp:136
+msgctxt "InputEvent"
+msgid "toggle custom light 1"
+msgstr "切换自定义灯 1"
+
+#: utils/InputEngine.cpp:137
+msgctxt "InputEvent"
+msgid "toggle custom light 2"
+msgstr "切换自定义灯 2"
+
+#: utils/InputEngine.cpp:138
+msgctxt "InputEvent"
+msgid "toggle custom light 3"
+msgstr "切换自定义灯 3"
+
+#: utils/InputEngine.cpp:139
+msgctxt "InputEvent"
+msgid "toggle custom light 4"
+msgstr "切换自定义灯 4"
+
+#: utils/InputEngine.cpp:140
+msgctxt "InputEvent"
+msgid "toggle custom light 5"
+msgstr "切换自定义灯 5"
+
+#: utils/InputEngine.cpp:141
+msgctxt "InputEvent"
+msgid "toggle custom light 6"
+msgstr "切换自定义灯 6"
+
+#: utils/InputEngine.cpp:142
+msgctxt "InputEvent"
+msgid "toggle custom light 7"
+msgstr "切换自定义灯 7"
+
+#: utils/InputEngine.cpp:143
+msgctxt "InputEvent"
+msgid "toggle custom light 8"
+msgstr "切换自定义灯 8"
+
+#: utils/InputEngine.cpp:144
+msgctxt "InputEvent"
+msgid "toggle custom light 9"
+msgstr "切换自定义灯 9"
+
+#: utils/InputEngine.cpp:145
+msgctxt "InputEvent"
+msgid "toggle custom light 10"
+msgstr "切换自定义灯 10"
+
+#: utils/InputEngine.cpp:146
+msgctxt "InputEvent"
+msgid "toggle parking brake"
+msgstr "切换驻车制动器"
+
+#: utils/InputEngine.cpp:147
+msgctxt "InputEvent"
+msgid "toggle trailer parking brake"
+msgstr "切换拖车驻车制动器"
+
+#: utils/InputEngine.cpp:148
+msgctxt "InputEvent"
+msgid "toggle antilock brake"
+msgstr "切换防抱死制动器"
+
+#: utils/InputEngine.cpp:149
+msgctxt "InputEvent"
+msgid "toggle videocamera"
+msgstr "切换摄像机"
+
+#: utils/InputEngine.cpp:150
+msgctxt "InputEvent"
+msgid "toggle traction control"
+msgstr "切换牵引力控制"
+
+#: utils/InputEngine.cpp:151
+msgctxt "InputEvent"
+msgid "toggle cruise control"
+msgstr "切换巡航控制"
+
+#: utils/InputEngine.cpp:152
+msgctxt "InputEvent"
+msgid "match target speed / rpm with current truck speed / rpm"
+msgstr "将目标速度/转速与当前卡车速度/rpm 相匹配"
+
+#: utils/InputEngine.cpp:153
+msgctxt "InputEvent"
+msgid "increase target speed / rpm"
+msgstr "提高目标速度/转速"
+
+#: utils/InputEngine.cpp:154
+msgctxt "InputEvent"
+msgid "decrease target speed / rpm"
+msgstr "降低目标速度/转速"
+
+#: utils/InputEngine.cpp:155
+msgctxt "InputEvent"
+msgid "hold to start the engine"
+msgstr "按住以启动发动机"
+
+#: utils/InputEngine.cpp:156 utils/InputEngine.cpp:215
+msgctxt "InputEvent"
+msgid "steer left"
+msgstr "向左转向"
+
+#. Airplane
+#: utils/InputEngine.cpp:157 utils/InputEngine.cpp:203
+#: utils/InputEngine.cpp:216
+msgctxt "InputEvent"
+msgid "steer right"
+msgstr "右转"
+
+#: utils/InputEngine.cpp:158
+msgctxt "InputEvent"
+msgid "toggle ignition"
+msgstr "拨动点火"
+
+#: utils/InputEngine.cpp:159
+msgctxt "InputEvent"
+msgid "toggle forwardcommands"
+msgstr "切换前进命令"
+
+#: utils/InputEngine.cpp:160
+msgctxt "InputEvent"
+msgid "toggle importcommands"
+msgstr "切换导入命令"
+
+#: utils/InputEngine.cpp:161
+msgctxt "InputEvent"
+msgid "toggle physics"
+msgstr "切换物理场"
+
+#: utils/InputEngine.cpp:162
+msgctxt "InputEvent"
+msgid "cycle between available inter axle differential modes"
+msgstr "可用桥间差速模式之间的循环"
+
+#: utils/InputEngine.cpp:163
+msgctxt "InputEvent"
+msgid "cycle between available inter wheel differential modes"
+msgstr "可用车轮间差速器模式之间的循环"
+
+#: utils/InputEngine.cpp:164
+msgctxt "InputEvent"
+msgid "toggle transfer case mode"
+msgstr "切换分动箱模式"
+
+#: utils/InputEngine.cpp:165
+msgctxt "InputEvent"
+msgid "toggle transfer case gear ratio"
+msgstr "切换分动箱齿轮比"
+
+#: utils/InputEngine.cpp:166
+msgctxt "InputEvent"
+msgid "move left mirror to the left"
+msgstr "向左移动镜像"
+
+#: utils/InputEngine.cpp:167
+msgctxt "InputEvent"
+msgid "move left mirror to the right"
+msgstr "向左移动镜像向右"
+
+#: utils/InputEngine.cpp:168
+msgctxt "InputEvent"
+msgid "more right mirror to the left"
+msgstr "更右的镜子向左"
+
+#: utils/InputEngine.cpp:169
+msgctxt "InputEvent"
+msgid "move right mirror to the right"
+msgstr "向右移动镜像"
+
+#. Truck: transmission
+#: utils/InputEngine.cpp:172
+msgctxt "InputEvent"
+msgid "shift automatic transmission one gear down"
+msgstr "换档自动变速器降档一档"
+
+#: utils/InputEngine.cpp:173
+msgctxt "InputEvent"
+msgid "shift automatic transmission one gear up"
+msgstr "换档自动变速器一档"
+
+#: utils/InputEngine.cpp:174
+msgctxt "InputEvent"
+msgid "manual clutch (for manual transmission)"
+msgstr "手动离合器（用于手动变速器）"
+
+#: utils/InputEngine.cpp:175
+msgctxt "InputEvent"
+msgid "shift one gear down in manual transmission mode"
+msgstr "在手动变速器模式下降档一档"
+
+#: utils/InputEngine.cpp:176
+msgctxt "InputEvent"
+msgid "shift to neutral gear in manual transmission mode"
+msgstr "在手动变速器模式下换档至空档"
+
+#: utils/InputEngine.cpp:177
+msgctxt "InputEvent"
+msgid "shift one gear up in manual transmission mode"
+msgstr "在手动变速器模式下向上换档一档"
+
+#: utils/InputEngine.cpp:178
+msgctxt "InputEvent"
+msgid "shift directly to reverse gear"
+msgstr "直接换档至倒档"
+
+#: utils/InputEngine.cpp:179
+msgctxt "InputEvent"
+msgid "shift directly to first gear"
+msgstr "直接换档至一档"
+
+#: utils/InputEngine.cpp:180
+msgctxt "InputEvent"
+msgid "shift directly to second gear"
+msgstr "直接换档至二档"
+
+#: utils/InputEngine.cpp:181
+msgctxt "InputEvent"
+msgid "shift directly to third gear"
+msgstr "直接换档至三档"
+
+#: utils/InputEngine.cpp:182
+msgctxt "InputEvent"
+msgid "shift directly to fourth gear"
+msgstr "直接换档至四档"
+
+#: utils/InputEngine.cpp:183
+msgctxt "InputEvent"
+msgid "shift directly to 5th gear"
+msgstr "直接换档至 5 档"
+
+#: utils/InputEngine.cpp:184
+msgctxt "InputEvent"
+msgid "shift directly to 6th gear"
+msgstr "直接换档至 6 档"
+
+#: utils/InputEngine.cpp:185
+msgctxt "InputEvent"
+msgid "shift directly to 7th gear"
+msgstr "直接换档至 7 档"
+
+#: utils/InputEngine.cpp:186
+msgctxt "InputEvent"
+msgid "shift directly to 8th gear"
+msgstr "直接换档至 8 档"
+
+#: utils/InputEngine.cpp:187
+msgctxt "InputEvent"
+msgid "shift directly to 9th gear"
+msgstr "直接换档至 9 档"
+
+#: utils/InputEngine.cpp:188
+msgctxt "InputEvent"
+msgid "shift directly to 10th gear"
+msgstr "直接换档至 10 档"
+
+#: utils/InputEngine.cpp:189
+msgctxt "InputEvent"
+msgid "shift directly to 11th gear"
+msgstr "直接换档至 11 档"
+
+#: utils/InputEngine.cpp:190
+msgctxt "InputEvent"
+msgid "shift directly to 12th gear"
+msgstr "直接换档至 12 档"
+
+#: utils/InputEngine.cpp:191
+msgctxt "InputEvent"
+msgid "shift directly to 13th gear"
+msgstr "直接换档至 13 档"
+
+#: utils/InputEngine.cpp:192
+msgctxt "InputEvent"
+msgid "shift directly to 14th gear"
+msgstr "直接换档至 14 档"
+
+#: utils/InputEngine.cpp:193
+msgctxt "InputEvent"
+msgid "shift directly to 15th gear"
+msgstr "直接换档至 15 档"
+
+#: utils/InputEngine.cpp:194
+msgctxt "InputEvent"
+msgid "shift directly to 16th gear"
+msgstr "直接换档至 16 档"
+
+#: utils/InputEngine.cpp:195
+msgctxt "InputEvent"
+msgid "shift directly to 17th gear"
+msgstr "直接换档至 17 档"
+
+#: utils/InputEngine.cpp:196
+msgctxt "InputEvent"
+msgid "shift directly to 18th gear"
+msgstr "直接换档至 18 档"
+
+#: utils/InputEngine.cpp:197
+msgctxt "InputEvent"
+msgid "sets low range (1-6) for H-shaft"
+msgstr "为 H 轴设置低范围 （1-6）"
+
+#: utils/InputEngine.cpp:198
+msgctxt "InputEvent"
+msgid "sets middle range (7-12) for H-shaft"
+msgstr "设置 H 轴的中间范围 （7-12）"
+
+#: utils/InputEngine.cpp:199
+msgctxt "InputEvent"
+msgid "sets high range (13-18) for H-shaft"
+msgstr "为 H 轴设置高范围 （13-18）"
+
+#: utils/InputEngine.cpp:200
+msgctxt "InputEvent"
+msgid "toggle between transmission modes"
+msgstr "在传输模式之间切换"
+
+#: utils/InputEngine.cpp:204
+msgctxt "InputEvent"
+msgid "normal brake for an aircraft"
+msgstr "飞机的正常制动器"
+
+#: utils/InputEngine.cpp:205
+msgctxt "InputEvent"
+msgid "pull the elevator down in an aircraft."
+msgstr "在飞机上拉下电梯。"
+
+#: utils/InputEngine.cpp:206
+msgctxt "InputEvent"
+msgid "pull the elevator up in an aircraft."
+msgstr "在飞机上拉电梯。"
+
+#: utils/InputEngine.cpp:207
+msgctxt "InputEvent"
+msgid "full flaps in an aircraft."
+msgstr "飞机上的全襟翼。"
+
+#: utils/InputEngine.cpp:208
+msgctxt "InputEvent"
+msgid "one step less flaps."
+msgstr "襟翼少一步。"
+
+#: utils/InputEngine.cpp:209
+msgctxt "InputEvent"
+msgid "one step more flaps."
+msgstr "多一个襟翼。"
+
+#: utils/InputEngine.cpp:210
+msgctxt "InputEvent"
+msgid "no flaps."
+msgstr "无襟翼。"
+
+#: utils/InputEngine.cpp:211
+msgctxt "InputEvent"
+msgid "airplane parking brake."
+msgstr "飞机驻车制动器。"
+
+#: utils/InputEngine.cpp:212
+msgctxt "InputEvent"
+msgid "reverse the turboprops"
+msgstr "反转涡轮螺旋桨飞机"
+
+#: utils/InputEngine.cpp:213
+msgctxt "InputEvent"
+msgid "rudder left"
+msgstr "方向舵左侧"
+
+#: utils/InputEngine.cpp:214
+msgctxt "InputEvent"
+msgid "rudder right"
+msgstr "方向舵右侧"
+
+#: utils/InputEngine.cpp:217 utils/InputEngine.cpp:236
+msgctxt "InputEvent"
+msgid ""
+"throttle axis. Only use this if you have fitting hardware :) (i.e. a Slider)"
+msgstr "油门轴。仅当您有合适的硬件:)（即滑块）"
+
+#: utils/InputEngine.cpp:218
+msgctxt "InputEvent"
+msgid "decreases the airplane thrust"
+msgstr "降低飞机推力"
+
+#: utils/InputEngine.cpp:219
+msgctxt "InputEvent"
+msgid "full thrust"
+msgstr "全推力"
+
+#: utils/InputEngine.cpp:220 utils/InputEngine.cpp:231
+msgctxt "InputEvent"
+msgid "no thrust"
+msgstr "无推力"
+
+#: utils/InputEngine.cpp:221
+msgctxt "InputEvent"
+msgid "increase the airplane thrust"
+msgstr "增加飞机推力"
+
+#: utils/InputEngine.cpp:222
+msgctxt "InputEvent"
+msgid "switch all engines on / off"
+msgstr "打开/关闭所有引擎"
+
+#: utils/InputEngine.cpp:223
+msgctxt "InputEvent"
+msgid "no airbrakes"
+msgstr "无空气刹车"
+
+#: utils/InputEngine.cpp:224
+msgctxt "InputEvent"
+msgid "full airbrakes"
+msgstr "全空气制动器"
+
+#: utils/InputEngine.cpp:225
+msgctxt "InputEvent"
+msgid "less airbrakes"
+msgstr "更少的空气刹车"
+
+#: utils/InputEngine.cpp:226
+msgctxt "InputEvent"
+msgid "more airbrakes"
+msgstr "更多 空气制动器"
+
+#: utils/InputEngine.cpp:227
+msgctxt "InputEvent"
+msgid "airplane throttle"
+msgstr "飞机油门"
+
+#. Boat
+#: utils/InputEngine.cpp:230
+msgctxt "InputEvent"
+msgid "center the rudder"
+msgstr "使方向舵居中"
+
+#: utils/InputEngine.cpp:232
+msgctxt "InputEvent"
+msgid "steer left a step"
+msgstr "向左转一步"
+
+#: utils/InputEngine.cpp:233
+msgctxt "InputEvent"
+msgid "steer left (analog value!)"
+msgstr "向左转向（模拟值！)"
+
+#: utils/InputEngine.cpp:234
+msgctxt "InputEvent"
+msgid "steer right a step"
+msgstr "向右转一步"
+
+#: utils/InputEngine.cpp:235
+msgctxt "InputEvent"
+msgid "steer right (analog value!)"
+msgstr "向右转向（模拟值！)"
+
+#: utils/InputEngine.cpp:237
+msgctxt "InputEvent"
+msgid "decrease throttle"
+msgstr "降低油门"
+
+#: utils/InputEngine.cpp:238
+msgctxt "InputEvent"
+msgid "increase throttle"
+msgstr "增加油门"
+
+#. Commands
+#: utils/InputEngine.cpp:241
+msgctxt "InputEvent"
+msgid "Command 1"
+msgstr "命令 1"
+
+#: utils/InputEngine.cpp:242
+msgctxt "InputEvent"
+msgid "Command 2"
+msgstr "命令 2"
+
+#: utils/InputEngine.cpp:243
+msgctxt "InputEvent"
+msgid "Command 3"
+msgstr "命令 3"
+
+#: utils/InputEngine.cpp:244
+msgctxt "InputEvent"
+msgid "Command 4"
+msgstr "命令 4"
+
+#: utils/InputEngine.cpp:245
+msgctxt "InputEvent"
+msgid "Command 5"
+msgstr "命令 5"
+
+#: utils/InputEngine.cpp:246
+msgctxt "InputEvent"
+msgid "Command 6"
+msgstr "命令 6"
+
+#: utils/InputEngine.cpp:247
+msgctxt "InputEvent"
+msgid "Command 7"
+msgstr "命令 7"
+
+#: utils/InputEngine.cpp:248
+msgctxt "InputEvent"
+msgid "Command 8"
+msgstr "命令 8"
+
+#: utils/InputEngine.cpp:249
+msgctxt "InputEvent"
+msgid "Command 9"
+msgstr "命令 9"
+
+#: utils/InputEngine.cpp:250
+msgctxt "InputEvent"
+msgid "Command 10"
+msgstr "命令 10"
+
+#: utils/InputEngine.cpp:251
+msgctxt "InputEvent"
+msgid "Command 11"
+msgstr "命令 11"
+
+#: utils/InputEngine.cpp:252
+msgctxt "InputEvent"
+msgid "Command 12"
+msgstr "命令 12"
+
+#: utils/InputEngine.cpp:253
+msgctxt "InputEvent"
+msgid "Command 13"
+msgstr "命令 13"
+
+#: utils/InputEngine.cpp:254
+msgctxt "InputEvent"
+msgid "Command 14"
+msgstr "命令 14"
+
+#: utils/InputEngine.cpp:255
+msgctxt "InputEvent"
+msgid "Command 15"
+msgstr "命令 15"
+
+#: utils/InputEngine.cpp:256
+msgctxt "InputEvent"
+msgid "Command 16"
+msgstr "命令 16"
+
+#: utils/InputEngine.cpp:257
+msgctxt "InputEvent"
+msgid "Command 17"
+msgstr "命令 17"
+
+#: utils/InputEngine.cpp:258
+msgctxt "InputEvent"
+msgid "Command 18"
+msgstr "命令 18"
+
+#: utils/InputEngine.cpp:259
+msgctxt "InputEvent"
+msgid "Command 19"
+msgstr "命令 19"
+
+#: utils/InputEngine.cpp:260
+msgctxt "InputEvent"
+msgid "Command 20"
+msgstr "命令 20"
+
+#: utils/InputEngine.cpp:261
+msgctxt "InputEvent"
+msgid "Command 21"
+msgstr "命令 21"
+
+#: utils/InputEngine.cpp:262
+msgctxt "InputEvent"
+msgid "Command 22"
+msgstr "命令 22"
+
+#: utils/InputEngine.cpp:263
+msgctxt "InputEvent"
+msgid "Command 23"
+msgstr "命令 23"
+
+#: utils/InputEngine.cpp:264
+msgctxt "InputEvent"
+msgid "Command 24"
+msgstr "命令 24"
+
+#: utils/InputEngine.cpp:265
+msgctxt "InputEvent"
+msgid "Command 25"
+msgstr "命令 25"
+
+#: utils/InputEngine.cpp:266
+msgctxt "InputEvent"
+msgid "Command 26"
+msgstr "命令 26"
+
+#: utils/InputEngine.cpp:267
+msgctxt "InputEvent"
+msgid "Command 27"
+msgstr "命令 27"
+
+#: utils/InputEngine.cpp:268
+msgctxt "InputEvent"
+msgid "Command 28"
+msgstr "命令 28"
+
+#: utils/InputEngine.cpp:269
+msgctxt "InputEvent"
+msgid "Command 29"
+msgstr "命令 29"
+
+#: utils/InputEngine.cpp:270
+msgctxt "InputEvent"
+msgid "Command 30"
+msgstr "命令 30"
+
+#: utils/InputEngine.cpp:271
+msgctxt "InputEvent"
+msgid "Command 31"
+msgstr "命令 31"
+
+#: utils/InputEngine.cpp:272
+msgctxt "InputEvent"
+msgid "Command 32"
+msgstr "命令 32"
+
+#: utils/InputEngine.cpp:273
+msgctxt "InputEvent"
+msgid "Command 33"
+msgstr "命令 33"
+
+#: utils/InputEngine.cpp:274
+msgctxt "InputEvent"
+msgid "Command 34"
+msgstr "命令 34"
+
+#: utils/InputEngine.cpp:275
+msgctxt "InputEvent"
+msgid "Command 35"
+msgstr "命令 35"
+
+#: utils/InputEngine.cpp:276
+msgctxt "InputEvent"
+msgid "Command 36"
+msgstr "命令 36"
+
+#: utils/InputEngine.cpp:277
+msgctxt "InputEvent"
+msgid "Command 37"
+msgstr "命令 37"
+
+#: utils/InputEngine.cpp:278
+msgctxt "InputEvent"
+msgid "Command 38"
+msgstr "命令 38"
+
+#: utils/InputEngine.cpp:279
+msgctxt "InputEvent"
+msgid "Command 39"
+msgstr "命令 39"
+
+#: utils/InputEngine.cpp:280
+msgctxt "InputEvent"
+msgid "Command 40"
+msgstr "命令 40"
+
+#: utils/InputEngine.cpp:281
+msgctxt "InputEvent"
+msgid "Command 41"
+msgstr "命令 41"
+
+#: utils/InputEngine.cpp:282
+msgctxt "InputEvent"
+msgid "Command 42"
+msgstr "命令 42"
+
+#: utils/InputEngine.cpp:283
+msgctxt "InputEvent"
+msgid "Command 43"
+msgstr "命令 43"
+
+#: utils/InputEngine.cpp:284
+msgctxt "InputEvent"
+msgid "Command 44"
+msgstr "命令 44"
+
+#: utils/InputEngine.cpp:285
+msgctxt "InputEvent"
+msgid "Command 45"
+msgstr "命令 45"
+
+#: utils/InputEngine.cpp:286
+msgctxt "InputEvent"
+msgid "Command 46"
+msgstr "命令 46"
+
+#: utils/InputEngine.cpp:287
+msgctxt "InputEvent"
+msgid "Command 47"
+msgstr "命令 47"
+
+#: utils/InputEngine.cpp:288
+msgctxt "InputEvent"
+msgid "Command 48"
+msgstr "命令 48"
+
+#: utils/InputEngine.cpp:289
+msgctxt "InputEvent"
+msgid "Command 49"
+msgstr "命令 49"
+
+#: utils/InputEngine.cpp:290
+msgctxt "InputEvent"
+msgid "Command 50"
+msgstr "命令 50"
+
+#: utils/InputEngine.cpp:291
+msgctxt "InputEvent"
+msgid "Command 51"
+msgstr "命令 51"
+
+#: utils/InputEngine.cpp:292
+msgctxt "InputEvent"
+msgid "Command 52"
+msgstr "命令 52"
+
+#: utils/InputEngine.cpp:293
+msgctxt "InputEvent"
+msgid "Command 53"
+msgstr "命令 53"
+
+#: utils/InputEngine.cpp:294
+msgctxt "InputEvent"
+msgid "Command 54"
+msgstr "命令 54"
+
+#: utils/InputEngine.cpp:295
+msgctxt "InputEvent"
+msgid "Command 55"
+msgstr "命令 55"
+
+#: utils/InputEngine.cpp:296
+msgctxt "InputEvent"
+msgid "Command 56"
+msgstr "命令 56"
+
+#: utils/InputEngine.cpp:297
+msgctxt "InputEvent"
+msgid "Command 57"
+msgstr "命令 57"
+
+#: utils/InputEngine.cpp:298
+msgctxt "InputEvent"
+msgid "Command 58"
+msgstr "命令 58"
+
+#: utils/InputEngine.cpp:299
+msgctxt "InputEvent"
+msgid "Command 59"
+msgstr "命令 59"
+
+#: utils/InputEngine.cpp:300
+msgctxt "InputEvent"
+msgid "Command 60"
+msgstr "命令 60"
+
+#: utils/InputEngine.cpp:301
+msgctxt "InputEvent"
+msgid "Command 61"
+msgstr "命令 61"
+
+#: utils/InputEngine.cpp:302
+msgctxt "InputEvent"
+msgid "Command 62"
+msgstr "命令 62"
+
+#: utils/InputEngine.cpp:303
+msgctxt "InputEvent"
+msgid "Command 63"
+msgstr "命令 63"
+
+#: utils/InputEngine.cpp:304
+msgctxt "InputEvent"
+msgid "Command 64"
+msgstr "命令 64"
+
+#: utils/InputEngine.cpp:305
+msgctxt "InputEvent"
+msgid "Command 65"
+msgstr "命令 65"
+
+#: utils/InputEngine.cpp:306
+msgctxt "InputEvent"
+msgid "Command 66"
+msgstr "命令 66"
+
+#: utils/InputEngine.cpp:307
+msgctxt "InputEvent"
+msgid "Command 67"
+msgstr "命令 67"
+
+#: utils/InputEngine.cpp:308
+msgctxt "InputEvent"
+msgid "Command 68"
+msgstr "命令 68"
+
+#: utils/InputEngine.cpp:309
+msgctxt "InputEvent"
+msgid "Command 69"
+msgstr "命令 69"
+
+#: utils/InputEngine.cpp:310
+msgctxt "InputEvent"
+msgid "Command 70"
+msgstr "命令 70"
+
+#: utils/InputEngine.cpp:311
+msgctxt "InputEvent"
+msgid "Command 71"
+msgstr "命令 71"
+
+#: utils/InputEngine.cpp:312
+msgctxt "InputEvent"
+msgid "Command 72"
+msgstr "命令 72"
+
+#: utils/InputEngine.cpp:313
+msgctxt "InputEvent"
+msgid "Command 73"
+msgstr "命令 73"
+
+#: utils/InputEngine.cpp:314
+msgctxt "InputEvent"
+msgid "Command 74"
+msgstr "命令 74"
+
+#: utils/InputEngine.cpp:315
+msgctxt "InputEvent"
+msgid "Command 75"
+msgstr "命令 75"
+
+#: utils/InputEngine.cpp:316
+msgctxt "InputEvent"
+msgid "Command 76"
+msgstr "命令 76"
+
+#: utils/InputEngine.cpp:317
+msgctxt "InputEvent"
+msgid "Command 77"
+msgstr "命令 77"
+
+#: utils/InputEngine.cpp:318
+msgctxt "InputEvent"
+msgid "Command 78"
+msgstr "命令 78"
+
+#: utils/InputEngine.cpp:319
+msgctxt "InputEvent"
+msgid "Command 79"
+msgstr "命令 79"
+
+#: utils/InputEngine.cpp:320
+msgctxt "InputEvent"
+msgid "Command 80"
+msgstr "命令 80"
+
+#: utils/InputEngine.cpp:321
+msgctxt "InputEvent"
+msgid "Command 81"
+msgstr "命令 81"
+
+#: utils/InputEngine.cpp:322
+msgctxt "InputEvent"
+msgid "Command 82"
+msgstr "命令 82"
+
+#: utils/InputEngine.cpp:323
+msgctxt "InputEvent"
+msgid "Command 83"
+msgstr "命令 83"
+
+#: utils/InputEngine.cpp:324
+msgctxt "InputEvent"
+msgid "Command 84"
+msgstr "命令 84"
+
+#. Character
+#: utils/InputEngine.cpp:327
+msgctxt "InputEvent"
+msgid "step backwards with the character"
+msgstr "与角色一起向后退"
+
+#: utils/InputEngine.cpp:328
+msgctxt "InputEvent"
+msgid "step forward with the character"
+msgstr "与角色一起前进"
+
+#: utils/InputEngine.cpp:329
+msgctxt "InputEvent"
+msgid "let the character jump"
+msgstr "让角色跳跃"
+
+#: utils/InputEngine.cpp:330
+msgctxt "InputEvent"
+msgid "rotate character left"
+msgstr "向左旋转字符"
+
+#: utils/InputEngine.cpp:331
+msgctxt "InputEvent"
+msgid "rotate character right"
+msgstr "向右旋转字符"
+
+#: utils/InputEngine.cpp:332
+msgctxt "InputEvent"
+msgid "let the character run"
+msgstr "让角色运行"
+
+#: utils/InputEngine.cpp:333
+msgctxt "InputEvent"
+msgid "sidestep to the left"
+msgstr "向左侧步"
+
+#: utils/InputEngine.cpp:334
+msgctxt "InputEvent"
+msgid "sidestep to the right"
+msgstr "向右侧步"
+
+#: utils/InputEngine.cpp:335
+msgctxt "InputEvent"
+msgid "rotate view up"
+msgstr "向上旋转视图"
+
+#: utils/InputEngine.cpp:336
+msgctxt "InputEvent"
+msgid "rotate view down"
+msgstr "向下旋转视图"
+
+#. Camera
+#: utils/InputEngine.cpp:339
+msgctxt "InputEvent"
+msgid "change camera mode"
+msgstr "更改相机模式"
+
+#: utils/InputEngine.cpp:340
+msgctxt "InputEvent"
+msgid "look back (toggles between normal and lookback)"
+msgstr "回看（在正常和回溯之间切换）"
+
+#: utils/InputEngine.cpp:341
+msgctxt "InputEvent"
+msgid "reset the camera position"
+msgstr "重置相机位置"
+
+#: utils/InputEngine.cpp:342
+msgctxt "InputEvent"
+msgid "rotate camera down"
+msgstr "向下旋转相机"
+
+#: utils/InputEngine.cpp:343
+msgctxt "InputEvent"
+msgid "rotate camera left"
+msgstr "向左旋转相机"
+
+#: utils/InputEngine.cpp:344
+msgctxt "InputEvent"
+msgid "rotate camera right"
+msgstr "向右旋转相机"
+
+#: utils/InputEngine.cpp:345
+msgctxt "InputEvent"
+msgid "rotate camera up"
+msgstr "向上旋转相机"
+
+#: utils/InputEngine.cpp:346
+msgctxt "InputEvent"
+msgid "zoom camera in"
+msgstr "放大相机"
+
+#: utils/InputEngine.cpp:347
+msgctxt "InputEvent"
+msgid "zoom camera in faster"
+msgstr "相机变焦速度更快"
+
+#: utils/InputEngine.cpp:348
+msgctxt "InputEvent"
+msgid "zoom camera out"
+msgstr "将相机缩小"
+
+#: utils/InputEngine.cpp:349
+msgctxt "InputEvent"
+msgid "zoom camera out faster"
+msgstr "更快地缩小相机"
+
+#: utils/InputEngine.cpp:350
+msgctxt "InputEvent"
+msgid "fix the camera to a position"
+msgstr "将相机固定到某个位置"
+
+#: utils/InputEngine.cpp:351
+msgctxt "InputEvent"
+msgid "enable / disable free camera mode"
+msgstr "启用/禁用免费相机模式"
+
+#: utils/InputEngine.cpp:352
+msgctxt "InputEvent"
+msgid "move camera up"
+msgstr "向上移动相机"
+
+#: utils/InputEngine.cpp:353
+msgctxt "InputEvent"
+msgid "move camera down"
+msgstr "将相机向下移动"
+
+#. Sky
+#: utils/InputEngine.cpp:356
+msgctxt "InputEvent"
+msgid "decrease day-time"
+msgstr "减少白天时间"
+
+#: utils/InputEngine.cpp:357
+msgctxt "InputEvent"
+msgid "decrease day-time a lot faster"
+msgstr "更快地减少白天时间"
+
+#: utils/InputEngine.cpp:358
+msgctxt "InputEvent"
+msgid "increase day-time"
+msgstr "增加日间时间"
+
+#: utils/InputEngine.cpp:359
+msgctxt "InputEvent"
+msgid "increase day-time a lot faster"
+msgstr "更快地增加白天时间"
+
+#. Grass
+#: utils/InputEngine.cpp:362
+msgctxt "InputEvent"
+msgid "EXPERIMENTAL: remove some grass"
+msgstr "实验性：去除一些草"
+
+#: utils/InputEngine.cpp:363
+msgctxt "InputEvent"
+msgid "EXPERIMENTAL: add some grass"
+msgstr "实验性：添加一些草"
+
+#: utils/InputEngine.cpp:364
+msgctxt "InputEvent"
+msgid "EXPERIMENTAL: set maximum amount of grass"
+msgstr "实验：设置最大草量"
+
+#: utils/InputEngine.cpp:365
+msgctxt "InputEvent"
+msgid "EXPERIMENTAL: remove grass completely"
+msgstr "实验性：完全去除草"
+
+#: utils/InputEngine.cpp:366
+msgctxt "InputEvent"
+msgid "EXPERIMENTAL: save changes to the grass density image"
+msgstr "实验：保存对草密度图像的更改"
+
+#. Survey map
+#: utils/InputEngine.cpp:369
+msgctxt "InputEvent"
+msgid "toggle map icons"
+msgstr "切换地图图标"
+
+#: utils/InputEngine.cpp:370
+msgctxt "InputEvent"
+msgid "toggle map"
+msgstr "切换地图"
+
+#: utils/InputEngine.cpp:371
+msgctxt "InputEvent"
+msgid "cycle map modes"
+msgstr "循环地图模式"
+
+#: utils/InputEngine.cpp:372
+msgctxt "InputEvent"
+msgid "zoom in"
+msgstr "放大"
+
+#: utils/InputEngine.cpp:373
+msgctxt "InputEvent"
+msgid "zoom out"
+msgstr "缩小"
+
+#. Menu
+#: utils/InputEngine.cpp:376
+msgctxt "InputEvent"
+msgid "select next element in current category"
+msgstr "选择当前类别中的下一个元素"
+
+#: utils/InputEngine.cpp:377
+msgctxt "InputEvent"
+msgid "select previous category"
+msgstr "选择上一个类别"
+
+#: utils/InputEngine.cpp:378
+msgctxt "InputEvent"
+msgid "select next category"
+msgstr "选择下一个类别"
+
+#: utils/InputEngine.cpp:379
+msgctxt "InputEvent"
+msgid "select focussed item and close menu"
+msgstr "选择聚焦项目并关闭菜单"
+
+#: utils/InputEngine.cpp:380
+msgctxt "InputEvent"
+msgid "select previous element in current category"
+msgstr "选择当前类别中的上一个元素"
+
+#. Truck editing
+#: utils/InputEngine.cpp:383
+msgctxt "InputEvent"
+msgid "reload truck"
+msgstr "装卸卡车"
+
+#. Road editing
+#: utils/InputEngine.cpp:386
+msgctxt "InputEvent"
+msgid "insert road point"
+msgstr ""
+
+#: utils/InputEngine.cpp:387
+msgctxt "InputEvent"
+msgid "go to road point"
+msgstr ""
+
+#: utils/InputEngine.cpp:388
+#, fuzzy
+#| msgctxt "InputEvent"
+#| msgid "reset truck to original starting position"
+msgctxt "InputEvent"
+msgid "set road point position"
+msgstr "将卡车重置为原始起始位置"
+
+#: utils/InputEngine.cpp:389
+msgctxt "InputEvent"
+msgid "delete road point"
+msgstr ""
+
+#: utils/InputEngine.cpp:390
+msgctxt "InputEvent"
+msgid "regenerate road mesh"
+msgstr ""
+
+#: utils/InputEngine.cpp:1742
+msgid "(Please press a key)"
+msgstr "（请按一个键）"
+
+#: utils/InputEngine.cpp:2198
+msgctxt "ModifierKey"
+msgid "Left Alt"
+msgstr ""
+
+#: utils/InputEngine.cpp:2199
+msgctxt "ModifierKey"
+msgid "Left Shift"
+msgstr ""
+
+#: utils/InputEngine.cpp:2200
+msgctxt "ModifierKey"
+msgid "Left Ctrl"
+msgstr ""
+
+#: utils/InputEngine.cpp:2202
+msgctxt "ModifierKey"
+msgid "Right Alt"
+msgstr ""
+
+#: utils/InputEngine.cpp:2203
+msgctxt "ModifierKey"
+msgid "Right Shift"
+msgstr ""
+
+#: utils/InputEngine.cpp:2204
+msgctxt "ModifierKey"
+msgid "Right Ctrl"
+msgstr ""
+
+#~ msgctxt "GameSettings"
+#~ msgid "Classic material shaders (experimental)"
+#~ msgstr "经典材质着色器（实验性）"
+
+#~ msgctxt "GameSettings"
+#~ msgid "Debug collisions"
+#~ msgstr "调试冲突"
+
+#~ msgctxt "InputEvent"
+#~ msgid "toggle render mode (solid, wireframe and points)"
+#~ msgstr "切换渲染模式（实体、线框和点）"
+
+#~ msgctxt "GameSettings"
+#~ msgid "<All active values>"
+#~ msgstr "<所有活动值>"
+
+#~ msgctxt "MultiplayerSelector"
+#~ msgid "... refreshing ..."
+#~ msgstr "...刷新。。。"
+
+#~ msgctxt "GameControls"
+#~ msgid "Airplane"
+#~ msgstr "飞机"
+
+#~ msgctxt "GameControls"
+#~ msgid "Commands"
+#~ msgstr "控制鍵"
+
+#, fuzzy
+#~| msgid "Command 6"
+#~ msgctxt "GameControls"
+#~ msgid "Common"
+#~ msgstr "控制鍵 6"
+
+#~ msgctxt "GameControls"
+#~ msgid "Grass"
+#~ msgstr "草"
+
+#~ msgctxt "GameControls"
+#~ msgid "Map"
+#~ msgstr "地图"
+
+#, fuzzy
+#~| msgid "Current FPS: "
+#~ msgctxt "SimPerfStats"
+#~ msgid "Current FPS: "
+#~ msgstr "目前 FPS:"
+
+#, fuzzy
+#~| msgid "Average FPS: "
+#~ msgctxt "SimPerfStats"
+#~ msgid "Average FPS: "
+#~ msgstr "平均 FPS:"
+
+#, fuzzy
+#~| msgid "Current FPS: "
+#~ msgctxt "SimPerfStats"
+#~ msgid "Worst FPS: "
+#~ msgstr "目前 FPS:"
+
+#, fuzzy
+#~| msgid "Current FPS: "
+#~ msgctxt "SimPerfStats"
+#~ msgid "Best FPS: "
+#~ msgstr "目前 FPS:"
+
+#~ msgid "Exit game"
+#~ msgstr "离开游戏"
+
+#~ msgid ""
+#~ "Adds a virtuals camera mesh that should help you position the camera "
+#~ "correctly"
+#~ msgstr "開啟鏡頭顯示器,讓你知道鏡頭位置!"
+
+#~ msgid "Adds tire tracks to the ground."
+#~ msgstr "請將輪胎放置適當位置:如地面上"
+
+#~ msgid ""
+#~ "Disabled the map. This is for testing purposes only, you should not gain "
+#~ "any FPS with that."
+#~ msgstr "這是僅用於測試用的 無法獲得好的畫質"
+
+#~ msgid "FOV External:"
+#~ msgstr "外部鏡頭距離 :"
+
+#~ msgid "FX Type"
+#~ msgstr "FX 類型"
+
+#~ msgid "Out of Memory"
+#~ msgstr "記憶體不足"
+
+#~ msgid "Prints all node masses to the RoR.log"
+#~ msgstr "詳細資料請看 RoR.log"
+
+#~ msgid "Texture filtering:"
+#~ msgstr "效果設定 :"
+
+#~ msgid "Visual effects:"
+#~ msgstr "視覺效果:"
+
+#~ msgid "go to user"
+#~ msgstr "前往玩家"
